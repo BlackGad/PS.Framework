@@ -3,7 +3,7 @@ using System.Linq;
 using Autofac;
 using Autofac.Core;
 using Autofac.Core.Resolving;
-using PS.InternalExtensions;
+using PS.IoC.InternalExtensions;
 
 namespace PS.IoC.Extensions
 {

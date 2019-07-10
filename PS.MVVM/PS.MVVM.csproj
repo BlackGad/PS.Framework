@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <RootNamespace>PS</RootNamespace>
+    <RootNamespace>PS.MVVM</RootNamespace>
   </PropertyGroup>
 
   <!-- .NET Standard 2.0 references, compilation flags and build options -->

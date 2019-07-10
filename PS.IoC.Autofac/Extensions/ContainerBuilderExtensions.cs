@@ -5,8 +5,8 @@ using System.Reflection;
 using Autofac;
 using Autofac.Builder;
 using Autofac.Features.Scanning;
-using PS.InternalExtensions;
 using PS.IoC.Attributes;
+using PS.IoC.InternalExtensions;
 
 namespace PS.IoC.Extensions
 {

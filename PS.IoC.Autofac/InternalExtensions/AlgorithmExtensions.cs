@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PS.InternalExtensions
+namespace PS.IoC.InternalExtensions
 {
     internal static class AlgorithmExtensions
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace PS.InternalExtensions
+namespace PS.IoC.InternalExtensions
 {
     internal static class TypeExtensions
     {

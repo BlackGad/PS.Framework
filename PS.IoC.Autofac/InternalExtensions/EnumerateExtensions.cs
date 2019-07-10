@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PS.InternalExtensions
+namespace PS.IoC.InternalExtensions
 {
     internal static class EnumerateExtensions
     {
