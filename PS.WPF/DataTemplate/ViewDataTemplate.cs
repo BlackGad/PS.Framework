@@ -16,11 +16,14 @@ namespace PS.WPF.DataTemplate
         {
             VisualTree = new CustomFrameworkElementFactory(this);
             VisualTree.InternalMethodCall("Seal", this);
+            ViewFactory = type => Activator.CreateInstance(ViewType) as FrameworkElement;
         }
 
         #endregion
 
         #region Properties
+
+        public Func<Type, FrameworkElement> ViewFactory { get; set; }
 
         public Type ViewType { get; set; }
 
@@ -33,16 +36,12 @@ namespace PS.WPF.DataTemplate
 
         string ICustomDataTemplate.Description
         {
-            get
-            {
-                var description = $"View of {ViewType} type template";
-                return description;
-            }
+            get { return $"View of {ViewType} type template"; }
         }
 
         public FrameworkElement CreateView()
         {
-            return Activator.CreateInstance(ViewType) as FrameworkElement;
+            return ViewFactory?.Invoke(ViewType);
         }
 
         #endregion

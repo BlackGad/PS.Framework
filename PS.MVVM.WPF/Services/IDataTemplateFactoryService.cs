@@ -1,6 +1,4 @@
-﻿using PS.MVVM.Services;
-
-namespace PS.MVVM.Components
+﻿namespace PS.MVVM.Services
 {
     public interface IDataTemplateFactoryService
     {

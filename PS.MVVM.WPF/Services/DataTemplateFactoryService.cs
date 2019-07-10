@@ -1,8 +1,7 @@
 ﻿using PS.MVVM.Extensions;
-using PS.MVVM.Services;
 using PS.WPF.DataTemplate;
 
-namespace PS.MVVM.Components
+namespace PS.MVVM.Services
 {
     public sealed class DataTemplateFactoryService : IDataTemplateFactoryService
     {
