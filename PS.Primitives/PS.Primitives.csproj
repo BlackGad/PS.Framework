@@ -4,18 +4,31 @@
     <TargetFrameworks>net45;netstandard2.0;</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RootNamespace>PS</RootNamespace>
+    <Authors>Volodymyr Shkolka</Authors>
+    <Company>Volodymyr Shkolka</Company>
+    <Product>PS Framework</Product>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/BlackGad/PS.Framework</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/BlackGad/PS.Framework</RepositoryUrl>
+    <RepositoryType>github</RepositoryType>
+    <PackageTags>Framework MVVM IoC Primitives Standard WPF</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Description>Common development primitives and useful tools</Description>
+    <Version>1.0.4</Version>
   </PropertyGroup>
 
   <!-- .NET Standard 2.0 references, compilation flags and build options -->
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
     <DefineConstants>NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
   </PropertyGroup>
-
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
   </ItemGroup>
 
   <!-- .NET 4.5 references, compilation flags and build options -->
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45'">
+    <DefineConstants>NET45;NETFULL</DefineConstants>
+  </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -23,9 +36,13 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
-
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45'">
-    <DefineConstants>NET45;NETFULL</DefineConstants>
-  </PropertyGroup>
+  
+  <!-- General references -->
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
