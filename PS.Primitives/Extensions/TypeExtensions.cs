@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 
@@ -20,6 +22,50 @@ namespace PS.Extensions
             {
                 return e.Types;
             }
+        }
+
+        public static string GetDisplayName(this Type type)
+        {
+            if (type == null) return null;
+
+            var displayNameAttribute = type.GetCustomAttribute<DisplayNameAttribute>();
+            if (displayNameAttribute != null) return displayNameAttribute.DisplayName;
+
+            var displayAttribute = type.GetCustomAttribute<DisplayAttribute>();
+            if (displayAttribute != null) return displayAttribute.Name;
+
+            return type.Name;
+        }
+
+        /// <summary>
+        ///     Gets display name from type attributes
+        /// </summary>
+        /// <param name="field">
+        ///     Represent field declarations.
+        /// </param>
+        /// <returns>
+        ///     Type display name.
+        /// </returns>
+        public static string GetDisplayName(this FieldInfo field)
+        {
+            if (field == null) throw new ArgumentNullException("field");
+
+            var result = string.Empty;
+
+            var displayAttribute = field.GetCustomAttribute<DisplayAttribute>();
+            if (displayAttribute != null)
+            {
+                result = string.IsNullOrEmpty(displayAttribute.Name)
+                    ? result
+                    : displayAttribute.Name;
+            }
+
+            if (string.IsNullOrEmpty(result))
+            {
+                result = field.Name;
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -48,6 +94,77 @@ namespace PS.Extensions
             };
             var typeCode = Type.GetTypeCode(type);
             return numericTypeCodes.Contains(typeCode);
+        }
+
+        /// <summary>
+        ///     Attempt to get numeric type limits.
+        /// </summary>
+        /// <param name="type">Given type.</param>
+        /// <param name="max">Maximum value.</param>
+        /// <param name="min">Minimum value.</param>
+        /// <returns>True if result range is valid.</returns>
+        public static bool TryGetNumericLimits(this Type type, out object max, out object min)
+        {
+            if (type == null) throw new ArgumentNullException("type");
+            max = null;
+            min = null;
+            if (!type.IsNumeric()) return false;
+            var typeCode = Type.GetTypeCode(type);
+            switch (typeCode)
+            {
+                case TypeCode.Char:
+                    max = Char.MaxValue;
+                    min = Char.MinValue;
+                    break;
+                case TypeCode.SByte:
+                    max = SByte.MaxValue;
+                    min = SByte.MinValue;
+                    break;
+                case TypeCode.Byte:
+                    max = Byte.MaxValue;
+                    min = Byte.MinValue;
+                    break;
+                case TypeCode.Int16:
+                    max = Int16.MaxValue;
+                    min = Int16.MinValue;
+                    break;
+                case TypeCode.UInt16:
+                    max = UInt16.MaxValue;
+                    min = UInt16.MinValue;
+                    break;
+                case TypeCode.Int32:
+                    max = Int32.MaxValue;
+                    min = Int32.MinValue;
+                    break;
+                case TypeCode.UInt32:
+                    max = UInt32.MaxValue;
+                    min = UInt32.MinValue;
+                    break;
+                case TypeCode.Int64:
+                    max = Int64.MaxValue;
+                    min = Int64.MinValue;
+                    break;
+                case TypeCode.UInt64:
+                    max = UInt64.MaxValue;
+                    min = UInt64.MinValue;
+                    break;
+                case TypeCode.Single:
+                    max = Single.MaxValue;
+                    min = Single.MinValue;
+                    break;
+                case TypeCode.Double:
+                    max = Double.MaxValue;
+                    min = Double.MinValue;
+                    break;
+                case TypeCode.Decimal:
+                    max = Decimal.MaxValue;
+                    min = Decimal.MinValue;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            return true;
         }
 
         public static IEnumerable<Type> TypesAssignableFrom(this Type candidateType)
