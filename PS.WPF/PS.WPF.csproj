@@ -29,6 +29,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
+  
 
   <!-- General references -->
   <ItemGroup>
@@ -41,6 +42,17 @@
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
+  
+   <ItemGroup>
+     <Page Include="Controls\UICommandsControl.xaml">
+       <Generator>XamlIntelliSenseFileGenerator</Generator>
+       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+     </Page>
+     <Page Include="Controls\Window.xaml">
+       <Generator>XamlIntelliSenseFileGenerator</Generator>
+       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+     </Page>
+   </ItemGroup>
   
    <ItemGroup>
      <None Update="Controls\UICommandsControl.xaml">
