@@ -14,7 +14,7 @@
     <PackageTags>Framework IoC Standard</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
     <Version>1.0.4</Version>
-    <Description>Attributes definition for custom IoC</Description>
+    <Description>Components definition for IoC applications</Description>
   </PropertyGroup>
 
   <!-- .NET Standard 2.0 references, compilation flags and build options -->
