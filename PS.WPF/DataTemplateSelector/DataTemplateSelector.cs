@@ -23,6 +23,14 @@ namespace PS.WPF.DataTemplateSelector
 
         #endregion
 
+        #region Properties
+
+        public System.Windows.DataTemplate DefaultTemplate { get; set; }
+        public ObservableCollection<SelectRule> Rules { get; set; }
+        public string ValuePath { get; set; }
+
+        #endregion
+
         #region Override members
 
         public override System.Windows.DataTemplate SelectTemplate(object item, DependencyObject container)
@@ -32,14 +40,6 @@ namespace PS.WPF.DataTemplateSelector
             var template = Rules.FirstOrDefault(t => t.IsValid(item));
             return template != null ? template.Template : DefaultTemplate;
         }
-
-        #endregion
-
-        #region Properties
-
-        public System.Windows.DataTemplate DefaultTemplate { get; set; }
-        public string ValuePath { get; set; }
-        public ObservableCollection<SelectRule> Rules { get; set; }
 
         #endregion
 
