@@ -1,0 +1,38 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:PS.WPF.Controls"
+                    xmlns:presentation="clr-namespace:PS.WPF">
+
+    <DataTemplate x:Key="{x:Static controls:UICommandsControl+Resource.CommandButtonTemplate}" DataType="presentation:IUICommand">
+        <Button MinWidth="75"
+                MinHeight="25"
+                Margin="5,0,0,0"
+                Command="{Binding}"
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=controls:UICommandsControl}}"
+                Content="{Binding Title}"
+                ToolTip="{Binding Description}" />
+    </DataTemplate>
+
+    <ControlTemplate x:Key="{x:Static controls:UICommandsControl+Resource.ControlTemplate}" TargetType="controls:UICommandsControl">
+        <Grid Background="{TemplateBinding Background}">
+            <ItemsControl MinHeight="20"
+                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                          ItemTemplate="{StaticResource {x:Static controls:UICommandsControl+Resource.CommandButtonTemplate}}"
+                          ItemsSource="{TemplateBinding Commands}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Grid>
+    </ControlTemplate>
+
+    <Style x:Key="{x:Static controls:UICommandsControl+Resource.ControlStyle}" TargetType="controls:UICommandsControl">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Template" Value="{StaticResource {x:Static controls:UICommandsControl+Resource.ControlTemplate}}" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    </Style>
+
+</ResourceDictionary>
