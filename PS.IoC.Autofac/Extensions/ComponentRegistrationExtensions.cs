@@ -14,7 +14,7 @@ namespace PS.IoC.Extensions
         public static void HandleActivation<TService>(this IComponentRegistration registration, Action<ILifetimeScope, TService> action)
         {
             var typedServices = registration.Services.Enumerate<TypedService>();
-            if (typedServices.Any(s => s.ServiceType == typeof(TService)))
+            if (typedServices.Any(s => s.ServiceType == typeof(TService)) && registration.Ownership == InstanceOwnership.OwnedByLifetimeScope)
             {
                 registration.Activated += (sender, args) =>
                 {
