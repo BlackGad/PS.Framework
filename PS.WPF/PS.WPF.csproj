@@ -27,7 +27,9 @@
     <Reference Include="PresentationCore" />
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
+  
 
   <!-- General references -->
   <ItemGroup>
@@ -39,6 +41,26 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-  </ItemGroup>  
+  </ItemGroup>
+  
+   <ItemGroup>
+     <Page Include="Controls\UICommandsControl.xaml">
+       <Generator>XamlIntelliSenseFileGenerator</Generator>
+       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+     </Page>
+     <Page Include="Controls\Window.xaml">
+       <Generator>XamlIntelliSenseFileGenerator</Generator>
+       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+     </Page>
+   </ItemGroup>
+  
+   <ItemGroup>
+     <None Update="Controls\UICommandsControl.xaml">
+       <Generator>MSBuild:Compile</Generator>
+     </None>
+     <None Update="Controls\Window.xaml">
+       <Generator>MSBuild:Compile</Generator>
+     </None>
+   </ItemGroup>  
 
 </Project>
