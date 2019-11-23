@@ -2,7 +2,8 @@
 
 namespace PS.WPF
 {
-    public interface IUICompositeCommand : IUICommand, IChildrenAware
+    public interface IUICompositeCommand : IUICommand,
+                                           IChildrenAware
     {
     }
 }

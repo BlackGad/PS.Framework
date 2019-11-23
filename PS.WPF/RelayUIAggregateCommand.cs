@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using PS.ComponentModel.DeepTracker;
-using PS.ComponentModel.DeepTracker.Extensions;
 using PS.ComponentModel.Navigation;
 using PS.Extensions;
 

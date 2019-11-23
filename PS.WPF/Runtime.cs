@@ -11,11 +11,11 @@ namespace PS.WPF
         {
             get
             {
-#if DEBUG
+                #if DEBUG
                 return true;
-#else
+                #else
                 return false;
-#endif
+                #endif
             }
         }
 

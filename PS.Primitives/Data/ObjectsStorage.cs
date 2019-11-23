@@ -7,7 +7,9 @@ using PS.Extensions;
 
 namespace PS.Data
 {
-    public class ObjectsStorage<TKey, TObject> : IReadOnlyDictionary<TKey, TObject>, IDictionary<TKey, TObject>, IDisposable
+    public class ObjectsStorage<TKey, TObject> : IReadOnlyDictionary<TKey, TObject>,
+                                                 IDictionary<TKey, TObject>,
+                                                 IDisposable
     {
         private readonly Func<TKey, TObject> _factory;
         private readonly ConcurrentDictionary<TKey, Lazy<TObject>> _storage;
