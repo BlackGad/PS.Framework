@@ -10,6 +10,8 @@ namespace PS.MVVM.Services
     {
         #region Members
 
+        void Add(object item, Action<object, IDictionary<object, object>> activationAction);
+
         IDictionary<object, object> GetItemMetadata(object item);
         IEnumerable Query(Func<object, IReadOnlyDictionary<object, object>, bool> predicate);
 

@@ -4,73 +4,104 @@ using System.Diagnostics;
 using System.Linq;
 using PS.Data;
 using PS.Extensions;
+using PS.Patterns.Aware;
 
 namespace PS.ComponentModel
 {
-    public class EventHandlerSubscriptionStorage
+    public class EventHandlerSubscriptionStorage : ISubscriptionAware,
+                                                   IRiseEventAware<object>,
+                                                   IInvokeEventHandlerAware
     {
+        #region Static members
+
+        private static Type CheckDelegateSignature(Delegate handler)
+        {
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
+            var parameters = handler.Method.GetParameters();
+            var signatureMessage = "Invalid handler delegate signature. Expected signature: void EventHandler(object sender, EventArgs args).";
+            if (parameters.Length != 2) throw new ArgumentException(signatureMessage);
+            if (parameters[0].ParameterType != typeof(object)) throw new ArgumentException(signatureMessage);
+            return parameters[1].ParameterType;
+        }
+
+        #endregion
+
+        private readonly Action<IInvokeEventHandlerAware, Delegate> _subscriptionAddedAction;
+        private readonly Action<IInvokeEventHandlerAware, Delegate> _subscriptionRemovedAction;
         private readonly ObjectsStorage<Type, List<Delegate>> _subscriptions;
 
         #region Constructors
 
-        public EventHandlerSubscriptionStorage()
+        public EventHandlerSubscriptionStorage(Action<IInvokeEventHandlerAware, Delegate> subscriptionAddedAction = null,
+                                               Action<IInvokeEventHandlerAware, Delegate> subscriptionRemovedAction = null)
         {
-            PossibleHandlerTypes = new List<Type>
-            {
-                typeof(EventArgs)
-            };
-
+            _subscriptionAddedAction = subscriptionAddedAction;
+            _subscriptionRemovedAction = subscriptionRemovedAction;
             _subscriptions = new ObjectsStorage<Type, List<Delegate>>();
         }
 
         #endregion
 
-        #region Properties
+        #region IInvokeEventHandlerAware Members
 
-        public IList<Type> PossibleHandlerTypes { get; }
-
-        #endregion
-
-        #region Event handlers
-
-        public void Raise(object sender, EventArgs args)
+        public void InvokeEventHandler(Delegate @delegate, object sender, object args)
         {
-            foreach (var handler in _subscriptions[args.GetType()])
+            if (@delegate == null) throw new ArgumentNullException(nameof(@delegate));
+            if (sender == null) throw new ArgumentNullException(nameof(sender));
+            if (args == null) throw new ArgumentNullException(nameof(args));
+
+            var parameterType = CheckDelegateSignature(@delegate);
+            if (!parameterType.IsInstanceOfType(args)) return;
+
+            try
             {
-                try
-                {
-                    handler?.DynamicInvoke(sender, args);
-                }
-                catch (Exception e)
-                {
-                    if (Debugger.IsAttached) Debug.WriteLine(e.GetMessage());
-                }
+                @delegate.DynamicInvoke(sender, args);
+            }
+            catch (Exception e)
+            {
+                if (Debugger.IsAttached) Debug.WriteLine(e.GetMessage());
             }
         }
 
         #endregion
 
-        #region Members
+        #region IRiseEventAware<object> Members
 
-        public void Subscribe(Delegate handler)
+        public void Raise(object sender, object args)
+        {
+            if (args == null) throw new ArgumentNullException(nameof(args));
+            var argsType = args.GetType();
+
+            var handlers = _subscriptions.Where(s => s.Key.IsAssignableFrom(argsType))
+                                         .SelectMany(s => s.Value)
+                                         .Distinct();
+
+            foreach (var handler in handlers)
+            {
+                InvokeEventHandler(handler, sender, args);
+            }
+        }
+
+        #endregion
+
+        #region ISubscriptionAware Members
+
+        public void Subscribe<T>(EventHandler<T> handler)
+        {
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
+            var parameterType = CheckDelegateSignature(handler);
+            _subscriptions[parameterType].Add(handler);
+
+            _subscriptionAddedAction?.Invoke(this, handler);
+        }
+
+        public void Unsubscribe<T>(EventHandler<T> handler)
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
 
-            var parameters = handler.Method.GetParameters();
-
-            var signatureMessage = "Invalid handler delegate signature. Expected signature: void EventHandler(object sender, EventArgs args). " +
-                                   $"Args could be of {string.Join(", ", PossibleHandlerTypes.Select(t => t.Name))} types or their parents";
-
-            if (parameters.Length != 2) throw new ArgumentException(signatureMessage);
-            if (parameters[0].ParameterType != typeof(object)) throw new ArgumentException(signatureMessage);
-
-            var argsTypes = PossibleHandlerTypes.Where(t => parameters[1].ParameterType.IsAssignableFrom(t)).ToList();
-            if (!argsTypes.Any()) throw new ArgumentException(signatureMessage);
-
-            foreach (var type in argsTypes)
-            {
-                _subscriptions[type].Add(handler);
-            }
+            var parameterType = CheckDelegateSignature(handler);
+            _subscriptions[parameterType].Remove(handler);
+            _subscriptionRemovedAction?.Invoke(this, handler);
         }
 
         #endregion

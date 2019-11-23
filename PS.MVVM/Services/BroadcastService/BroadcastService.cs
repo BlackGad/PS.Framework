@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using PS.Data;
 using PS.Extensions;
 using PS.Threading;
 
@@ -12,15 +11,13 @@ namespace PS.MVVM.Services
                                     IDisposable
     {
         private readonly ThreadSynchronizationContext _enqueueSynchronizationContext;
-
-        // ReSharper disable once CollectionNeverUpdated.Local
-        private readonly ObjectsStorage<Type, List<Delegate>> _subscriptions;
+        private readonly Dictionary<Type, List<Delegate>> _subscriptions;
 
         #region Constructors
 
         public BroadcastService()
         {
-            _subscriptions = new ObjectsStorage<Type, List<Delegate>>();
+            _subscriptions = new Dictionary<Type, List<Delegate>>();
             _enqueueSynchronizationContext = new ThreadSynchronizationContext(ApartmentState.MTA);
         }
 
@@ -31,10 +28,10 @@ namespace PS.MVVM.Services
         public Task Broadcast(Type eventType, object args)
         {
             var subscriptions = new List<Delegate>();
-            var eventSubscriptions = _subscriptions[eventType];
-            lock (eventSubscriptions)
+            lock (_subscriptions)
             {
-                subscriptions.AddRange(eventSubscriptions);
+                var type = eventType;
+                if (_subscriptions.ContainsKey(type)) subscriptions.AddRange(_subscriptions[type]);
             }
 
             var resultTasks = new List<Task>();
@@ -78,11 +75,12 @@ namespace PS.MVVM.Services
         {
             CheckDelegateSignature(eventType, subscribeAction);
 
-            var eventSubscriptions = _subscriptions[eventType];
-            lock (eventSubscriptions)
+            lock (_subscriptions)
             {
-                if (eventSubscriptions.Contains(subscribeAction)) return false;
-                eventSubscriptions.Add(subscribeAction);
+                var type = eventType;
+                if (!_subscriptions.ContainsKey(type)) _subscriptions.Add(type, new List<Delegate>());
+                if (_subscriptions[type].Contains(subscribeAction)) return false;
+                _subscriptions[type].Add(subscribeAction);
             }
 
             return true;
@@ -90,10 +88,11 @@ namespace PS.MVVM.Services
 
         public bool Unsubscribe(Type eventType, Delegate unsubscribeAction)
         {
-            var eventSubscriptions = _subscriptions[eventType];
-            lock (eventSubscriptions)
+            lock (_subscriptions)
             {
-                return eventSubscriptions.Remove(unsubscribeAction);
+                var type = eventType;
+                if (!_subscriptions.ContainsKey(type)) return false;
+                return _subscriptions[type].Remove(unsubscribeAction);
             }
         }
 
@@ -103,7 +102,11 @@ namespace PS.MVVM.Services
 
         public void Dispose()
         {
-            _subscriptions.Clear();
+            lock (_subscriptions)
+            {
+                _subscriptions.Clear();
+            }
+
             _enqueueSynchronizationContext.Dispose();
         }
 
@@ -118,12 +121,7 @@ namespace PS.MVVM.Services
 
         private void CheckDelegateSignature(Type argumentType, Delegate @delegate)
         {
-            if (argumentType == null) throw new ArgumentNullException(nameof(argumentType));
-            var parameters = @delegate.Method.GetParameters();
-            if (parameters.Length != 1 || parameters[0].GetType().IsAssignableFrom(argumentType))
-            {
-                throw new ArgumentException("Delegate signature does not correspond to argument");
-            }
+            //TODO: Implement delegate signature check. It must return void and handle single argument that can handle argument type
         }
 
         #endregion

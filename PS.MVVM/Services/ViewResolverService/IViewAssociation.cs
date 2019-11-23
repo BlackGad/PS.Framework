@@ -7,11 +7,12 @@ namespace PS.MVVM.Services
     {
         #region Properties
 
+        Type ConsumerServiceType { get; }
         int Depth { get; }
-        IReadOnlyDictionary<string, object> Metadata { get; }
+        IReadOnlyDictionary<object, object> Metadata { get; }
+        object Payload { get; }
         object Region { get; }
         Type ViewModelType { get; }
-        Type ViewType { get; }
 
         #endregion
     }

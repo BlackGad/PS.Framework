@@ -1,10 +1,10 @@
 ﻿namespace PS.MVVM.Services
 {
-    public interface IViewAssociationBuilder
+    public interface IViewAssociationBuilder : IViewResolverAssociateAware
     {
         #region Members
 
-        IViewAssociationBuilder SetMetadata(string key, object value);
+        IViewAssociationBuilder Metadata(object key, object value);
 
         #endregion
     }

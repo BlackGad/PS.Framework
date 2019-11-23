@@ -2,12 +2,12 @@
 
 namespace PS.MVVM.Services
 {
-    public interface IViewResolverService
+    public interface IViewResolverService : IViewResolverAssociateAware
     {
         #region Members
 
-        IViewAssociation FindAssociation(Type viewModelType, object region = null);
-        IViewRegistrationBuilder Register(Type viewType);
+        IViewAssociation Find(Type consumerServiceType, Type viewModelType, object region = null);
+        IViewAssociationBuilder Region(object region);
 
         #endregion
     }

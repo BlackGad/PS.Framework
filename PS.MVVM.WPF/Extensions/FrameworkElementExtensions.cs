@@ -12,16 +12,18 @@ namespace PS.MVVM.Extensions
         {
             if (element == null) return;
 
+            object dataContext = null;
+
             element.Loaded += (sender, args) =>
             {
-                if (element.DataContext is ILoadedAware loadedAware)
+                if (dataContext is ILoadedAware loadedAware)
                 {
                     loadedAware.Loaded();
                 }
             };
             element.Unloaded += (sender, args) =>
             {
-                if (element.DataContext is IUnloadedAware unloadedAware)
+                if (dataContext is IUnloadedAware unloadedAware)
                 {
                     unloadedAware.Unloaded();
                 }
@@ -31,12 +33,14 @@ namespace PS.MVVM.Extensions
             {
                 if (args.NewValue.AreEqual(args.OldValue)) return;
 
-                if (args.OldValue is IUnloadedAware unloadedAware && element.IsLoaded)
+                if (dataContext is IUnloadedAware unloadedAware && element.IsLoaded)
                 {
                     unloadedAware.Unloaded();
                 }
 
-                if (args.NewValue is ILoadedAware loadedAware && element.IsLoaded)
+                dataContext = args.NewValue;
+
+                if (dataContext is ILoadedAware loadedAware && element.IsLoaded)
                 {
                     loadedAware.Loaded();
                 }

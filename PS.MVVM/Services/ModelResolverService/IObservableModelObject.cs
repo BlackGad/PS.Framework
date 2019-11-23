@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using PS.ComponentModel;
 
 namespace PS.MVVM.Services
 {
@@ -12,7 +14,16 @@ namespace PS.MVVM.Services
 
         #region Events
 
-        event EventHandler<ComponentModel.PropertyChangedEventArgs> ValueChanged;
+        event EventHandler<PropertyChangedEventArgs> ValueChanged;
+
+        #endregion
+
+        #region Members
+
+        IDictionary<object, object> GetItemMetadata();
+        void Reset();
+
+        void Set(object value, Action<object, IDictionary<object, object>> activationAction = null);
 
         #endregion
     }

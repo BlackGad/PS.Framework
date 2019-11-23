@@ -27,9 +27,7 @@
 
     </ControlTemplate>
 
-    <Style x:Key="{x:Static controls:Window+WindowResource.ControlStyle}"
-           BasedOn="{StaticResource {x:Type Window}}"
-           TargetType="controls:Window">
+    <Style x:Key="{x:Static controls:Window+WindowResource.ControlStyle}" BasedOn="{StaticResource {x:Type Window}}" TargetType="controls:Window">
         <Setter Property="CommandButtonsHorizontalAlignment" Value="Center" />
         <Setter Property="Padding" Value="5" />
         <Setter Property="Template" Value="{StaticResource {x:Static controls:Window+WindowResource.ControlTemplate}}" />

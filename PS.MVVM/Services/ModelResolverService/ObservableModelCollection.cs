@@ -23,12 +23,24 @@ namespace PS.MVVM.Services
 
         #region IObservableModelCollection Members
 
+        public void Add(object item, Action<object, IDictionary<object, object>> activationAction)
+        {
+            if (item == null) throw new ArgumentNullException(nameof(item));
+            var metadata = _metadata.GetOrCreateValue(item);
+            activationAction?.Invoke(item, metadata);
+            Add(item);
+        }
+
         public IDictionary<object, object> GetItemMetadata(object item)
         {
+            //If item in collection get existing metadata or create new
             if (Contains(item))
             {
                 return _metadata.GetOrCreateValue(item);
             }
+
+            //Item is already not in collection, try to get existing metadata table from cached
+            if (_metadata.TryGetValue(item, out var result)) return result;
 
             throw new ArgumentException("Item is not in collection");
         }
