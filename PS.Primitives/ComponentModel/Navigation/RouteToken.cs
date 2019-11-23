@@ -4,6 +4,7 @@
     {
         public readonly int Hash;
         public readonly int Token;
+        public readonly string TokenString;
         public readonly string Value;
 
         #region Constructors
@@ -13,6 +14,7 @@
             Value = value;
             Hash = hash;
             Token = token;
+            TokenString = ";" + token + ";";
         }
 
         #endregion
@@ -22,6 +24,11 @@
         public override int GetHashCode()
         {
             return Hash;
+        }
+
+        public override string ToString()
+        {
+            return $"{Token} {Value}";
         }
 
         #endregion

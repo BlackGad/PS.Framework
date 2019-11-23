@@ -29,6 +29,7 @@ namespace PS.ComponentModel.DeepTracker
         #endregion
 
         private readonly List<Tuple<Route, WeakReference>> _attachmentObjectRegistry;
+
         private readonly List<Tuple<Route, WeakReference, object[]>> _collectionChangedRegistry;
         private readonly DynamicSubscription<INotifyCollectionChanged, NotifyCollectionChangedEventHandler> _collectionChangedSubscriptions;
         private readonly ConditionalWeakTable<object, string> _collectionChildrenIds;
@@ -107,6 +108,14 @@ namespace PS.ComponentModel.DeepTracker
             }
 
             return this;
+        }
+
+        public object GetObject(Route route)
+        {
+            lock (_attachmentObjectRegistry)
+            {
+                return _attachmentObjectRegistry.FirstOrDefault(r => r.Item1.Equals(route))?.Item2?.Target;
+            }
         }
 
         private void AddBranch(Route visitedRoute, object source, TrackRouteConfiguration configuration, IReadOnlyList<int> visitedObjects)
@@ -216,7 +225,6 @@ namespace PS.ComponentModel.DeepTracker
             if (!match) return;
 
             var validValue = reference.TryGetValue(out var value);
-
             var isAllowed = configuration.IsAllowed(reference, value, propertyRoute);
             if (!isAllowed) return;
 
@@ -226,11 +234,12 @@ namespace PS.ComponentModel.DeepTracker
 
                 if (reference.SupportsChangeEvents)
                 {
-                    var closureValue = new WeakReference(value);
+                    var closureValue = value.WrapValue();
 
                     void PropertyChangedHandler(object sender, EventArgs e)
                     {
-                        var oldValue = closureValue.Target;
+                        var oldValue = closureValue.UnwrapValue();
+
                         object newValue = null;
 
                         try
@@ -250,7 +259,7 @@ namespace PS.ComponentModel.DeepTracker
                         {
                             if (newValue != null)
                             {
-                                closureValue = new WeakReference(newValue);
+                                closureValue = newValue.WrapValue();
                                 AddBranch(propertyRoute, newValue, configuration, visitedObjects);
                             }
                             else

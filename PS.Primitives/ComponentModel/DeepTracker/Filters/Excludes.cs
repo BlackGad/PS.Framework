@@ -7,14 +7,16 @@ namespace PS.ComponentModel.DeepTracker.Filters
 {
     public static class Excludes
     {
-        #region Property definitions
+        #region Constants
 
-        public static readonly ExcludePropertyType KnownPropertyTypes =
-            new ExcludePropertyType(typeof(Type),
-                                    typeof(Assembly),
-                                    typeof(AppDomain),
-                                    typeof(Thread),
-                                    typeof(Task));
+        public static readonly ExcludeSourceType KnownSourceTypes =
+            new ExcludeSourceType(true,
+                                  typeof(Type),
+                                  typeof(Assembly),
+                                  typeof(AppDomain),
+                                  typeof(Thread),
+                                  typeof(Task),
+                                  typeof(string));
 
         #endregion
     }

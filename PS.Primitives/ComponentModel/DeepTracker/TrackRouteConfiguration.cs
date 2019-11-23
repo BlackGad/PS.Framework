@@ -9,12 +9,6 @@ namespace PS.ComponentModel.DeepTracker
 {
     internal class TrackRouteConfiguration : ITrackRouteConfiguration
     {
-        #region Constants
-
-        private static readonly IReadOnlyList<Type> PossibleHandlerTypes;
-
-        #endregion
-
         private readonly List<IExcludeTrackRoute> _excludeList;
         private readonly List<IIncludeTrackRoute> _includeList;
 
@@ -25,38 +19,19 @@ namespace PS.ComponentModel.DeepTracker
 
         #region Constructors
 
-        static TrackRouteConfiguration()
-        {
-            PossibleHandlerTypes = new List<Type>
-            {
-                typeof(CollectionAttachedEventArgs),
-                typeof(CollectionDetachedEventArgs),
-
-                typeof(ObjectAttachedEventArgs),
-                typeof(ObjectDetachedEventArgs),
-
-                typeof(PropertyAttachedEventArgs),
-                typeof(PropertyDetachedEventArgs),
-
-                typeof(ChangedCollectionEventArgs),
-                typeof(ChangedPropertyEventArgs)
-            };
-        }
-
         public TrackRouteConfiguration(object source, Navigation.Route route)
         {
             _source = source ?? throw new ArgumentNullException(nameof(source));
             _excludeList = new List<IExcludeTrackRoute>
             {
-                Excludes.KnownPropertyTypes
+                Excludes.KnownSourceTypes
             };
             _includeList = new List<IIncludeTrackRoute>();
             _subscriptionStorage = new EventHandlerSubscriptionStorage();
-            _subscriptionStorage.PossibleHandlerTypes.PutRange(PossibleHandlerTypes);
             Route = route ?? throw new ArgumentNullException(nameof(route));
 
-            //Do not track inside string
-            this.ExcludeSourceWithType(typeof(string));
+            //Do not track structs
+            this.Exclude((reference, value, r) => !reference.SourceType.IsClass);
         }
 
         #endregion
@@ -85,7 +60,8 @@ namespace PS.ComponentModel.DeepTracker
             return this;
         }
 
-        public ITrackRouteConfiguration Subscribe(Delegate handler)
+        public ITrackRouteConfiguration Subscribe<T>(EventHandler<T> handler)
+            where T : RouteEventArgs
         {
             CheckCreated();
             if (handler == null) throw new ArgumentNullException(nameof(handler));
@@ -108,6 +84,18 @@ namespace PS.ComponentModel.DeepTracker
             {
                 _includeList.Add(new IncludeRoute(includeRouteFilters.SelectMany(f => f.Routes).Distinct().ToArray()));
                 includeList = includeList.Except(includeRouteFilters).ToList();
+            }
+
+            var includeObjectPropertyFilters = includeList.Enumerate<IncludeObjectProperty>().ToList();
+            if (includeObjectPropertyFilters.Any())
+            {
+                var collapsedPairs = includeObjectPropertyFilters
+                                     .SelectMany(f => f.ObjectProperties.SelectMany(g => g.Select(property => new KeyValuePair<Type, string>(g.Key, property))))
+                                     .DistinctBy(p => p.Key.GetHash().MergeHash(p.Value.GetHash()))
+                                     .ToArray();
+
+                _includeList.Add(new IncludeObjectProperty(collapsedPairs));
+                includeList = includeList.Except(includeObjectPropertyFilters).ToList();
             }
 
             _includeList.AddRange(includeList);
@@ -177,20 +165,24 @@ namespace PS.ComponentModel.DeepTracker
 
         public bool IsAllowed(PropertyReference reference, object value, Navigation.Route propertyRoute)
         {
+            var isIncluded = true;
+            if (_includeList.Any())
+            {
+                isIncluded = false;
+                foreach (var include in _includeList)
+                {
+                    isIncluded = isIncluded || include.Include(reference, value, propertyRoute);
+                }
+            }
+
+            if (!isIncluded) return false;
+
             foreach (var exclude in _excludeList)
             {
                 if (exclude.Exclude(reference, value, propertyRoute)) return false;
             }
 
-            if (!_includeList.Any()) return true;
-
-            var result = false;
-            foreach (var include in _includeList)
-            {
-                result = result || include.Include(reference, value, propertyRoute);
-            }
-
-            return result;
+            return true;
         }
 
         public void Raise(DeepTracker deepTracker, RouteEventArgs args)

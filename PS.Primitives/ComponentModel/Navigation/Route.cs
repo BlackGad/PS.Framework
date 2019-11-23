@@ -139,7 +139,7 @@ namespace PS.ComponentModel.Navigation
         {
         }
 
-        public Route(string[] parts)
+        public Route(IEnumerable<string> parts)
         {
             var sequenceBuilder = new RouteTokenSequenceBuilder();
             var sequenceInsensibleBuilder = new RouteTokenSequenceBuilder();
@@ -236,13 +236,7 @@ namespace PS.ComponentModel.Navigation
 
         public string this[int index]
         {
-            get
-            {
-                lock (RoutesCache)
-                {
-                    return Sequences[(int)RouteCaseMode.Sensitive][index].Value;
-                }
-            }
+            get { return Sequences[(int)RouteCaseMode.Sensitive][index].Value; }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -252,10 +246,7 @@ namespace PS.ComponentModel.Navigation
 
         public IEnumerator<string> GetEnumerator()
         {
-            lock (RoutesCache)
-            {
-                return Sequences[(int)RouteCaseMode.Sensitive].Select(h => h.Value).GetEnumerator();
-            }
+            return Sequences[(int)RouteCaseMode.Sensitive].Select(h => h.Value).GetEnumerator();
         }
 
         #endregion

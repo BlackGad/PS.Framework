@@ -9,7 +9,9 @@ namespace PS.ComponentModel.DeepTracker
 
         ITrackRouteConfiguration Exclude(IExcludeTrackRoute exclude);
         ITrackRouteConfiguration Include(IIncludeTrackRoute include);
-        ITrackRouteConfiguration Subscribe(Delegate handler);
+
+        ITrackRouteConfiguration Subscribe<T>(EventHandler<T> handler)
+            where T : RouteEventArgs;
 
         #endregion
     }

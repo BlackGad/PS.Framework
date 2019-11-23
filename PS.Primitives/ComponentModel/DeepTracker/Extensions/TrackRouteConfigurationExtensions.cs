@@ -32,14 +32,14 @@ namespace PS.ComponentModel.DeepTracker.Extensions
                                                                    var member = body as MemberExpression;
                                                                    if (member == null)
                                                                    {
-                                                                       var message = $"Expression '{body.ToString()}' refers to a method, not a property.";
+                                                                       var message = $"Expression '{body}' refers to a method, not a property.";
                                                                        throw new ArgumentException(message);
                                                                    }
 
                                                                    var propInfo = member.Member as PropertyInfo;
                                                                    if (propInfo == null)
                                                                    {
-                                                                       var message = $"Expression '{body.ToString()}' refers to a field, not a property.";
+                                                                       var message = $"Expression '{body}' refers to a field, not a property.";
                                                                        throw new ArgumentException(message);
                                                                    }
 
@@ -71,6 +71,38 @@ namespace PS.ComponentModel.DeepTracker.Extensions
             return configuration;
         }
 
+        public static ITrackRouteConfiguration Include<TSource>(this ITrackRouteConfiguration configuration,
+                                                                params Expression<Func<TSource, object>>[] propertyExpression)
+        {
+            if (configuration == null) throw new ArgumentNullException(nameof(configuration));
+
+            var objectProperties = propertyExpression.ToLookup(p => typeof(TSource),
+                                                               p =>
+                                                               {
+                                                                   var body = p.Body;
+                                                                   if (body is UnaryExpression unaryExpression) body = unaryExpression.Operand;
+
+                                                                   var member = body as MemberExpression;
+                                                                   if (member == null)
+                                                                   {
+                                                                       var message = $"Expression '{body}' refers to a method, not a property.";
+                                                                       throw new ArgumentException(message);
+                                                                   }
+
+                                                                   var propInfo = member.Member as PropertyInfo;
+                                                                   if (propInfo == null)
+                                                                   {
+                                                                       var message = $"Expression '{body}' refers to a field, not a property.";
+                                                                       throw new ArgumentException(message);
+                                                                   }
+
+                                                                   return propInfo.Name;
+                                                               });
+
+            configuration.Include(new IncludeObjectProperty(objectProperties));
+            return configuration;
+        }
+
         public static ITrackRouteConfiguration Include(this ITrackRouteConfiguration configuration, params Route[] routes)
         {
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
@@ -82,14 +114,6 @@ namespace PS.ComponentModel.DeepTracker.Extensions
         {
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
             configuration.Include(new RelayInclude(includeFunc));
-            return configuration;
-        }
-
-        public static ITrackRouteConfiguration Subscribe<T>(this ITrackRouteConfiguration configuration, EventHandler<T> handler)
-            where T : EventArgs
-        {
-            if (configuration == null) throw new ArgumentNullException(nameof(configuration));
-            configuration.Subscribe(handler);
             return configuration;
         }
 

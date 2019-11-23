@@ -15,7 +15,7 @@ namespace PS.Extensions
         public static bool AreEqual(this object source, object target)
         {
             if (ReferenceEquals(source, target)) return true;
-            if (source == null && target == null) return true;
+
             if (source == null) return false;
             if (target == null) return false;
 
@@ -225,6 +225,18 @@ namespace PS.Extensions
             }
 
             return splitParts.Where(p => !string.IsNullOrEmpty(p)).ToArray();
+        }
+
+        public static object UnwrapValue(this object value)
+        {
+            if (value is WeakReference weak) return weak.Target;
+            return value;
+        }
+
+        public static object WrapValue(this object value)
+        {
+            var valueIsReference = value?.GetType().IsClass == true;
+            return valueIsReference ? new WeakReference(value) : value;
         }
 
         #endregion
