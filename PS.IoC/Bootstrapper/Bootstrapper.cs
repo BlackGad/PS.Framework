@@ -60,6 +60,17 @@ namespace PS.IoC
                     _logger.Warn(message);
                 }
 
+                try
+                {
+                    _logger.Trace("Application disposing");
+                    Dispose(_logger);
+                    _logger.Debug("Application disposed");
+                }
+                catch (Exception e)
+                {
+                    _logger.Warn($"Error on IOC cleaning. Details: {e.GetBaseException().Message}");
+                }
+
                 _container = null;
             }
             finally
@@ -77,6 +88,21 @@ namespace PS.IoC
         public void Initialize(TContainer parentContainer = null)
         {
             if (_disposed) throw new ObjectDisposedException("Bootstrapper is already disposed");
+
+            try
+            {
+                _logger.Debug("Initializing critical components...");
+
+                InitializeCriticalComponents(_logger, parentContainer);
+
+                _logger.Debug("Critical components initialized successfully");
+            }
+            catch (Exception e)
+            {
+                var message = $"Unrecoverable error on IOC creation. Details: {e.GetBaseException().Message}";
+                _logger.Fatal(message);
+                throw new ApplicationException(message, e);
+            }
 
             try
             {
@@ -144,7 +170,15 @@ namespace PS.IoC
             return default;
         }
 
+        protected virtual void Dispose(IBootstrapperLogger logger)
+        {
+        }
+
         protected virtual void DisposeContainer(IBootstrapperLogger logger, TContainer container)
+        {
+        }
+
+        protected virtual void InitializeCriticalComponents(IBootstrapperLogger logger, TContainer container)
         {
         }
 

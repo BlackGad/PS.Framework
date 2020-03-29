@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;</TargetFrameworks>
+    <TargetFrameworks>net461;</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RootNamespace>PS.WPF</RootNamespace>
     <Authors>Volodymyr Shkolka</Authors>
@@ -17,20 +17,6 @@
     <Description>Common development primitives foo WPF</Description>
   </PropertyGroup>
 
-  <!-- .NET 4.5 references, compilation flags and build options -->
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45'">
-    <DefineConstants>NET45;NETFULL</DefineConstants>
-  </PropertyGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <Reference Include="System" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
-  
-
   <!-- General references -->
   <ItemGroup>
     <ProjectReference Include="..\PS.Primitives\PS.Primitives.csproj" />
@@ -44,6 +30,10 @@
   </ItemGroup>
   
    <ItemGroup>
+     <PackageReference Include="NETStandard.Library" Version="2.0.3" />
+   </ItemGroup>
+  
+   <ItemGroup>
      <Page Include="Controls\UICommandsControl.xaml">
        <Generator>XamlIntelliSenseFileGenerator</Generator>
        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
@@ -52,6 +42,13 @@
        <Generator>XamlIntelliSenseFileGenerator</Generator>
        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
      </Page>
+   </ItemGroup>
+  
+   <ItemGroup>
+     <Reference Include="PresentationCore" />
+     <Reference Include="PresentationFramework" />
+     <Reference Include="System.Xaml" />
+     <Reference Include="WindowsBase" />
    </ItemGroup>
   
    <ItemGroup>
