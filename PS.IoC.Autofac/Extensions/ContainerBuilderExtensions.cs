@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using Autofac;
 using Autofac.Builder;
-using Autofac.Features.Scanning;
 using PS.IoC.Attributes;
 using PS.IoC.InternalExtensions;
 
@@ -21,7 +20,7 @@ namespace PS.IoC.Extensions
 
         public static ContainerBuilder RegisterTypesWithAttributes(this ContainerBuilder builder, params Type[] types)
         {
-            var groupedPerLifetimeTypes = types.Where(t => !t.IsAbstract)
+            var groupedPerLifetimeTypes = types.Where(t => t?.IsAbstract == false)
                                                .Select(t =>
                                                {
                                                    var lifetimeAttribute = t.GetCustomAttribute<DependencyLifetimeAttribute>();
@@ -29,37 +28,48 @@ namespace PS.IoC.Extensions
                                                    {
                                                        Type = t,
                                                        RegistrationTypes = GetRegistrationTypes(t),
+                                                       GenericRegistrationTypes = GetGenericRegistrationTypes(t),
                                                        Lifetime = lifetimeAttribute?.Lifetime ?? DependencyLifetime.InstancePerDependency,
                                                        LifetimeScopes = lifetimeAttribute?.Scopes
                                                    };
                                                })
-                                               .Where(s => s.RegistrationTypes.Any())
+                                               .Where(s => s.RegistrationTypes.Any() || s.GenericRegistrationTypes.Any())
                                                .ToLookup(s => s.Lifetime, s => s);
-
-            var lifetimeActionMap =
-                new Dictionary<DependencyLifetime, Action<IRegistrationBuilder<object, ScanningActivatorData, DynamicRegistrationStyle>, object[]>>
-                {
-                    { DependencyLifetime.InstanceSingle, (o, t) => o.SingleInstance() },
-                    { DependencyLifetime.InstancePerLifetimeScope, (o, t) => o.InstancePerLifetimeScope() },
-                    {
-                        DependencyLifetime.InstancePerMatchingLifetimeScope,
-                        (o, t) => o.InstancePerMatchingLifetimeScope(t.ToArray())
-                    },
-                    { DependencyLifetime.InstancePerDependency, (o, t) => o.InstancePerDependency() },
-                    { DependencyLifetime.InstancePerRequest, (o, t) => o.InstancePerRequest() }
-                };
 
             foreach (var group in groupedPerLifetimeTypes)
             {
                 foreach (var selection in group)
                 {
-                    var fluentBuilder = builder.RegisterTypes(selection.Type)
-                                               .As(t => selection.RegistrationTypes);
-                    lifetimeActionMap[group.Key](fluentBuilder, selection.LifetimeScopes);
+                    if (selection.GenericRegistrationTypes.Any())
+                    {
+                        var registrationBuilder = builder.RegisterGeneric(selection.Type)
+                                                         .As(selection.GenericRegistrationTypes);
+                        SetupLifetime(registrationBuilder, group.Key, selection.LifetimeScopes);
+                    }
+
+                    if (selection.RegistrationTypes.Any())
+                    {
+                        var registrationBuilder = builder.RegisterType(selection.Type)
+                                                         .As(selection.RegistrationTypes);
+
+                        SetupLifetime(registrationBuilder, group.Key, selection.LifetimeScopes);
+                    }
                 }
             }
 
             return builder;
+        }
+
+        private static Type[] GetGenericRegistrationTypes(Type type)
+        {
+            var types = new List<Type>();
+
+            foreach (var attribute in type.GetCustomAttributes<DependencyRegisterAsGenericTypeOfAttribute>())
+            {
+                types.Add(attribute.GenericType);
+            }
+
+            return types.Distinct().ToArray();
         }
 
         private static Type[] GetRegistrationTypes(Type type)
@@ -81,6 +91,33 @@ namespace PS.IoC.Extensions
             }
 
             return types.Distinct().ToArray();
+        }
+
+        private static void SetupLifetime<TLimit, TActivatorData, TRegistrationStyle>(
+            IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> builder,
+            DependencyLifetime lifetime,
+            object[] lifetimeScopes)
+        {
+            switch (lifetime)
+            {
+                case DependencyLifetime.InstanceSingle:
+                    builder.SingleInstance();
+                    break;
+                case DependencyLifetime.InstancePerDependency:
+                    builder.InstancePerDependency();
+                    break;
+                case DependencyLifetime.InstancePerLifetimeScope:
+                    builder.InstancePerLifetimeScope();
+                    break;
+                case DependencyLifetime.InstancePerMatchingLifetimeScope:
+                    builder.InstancePerMatchingLifetimeScope(lifetimeScopes);
+                    break;
+                case DependencyLifetime.InstancePerRequest:
+                    builder.InstancePerRequest();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         #endregion

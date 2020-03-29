@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net461;</TargetFrameworks>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <RootNamespace>PS.Shell.Infrastructure</RootNamespace>
+    <Authors>Volodymyr Shkolka</Authors>
+    <Company>Volodymyr Shkolka</Company>
+    <Product>PS Shell</Product>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/BlackGad/PS.Framework</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/BlackGad/PS.Framework</RepositoryUrl>
+    <RepositoryType>github</RepositoryType>
+    <PackageTags>Shell Infrastructure WPF</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Version>1.0.4</Version>
+    <Description>Shell infrastructure project</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Views\NotificationView.xaml" />
+    <None Remove="XamlResources.xaml" />
+  </ItemGroup>
+
+  <!-- General references -->
+  <ItemGroup>
+    <ProjectReference Include="..\PS.MVVM\PS.MVVM.csproj" />
+    <ProjectReference Include="..\PS.Primitives\PS.Primitives.csproj" />
+    <ProjectReference Include="..\PS.WPF\PS.WPF.csproj" />
+  </ItemGroup>
+  
+   <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+  
+   <ItemGroup>
+     <Page Include="Views\NotificationView.xaml">
+       <Generator>MSBuild:Compile</Generator>
+     </Page>
+     <Page Include="XamlResources.xaml">
+       <Generator>MSBuild:Compile</Generator>
+     </Page>
+   </ItemGroup>
+  
+   <ItemGroup>
+     <Reference Include="PresentationCore" />
+     <Reference Include="PresentationFramework" />
+     <Reference Include="System.Xaml" />
+     <Reference Include="WindowsBase" />
+   </ItemGroup>
+
+</Project>

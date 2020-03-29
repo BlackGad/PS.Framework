@@ -35,8 +35,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=5.1.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.5.1.2\lib\net461\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.7.0\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.1\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,18 +76,33 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="Models\BroadcastService.cs" />
+    <Compile Include="Models\IoCDataTemplate.cs" />
+    <Compile Include="Models\CommandService.cs" />
+    <Compile Include="Models\ModelResolverService.cs" />
+    <Compile Include="Models\WindowService.cs" />
+    <Compile Include="Models\ViewResolverService.cs" />
+    <Compile Include="Views\ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="MainModule.cs" />
+    <Compile Include="XamlResources.xaml.cs">
+      <DependentUpon>XamlResources.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\ShellView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XamlResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -86,6 +122,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -95,18 +138,43 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PS.IoC.Autofac\PS.IoC.Autofac.csproj">
+      <Project>{43bea357-17a0-4a00-b66d-cd527235a0c4}</Project>
+      <Name>PS.IoC.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PS.IoC\PS.IoC.csproj">
+      <Project>{4a9f1324-b810-40d7-b989-eb343344728e}</Project>
+      <Name>PS.IoC</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PS.Logic\PS.Logic.csproj">
       <Project>{0b57eea8-7539-4b08-9c56-79170b2798a0}</Project>
       <Name>PS.Logic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PS.MVVM.WPF\PS.MVVM.WPF.csproj">
+      <Project>{90e3142e-53eb-4a92-954f-a8b833b87ab2}</Project>
+      <Name>PS.MVVM.WPF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PS.MVVM\PS.MVVM.csproj">
+      <Project>{0868ae84-8854-4954-b1d6-2bd635341e6a}</Project>
+      <Name>PS.MVVM</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PS.Primitives\PS.Primitives.csproj">
       <Project>{eca35d4b-e842-4b5b-87a4-38e2a668b4da}</Project>
       <Name>PS.Primitives</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PS.Shell.Infrastructure\PS.Shell.Infrastructure.csproj">
+      <Project>{2917D527-F865-42D9-ACCA-D6C584B6140F}</Project>
+      <Name>PS.Shell.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PS.Windows.Interop\PS.Windows.Interop.csproj">
+      <Project>{7CA13A48-6529-40E0-BDAF-41853316F889}</Project>
+      <Name>PS.Windows.Interop</Name>
     </ProjectReference>
     <ProjectReference Include="..\PS.WPF\PS.WPF.csproj">
       <Project>{c510177f-99c4-40b7-a0f1-db7479df9987}</Project>
       <Name>PS.WPF</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

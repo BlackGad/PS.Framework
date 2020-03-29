@@ -17,6 +17,20 @@
     <Description>Common development primitives foo WPF</Description>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Controls\ChromelessWindow.xaml" />
+    <None Remove="Controls\IconicButton.xaml" />
+    <None Remove="Styles\Button.Apply.xaml" />
+    <None Remove="Styles\Button.xaml" />
+    <None Remove="Styles\CheckBox.Apply.xaml" />
+    <None Remove="Styles\CheckBox.xaml" />
+    <None Remove="Styles\ComboBox.Apply.xaml" />
+    <None Remove="Styles\ComboBox.xaml" />
+    <None Remove="Styles\Common.xaml" />
+    <None Remove="Styles\Menu.Apply.xaml" />
+    <None Remove="Styles\Menu.xaml" />
+  </ItemGroup>
+
   <!-- General references -->
   <ItemGroup>
     <ProjectReference Include="..\PS.Primitives\PS.Primitives.csproj" />
@@ -34,14 +48,28 @@
    </ItemGroup>
   
    <ItemGroup>
+     <Page Include="Controls\IconicButton.xaml" />
      <Page Include="Controls\UICommandsControl.xaml">
        <Generator>XamlIntelliSenseFileGenerator</Generator>
        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+     </Page>
+     <Page Include="Controls\ChromelessWindow.xaml">
+       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+       <Generator>XamlIntelliSenseFileGenerator</Generator>
      </Page>
      <Page Include="Controls\Window.xaml">
        <Generator>XamlIntelliSenseFileGenerator</Generator>
        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
      </Page>
+     <Page Include="Styles\Button.Apply.xaml" />
+     <Page Include="Styles\Button.xaml" />
+     <Page Include="Styles\CheckBox.Apply.xaml" />
+     <Page Include="Styles\CheckBox.xaml" />
+     <Page Include="Styles\ComboBox.Apply.xaml" />
+     <Page Include="Styles\ComboBox.xaml" />
+     <Page Include="Styles\Common.xaml" />
+     <Page Include="Styles\Menu.Apply.xaml" />
+     <Page Include="Styles\Menu.xaml" />
    </ItemGroup>
   
    <ItemGroup>

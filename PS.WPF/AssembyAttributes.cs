@@ -8,6 +8,7 @@
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.Controls")]
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.Commands")]
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.Theme")]
+[assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.Components")]
 [assembly: XmlnsPrefix("http://schemas.ps.com/2019/xaml", "ps")]
 
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml/markup", "PS.WPF.Markup")]

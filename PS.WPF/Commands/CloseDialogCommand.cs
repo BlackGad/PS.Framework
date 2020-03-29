@@ -3,17 +3,22 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using PS.Extensions;
+using PS.Patterns.Aware;
 using PS.WPF.Extensions;
 
 namespace PS.WPF.Commands
 {
-    public class CloseDialogCommand : IUICommand
+    public class CloseDialogCommand : IUICommand,
+                                      IIsDefaultAware,
+                                      IIsCancelAware
     {
         private object _color;
         private string _description;
         private bool? _dialogResult;
         private string _group;
         private object _icon;
+        private bool _isCancel;
+        private bool _isDefault;
         private bool _isVisible;
         private int _order;
         private string _title;
@@ -37,6 +42,36 @@ namespace PS.WPF.Commands
             {
                 if (_dialogResult.AreEqual(value)) return;
                 _dialogResult = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region IIsCancelAware Members
+
+        public bool IsCancel
+        {
+            get { return _isCancel; }
+            set
+            {
+                if (_isCancel.AreEqual(value)) return;
+                _isCancel = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region IIsDefaultAware Members
+
+        public bool IsDefault
+        {
+            get { return _isDefault; }
+            set
+            {
+                if (_isDefault.AreEqual(value)) return;
+                _isDefault = value;
                 OnPropertyChanged();
             }
         }

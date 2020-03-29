@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using PS.WPF.Resources;
+using HorizontalAlignment = System.Windows.HorizontalAlignment;
 
 namespace PS.WPF.Controls
 {
@@ -26,7 +27,6 @@ namespace PS.WPF.Controls
                                         typeof(bool),
                                         typeof(Window),
                                         new FrameworkPropertyMetadata(true, OnResizableChanged));
-
         #endregion
 
         #region Static members
@@ -81,6 +81,27 @@ namespace PS.WPF.Controls
             get { return (bool)GetValue(IsResizableProperty); }
             set { SetValue(IsResizableProperty, value); }
         }
+
+        #endregion
+
+        #region Override members
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            var source = DependencyPropertyHelper.GetValueSource(this, CommandsProperty).BaseValueSource;
+            if (source == BaseValueSource.Style && Commands != null)
+            {
+                //Commands collection instance was set via style. Because we use SharedResourceDictionary instance sharing as well.
+                //We need to make a duplicate.
+                SetCurrentValue(CommandsProperty, new UICommandCollection(Commands));
+            }
+        }
+
+        #endregion
+
+        #region Members
 
         #endregion
 
