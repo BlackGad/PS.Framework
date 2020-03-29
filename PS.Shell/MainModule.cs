@@ -12,7 +12,7 @@ using PS.WPF.DataTemplate;
 
 namespace PS.Shell
 {
-    public class MainModule : Module
+    public class MainModule : Autofac.Module
     {
         #region Override members
 
@@ -41,10 +41,10 @@ namespace PS.Shell
                        style: XamlResources.ShellWindowStyle)
                    .Associate<NotificationViewModel>(
                        template: scope.Resolve<IDataTemplate<NotificationView>>(),
-                       style: PS.Shell.Infrastructure.XamlResources.NotificationStyle)
+                       style: Infrastructure.XamlResources.NotificationStyle)
                    .Associate<ConfirmationViewModel>(
                        template: scope.Resolve<IDataTemplate<NotificationView>>(),
-                       style: PS.Shell.Infrastructure.XamlResources.ConfirmationStyle);
+                       style: Infrastructure.XamlResources.ConfirmationStyle);
         }
 
         #endregion

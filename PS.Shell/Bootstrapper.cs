@@ -3,6 +3,7 @@ using PS.IoC;
 using PS.IoC.Extensions;
 using PS.MVVM.Services;
 using PS.MVVM.Services.CommandService;
+using PS.Shell.Module.Diagram;
 
 namespace PS.Shell
 {
@@ -79,6 +80,7 @@ namespace PS.Shell
         {
             logger.Trace("Registering modules...");
             builder.RegisterModule<MainModule>();
+            builder.RegisterModule<DiagramModule>();
             logger.Debug("Modules registered");
         }
 

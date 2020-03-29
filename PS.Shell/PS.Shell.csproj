@@ -166,6 +166,10 @@
       <Project>{2917D527-F865-42D9-ACCA-D6C584B6140F}</Project>
       <Name>PS.Shell.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PS.Shell.Module.Diagram\PS.Shell.Module.Diagram.csproj">
+      <Project>{e0748105-8bd5-4cb4-bb98-049b441a2218}</Project>
+      <Name>PS.Shell.Module.Diagram</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PS.Windows.Interop\PS.Windows.Interop.csproj">
       <Project>{7CA13A48-6529-40E0-BDAF-41853316F889}</Project>
       <Name>PS.Windows.Interop</Name>
