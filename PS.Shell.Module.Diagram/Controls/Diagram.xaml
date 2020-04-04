@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:PS.Shell.Module.Diagram.Controls"
+                    xmlns:ps="http://schemas.ps.com/2019/xaml">
+
+    <ControlTemplate x:Key="{x:Static controls:Diagram+Resource.ControlTemplate}" TargetType="controls:Diagram">
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+            <controls:DiagramCanvas NodeTemplateSelector="{TemplateBinding NodeTemplateSelector}">
+                <controls:DiagramCanvas.Resources>
+                    <ps:XamlObjectProvider x:Key="GraphObject" Object="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Graph}" />
+                </controls:DiagramCanvas.Resources>
+                <controls:DiagramCanvas.ItemsSource>
+                    <ps:CompositeCollection>
+                        <ps:CompositeContainer Source="{Binding Source={StaticResource GraphObject}, Path=Object.Edges}" />
+                        <ps:CompositeContainer Source="{Binding Source={StaticResource GraphObject}, Path=Object.Vertices}" />
+                    </ps:CompositeCollection>
+                </controls:DiagramCanvas.ItemsSource>
+            </controls:DiagramCanvas>
+        </Border>
+    </ControlTemplate>
+
+    <Style x:Key="{x:Static controls:Diagram+Resource.ControlStyle}" TargetType="controls:Diagram">
+        <Setter Property="Background" Value="#EEEEEE" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="MinHeight" Value="100" />
+        <Setter Property="MinWidth" Value="100" />
+        <Setter Property="Template" Value="{StaticResource {x:Static controls:Diagram+Resource.ControlTemplate}}" />
+    </Style>
+
+</ResourceDictionary>

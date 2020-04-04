@@ -4,8 +4,11 @@ using Autofac.Core.Registration;
 using PS.IoC.Extensions;
 using PS.MVVM.Extensions;
 using PS.MVVM.Services;
+using PS.Shell.Module.Diagram.Models.ViewResolverService;
 using PS.Shell.Module.Diagram.ViewModels;
+using PS.Shell.Module.Diagram.ViewModels.Nodes;
 using PS.Shell.Module.Diagram.Views;
+using PS.Shell.Module.Diagram.Views.Nodes;
 using PS.WPF.DataTemplate;
 
 namespace PS.Shell.Module.Diagram
@@ -31,6 +34,9 @@ namespace PS.Shell.Module.Diagram
         private void ViewResolverServiceActivation(ILifetimeScope scope, IViewResolverService service)
         {
             service.AssociateTemplate<EditorViewModel>(scope.Resolve<IDataTemplate<EditorView>>());
+
+            service.Region(Regions.Diagram)
+                   .AssociateTemplate<NodeStartViewModel>(scope.Resolve<IDataTemplate<NodeStartView>>());
         }
 
         #endregion

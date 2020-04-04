@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shell;
+using PS.Patterns.Command;
 using PS.WPF.Resources;
 
 namespace PS.WPF.Controls

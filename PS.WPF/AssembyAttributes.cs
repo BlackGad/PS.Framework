@@ -1,6 +1,8 @@
 ﻿using System.Windows.Markup;
 
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF")]
+[assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.Data")]
+[assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.XAML")]
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.DataTemplateSelector")]
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.StyleSelector")]
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.ValueConverters.SwitchValueConverter")]

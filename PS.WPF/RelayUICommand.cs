@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using PS.Extensions;
+using PS.Patterns.Command;
 
 namespace PS.WPF
 {

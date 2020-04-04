@@ -12,6 +12,11 @@ namespace PS.Extensions
     {
         #region Static members
 
+        public static bool AreDiffers(this object source, object target)
+        {
+            return !AreEqual(source, target);
+        }
+
         public static bool AreEqual(this object source, object target)
         {
             if (ReferenceEquals(source, target)) return true;

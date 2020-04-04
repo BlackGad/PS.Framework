@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:PS.Shell.Module.Diagram.Controls">
+
+    <ControlTemplate x:Key="{x:Static controls:Connector+Resource.ControlTemplate}" TargetType="controls:Connector">
+        <Grid Background="{TemplateBinding Background}" />
+    </ControlTemplate>
+
+    <Style x:Key="{x:Static controls:Connector+Resource.ControlStyle}" TargetType="controls:Connector">
+        <Setter Property="Template" Value="{StaticResource {x:Static controls:Connector+Resource.ControlTemplate}}" />
+    </Style>
+
+</ResourceDictionary>

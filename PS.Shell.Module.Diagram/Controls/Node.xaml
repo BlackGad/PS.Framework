@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:PS.Shell.Module.Diagram.Controls">
+
+    <ControlTemplate x:Key="{x:Static controls:Node+Resource.ControlTemplate}" TargetType="controls:Node">
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+            <ContentPresenter />
+        </Border>
+    </ControlTemplate>
+
+    <Style x:Key="{x:Static controls:Node+Resource.ControlStyle}" TargetType="controls:Node">
+        <Setter Property="Canvas.Left" Value="0" />
+        <Setter Property="Canvas.Top" Value="0" />
+        <Setter Property="Template" Value="{StaticResource {x:Static controls:Node+Resource.ControlTemplate}}" />
+    </Style>
+
+</ResourceDictionary>

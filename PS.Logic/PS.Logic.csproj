@@ -25,6 +25,11 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Geometry\**" />
+    <EmbeddedResource Remove="Geometry\**" />
+    <None Remove="Geometry\**" />
+  </ItemGroup>
   
   <!-- General references -->
   <ItemGroup>
@@ -32,9 +37,6 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Geometry\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />

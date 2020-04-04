@@ -4,7 +4,7 @@
     {
         #region Properties
 
-        bool IsSelected { get; }
+        bool IsSelected { get; set; }
 
         #endregion
     }

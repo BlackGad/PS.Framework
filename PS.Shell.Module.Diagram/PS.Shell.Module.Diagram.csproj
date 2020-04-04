@@ -18,7 +18,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Controls\Connector.xaml" />
+    <None Remove="Controls\Diagram.xaml" />
+    <None Remove="Controls\DiagramCanvas.xaml" />
+    <None Remove="Controls\Node.xaml" />
     <None Remove="Views\EditorView.xaml" />
+    <None Remove="Views\Nodes\NodeStartView.xaml" />
     <None Remove="XamlResources.xaml" />
   </ItemGroup>
 
@@ -39,7 +44,22 @@
   </ItemGroup>
   
    <ItemGroup>
+     <Page Include="Controls\Connector.xaml">
+       <Generator>MSBuild:Compile</Generator>
+     </Page>
+     <Page Include="Controls\Diagram.xaml">
+       <Generator>MSBuild:Compile</Generator>
+     </Page>
+     <Page Include="Controls\DiagramCanvas.xaml">
+       <Generator>MSBuild:Compile</Generator>
+     </Page>
+     <Page Include="Controls\Node.xaml">
+       <Generator>MSBuild:Compile</Generator>
+     </Page>
      <Page Include="Views\EditorView.xaml">
+       <Generator>MSBuild:Compile</Generator>
+     </Page>
+     <Page Include="Views\Nodes\NodeStartView.xaml">
        <Generator>MSBuild:Compile</Generator>
      </Page>
      <Page Include="XamlResources.xaml">
@@ -56,6 +76,7 @@
   
    <ItemGroup>
      <PackageReference Include="Autofac" Version="5.1.2" />
+     <PackageReference Include="QuickGraph" Version="3.6.61119.7" />
    </ItemGroup>
 
 </Project>
