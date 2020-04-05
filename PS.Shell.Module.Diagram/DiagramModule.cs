@@ -36,7 +36,8 @@ namespace PS.Shell.Module.Diagram
             service.AssociateTemplate<EditorViewModel>(scope.Resolve<IDataTemplate<EditorView>>());
 
             service.Region(Regions.Diagram)
-                   .AssociateTemplate<NodeStartViewModel>(scope.Resolve<IDataTemplate<NodeStartView>>());
+                   .AssociateTemplate<NodeStartViewModel>(scope.Resolve<IDataTemplate<NodeStartView>>())
+                   .AssociateTemplate<NodeEndViewModel>(scope.Resolve<IDataTemplate<NodeEndView>>());
         }
 
         #endregion

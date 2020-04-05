@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:PS.Shell.Module.Diagram.Controls">
+
+    <ControlTemplate x:Key="{x:Static controls:DiagramWorkspace+Resource.ControlTemplate}" TargetType="controls:DiagramWorkspace">
+        <Border Background="Transparent">
+            <ItemsPresenter />
+        </Border>
+    </ControlTemplate>
+
+    <Style x:Key="{x:Static controls:DiagramWorkspace+Resource.ControlStyle}" TargetType="controls:DiagramWorkspace">
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <controls:DiagramCanvas Offset="{Binding RelativeSource={RelativeSource AncestorType=controls:DiagramWorkspace}, Path=ViewBoxOffset}" />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template" Value="{StaticResource {x:Static controls:DiagramWorkspace+Resource.ControlTemplate}}" />
+    </Style>
+
+</ResourceDictionary>

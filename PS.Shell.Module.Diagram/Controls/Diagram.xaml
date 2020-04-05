@@ -7,17 +7,19 @@
         <Border Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}">
-            <controls:DiagramCanvas NodeTemplateSelector="{TemplateBinding NodeTemplateSelector}">
-                <controls:DiagramCanvas.Resources>
-                    <ps:XamlObjectProvider x:Key="GraphObject" Object="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Graph}" />
-                </controls:DiagramCanvas.Resources>
-                <controls:DiagramCanvas.ItemsSource>
-                    <ps:CompositeCollection>
-                        <ps:CompositeContainer Source="{Binding Source={StaticResource GraphObject}, Path=Object.Edges}" />
-                        <ps:CompositeContainer Source="{Binding Source={StaticResource GraphObject}, Path=Object.Vertices}" />
-                    </ps:CompositeCollection>
-                </controls:DiagramCanvas.ItemsSource>
-            </controls:DiagramCanvas>
+            <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+                <controls:DiagramWorkspace Diagram="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+                    <controls:DiagramWorkspace.Resources>
+                        <ps:XamlObjectProvider x:Key="GraphObject" Object="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Graph}" />
+                    </controls:DiagramWorkspace.Resources>
+                    <controls:DiagramWorkspace.ItemsSource>
+                        <ps:CompositeCollection>
+                            <ps:CompositeContainer Source="{Binding Source={StaticResource GraphObject}, Path=Object.Edges}" />
+                            <ps:CompositeContainer Source="{Binding Source={StaticResource GraphObject}, Path=Object.Vertices}" />
+                        </ps:CompositeCollection>
+                    </controls:DiagramWorkspace.ItemsSource>
+                </controls:DiagramWorkspace>
+            </ScrollViewer>
         </Border>
     </ControlTemplate>
 

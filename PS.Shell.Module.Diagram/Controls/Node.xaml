@@ -3,9 +3,7 @@
                     xmlns:controls="clr-namespace:PS.Shell.Module.Diagram.Controls">
 
     <ControlTemplate x:Key="{x:Static controls:Node+Resource.ControlTemplate}" TargetType="controls:Node">
-        <Border Background="{TemplateBinding Background}"
-                BorderBrush="{TemplateBinding BorderBrush}"
-                BorderThickness="{TemplateBinding BorderThickness}">
+        <Border Background="Transparent">
             <ContentPresenter />
         </Border>
     </ControlTemplate>

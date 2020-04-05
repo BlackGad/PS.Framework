@@ -20,9 +20,10 @@
   <ItemGroup>
     <None Remove="Controls\Connector.xaml" />
     <None Remove="Controls\Diagram.xaml" />
-    <None Remove="Controls\DiagramCanvas.xaml" />
+    <None Remove="Controls\DiagramWorkspace.xaml" />
     <None Remove="Controls\Node.xaml" />
     <None Remove="Views\EditorView.xaml" />
+    <None Remove="Views\Nodes\NodeEndView.xaml" />
     <None Remove="Views\Nodes\NodeStartView.xaml" />
     <None Remove="XamlResources.xaml" />
   </ItemGroup>
@@ -50,13 +51,16 @@
      <Page Include="Controls\Diagram.xaml">
        <Generator>MSBuild:Compile</Generator>
      </Page>
-     <Page Include="Controls\DiagramCanvas.xaml">
+     <Page Include="Controls\DiagramWorkspace.xaml">
        <Generator>MSBuild:Compile</Generator>
      </Page>
      <Page Include="Controls\Node.xaml">
        <Generator>MSBuild:Compile</Generator>
      </Page>
      <Page Include="Views\EditorView.xaml">
+       <Generator>MSBuild:Compile</Generator>
+     </Page>
+     <Page Include="Views\Nodes\NodeEndView.xaml">
        <Generator>MSBuild:Compile</Generator>
      </Page>
      <Page Include="Views\Nodes\NodeStartView.xaml">

@@ -30,6 +30,7 @@ namespace PS.Shell.Module.Diagram.ViewModels
             AddRectangleCommand = new RelayCommand(AddRectangle);
             Graph = new DiagramGraph();
             Graph.Add(Guid.NewGuid().ToString("N"), new NodeStartViewModel());
+            Graph.Add(Guid.NewGuid().ToString("N"), new NodeEndViewModel());
         }
 
         #endregion

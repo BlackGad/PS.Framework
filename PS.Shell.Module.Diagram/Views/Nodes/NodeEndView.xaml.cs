@@ -5,23 +5,23 @@ using PS.Shell.Module.Diagram.ViewModels.Nodes;
 namespace PS.Shell.Module.Diagram.Views.Nodes
 {
     [DependencyRegisterAsSelf]
-    [DependencyRegisterAsInterface(typeof(IView<NodeStartViewModel>))]
-    public partial class NodeStartView : IView<NodeStartViewModel>
+    [DependencyRegisterAsInterface(typeof(IView<NodeEndViewModel>))]
+    public partial class NodeEndView : IView<NodeEndViewModel>
     {
         #region Constructors
 
-        public NodeStartView()
+        public NodeEndView()
         {
             InitializeComponent();
         }
 
         #endregion
 
-        #region IView<NodeStartViewModel> Members
+        #region Properties
 
-        public NodeStartViewModel ViewModel
+        public NodeEndViewModel ViewModel
         {
-            get { return DataContext as NodeStartViewModel; }
+            get { return DataContext as NodeEndViewModel; }
             set { DataContext = value; }
         }
 
