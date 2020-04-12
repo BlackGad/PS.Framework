@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using PS.IoC.Attributes;
@@ -27,17 +28,25 @@ namespace PS.Shell.Module.Diagram.ViewModels
 
         public EditorViewModel()
         {
-            AddRectangleCommand = new RelayCommand(AddRectangle);
+            AddCommand = new RelayCommand(Add);
+            RemoveCommand = new RelayCommand(Remove);
             Graph = new DiagramGraph();
             Graph.Add(Guid.NewGuid().ToString("N"), new NodeStartViewModel());
             Graph.Add(Guid.NewGuid().ToString("N"), new NodeEndViewModel());
+        }
+
+        private void Remove()
+        {
+            var node = Graph.Vertices.LastOrDefault();
+            Graph.Delete(node);
         }
 
         #endregion
 
         #region Properties
 
-        public ICommand AddRectangleCommand { get; }
+        public ICommand AddCommand { get; }
+        public ICommand RemoveCommand { get; }
 
         public IDiagramGraph Graph
         {
@@ -49,8 +58,9 @@ namespace PS.Shell.Module.Diagram.ViewModels
 
         #region Members
 
-        private void AddRectangle()
+        private void Add()
         {
+            Graph.Add(Guid.NewGuid().ToString("N"), new NodeEndViewModel());
         }
 
         #endregion

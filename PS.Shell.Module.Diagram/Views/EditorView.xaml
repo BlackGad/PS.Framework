@@ -18,8 +18,9 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0">
-            <Button Command="{Binding AddRectangleCommand}" Content="Add rectangle" />
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Command="{Binding AddCommand}" Content="Add" />
+            <Button Command="{Binding RemoveCommand}" Content="Remove" />
         </StackPanel>
         <controls:Diagram Grid.Row="1"
                           NodeTemplateSelector="{mvvm:TemplateResolver Region={x:Static viewResolverService:Regions.Diagram}}"

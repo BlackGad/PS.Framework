@@ -1,6 +1,8 @@
-﻿namespace PS.Shell.Module.Diagram.Controls.MVVM
+﻿using System.ComponentModel;
+
+namespace PS.Shell.Module.Diagram.Controls.MVVM
 {
-    public interface INodeGeometry
+    public interface INodeGeometry : INotifyPropertyChanged
     {
         #region Properties
 

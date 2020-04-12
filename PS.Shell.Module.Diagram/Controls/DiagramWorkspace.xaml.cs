@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using PS.Extensions;
 using PS.Shell.Module.Diagram.Controls.MVVM;
 using PS.WPF.Extensions;
 using PS.WPF.Resources;
@@ -27,9 +28,8 @@ namespace PS.Shell.Module.Diagram.Controls
 
         #endregion
 
-        private readonly SelectorService _selectorService;
-
         private DragOperation _dragOperation;
+        private object _lastOverrideItem;
 
         #region Constructors
 
@@ -45,8 +45,6 @@ namespace PS.Shell.Module.Diagram.Controls
             AddHandler(MouseMoveEvent, new MouseEventHandler(OnMouseMove));
             AddHandler(MouseUpEvent, new MouseButtonEventHandler(OnMouseUp));
             AddHandler(LostMouseCaptureEvent, new MouseEventHandler(OnLostMouseCapture));
-
-            _selectorService = new SelectorService();
         }
 
         #endregion
@@ -71,12 +69,15 @@ namespace PS.Shell.Module.Diagram.Controls
 
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
+            _lastOverrideItem = item;
             return item is Node || item is Connector;
         }
 
         protected override DependencyObject GetContainerForItemOverride()
         {
-            return new Node();
+            if (_lastOverrideItem is INode) return new Node();
+            if (_lastOverrideItem is IConnector) return new Connector();
+            throw new NotSupportedException("Unknown item type");
         }
 
         protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
@@ -84,28 +85,25 @@ namespace PS.Shell.Module.Diagram.Controls
             if (element is Node node)
             {
                 node.ContentTemplateSelector = Diagram.NodeTemplateSelector;
-                if (item is INode nodeViewModel)
-                {
-                    node.Content = nodeViewModel.ViewModel;
-                }
+                node.DataContext = item;
             }
 
-            base.PrepareContainerForItemOverride(element, item);
+            if (element is Connector connector)
+            {
+                //if (item is IConnector connectorViewModel) connector.Content = connectorViewModel;
+            }
         }
 
         protected override void ClearContainerForItemOverride(DependencyObject element, object item)
         {
-            base.ClearContainerForItemOverride(element, item);
-        }
-
-        protected override Size ArrangeOverride(Size arrangeBounds)
-        {
-            return base.ArrangeOverride(arrangeBounds);
-        }
-
-        protected override Size MeasureOverride(Size constraint)
-        {
-            return base.MeasureOverride(constraint);
+            if (element is Node node)
+            {
+                node.ContentTemplateSelector = null;
+                node.Visual = null;
+                node.Geometry = null;
+                node.Content = null;
+                node.DataContext = null;
+            }
         }
 
         #endregion
@@ -124,21 +122,30 @@ namespace PS.Shell.Module.Diagram.Controls
             {
                 if (Keyboard.Modifiers == ModifierKeys.Shift)
                 {
-                    _selectorService.Add(node);
+                    if (!Diagram.SelectedObjects.Contains(node.DataContext))
+                    {
+                        Diagram.SelectedObjects.Add(node.DataContext);
+                    }
                 }
                 else
                 {
-                    _selectorService.Set(node);
+                    if (!Diagram.SelectedObjects.Contains(node.DataContext))
+                    {
+                        var obsoleteSelection = Diagram.SelectedObjects.Except(new[] { node.DataContext }).ToArray();
+                        obsoleteSelection.ForEach(o => Diagram.SelectedObjects.Remove(o));
+                        if (!Diagram.SelectedObjects.Any()) Diagram.SelectedObjects.Add(node.DataContext);
+                    }
                 }
             }
             else
             {
-                _selectorService.Clear();
+                Diagram.SelectedObjects.Clear();
             }
 
-            if (_selectorService.SelectedItems.Any())
+            if (Diagram.SelectedObjects.Any())
             {
-                _dragOperation = new ItemsDragOperation(this, e.GetPosition(this), _selectorService.SelectedItems);
+                var selectedContainers = Diagram.SelectedObjects.Select(o => (UIElement)ItemContainerGenerator.ContainerFromItem(o));
+                _dragOperation = new ItemsDragOperation(this, e.GetPosition(this), selectedContainers);
             }
             else
             {

@@ -1,78 +1,79 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
-using PS.Patterns.Aware;
+﻿//using System.Collections.Generic;
+//using System.Linq;
+//using System.Windows;
+//using PS.Shell.Module.Diagram.Controls.MVVM;
 
-namespace PS.Shell.Module.Diagram.Controls
-{
-    public class SelectorService
-    {
-        private readonly List<UIElement> _selectedItems;
+//namespace PS.Shell.Module.Diagram.Controls
+//{
+//    public class SelectorService
+//    {
+//        private readonly List<UIElement> _selectedItems;
 
-        #region Constructors
+//        #region Constructors
 
-        public SelectorService()
-        {
-            _selectedItems = new List<UIElement>();
-        }
+//        public SelectorService()
+//        {
+//            _selectedItems = new List<UIElement>();
+//        }
 
-        #endregion
+//        #endregion
 
-        #region Properties
+//        #region Properties
 
-        public IReadOnlyList<UIElement> SelectedItems
-        {
-            get { return _selectedItems; }
-        }
+//        public IReadOnlyList<UIElement> SelectedItems
+//        {
+//            get { return _selectedItems; }
+//        }
 
-        #endregion
+//        #endregion
 
-        #region Members
+//        #region Members
 
-        public void Add(UIElement element)
-        {
-            if (_selectedItems.Contains(element)) return;
-            _selectedItems.Add(element);
-            if (element is IIsSelectedAware isSelectedAware)
-            {
-                isSelectedAware.IsSelected = true;
-            }
-        }
+//        public void Add(UIElement element)
+//        {
+//            if (_selectedItems.Contains(element)) return;
+//            _selectedItems.Add(element);
 
-        public void Clear()
-        {
-            var itemsToRemove = _selectedItems.ToList();
-            foreach (var item in itemsToRemove)
-            {
-                Remove(item);
-            }
-        }
+//            if (element is Node node && node.Data is INode data)
+//            {
+//                data.Visual.IsSelected = true;
+//            }
+//        }
 
-        public void Remove(UIElement element)
-        {
-            if (_selectedItems.Remove(element) && element is IIsSelectedAware isSelectedAware)
-            {
-                isSelectedAware.IsSelected = false;
-            }
-        }
+//        public void Clear()
+//        {
+//            var itemsToRemove = _selectedItems.ToList();
+//            foreach (var item in itemsToRemove)
+//            {
+//                Remove(item);
+//            }
+//        }
 
-        public void Set(UIElement element)
-        {
-            if (_selectedItems.Contains(element))
-            {
-                var itemsToRemove = _selectedItems.Except(new[] { element }).ToList();
-                foreach (var item in itemsToRemove)
-                {
-                    Remove(item);
-                }
-            }
-            else
-            {
-                Clear();
-                Add(element);
-            }
-        }
+//        public void Remove(UIElement element)
+//        {
+//            if (_selectedItems.Remove(element) && element is Node node && node.Data is INode data)
+//            {
+//                data.Visual.IsSelected = false;
+//            }
+//        }
 
-        #endregion
-    }
-}
+//        public void Set(UIElement element)
+//        {
+//            if (_selectedItems.Contains(element))
+//            {
+//                var itemsToRemove = _selectedItems.Except(new[] { element }).ToList();
+//                foreach (var item in itemsToRemove)
+//                {
+//                    Remove(item);
+//                }
+//            }
+//            else
+//            {
+//                Clear();
+//                Add(element);
+//            }
+//        }
+
+//        #endregion
+//    }
+//}

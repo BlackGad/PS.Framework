@@ -1,25 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using PS.Extensions;
 
 namespace PS.Shell.Module.Diagram.Controls.MVVM
 {
-    public class NodeVisual : INodeVisual
+    public class ConnectorGeometry : IConnectorGeometry
     {
-        private bool _isSelected;
-
-        #region INodeVisual Members
-
-        public bool IsSelected
-        {
-            get { return _isSelected; }
-            set
-            {
-                if (_isSelected.AreEqual(value)) return;
-                _isSelected = value;
-                OnPropertyChanged();
-            }
-        }
+        #region IConnectorGeometry Members
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -4,31 +4,19 @@ using PS.Extensions;
 
 namespace PS.Shell.Module.Diagram.Controls.MVVM
 {
-    public class NodeGeometry : INodeGeometry
+    public class ConnectorVisual : IConnectorVisual
     {
-        private double _centerX;
-        private double _centerY;
+        private bool _isSelected;
 
-        #region INodeGeometry Members
+        #region IConnectorVisual Members
 
-        public double CenterX
+        public bool IsSelected
         {
-            get { return _centerX; }
+            get { return _isSelected; }
             set
             {
-                if (_centerX.AreEqual(value)) return;
-                _centerX = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public double CenterY
-        {
-            get { return _centerY; }
-            set
-            {
-                if (_centerY.AreEqual(value)) return;
-                _centerY = value;
+                if (_isSelected.AreEqual(value)) return;
+                _isSelected = value;
                 OnPropertyChanged();
             }
         }
