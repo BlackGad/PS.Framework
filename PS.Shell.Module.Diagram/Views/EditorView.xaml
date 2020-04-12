@@ -12,6 +12,11 @@
                 d:DesignWidth="800"
                 Focusable="False"
                 mc:Ignorable="d">
+    <ContentControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="150" />
+        </Style>
+    </ContentControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25" />
@@ -21,6 +26,7 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <Button Command="{Binding AddCommand}" Content="Add" />
             <Button Command="{Binding RemoveCommand}" Content="Remove" />
+            <Button Command="{Binding MoveCommand}" Content="Move" />
         </StackPanel>
         <controls:Diagram Grid.Row="1"
                           NodeTemplateSelector="{mvvm:TemplateResolver Region={x:Static viewResolverService:Regions.Diagram}}"

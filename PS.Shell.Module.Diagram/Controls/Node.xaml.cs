@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using PS.Extensions;
 using PS.Shell.Module.Diagram.Controls.MVVM;
 using PS.WPF.Resources;
 
@@ -25,6 +26,8 @@ namespace PS.Shell.Module.Diagram.Controls
                                         new FrameworkPropertyMetadata(default(INodeVisual)));
 
         #endregion
+
+        private bool _synchronization;
 
         #region Constructors
 
@@ -54,6 +57,36 @@ namespace PS.Shell.Module.Diagram.Controls
         {
             get { return (INodeVisual)GetValue(VisualProperty); }
             set { SetValue(VisualProperty, value); }
+        }
+
+        #endregion
+
+        #region Override members
+
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            if (_synchronization) return;
+            try
+            {
+                _synchronization = true;
+                base.OnPropertyChanged(e);
+
+                if (Geometry != null)
+                {
+                    if (e.Property.AreEqual(Canvas.TopProperty) || e.Property.AreEqual(ActualHeightProperty))
+                    {
+                        Geometry.CenterY = Canvas.GetTop(this) + ActualHeight / 2;
+                    }
+                    else if (e.Property.AreEqual(Canvas.LeftProperty) || e.Property.AreEqual(ActualWidthProperty))
+                    {
+                        Geometry.CenterX = Canvas.GetLeft(this) + ActualWidth / 2;
+                    }
+                }
+            }
+            finally
+            {
+                _synchronization = false;
+            }
         }
 
         #endregion

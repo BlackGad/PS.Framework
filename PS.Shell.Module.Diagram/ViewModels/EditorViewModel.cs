@@ -30,15 +30,11 @@ namespace PS.Shell.Module.Diagram.ViewModels
         {
             AddCommand = new RelayCommand(Add);
             RemoveCommand = new RelayCommand(Remove);
+            MoveCommand = new RelayCommand(Move);
+
             Graph = new DiagramGraph();
             Graph.Add(Guid.NewGuid().ToString("N"), new NodeStartViewModel());
             Graph.Add(Guid.NewGuid().ToString("N"), new NodeEndViewModel());
-        }
-
-        private void Remove()
-        {
-            var node = Graph.Vertices.LastOrDefault();
-            Graph.Delete(node);
         }
 
         #endregion
@@ -46,13 +42,15 @@ namespace PS.Shell.Module.Diagram.ViewModels
         #region Properties
 
         public ICommand AddCommand { get; }
-        public ICommand RemoveCommand { get; }
 
         public IDiagramGraph Graph
         {
             get { return (IDiagramGraph)GetValue(GraphProperty); }
             set { SetValue(GraphProperty, value); }
         }
+
+        public ICommand MoveCommand { get; }
+        public ICommand RemoveCommand { get; }
 
         #endregion
 
@@ -61,6 +59,22 @@ namespace PS.Shell.Module.Diagram.ViewModels
         private void Add()
         {
             Graph.Add(Guid.NewGuid().ToString("N"), new NodeEndViewModel());
+        }
+
+        private void Move()
+        {
+            var node = Graph.Vertices.LastOrDefault();
+            if (node != null)
+            {
+                node.Geometry.CenterX += 10;
+                node.Geometry.CenterY += 10;
+            }
+        }
+
+        private void Remove()
+        {
+            var node = Graph.Vertices.LastOrDefault();
+            Graph.Delete(node);
         }
 
         #endregion

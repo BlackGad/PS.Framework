@@ -49,10 +49,7 @@ namespace PS.Shell.Module.Diagram.Controls
                 else
                 {
                     var right = GetRight(internalChild);
-                    if (!double.IsNaN(right))
-                    {
-                        x = arrangeSize.Width - internalChild.DesiredSize.Width - right;
-                    }
+                    if (!double.IsNaN(right)) x = arrangeSize.Width - internalChild.DesiredSize.Width - right;
                 }
 
                 var top = GetTop(internalChild);
@@ -63,10 +60,7 @@ namespace PS.Shell.Module.Diagram.Controls
                 else
                 {
                     var bottom = GetBottom(internalChild);
-                    if (!double.IsNaN(bottom))
-                    {
-                        y = arrangeSize.Height - internalChild.DesiredSize.Height - bottom;
-                    }
+                    if (!double.IsNaN(bottom)) y = arrangeSize.Height - internalChild.DesiredSize.Height - bottom;
                 }
 
                 minLeft = Math.Min(minLeft, x);

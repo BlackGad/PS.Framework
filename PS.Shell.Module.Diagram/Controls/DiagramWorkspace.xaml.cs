@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using PS.ComponentModel.DeepTracker;
+using PS.ComponentModel.DeepTracker.Extensions;
+using PS.ComponentModel.Navigation;
+using PS.ComponentModel.Navigation.Extensions;
 using PS.Extensions;
 using PS.Shell.Module.Diagram.Controls.MVVM;
 using PS.WPF.Extensions;
@@ -28,6 +33,19 @@ namespace PS.Shell.Module.Diagram.Controls
 
         #endregion
 
+        #region Constants
+
+        private static readonly Route QueryGraphRoute;
+
+        private static readonly Route QueryNodeRoute;
+        private static readonly Route QueryNodeVisualGeometryRoute;
+        private static readonly Route QueryNodeVisualSelectionRoute;
+
+        #endregion
+
+        private readonly DeepTracker _graphNodesTracker;
+        private readonly DeepTracker _selectedItemsTracker;
+
         private DragOperation _dragOperation;
         private object _lastOverrideItem;
 
@@ -37,6 +55,11 @@ namespace PS.Shell.Module.Diagram.Controls
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DiagramWorkspace), new FrameworkPropertyMetadata(typeof(DiagramWorkspace)));
             ResourceHelper.SetDefaultStyle(typeof(DiagramWorkspace), Resource.ControlStyle);
+
+            QueryGraphRoute = Route.Create(nameof(Diagram), nameof(Controls.Diagram.Graph));
+            QueryNodeRoute = Route.Create(QueryGraphRoute, nameof(IDiagramGraph.Vertices), Routes.Wildcard);
+            QueryNodeVisualSelectionRoute = Route.Create(QueryNodeRoute, nameof(INode.Visual), nameof(INodeVisual.IsSelected));
+            QueryNodeVisualGeometryRoute = Route.Create(QueryNodeRoute, nameof(INode.Geometry), Routes.Wildcard);
         }
 
         public DiagramWorkspace()
@@ -45,6 +68,19 @@ namespace PS.Shell.Module.Diagram.Controls
             AddHandler(MouseMoveEvent, new MouseEventHandler(OnMouseMove));
             AddHandler(MouseUpEvent, new MouseButtonEventHandler(OnMouseUp));
             AddHandler(LostMouseCaptureEvent, new MouseEventHandler(OnLostMouseCapture));
+
+            _selectedItemsTracker = DeepTracker.Setup(this, nameof(Diagram), nameof(Controls.Diagram.SelectedObjects), Routes.Wildcard)
+                                               .Subscribe<ObjectAttachmentEventArgs>(OnSelectedObjectsAttachment)
+                                               .Create();
+
+            _graphNodesTracker = DeepTracker.Setup(this, QueryGraphRoute, Routes.WildcardRecursive)
+                                            .Exclude<INode>(node => node.ViewModel)
+                                            .Subscribe<ObjectAttachmentEventArgs>(OnVertexAttachment)
+                                            .Subscribe<ChangedPropertyEventArgs>(OnVertexPropertyChanged)
+                                            .Create();
+
+            Loaded += OnLoaded;
+            Unloaded += OnUnloaded;
         }
 
         #endregion
@@ -88,10 +124,9 @@ namespace PS.Shell.Module.Diagram.Controls
                 node.DataContext = item;
             }
 
-            if (element is Connector connector)
-            {
-                //if (item is IConnector connectorViewModel) connector.Content = connectorViewModel;
-            }
+            //if (element is Connector connector)
+            //{
+            //}
         }
 
         protected override void ClearContainerForItemOverride(DependencyObject element, object item)
@@ -109,6 +144,12 @@ namespace PS.Shell.Module.Diagram.Controls
         #endregion
 
         #region Event handlers
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            _graphNodesTracker.Activate();
+            _selectedItemsTracker.Activate();
+        }
 
         private void OnLostMouseCapture(object sender, MouseEventArgs e)
         {
@@ -164,6 +205,73 @@ namespace PS.Shell.Module.Diagram.Controls
         private void OnMouseUp(object sender, MouseButtonEventArgs e)
         {
             _dragOperation?.Commit();
+        }
+
+        private void OnSelectedObjectsAttachment(object sender, ObjectAttachmentEventArgs e)
+        {
+            if (e.Object is INode node)
+            {
+                if (e is ObjectAttachedEventArgs) node.Visual.IsSelected = true;
+                if (e is ObjectDetachedEventArgs) node.Visual.IsSelected = false;
+            }
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            _graphNodesTracker.Deactivate();
+            _selectedItemsTracker.Deactivate();
+        }
+
+        private void OnVertexAttachment(object sender, ObjectAttachmentEventArgs e)
+        {
+            if (e.Route.Match(QueryNodeRoute) && e.Object is INode node)
+            {
+                if (e is ObjectAttachedEventArgs)
+                {
+                    if (node.Visual.IsSelected) Diagram.SelectedObjects.AddUnique(node);
+                }
+
+                if (e is ObjectDetachedEventArgs)
+                {
+                    Diagram.SelectedObjects.Remove(node);
+                }
+            }
+        }
+
+        private void OnVertexPropertyChanged(object sender, ChangedPropertyEventArgs e)
+        {
+            var tracker = (DeepTracker)sender;
+
+            if (e.Route.Match(QueryNodeVisualSelectionRoute))
+            {
+                var node = (INode)tracker.GetObject(e.Route.Select(QueryNodeRoute));
+                if (e.NewValue.AreEqual(true))
+                {
+                    Diagram.SelectedObjects.AddUnique(node);
+                }
+                else
+                {
+                    Diagram.SelectedObjects.Remove(node);
+                }
+            }
+            else if (e.Route.Match(QueryNodeVisualGeometryRoute))
+            {
+                //TODO: disable handling on drag operations
+                var node = (INode)tracker.GetObject(e.Route.Select(QueryNodeRoute));
+                var container = (UIElement)ItemContainerGenerator.ContainerFromItem(node);
+                if (e.Route.EndWith(Route.Create(nameof(INodeGeometry.CenterX))))
+                {
+                    var delta = (double)e.OldValue - (double)e.NewValue;
+                    Canvas.SetLeft(container, Canvas.GetLeft(container) - delta);
+                }
+                else if (e.Route.EndWith(Route.Create(nameof(INodeGeometry.CenterY))))
+                {
+                    var delta = (double)e.OldValue - (double)e.NewValue;
+                    Canvas.SetTop(container, Canvas.GetTop(container) - delta);
+                }
+            }
+
+            Debug.WriteLine(e.FormatMessage());
         }
 
         #endregion
