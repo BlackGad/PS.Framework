@@ -152,30 +152,32 @@ namespace PS.ComponentModel.DeepTracker
                                     RemoveBranch(Route.Create(visitedRoute, id));
                                 }
                             }
-
-                            return;
                         }
-
-                        foreach (var item in args.NewItems.Enumerate())
+                        else
                         {
-                            if (item == null) continue;
-
-                            if (!_collectionChildrenIds.TryGetValue(item, out var id))
+                            foreach (var item in args.NewItems.Enumerate())
                             {
-                                id = Guid.NewGuid().CreateDynamicRoute().ToString();
-                                _collectionChildrenIds.Add(item, id);
+                                if (item == null) continue;
+
+                                if (!_collectionChildrenIds.TryGetValue(item, out var id))
+                                {
+                                    id = Guid.NewGuid().CreateDynamicRoute().ToString();
+                                    _collectionChildrenIds.Add(item, id);
+                                }
+
+                                AddBranch(Route.Create(visitedRoute, id), item, _configuration, visitedObjects);
                             }
 
-                            AddBranch(Route.Create(visitedRoute, id), item, _configuration, visitedObjects);
-                        }
-
-                        foreach (var item in args.OldItems.Enumerate())
-                        {
-                            if (_collectionChildrenIds.TryGetValue(item, out var id))
+                            foreach (var item in args.OldItems.Enumerate())
                             {
-                                RemoveBranch(Route.Create(visitedRoute, id));
+                                if (_collectionChildrenIds.TryGetValue(item, out var id))
+                                {
+                                    RemoveBranch(Route.Create(visitedRoute, id));
+                                }
                             }
                         }
+
+                        closureSourceItems = new WeakReference(sender.Enumerate().ToArray());
 
                         var collectionChangedEventArgs = new ChangedCollectionEventArgs(visitedRoute, sender, args);
                         _configuration.Raise(this, collectionChangedEventArgs);

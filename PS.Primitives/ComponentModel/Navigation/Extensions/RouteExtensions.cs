@@ -81,6 +81,22 @@ namespace PS.ComponentModel.Navigation.Extensions
             return false;
         }
 
+        public static Route Select(this Route source, Route route, RouteCaseMode caseSensitive = RouteCaseMode.Sensitive)
+        {
+            if (route.IsEmpty() && source.IsEmpty()) return Routes.Empty;
+
+            var modeIndex = (int)caseSensitive;
+            if (modeIndex > 1) return null;
+
+            var match = Regex.Match(source.Sequences[modeIndex].RegexInput, route.Sequences[modeIndex].RegexPattern);
+            if (!match.Success) return null;
+
+            var tokensToSkip = RouteTokenSequenceBuilder.TokenCountInSequence(source.Sequences[modeIndex].RegexInput.Substring(0, match.Index));
+            var tokensToTake = RouteTokenSequenceBuilder.TokenCountInSequence(match.Value);
+
+            return source.Sub(tokensToSkip, tokensToTake);
+        }
+
         public static bool StartWith(this Route source, Route route, RouteCaseMode caseSensitive = RouteCaseMode.Sensitive)
         {
             if (source.IsEmpty()) return route.IsEmpty();

@@ -27,7 +27,12 @@ namespace PS.ComponentModel.DeepTracker.Extensions
                 return message;
             }
 
-            return $"{e.Route} property changed.";
+            if (e is ChangedPropertyEventArgs propertyEventArgs)
+            {
+                return $"{e.Route} property changed '{propertyEventArgs.OldValue.GetEffectiveString()}' -> '{propertyEventArgs.NewValue.GetEffectiveString()}'";
+            }
+
+            return $"{e.Route} changed.";
         }
 
         #endregion

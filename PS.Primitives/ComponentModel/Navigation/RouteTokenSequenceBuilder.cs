@@ -8,8 +8,18 @@ namespace PS.ComponentModel.Navigation
     {
         #region Constants
 
+        public static readonly char EscapeSymbol = ';';
         private static readonly RouteToken Wildcard;
         private static readonly RouteToken WildcardRecursive;
+
+        #endregion
+
+        #region Static members
+
+        public static int TokenCountInSequence(string sequence)
+        {
+            return sequence.Count(c => c == EscapeSymbol) / 2;
+        }
 
         #endregion
 
@@ -48,13 +58,13 @@ namespace PS.ComponentModel.Navigation
 
             if (Equals(record, Wildcard))
             {
-                _regexPatternTokens.Add("(;\\d+;)");
+                _regexPatternTokens.Add($"({EscapeSymbol}\\d+{EscapeSymbol})");
                 if (!_recursiveStart.HasValue) _recursiveStart = recordIndex - 1;
                 _recursiveEnd = recordIndex;
             }
             else if (Equals(record, WildcardRecursive))
             {
-                _regexPatternTokens.Add("(;\\d+;)*?");
+                _regexPatternTokens.Add($"({EscapeSymbol}\\d+{EscapeSymbol})*?");
                 if (!_recursiveStart.HasValue) _recursiveStart = recordIndex - 1;
                 _recursiveEnd = recordIndex;
             }
