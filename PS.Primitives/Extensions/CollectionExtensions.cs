@@ -9,6 +9,14 @@ namespace PS.Extensions
     {
         #region Static members
 
+        public static bool AddUnique<T>(this ICollection<T> collection, T value)
+        {
+            if (collection == null) throw new ArgumentNullException(nameof(collection));
+            if (collection.Contains(value)) return false;
+            collection.Add(value);
+            return true;
+        }
+
         /// <summary>
         ///     Compares two enumeration and returns detailed comparison result.
         /// </summary>
