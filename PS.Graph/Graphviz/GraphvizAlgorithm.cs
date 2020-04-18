@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using PS.Graph.Graphviz.Dot;
@@ -26,13 +25,12 @@ namespace PS.Graph.Graphviz
         #region Constructors
 
         public GraphvizAlgorithm(IEdgeListGraph<TVertex, TEdge> g)
-            : this(g, ".", GraphvizImageType.Png)
+            : this(g, GraphvizImageType.Png)
         {
         }
 
         public GraphvizAlgorithm(
             IEdgeListGraph<TVertex, TEdge> g,
-            String path,
             GraphvizImageType imageType
         )
         {

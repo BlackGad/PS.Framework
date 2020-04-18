@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
 
 namespace PS.Graph
@@ -34,7 +33,6 @@ namespace PS.Graph
             get { return OriginalEdge.Source; }
         }
 
-        [Pure]
         public override bool Equals(object obj)
         {
             if (!(obj is SReversedEdge<TVertex, TEdge>))
@@ -45,19 +43,16 @@ namespace PS.Graph
             return Equals((SReversedEdge<TVertex, TEdge>)obj);
         }
 
-        [Pure]
         public override int GetHashCode()
         {
             return OriginalEdge.GetHashCode() ^ 16777619;
         }
 
-        [Pure]
         public override string ToString()
         {
             return $"R({OriginalEdge})";
         }
 
-        [Pure]
         public bool Equals(SReversedEdge<TVertex, TEdge> other)
         {
             return OriginalEdge.Equals(other.OriginalEdge);

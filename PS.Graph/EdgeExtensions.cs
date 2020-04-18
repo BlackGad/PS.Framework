@@ -29,7 +29,6 @@ namespace PS.Graph
         /// <param name="edge">must not be a self-edge</param>
         /// <param name="vertex"></param>
         /// <returns></returns>
-        [Pure]
         public static TVertex GetOtherVertex<TVertex, TEdge>(this TEdge edge,
                                                              TVertex vertex)
             where TEdge : IEdge<TVertex>
@@ -41,7 +40,7 @@ namespace PS.Graph
         }
 
         /// <summary>
-        ///     Returns the most efficient comporer for the particular type of TEdge.
+        ///     Returns the most efficient comparer for the particular type of TEdge.
         ///     If TEdge implements IUndirectedEdge, then only the (source,target) pair
         ///     has to be compared; if not, (source, target) and (target, source) have to be compared.
         /// </summary>
@@ -59,7 +58,6 @@ namespace PS.Graph
             return UndirectedVertexEquality;
         }
 
-        [Pure]
         public static bool HasCycles<TVertex, TEdge>(this IEnumerable<TEdge> path)
             where TEdge : IEdge<TVertex>
         {
@@ -101,7 +99,6 @@ namespace PS.Graph
         /// <param name="edge"></param>
         /// <param name="vertex"></param>
         /// <returns></returns>
-        [Pure]
         public static bool IsAdjacent<TVertex, TEdge>(this TEdge edge,
                                                       TVertex vertex)
             where TEdge : IEdge<TVertex>
@@ -114,7 +111,6 @@ namespace PS.Graph
                    || edge.Target.Equals(vertex);
         }
 
-        [Pure]
         public static bool IsPath<TVertex, TEdge>(this IEnumerable<TEdge> path)
             where TEdge : IEdge<TVertex>
         {
@@ -141,7 +137,6 @@ namespace PS.Graph
             return true;
         }
 
-        [Pure]
         public static bool IsPathWithoutCycles<TVertex, TEdge>(this IEnumerable<TEdge> path)
             where TEdge : IEdge<TVertex>
         {
@@ -228,7 +223,6 @@ namespace PS.Graph
         /// <typeparam name="TEdge">type of the edges</typeparam>
         /// <param name="edge"></param>
         /// <returns></returns>
-        [Pure]
         public static bool IsSelfEdge<TVertex, TEdge>(this TEdge edge)
             where TEdge : IEdge<TVertex>
         {

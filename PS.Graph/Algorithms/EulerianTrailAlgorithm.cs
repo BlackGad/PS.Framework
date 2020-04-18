@@ -547,7 +547,7 @@ namespace PS.Graph.Algorithms
         /// <summary>
         ///     Looks for a new path to add to the current vertex.
         /// </summary>
-        /// <returns>true if found a new path, false otherwize</returns>
+        /// <returns>true if found a new path, false otherwise</returns>
         private bool Visit()
         {
             // find a vertex that needs to be visited

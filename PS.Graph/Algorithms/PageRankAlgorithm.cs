@@ -48,35 +48,6 @@ namespace PS.Graph.Algorithms
 
         #region Override members
 
-        /*
-                public void RemoveDanglingLinks()
-                {
-                    VertexCollection danglings = new VertexCollection();
-                    do
-                    {
-                        danglings.Clear();
-        
-                        // create filtered graph
-                        IVertexListGraph fg = new FilteredVertexListGraph(
-                            this.VisitedGraph,
-                            new InDictionaryVertexPredicate(this.ranks)
-                            );
-        
-                        // iterate over of the vertices in the rank map
-                        foreach (IVertex v in this.ranks.Keys)
-                        {
-                            // if v does not have out-edge in the filtered graph, remove
-                            if (fg.OutDegree(v) == 0)
-                                danglings.Add(v);
-                        }
-        
-                        // remove from ranks
-                        foreach (IVertex v in danglings)
-                            this.ranks.Remove(v);
-                        // iterate until no dangling was removed
-                    } while (danglings.Count != 0);
-                }
-        */
         protected override void InternalCompute()
         {
             var cancelManager = Services.CancelManager;
@@ -89,8 +60,8 @@ namespace PS.Graph.Algorithms
                 e => true
             );
 
-            var iter = 0;
-            double error = 0;
+            var iteration = 0;
+            double error;
             do
             {
                 if (cancelManager.IsCancelling)
@@ -128,8 +99,8 @@ namespace PS.Graph.Algorithms
                 Ranks = tempRanks;
                 tempRanks = temp;
 
-                iter++;
-            } while (error > _tolerance && iter < _maxIterations);
+                iteration++;
+            } while (error > _tolerance && iteration < _maxIterations);
         }
 
         #endregion

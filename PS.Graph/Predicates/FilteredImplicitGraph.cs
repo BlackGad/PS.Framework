@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Predicates
 {
@@ -25,13 +24,11 @@ namespace PS.Graph.Predicates
 
         #region IImplicitGraph<TVertex,TEdge> Members
 
-        [Pure]
         public bool IsOutEdgesEmpty(TVertex v)
         {
             return OutDegree(v) == 0;
         }
 
-        [Pure]
         public int OutDegree(TVertex v)
         {
             var count = 0;
@@ -46,7 +43,6 @@ namespace PS.Graph.Predicates
             return count;
         }
 
-        [Pure]
         public IEnumerable<TEdge> OutEdges(TVertex v)
         {
             foreach (var edge in BaseGraph.OutEdges(v))
@@ -58,7 +54,6 @@ namespace PS.Graph.Predicates
             }
         }
 
-        [Pure]
         public bool TryGetOutEdges(TVertex v, out IEnumerable<TEdge> edges)
         {
             if (!BaseGraph.TryGetOutEdges(v, out _))
@@ -71,7 +66,6 @@ namespace PS.Graph.Predicates
             return true;
         }
 
-        [Pure]
         public TEdge OutEdge(TVertex v, int index)
         {
             throw new NotSupportedException();

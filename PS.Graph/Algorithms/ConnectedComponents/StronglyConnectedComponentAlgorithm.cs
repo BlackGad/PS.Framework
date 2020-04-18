@@ -140,7 +140,7 @@ namespace PS.Graph.Algorithms.ConnectedComponents
 
             if (_roots[v].Equals(v))
             {
-                var w = default(TVertex);
+                TVertex w;
                 do
                 {
                     w = _stack.Pop();

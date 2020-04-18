@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph
 {
@@ -52,7 +51,6 @@ namespace PS.Graph
             get { return OriginalGraph.Vertices; }
         }
 
-        [Pure]
         public bool ContainsVertex(TVertex vertex)
         {
             return OriginalGraph.ContainsVertex(vertex);
@@ -68,9 +66,9 @@ namespace PS.Graph
             TVertex target,
             out SReversedEdge<TVertex, TEdge> edge)
         {
-            if (OriginalGraph.TryGetEdge(target, source, out var oedge))
+            if (OriginalGraph.TryGetEdge(target, source, out var originalEdges))
             {
-                edge = new SReversedEdge<TVertex, TEdge>(oedge);
+                edge = new SReversedEdge<TVertex, TEdge>(originalEdges);
                 return true;
             }
 
@@ -83,12 +81,12 @@ namespace PS.Graph
             TVertex target,
             out IEnumerable<SReversedEdge<TVertex, TEdge>> edges)
         {
-            if (OriginalGraph.TryGetEdges(target, source, out var oedges))
+            if (OriginalGraph.TryGetEdges(target, source, out var originalEdges))
             {
                 var list = new List<SReversedEdge<TVertex, TEdge>>();
-                foreach (var oedge in oedges)
+                foreach (var originalEdge in originalEdges)
                 {
-                    list.Add(new SReversedEdge<TVertex, TEdge>(oedge));
+                    list.Add(new SReversedEdge<TVertex, TEdge>(originalEdge));
                 }
 
                 edges = list;
@@ -99,25 +97,21 @@ namespace PS.Graph
             return false;
         }
 
-        [Pure]
         public bool IsOutEdgesEmpty(TVertex v)
         {
             return OriginalGraph.IsInEdgesEmpty(v);
         }
 
-        [Pure]
         public int OutDegree(TVertex v)
         {
             return OriginalGraph.InDegree(v);
         }
 
-        [Pure]
         public IEnumerable<SReversedEdge<TVertex, TEdge>> InEdges(TVertex v)
         {
             return EdgeExtensions.ReverseEdges<TVertex, TEdge>(OriginalGraph.OutEdges(v));
         }
 
-        [Pure]
         public SReversedEdge<TVertex, TEdge> InEdge(TVertex v, int index)
         {
             var edge = OriginalGraph.OutEdge(v, index);
@@ -129,25 +123,21 @@ namespace PS.Graph
             return new SReversedEdge<TVertex, TEdge>(edge);
         }
 
-        [Pure]
         public bool IsInEdgesEmpty(TVertex v)
         {
             return OriginalGraph.IsOutEdgesEmpty(v);
         }
 
-        [Pure]
         public int InDegree(TVertex v)
         {
             return OriginalGraph.OutDegree(v);
         }
 
-        [Pure]
         public IEnumerable<SReversedEdge<TVertex, TEdge>> OutEdges(TVertex v)
         {
             return EdgeExtensions.ReverseEdges<TVertex, TEdge>(OriginalGraph.InEdges(v));
         }
 
-        [Pure]
         public bool TryGetInEdges(TVertex v, out IEnumerable<SReversedEdge<TVertex, TEdge>> edges)
         {
             if (OriginalGraph.TryGetOutEdges(v, out var outEdges))
@@ -160,7 +150,6 @@ namespace PS.Graph
             return false;
         }
 
-        [Pure]
         public bool TryGetOutEdges(TVertex v, out IEnumerable<SReversedEdge<TVertex, TEdge>> edges)
         {
             if (OriginalGraph.TryGetInEdges(v, out var inEdges))
@@ -173,7 +162,6 @@ namespace PS.Graph
             return false;
         }
 
-        [Pure]
         public SReversedEdge<TVertex, TEdge> OutEdge(TVertex v, int index)
         {
             var edge = OriginalGraph.InEdge(v, index);
@@ -196,13 +184,11 @@ namespace PS.Graph
             }
         }
 
-        [Pure]
         public bool ContainsEdge(SReversedEdge<TVertex, TEdge> edge)
         {
             return OriginalGraph.ContainsEdge(edge.OriginalEdge);
         }
 
-        [Pure]
         public int Degree(TVertex v)
         {
             return OriginalGraph.Degree(v);

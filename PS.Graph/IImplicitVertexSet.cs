@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.Contracts;
-
-namespace PS.Graph
+﻿namespace PS.Graph
 {
     /// <summary>
     ///     An implicit set of vertices
@@ -17,7 +15,6 @@ namespace PS.Graph
         /// <returns>
         ///     <c>true</c> if the specified vertex contains vertex; otherwise, <c>false</c>.
         /// </returns>
-        [Pure]
         bool ContainsVertex(TVertex vertex);
 
         #endregion

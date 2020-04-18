@@ -103,7 +103,7 @@ namespace PS.Graph
 
         public bool AllowParallelEdges
         {
-            [Pure] get { return Wrapped.AllowParallelEdges; }
+            get { return Wrapped.AllowParallelEdges; }
         }
 
         public bool IsVerticesEmpty
@@ -121,7 +121,6 @@ namespace PS.Graph
             get { return Wrapped.Vertices; }
         }
 
-        [Pure]
         public bool ContainsVertex(TVertex v)
         {
             return Wrapped.ContainsVertex(v);
@@ -154,7 +153,7 @@ namespace PS.Graph
 
         public bool IsEdgesEmpty
         {
-            [Pure] get { return Wrapped.IsEdgesEmpty; }
+            get { return Wrapped.IsEdgesEmpty; }
         }
 
         public int EdgeCount
@@ -164,22 +163,19 @@ namespace PS.Graph
 
         public virtual IEnumerable<TEdge> Edges
         {
-            [Pure] get { return Wrapped.Edges; }
+            get { return Wrapped.Edges; }
         }
 
-        [Pure]
         public bool ContainsEdge(TVertex source, TVertex target)
         {
             return Wrapped.ContainsEdge(source, target);
         }
 
-        [Pure]
         public bool ContainsEdge(TEdge edge)
         {
             return Wrapped.ContainsEdge(edge);
         }
 
-        [Pure]
         public bool TryGetEdge(
             TVertex source,
             TVertex target,
@@ -188,7 +184,6 @@ namespace PS.Graph
             return Wrapped.TryGetEdge(source, target, out edge);
         }
 
-        [Pure]
         public virtual bool TryGetEdges(
             TVertex source,
             TVertex target,

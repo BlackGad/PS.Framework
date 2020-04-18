@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.Contracts;
-
-namespace PS.Graph.Collections
+﻿namespace PS.Graph.Collections
 {
     /// <summary>
     ///     A disjoint-set data structure
@@ -37,7 +35,6 @@ namespace PS.Graph.Collections
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        [Pure]
         bool Contains(T value);
 
         /// <summary>
@@ -58,7 +55,7 @@ namespace PS.Graph.Collections
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>
-        /// <returns>true if left and right were unioned, false if they already belong to the same set</returns>
+        /// <returns>true if left and right were united, false if they already belong to the same set</returns>
         bool Union(T left, T right);
 
         #endregion

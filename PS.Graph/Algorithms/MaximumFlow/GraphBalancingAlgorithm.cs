@@ -45,8 +45,6 @@ namespace PS.Graph.Algorithms.MaximumFlow
 
         public GraphBalancerAlgorithm(
             IMutableBidirectionalGraph<TVertex, TEdge> visitedGraph,
-            VertexFactory<TVertex> vertexFactory,
-            EdgeFactory<TVertex, TEdge> edgeFactory,
             TVertex source,
             TVertex sink,
             IDictionary<TEdge, double> capacities)
@@ -178,13 +176,13 @@ namespace PS.Graph.Algorithms.MaximumFlow
                     continue;
                 }
 
-                var balacingIndex = GetBalancingIndex(v);
-                if (balacingIndex == 0)
+                var balancingIndex = GetBalancingIndex(v);
+                if (balancingIndex == 0)
                 {
                     continue;
                 }
 
-                if (balacingIndex < 0)
+                if (balancingIndex < 0)
                 {
                     // surplus vertex
                     var edge = EdgeFactory(BalancingSource, v);
@@ -192,7 +190,7 @@ namespace PS.Graph.Algorithms.MaximumFlow
                     _surplusEdges.Add(edge);
                     _surplusVertices.Add(v);
                     _preFlow.Add(edge, 0);
-                    Capacities.Add(edge, -balacingIndex);
+                    Capacities.Add(edge, -balancingIndex);
                     OnSurplusVertexAdded(v);
                     OnEdgeAdded(edge);
                 }
@@ -203,7 +201,7 @@ namespace PS.Graph.Algorithms.MaximumFlow
                     _deficientEdges.Add(edge);
                     _deficientVertices.Add(v);
                     _preFlow.Add(edge, 0);
-                    Capacities.Add(edge, balacingIndex);
+                    Capacities.Add(edge, balancingIndex);
                     OnDeficientVertexAdded(v);
                     OnEdgeAdded(edge);
                 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph
 {
@@ -44,7 +43,6 @@ namespace PS.Graph
         /// <returns>
         ///     <c>true</c> if the specified edge contains edge; otherwise, <c>false</c>.
         /// </returns>
-        [Pure]
         bool ContainsEdge(TEdge edge);
 
         #endregion

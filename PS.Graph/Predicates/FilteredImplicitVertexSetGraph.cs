@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Predicates
 {
@@ -24,7 +23,6 @@ namespace PS.Graph.Predicates
 
         #region IImplicitVertexSet<TVertex> Members
 
-        [Pure]
         public bool ContainsVertex(TVertex vertex)
         {
             return

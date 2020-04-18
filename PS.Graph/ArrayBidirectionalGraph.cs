@@ -259,9 +259,9 @@ namespace PS.Graph
         public bool TryGetInEdges(TVertex v, out IEnumerable<TEdge> edges)
         {
             if (_vertexEdges.TryGetValue(v, out var io) &&
-                io.TryGetInEdges(out var aedges))
+                io.TryGetInEdges(out var outEdges))
             {
-                edges = aedges;
+                edges = outEdges;
                 return true;
             }
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using PS.Graph.Collections;
 
@@ -40,25 +39,21 @@ namespace PS.Graph.Algorithms.Exploration
 
         #region IImplicitGraph<TVertex,TEdge> Members
 
-        [Pure]
         public bool IsOutEdgesEmpty(TVertex v)
         {
             return OutDegree(v) == 0;
         }
 
-        [Pure]
         public int OutDegree(TVertex v)
         {
             return OutEdges(v).Count();
         }
 
-        [Pure]
         public bool ContainsVertex(TVertex vertex)
         {
             return _vertexEdges.ContainsKey(vertex);
         }
 
-        [Pure]
         public IEnumerable<TEdge> OutEdges(TVertex v)
         {
             if (!_vertexEdges.TryGetValue(v, out var edges))
@@ -83,14 +78,12 @@ namespace PS.Graph.Algorithms.Exploration
             return edges;
         }
 
-        [Pure]
         public bool TryGetOutEdges(TVertex v, out IEnumerable<TEdge> edges)
         {
             edges = OutEdges(v);
             return true;
         }
 
-        [Pure]
         public TEdge OutEdge(TVertex v, int index)
         {
             var result = OutEdges(v).Skip(index).FirstOrDefault();

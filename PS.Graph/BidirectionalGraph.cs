@@ -73,59 +73,54 @@ namespace PS.Graph
 
         public static Type EdgeType
         {
-            [Pure] get { return typeof(TEdge); }
+            get { return typeof(TEdge); }
         }
 
         public int EdgeCapacity
         {
-            [Pure] get { return _edgeCapacity; }
+            get { return _edgeCapacity; }
             set { _edgeCapacity = value; }
         }
 
-        public bool IsDirected { [Pure] get; } = true;
+        public bool IsDirected { get; } = true;
 
-        public bool AllowParallelEdges { [Pure] get; }
+        public bool AllowParallelEdges { get; }
 
         public bool IsVerticesEmpty
         {
-            [Pure] get { return _vertexOutEdges.Count == 0; }
+            get { return _vertexOutEdges.Count == 0; }
         }
 
         public int VertexCount
         {
-            [Pure] get { return _vertexOutEdges.Count; }
+            get { return _vertexOutEdges.Count; }
         }
 
         public virtual IEnumerable<TVertex> Vertices
         {
-            [Pure] get { return _vertexOutEdges.Keys; }
+            get { return _vertexOutEdges.Keys; }
         }
 
-        [Pure]
         public bool ContainsVertex(TVertex v)
         {
             return _vertexOutEdges.ContainsKey(v);
         }
 
-        [Pure]
         public bool IsOutEdgesEmpty(TVertex v)
         {
             return _vertexOutEdges[v].Count == 0;
         }
 
-        [Pure]
         public int OutDegree(TVertex v)
         {
             return _vertexOutEdges[v].Count;
         }
 
-        [Pure]
         public IEnumerable<TEdge> OutEdges(TVertex v)
         {
             return _vertexOutEdges[v];
         }
 
-        [Pure]
         public bool TryGetInEdges(TVertex v, out IEnumerable<TEdge> edges)
         {
             if (_vertexInEdges.TryGetValue(v, out var list))
@@ -138,7 +133,6 @@ namespace PS.Graph
             return false;
         }
 
-        [Pure]
         public bool TryGetOutEdges(TVertex v, out IEnumerable<TEdge> edges)
         {
             if (_vertexOutEdges.TryGetValue(v, out var list))
@@ -151,37 +145,31 @@ namespace PS.Graph
             return false;
         }
 
-        [Pure]
         public TEdge OutEdge(TVertex v, int index)
         {
             return _vertexOutEdges[v][index];
         }
 
-        [Pure]
         public bool IsInEdgesEmpty(TVertex v)
         {
             return _vertexInEdges[v].Count == 0;
         }
 
-        [Pure]
         public int InDegree(TVertex v)
         {
             return _vertexInEdges[v].Count;
         }
 
-        [Pure]
         public IEnumerable<TEdge> InEdges(TVertex v)
         {
             return _vertexInEdges[v];
         }
 
-        [Pure]
         public TEdge InEdge(TVertex v, int index)
         {
             return _vertexInEdges[v][index];
         }
 
-        [Pure]
         public int Degree(TVertex v)
         {
             return OutDegree(v) + InDegree(v);
@@ -206,7 +194,6 @@ namespace PS.Graph
             }
         }
 
-        [Pure]
         public bool ContainsEdge(TVertex source, TVertex target)
         {
             if (!TryGetOutEdges(source, out var outEdges))
@@ -225,7 +212,6 @@ namespace PS.Graph
             return false;
         }
 
-        [Pure]
         public bool TryGetEdge(
             TVertex source,
             TVertex target,
@@ -248,7 +234,6 @@ namespace PS.Graph
             return false;
         }
 
-        [Pure]
         public bool TryGetEdges(
             TVertex source,
             TVertex target,
@@ -273,7 +258,6 @@ namespace PS.Graph
             return false;
         }
 
-        [Pure]
         public bool ContainsEdge(TEdge edge)
         {
             return _vertexOutEdges.TryGetValue(edge.Source, out var outEdges) &&

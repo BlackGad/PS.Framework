@@ -21,9 +21,7 @@ namespace PS.Graph
 
         #region Constructors
 
-        public ArrayAdjacencyGraph(
-            IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph
-        )
+        public ArrayAdjacencyGraph(IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph)
         {
             _vertexOutEdges = new Dictionary<TVertex, TEdge[]>(visitedGraph.VertexCount);
             EdgeCount = visitedGraph.EdgeCount;
@@ -34,10 +32,7 @@ namespace PS.Graph
             }
         }
 
-        private ArrayAdjacencyGraph(
-            Dictionary<TVertex, TEdge[]> vertexOutEdges,
-            int edgeCount
-        )
+        private ArrayAdjacencyGraph(Dictionary<TVertex, TEdge[]> vertexOutEdges, int edgeCount)
         {
             _vertexOutEdges = vertexOutEdges;
             EdgeCount = edgeCount;
@@ -135,10 +130,10 @@ namespace PS.Graph
 
         public bool TryGetOutEdges(TVertex v, out IEnumerable<TEdge> edges)
         {
-            if (_vertexOutEdges.TryGetValue(v, out var aedges) &&
-                aedges != null)
+            if (_vertexOutEdges.TryGetValue(v, out var outEdges) &&
+                outEdges != null)
             {
-                edges = aedges;
+                edges = outEdges;
                 return true;
             }
 

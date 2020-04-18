@@ -79,7 +79,6 @@ namespace PS.Graph
             }
         }
 
-        [Pure]
         public bool IsInEdgesEmpty(int v)
         {
             for (var i = 0; i < VertexCount; ++i)
@@ -93,7 +92,6 @@ namespace PS.Graph
             return true;
         }
 
-        [Pure]
         public int InDegree(int v)
         {
             var count = 0;
@@ -108,7 +106,6 @@ namespace PS.Graph
             return count;
         }
 
-        [Pure]
         public IEnumerable<TEdge> InEdges(int v)
         {
             for (var i = 0; i < VertexCount; ++i)
@@ -121,7 +118,6 @@ namespace PS.Graph
             }
         }
 
-        [Pure]
         public bool TryGetInEdges(int v, out IEnumerable<TEdge> edges)
         {
             Contract.Ensures(Contract.Result<bool>() == v > VertexCount);
@@ -137,7 +133,6 @@ namespace PS.Graph
             return false;
         }
 
-        [Pure]
         public TEdge InEdge(int v, int index)
         {
             var count = 0;
@@ -158,7 +153,6 @@ namespace PS.Graph
             throw new ArgumentOutOfRangeException(nameof(index));
         }
 
-        [Pure]
         public int Degree(int v)
         {
             return InDegree(v) + OutDegree(v);
@@ -187,7 +181,6 @@ namespace PS.Graph
             return false;
         }
 
-        [Pure]
         public bool IsOutEdgesEmpty(int v)
         {
             for (var j = 0; j < VertexCount; ++j)
@@ -201,7 +194,6 @@ namespace PS.Graph
             return true;
         }
 
-        [Pure]
         public int OutDegree(int v)
         {
             var count = 0;
@@ -216,7 +208,6 @@ namespace PS.Graph
             return count;
         }
 
-        [Pure]
         public IEnumerable<TEdge> OutEdges(int v)
         {
             for (var j = 0; j < VertexCount; ++j)
@@ -229,7 +220,6 @@ namespace PS.Graph
             }
         }
 
-        [Pure]
         public bool TryGetOutEdges(int v, out IEnumerable<TEdge> edges)
         {
             if (v > -1 && v < VertexCount)
@@ -242,7 +232,6 @@ namespace PS.Graph
             return false;
         }
 
-        [Pure]
         public TEdge OutEdge(int v, int index)
         {
             var count = 0;
@@ -274,13 +263,11 @@ namespace PS.Graph
             }
         }
 
-        [Pure]
         public bool ContainsVertex(int vertex)
         {
             return vertex >= 0 && vertex < VertexCount;
         }
 
-        [Pure]
         public bool ContainsEdge(TEdge edge)
         {
             var e = _edges[edge.Source, edge.Target];

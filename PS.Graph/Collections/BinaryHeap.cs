@@ -219,7 +219,6 @@ namespace PS.Graph.Collections
             Add(priority, value);
         }
 
-        [Pure]
         private bool Less(int i, int j)
         {
             return PriorityComparison(_items[i].Key, _items[j].Key) <= 0;

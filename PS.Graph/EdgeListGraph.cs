@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using PS.Graph.Collections;
 
 namespace PS.Graph
@@ -64,7 +63,6 @@ namespace PS.Graph
             get { return _edges.Keys; }
         }
 
-        [Pure]
         public bool ContainsEdge(TEdge edge)
         {
             return _edges.ContainsKey(edge);
@@ -74,25 +72,21 @@ namespace PS.Graph
 
         public bool AllowParallelEdges { get; } = true;
 
-        [Pure]
         public bool IsVerticesEmpty
         {
             get { return _edges.Count == 0; }
         }
 
-        [Pure]
         public int VertexCount
         {
             get { return GetVertexCounts().Count; }
         }
 
-        [Pure]
         public IEnumerable<TVertex> Vertices
         {
             get { return GetVertexCounts().Keys; }
         }
 
-        [Pure]
         public bool ContainsVertex(TVertex vertex)
         {
             foreach (var e in Edges)

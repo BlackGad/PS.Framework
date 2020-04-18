@@ -111,7 +111,7 @@ namespace PS.Graph
         }
 
         /// <summary>
-        ///     Converts a sequence of vertex pairs into an adjancency graph
+        ///     Converts a sequence of vertex pairs into an adjacency graph
         /// </summary>
         /// <typeparam name="TVertex">type of the vertices</typeparam>
         /// <param name="vertexPairs"></param>

@@ -93,10 +93,9 @@ namespace PS.Graph.Collections
 
         public int Count
         {
-            [Pure] get { return _heap.Count; }
+            get { return _heap.Count; }
         }
 
-        [Pure]
         public bool Contains(TVertex value)
         {
             return
@@ -129,7 +128,6 @@ namespace PS.Graph.Collections
             return _heap.Top.Value;
         }
 
-        [Pure]
         public TVertex[] ToArray()
         {
             var result = new TVertex[_heap.Count];

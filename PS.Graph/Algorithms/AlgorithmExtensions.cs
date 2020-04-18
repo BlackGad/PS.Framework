@@ -263,7 +263,7 @@ namespace PS.Graph.Algorithms
         /// <summary>
         ///     Computes the incremental connected components for a growing graph (edge added only).
         ///     Each call to the delegate re-computes the component dictionary. The returned dictionary
-        ///     is shared accross multiple calls of the method.
+        ///     is shared across multiple calls of the method.
         /// </summary>
         /// <typeparam name="TVertex">type of the vertices</typeparam>
         /// <typeparam name="TEdge">type of the edges</typeparam>
@@ -401,7 +401,7 @@ namespace PS.Graph.Algorithms
         ///     Create a collection of odd vertices
         /// </summary>
         /// <param name="g">graph to visit</param>
-        /// <returns>colleciton of odd vertices</returns>
+        /// <returns>collection of odd vertices</returns>
         /// <exception cref="ArgumentNullException">g is a null reference</exception>
         public static List<TVertex> OddVertices<TVertex, TEdge>(this IVertexAndEdgeListGraph<TVertex, TEdge> g)
             where TEdge : IEdge<TVertex>

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace PS.Graph.Predicates
@@ -28,7 +27,6 @@ namespace PS.Graph.Predicates
 
         public EdgeEqualityComparer<TVertex, TEdge> EdgeEqualityComparer { get; } = EdgeExtensions.GetUndirectedVertexEquality<TVertex, TEdge>();
 
-        [Pure]
         public IEnumerable<TEdge> AdjacentEdges(TVertex v)
         {
             if (VertexPredicate(v))
@@ -43,19 +41,16 @@ namespace PS.Graph.Predicates
             }
         }
 
-        [Pure]
         public int AdjacentDegree(TVertex v)
         {
             return AdjacentEdges(v).Count();
         }
 
-        [Pure]
         public bool IsAdjacentEdgesEmpty(TVertex v)
         {
             return !AdjacentEdges(v).Any();
         }
 
-        [Pure]
         public TEdge AdjacentEdge(TVertex v, int index)
         {
             if (VertexPredicate(v))
@@ -96,7 +91,6 @@ namespace PS.Graph.Predicates
             return false;
         }
 
-        [Pure]
         public bool ContainsEdge(TVertex source, TVertex target)
         {
             return TryGetEdge(source, target, out _);
@@ -126,7 +120,6 @@ namespace PS.Graph.Predicates
             }
         }
 
-        [Pure]
         public bool ContainsEdge(TEdge edge)
         {
             if (!TestEdge(edge))
@@ -161,7 +154,6 @@ namespace PS.Graph.Predicates
             }
         }
 
-        [Pure]
         public bool ContainsVertex(TVertex vertex)
         {
             if (!VertexPredicate(vertex))

@@ -237,7 +237,6 @@ namespace PS.Graph
             get { return _adjacentEdges.Keys; }
         }
 
-        [Pure]
         public bool ContainsVertex(TVertex vertex)
         {
             return _adjacentEdges.ContainsKey(vertex);

@@ -219,7 +219,7 @@ namespace PS.Graph.Collections
 
         #endregion
 
-        //We use the approach to avoid unnessecary branches
+        //We use the approach to avoid unnecessary branches
         private readonly Dictionary<int, FibonacciHeapCell<TPriority, TValue>> _degreeToNode;
         private readonly short _directionMultiplier; //Used to control the direction of the heap, set to 1 if the Heap is increasing, -1 if it's decreasing
         private readonly FibonacciHeapLinkedList<TPriority, TValue> _nodes;
@@ -456,7 +456,7 @@ namespace PS.Graph.Collections
 
             if (delta == _directionMultiplier || deletingNode)
             {
-                //New value is in the same direciton as the heap
+                //New value is in the same direction as the heap
                 node.Priority = newKey;
                 var parentNode = node.Parent;
                 if (parentNode != null && (PriorityComparison(newKey, node.Parent.Priority) * _directionMultiplier < 0 || deletingNode))
@@ -588,7 +588,7 @@ namespace PS.Graph.Collections
 
         /// <summary>
         ///     Updates the Next pointer, maintaining the heap
-        ///     by folding duplicate heap degrees into eachother
+        ///     by folding duplicate heap degrees into each other
         ///     Takes O(lg(N)) time amortized
         /// </summary>
         private void UpdateNext()
@@ -609,7 +609,7 @@ namespace PS.Graph.Collections
 
         /// <summary>
         ///     Updates the degree of a node, cascading to update the degree of the
-        ///     parents if nessecary
+        ///     parents if necessary
         /// </summary>
         /// <param name="parentNode"></param>
         private void UpdateNodesDegree(

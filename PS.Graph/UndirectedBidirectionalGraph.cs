@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph
 {
@@ -29,7 +28,6 @@ namespace PS.Graph
 
         public EdgeEqualityComparer<TVertex, TEdge> EdgeEqualityComparer { get; } = EdgeExtensions.GetUndirectedVertexEquality<TVertex, TEdge>();
 
-        [Pure]
         public IEnumerable<TEdge> AdjacentEdges(TVertex v)
         {
             foreach (var e in VisitedGraph.OutEdges(v))
@@ -50,25 +48,21 @@ namespace PS.Graph
             }
         }
 
-        [Pure]
         public int AdjacentDegree(TVertex v)
         {
             return VisitedGraph.Degree(v);
         }
 
-        [Pure]
         public bool IsAdjacentEdgesEmpty(TVertex v)
         {
             return VisitedGraph.IsOutEdgesEmpty(v) && VisitedGraph.IsInEdgesEmpty(v);
         }
 
-        [Pure]
         public TEdge AdjacentEdge(TVertex v, int index)
         {
             throw new NotSupportedException();
         }
 
-        [Pure]
         public bool ContainsEdge(TVertex source, TVertex target)
         {
             throw new NotSupportedException();
@@ -94,7 +88,6 @@ namespace PS.Graph
             get { return VisitedGraph.Vertices; }
         }
 
-        [Pure]
         public bool ContainsVertex(TVertex vertex)
         {
             return VisitedGraph.ContainsVertex(vertex);
@@ -115,7 +108,6 @@ namespace PS.Graph
             get { return VisitedGraph.Edges; }
         }
 
-        [Pure]
         public bool ContainsEdge(TEdge edge)
         {
             return VisitedGraph.ContainsEdge(edge);

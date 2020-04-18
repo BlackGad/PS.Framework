@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Predicates
 {
@@ -119,7 +118,6 @@ namespace PS.Graph.Predicates
             }
         }
 
-        [Pure]
         public bool ContainsEdge(TEdge edge)
         {
             return
@@ -131,7 +129,6 @@ namespace PS.Graph.Predicates
 
         #region Members
 
-        [Pure]
         private bool FilterEdge(TEdge edge)
         {
             return VertexPredicate(edge.Source)

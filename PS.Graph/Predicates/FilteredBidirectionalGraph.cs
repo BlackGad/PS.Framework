@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Predicates
 {
@@ -25,13 +24,11 @@ namespace PS.Graph.Predicates
 
         #region IBidirectionalGraph<TVertex,TEdge> Members
 
-        [Pure]
         public bool IsInEdgesEmpty(TVertex v)
         {
             return InDegree(v) == 0;
         }
 
-        [Pure]
         public int InDegree(TVertex v)
         {
             var count = 0;
@@ -46,7 +43,6 @@ namespace PS.Graph.Predicates
             return count;
         }
 
-        [Pure]
         public IEnumerable<TEdge> InEdges(TVertex v)
         {
             foreach (var edge in BaseGraph.InEdges(v))
@@ -58,7 +54,6 @@ namespace PS.Graph.Predicates
             }
         }
 
-        [Pure]
         public bool TryGetInEdges(TVertex v, out IEnumerable<TEdge> edges)
         {
             if (ContainsVertex(v))
@@ -71,7 +66,6 @@ namespace PS.Graph.Predicates
             return false;
         }
 
-        [Pure]
         public int Degree(TVertex v)
         {
             return OutDegree(v) + InDegree(v);
@@ -124,7 +118,6 @@ namespace PS.Graph.Predicates
             }
         }
 
-        [Pure]
         public bool ContainsEdge(TEdge edge)
         {
             if (!TestEdge(edge))
@@ -135,7 +128,6 @@ namespace PS.Graph.Predicates
             return BaseGraph.ContainsEdge(edge);
         }
 
-        [Pure]
         public TEdge InEdge(TVertex v, int index)
         {
             throw new NotSupportedException();

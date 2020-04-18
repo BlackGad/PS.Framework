@@ -65,7 +65,6 @@ namespace PS.Graph.Collections
             SetCount++;
         }
 
-        [Pure]
         public bool Contains(T value)
         {
             return _elements.ContainsKey(value);
@@ -104,7 +103,6 @@ namespace PS.Graph.Collections
             return root;
         }
 
-        [Pure]
         private Element FindNoCompression(Element element)
         {
             Contract.Ensures(Contract.Result<Element>() != null);
@@ -134,7 +132,7 @@ namespace PS.Graph.Collections
                     : Contract.OldValue(SetCount) == SetCount);
             Contract.Ensures(FindNoCompression(left) == FindNoCompression(right));
 
-            // shortcut when already unioned,
+            // shortcut when already united,
             if (left == right) return false;
 
             var leftRoot = Find(left);
@@ -156,7 +154,7 @@ namespace PS.Graph.Collections
             }
             else
             {
-                return false; // do not update the setcount
+                return false; // do not update the SetCount
             }
 
             SetCount--;

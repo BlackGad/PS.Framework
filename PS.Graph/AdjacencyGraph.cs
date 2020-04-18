@@ -117,7 +117,7 @@ namespace PS.Graph
 
         public bool IsDirected { get; } = true;
 
-        public bool AllowParallelEdges { [Pure] get; }
+        public bool AllowParallelEdges { get; }
 
         public bool IsVerticesEmpty
         {
@@ -134,7 +134,6 @@ namespace PS.Graph
             get { return _vertexEdges.Keys; }
         }
 
-        [Pure]
         public bool ContainsVertex(TVertex v)
         {
             return _vertexEdges.ContainsKey(v);
@@ -180,7 +179,7 @@ namespace PS.Graph
         /// </value>
         public bool IsEdgesEmpty
         {
-            [Pure] get { return EdgeCount == 0; }
+            get { return EdgeCount == 0; }
         }
 
         /// <summary>
@@ -195,7 +194,6 @@ namespace PS.Graph
         /// <value>The edges.</value>
         public virtual IEnumerable<TEdge> Edges
         {
-            [Pure]
             get
             {
                 foreach (var edges in _vertexEdges.Values)
@@ -206,7 +204,6 @@ namespace PS.Graph
             }
         }
 
-        [Pure]
         public bool ContainsEdge(TVertex source, TVertex target)
         {
             if (!TryGetOutEdges(source, out var outEdges))
@@ -225,7 +222,6 @@ namespace PS.Graph
             return false;
         }
 
-        [Pure]
         public bool ContainsEdge(TEdge edge)
         {
             return
@@ -233,7 +229,6 @@ namespace PS.Graph
                 edges.Contains(edge);
         }
 
-        [Pure]
         public bool TryGetEdge(
             TVertex source,
             TVertex target,
@@ -256,7 +251,6 @@ namespace PS.Graph
             return false;
         }
 
-        [Pure]
         public virtual bool TryGetEdges(
             TVertex source,
             TVertex target,
@@ -557,7 +551,6 @@ namespace PS.Graph
 
         #region Members
 
-        [Pure]
         public AdjacencyGraph<TVertex, TEdge> Clone()
         {
             return new AdjacencyGraph<TVertex, TEdge>(

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using PS.Graph.Collections;
 
 namespace PS.Graph
@@ -46,13 +45,11 @@ namespace PS.Graph
 
         #region IBidirectionalGraph<TVertex,TEdge> Members
 
-        [Pure]
         public bool IsInEdgesEmpty(TVertex v)
         {
             return InDegree(v) == 0;
         }
 
-        [Pure]
         public int InDegree(TVertex v)
         {
             if (_inEdges.TryGetValue(v, out var edges))
@@ -63,7 +60,6 @@ namespace PS.Graph
             return 0;
         }
 
-        [Pure]
         public IEnumerable<TEdge> InEdges(TVertex v)
         {
             if (_inEdges.TryGetValue(v, out var edges))
@@ -74,7 +70,6 @@ namespace PS.Graph
             return EmptyEdges;
         }
 
-        [Pure]
         public bool TryGetInEdges(TVertex v, out IEnumerable<TEdge> edges)
         {
             if (_inEdges.TryGetValue(v, out var es))
@@ -87,61 +82,52 @@ namespace PS.Graph
             return false;
         }
 
-        [Pure]
         public TEdge InEdge(TVertex v, int index)
         {
             return _inEdges[v][index];
         }
 
-        [Pure]
         public int Degree(TVertex v)
         {
             return InDegree(v) + OutDegree(v);
         }
 
-        [Pure]
         public bool ContainsEdge(TVertex source, TVertex target)
         {
             return _baseGraph.ContainsEdge(source, target);
         }
 
-        [Pure]
         public bool TryGetEdges(TVertex source, TVertex target, out IEnumerable<TEdge> edges)
         {
             return _baseGraph.TryGetEdges(source, target, out edges);
         }
 
-        [Pure]
         public bool TryGetEdge(TVertex source, TVertex target, out TEdge edge)
         {
             return _baseGraph.TryGetEdge(source, target, out edge);
         }
 
-        [Pure] // InterfacePureBug
+        // InterfacePureBug
         public bool IsOutEdgesEmpty(TVertex v)
         {
             return _baseGraph.IsOutEdgesEmpty(v);
         }
 
-        [Pure]
         public int OutDegree(TVertex v)
         {
             return _baseGraph.OutDegree(v);
         }
 
-        [Pure]
         public IEnumerable<TEdge> OutEdges(TVertex v)
         {
             return _baseGraph.OutEdges(v);
         }
 
-        [Pure]
         public bool TryGetOutEdges(TVertex v, out IEnumerable<TEdge> edges)
         {
             return _baseGraph.TryGetOutEdges(v, out edges);
         }
 
-        [Pure]
         public TEdge OutEdge(TVertex v, int index)
         {
             return _baseGraph.OutEdge(v, index);
@@ -172,7 +158,6 @@ namespace PS.Graph
             get { return _baseGraph.Vertices; }
         }
 
-        [Pure]
         public bool ContainsVertex(TVertex vertex)
         {
             return _baseGraph.ContainsVertex(vertex);
@@ -193,7 +178,6 @@ namespace PS.Graph
             get { return _baseGraph.Edges; }
         }
 
-        [Pure]
         public bool ContainsEdge(TEdge edge)
         {
             return _baseGraph.ContainsEdge(edge);

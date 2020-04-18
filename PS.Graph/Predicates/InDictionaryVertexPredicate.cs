@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Predicates
 {
@@ -21,7 +20,6 @@ namespace PS.Graph.Predicates
 
         #region Members
 
-        [Pure]
         public bool Test(TVertex v)
         {
             return _dictionary.ContainsKey(v);

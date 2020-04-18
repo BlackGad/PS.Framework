@@ -1,5 +1,3 @@
-using System.Diagnostics.Contracts;
-
 namespace PS.Graph.Predicates
 {
     /// <summary>
@@ -23,7 +21,6 @@ namespace PS.Graph.Predicates
 
         #region Members
 
-        [Pure]
         public bool Test(TVertex v)
         {
             return _visitedGraph.IsInEdgesEmpty(v)
