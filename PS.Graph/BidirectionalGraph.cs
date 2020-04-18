@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using PS.Graph.Collections;
-using PS.Graph.Contracts;
 
 namespace PS.Graph
 {
@@ -47,8 +46,6 @@ namespace PS.Graph
 
         public BidirectionalGraph(bool allowParallelEdges, int vertexCapacity, int edgeCapacity, IEqualityComparer<TVertex> vertexComparer)
         {
-            Contract.Requires(vertexComparer != null);
-
             AllowParallelEdges = allowParallelEdges;
             if (vertexCapacity > -1)
             {
@@ -69,7 +66,6 @@ namespace PS.Graph
             int capacity,
             Func<int, IVertexEdgeDictionary<TVertex, TEdge>> vertexEdgesDictionaryFactory)
         {
-            Contract.Requires(vertexEdgesDictionaryFactory != null);
             AllowParallelEdges = allowParallelEdges;
             _vertexInEdges = vertexEdgesDictionaryFactory(capacity);
             _vertexOutEdges = vertexEdgesDictionaryFactory(capacity);
@@ -613,9 +609,6 @@ namespace PS.Graph
 
         public void MergeVertex(TVertex v, EdgeFactory<TVertex, TEdge> edgeFactory)
         {
-            Contract.Requires(GraphContract.InVertexSet(this, v));
-            Contract.Requires(edgeFactory != null);
-
             // storing edges in local array
             var inEdges = _vertexInEdges[v];
             var outEdges = _vertexOutEdges[v];
@@ -647,9 +640,6 @@ namespace PS.Graph
 
         public void MergeVertexIf(VertexPredicate<TVertex> vertexPredicate, EdgeFactory<TVertex, TEdge> edgeFactory)
         {
-            Contract.Requires(vertexPredicate != null);
-            Contract.Requires(edgeFactory != null);
-
             // storing vertices to merge
             var mergeVertices = new VertexList<TVertex>(VertexCount / 4);
             foreach (var v in Vertices)
@@ -677,10 +667,6 @@ namespace PS.Graph
             bool allowParallelEdges
         )
         {
-            Contract.Requires(vertexInEdges != null);
-            Contract.Requires(vertexOutEdges != null);
-            Contract.Requires(edgeCount >= 0);
-
             _vertexInEdges = vertexInEdges;
             _vertexOutEdges = vertexOutEdges;
             EdgeCount = edgeCount;

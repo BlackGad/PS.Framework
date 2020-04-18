@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Observers;
 using PS.Graph.Algorithms.Search;
 using PS.Graph.Algorithms.Services;
@@ -123,14 +122,12 @@ namespace PS.Graph.Algorithms
 
             public TimeStampObserver(List<TVertex> vertices)
             {
-                Contract.Requires(vertices != null);
-
                 _vertices = vertices;
             }
 
             #endregion
 
-            #region IObserver<IVertexTimeStamperAlgorithm<TVertex,TEdge>> Members
+            #region IObserver<IVertexTimeStamperAlgorithm<TVertex>> Members
 
             public IDisposable Attach(IVertexTimeStamperAlgorithm<TVertex> algorithm)
             {

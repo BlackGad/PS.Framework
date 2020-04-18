@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Services;
 
 namespace PS.Graph.Algorithms.ShortestPath
@@ -29,9 +28,6 @@ namespace PS.Graph.Algorithms.ShortestPath
         )
             : base(host, visitedGraph)
         {
-            Contract.Requires(weights != null);
-            Contract.Requires(distanceRelaxer != null);
-
             Weights = weights;
             DistanceRelaxer = distanceRelaxer;
         }
@@ -81,7 +77,6 @@ namespace PS.Graph.Algorithms.ShortestPath
 
         public bool TryGetDistance(TVertex vertex, out double distance)
         {
-            Contract.Requires(vertex != null);
             return Distances.TryGetValue(vertex, out distance);
         }
 
@@ -103,14 +98,6 @@ namespace PS.Graph.Algorithms.ShortestPath
 
         protected bool Relax(TEdge e, TVertex source, TVertex target)
         {
-            Contract.Requires(e != null);
-            Contract.Requires(source != null);
-            Contract.Requires(target != null);
-            Contract.Requires(
-                e.Source.Equals(source) && e.Target.Equals(target)
-                || e.Source.Equals(target) && e.Target.Equals(source)
-            );
-
             var du = Distances[source];
             var dv = Distances[target];
             var we = Weights(e);

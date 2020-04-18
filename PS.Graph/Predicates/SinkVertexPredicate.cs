@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Predicates
 {
@@ -13,8 +12,6 @@ namespace PS.Graph.Predicates
 
         public SinkVertexPredicate(IIncidenceGraph<TVertex, TEdge> visitedGraph)
         {
-            Contract.Requires(visitedGraph != null);
-
             _visitedGraph = visitedGraph;
         }
 

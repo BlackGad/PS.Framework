@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Graphviz.Dot
 {
@@ -42,8 +41,6 @@ namespace PS.Graph.Graphviz.Dot
 
         public void AddParameters(IDictionary dic)
         {
-            Contract.Requires(dic != null);
-
             string text;
             if (IsHead)
             {

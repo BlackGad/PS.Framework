@@ -1,12 +1,8 @@
-﻿using System.Diagnostics.Contracts;
-using PS.Graph.Contracts;
-
-namespace PS.Graph
+﻿namespace PS.Graph
 {
     /// <summary>
     ///     A graph with vertices and edges
     /// </summary>
-    [ContractClass(typeof(GraphContract))]
     public interface IGraph
     {
         #region Properties

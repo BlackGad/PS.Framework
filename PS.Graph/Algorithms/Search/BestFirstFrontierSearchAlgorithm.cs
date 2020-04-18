@@ -30,9 +30,6 @@ namespace PS.Graph.Algorithms.Search
             IDistanceRelaxer distanceRelaxer)
             : base(host, visitedGraph)
         {
-            Contract.Requires(edgeWeights != null);
-            Contract.Requires(distanceRelaxer != null);
-
             _edgeWeights = edgeWeights;
             _distanceRelaxer = distanceRelaxer;
         }

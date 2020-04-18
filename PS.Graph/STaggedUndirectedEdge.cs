@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
@@ -28,9 +27,6 @@ namespace PS.Graph
         /// <param name="tag">The tag.</param>
         public SUndirectedTaggedEdge(TVertex source, TVertex target, TTag tag)
         {
-            Contract.Requires(source != null);
-            Contract.Requires(target != null);
-            Contract.Requires(Comparer<TVertex>.Default.Compare(source, target) <= 0);
             Contract.Ensures(Contract.ValueAtReturn(out this).Source.Equals(source));
             Contract.Ensures(Contract.ValueAtReturn(out this).Target.Equals(target));
 

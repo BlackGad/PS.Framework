@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Algorithms
 {
@@ -19,17 +18,6 @@ namespace PS.Graph.Algorithms
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(g != null);
-            Contract.Requires(vertexFactory != null);
-            Contract.Requires(edgeFactory != null);
-            Contract.Requires(rnd != null);
-            Contract.Requires(vertexCount > 0);
-            Contract.Requires(edgeCount >= 0);
-            Contract.Requires(
-                !(!g.AllowParallelEdges && !selfEdges) ||
-                edgeCount <= vertexCount * (vertexCount - 1) // directed graph
-            );
-
             var vertices = new TVertex[vertexCount];
             for (var i = 0; i < vertexCount; ++i)
             {
@@ -64,17 +52,6 @@ namespace PS.Graph.Algorithms
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(g != null);
-            Contract.Requires(vertexFactory != null);
-            Contract.Requires(edgeFactory != null);
-            Contract.Requires(rnd != null);
-            Contract.Requires(vertexCount > 0);
-            Contract.Requires(edgeCount >= 0);
-            Contract.Requires(
-                !(!g.AllowParallelEdges && !selfEdges) ||
-                edgeCount <= vertexCount * (vertexCount - 1) / 2
-            );
-
             var vertices = new TVertex[vertexCount];
             for (var i = 0; i < vertexCount; ++i)
             {
@@ -101,10 +78,6 @@ namespace PS.Graph.Algorithms
         public static TEdge GetEdge<TVertex, TEdge>(IEdgeSet<TVertex, TEdge> g, Random rnd)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(g != null);
-            Contract.Requires(rnd != null);
-            Contract.Requires(g.EdgeCount > 0);
-
             var i = rnd.Next(g.EdgeCount);
             foreach (var e in g.Edges)
             {
@@ -123,10 +96,6 @@ namespace PS.Graph.Algorithms
         public static TEdge GetEdge<TVertex, TEdge>(IEnumerable<TEdge> edges, int count, Random rnd)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(edges != null);
-            Contract.Requires(rnd != null);
-            Contract.Requires(count > 0);
-
             var i = rnd.Next(count);
             foreach (var e in edges)
             {
@@ -145,19 +114,11 @@ namespace PS.Graph.Algorithms
         public static TVertex GetVertex<TVertex, TEdge>(IVertexListGraph<TVertex, TEdge> g, Random rnd)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(g != null);
-            Contract.Requires(rnd != null);
-            Contract.Requires(g.VertexCount > 0);
-
             return GetVertex(g.Vertices, g.VertexCount, rnd);
         }
 
         public static TVertex GetVertex<TVertex>(IEnumerable<TVertex> vertices, int count, Random rnd)
         {
-            Contract.Requires(vertices != null);
-            Contract.Requires(rnd != null);
-            Contract.Requires(count > 0);
-
             var i = rnd.Next(count);
             foreach (var v in vertices)
             {

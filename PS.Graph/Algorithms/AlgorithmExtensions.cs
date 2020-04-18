@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
-using System.Linq;
 using PS.Graph.Algorithms.Condensation;
 using PS.Graph.Algorithms.ConnectedComponents;
 using PS.Graph.Algorithms.MaximumFlow;
@@ -39,11 +38,6 @@ namespace PS.Graph.Algorithms
                                                  IMutableVertexAndEdgeSet<TVertex, TEdge> clone)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(g != null);
-            Contract.Requires(vertexCloner != null);
-            Contract.Requires(edgeCloner != null);
-            Contract.Requires(clone != null);
-
             var vertexClones = new Dictionary<TVertex, TVertex>(g.VertexCount);
             foreach (var v in g.Vertices)
             {
@@ -65,8 +59,6 @@ namespace PS.Graph.Algorithms
         public static IDisjointSet<TVertex> ComputeDisjointSet<TVertex, TEdge>(this IUndirectedGraph<TVertex, TEdge> visitedGraph)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-
             var ds = new ForestDisjointSet<TVertex>(visitedGraph.VertexCount);
             foreach (var v in visitedGraph.Vertices)
             {
@@ -98,9 +90,6 @@ namespace PS.Graph.Algorithms
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(predecessors != null);
-            Contract.Requires(edgeCosts != null);
-
             double cost = 0;
             var current = target;
 
@@ -119,9 +108,6 @@ namespace PS.Graph.Algorithms
             )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-            Contract.Requires(vertexPredicate != null);
-
             var condensated = new BidirectionalGraph<TVertex, MergedEdge<TVertex, TEdge>>();
             var condensator = new EdgeMergeCondensationGraphAlgorithm<TVertex, TEdge>(
                 visitedGraph,
@@ -146,8 +132,6 @@ namespace PS.Graph.Algorithms
             where TEdge : IEdge<TVertex>
             where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
         {
-            Contract.Requires(g != null);
-
             var condensator = new CondensationGraphAlgorithm<TVertex, TEdge, TGraph>(g);
             condensator.Compute();
             return condensator.CondensedGraph;
@@ -167,8 +151,6 @@ namespace PS.Graph.Algorithms
             where TEdge : IEdge<TVertex>
             where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
         {
-            Contract.Requires(g != null);
-
             var condensator = new CondensationGraphAlgorithm<TVertex, TEdge, TGraph>(g)
             {
                 StronglyConnected = false
@@ -189,9 +171,6 @@ namespace PS.Graph.Algorithms
                                                               IDictionary<TVertex, int> components)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(g != null);
-            Contract.Requires(components != null);
-
             var conn = new ConnectedComponentsAlgorithm<TVertex, TEdge>(g, components);
             conn.Compute();
             return conn.ComponentCount;
@@ -207,8 +186,6 @@ namespace PS.Graph.Algorithms
         public static EdgeIdentity<TVertex, TEdge> GetEdgeIdentity<TVertex, TEdge>(this IEdgeSet<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(graph != null);
-
             // create dictionary
             var ids = new Dictionary<TEdge, string>(graph.EdgeCount);
             return e =>
@@ -231,7 +208,6 @@ namespace PS.Graph.Algorithms
         /// <returns></returns>
         public static Func<TKey, TValue> GetIndexer<TKey, TValue>(Dictionary<TKey, TValue> dictionary)
         {
-            Contract.Requires(dictionary != null);
             Contract.Ensures(Contract.Result<Func<TKey, TValue>>() != null);
 
             // ReSharper disable once PossibleNullReferenceException
@@ -251,8 +227,6 @@ namespace PS.Graph.Algorithms
         /// <returns></returns>
         public static VertexIdentity<TVertex> GetVertexIdentity<TVertex>(this IVertexSet<TVertex> graph)
         {
-            Contract.Requires(graph != null);
-
             // simpler identity for primitive types
             switch (Type.GetTypeCode(typeof(TVertex)))
             {
@@ -298,8 +272,6 @@ namespace PS.Graph.Algorithms
         public static Func<KeyValuePair<int, IDictionary<TVertex, int>>> IncrementalConnectedComponents<TVertex, TEdge>(this IMutableVertexAndEdgeSet<TVertex, TEdge> g)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(g != null);
-
             var incrementalComponents = new IncrementalConnectedComponentsAlgorithm<TVertex, TEdge>(g);
             incrementalComponents.Compute();
 
@@ -319,8 +291,6 @@ namespace PS.Graph.Algorithms
         public static bool IsDirectedAcyclicGraph<TVertex, TEdge>(this IVertexListGraph<TVertex, TEdge> g)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(g != null);
-
             return new DagTester<TVertex, TEdge>().IsDag(g);
         }
 
@@ -334,7 +304,6 @@ namespace PS.Graph.Algorithms
         public static IEnumerable<TVertex> IsolatedVertices<TVertex, TEdge>(this IBidirectionalGraph<TVertex, TEdge> visitedGraph)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
             return IsolatedVerticesIterator(visitedGraph);
         }
 
@@ -361,12 +330,6 @@ namespace PS.Graph.Algorithms
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-            Contract.Requires(edgeCapacities != null);
-            Contract.Requires(source != null);
-            Contract.Requires(sink != null);
-            Contract.Requires(!source.Equals(sink));
-
             // compute maxflow
             var flow = new EdmondsKarpMaximumFlowAlgorithm<TVertex, TEdge>(
                 visitedGraph,
@@ -390,9 +353,6 @@ namespace PS.Graph.Algorithms
                                                                                     Func<TEdge, double> weights)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-            Contract.Requires(weights != null);
-
             if (visitedGraph.VertexCount == 0)
             {
                 return new TEdge[0];
@@ -421,9 +381,6 @@ namespace PS.Graph.Algorithms
                                                                                  Func<TEdge, double> weights)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-            Contract.Requires(weights != null);
-
             if (visitedGraph.VertexCount == 0)
             {
                 return new TEdge[0];
@@ -449,8 +406,6 @@ namespace PS.Graph.Algorithms
         public static List<TVertex> OddVertices<TVertex, TEdge>(this IVertexAndEdgeListGraph<TVertex, TEdge> g)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(g != null);
-
             var counts = new Dictionary<TVertex, int>(g.VertexCount);
             foreach (var v in g.Vertices)
             {
@@ -497,13 +452,6 @@ namespace PS.Graph.Algorithms
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-            Contract.Requires(root != null);
-            Contract.Requires(pairs != null);
-            Contract.Requires(visitedGraph.ContainsVertex(root));
-            Contract.Requires(pairs.All(p => visitedGraph.ContainsVertex(p.Source)));
-            Contract.Requires(pairs.All(p => visitedGraph.ContainsVertex(p.Target)));
-
             var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<TVertex, TEdge>(visitedGraph);
             algorithm.Compute(root, pairs);
             var ancestors = algorithm.Ancestors;
@@ -530,12 +478,6 @@ namespace PS.Graph.Algorithms
                                                                                                       int pathCount)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-            Contract.Requires(edgeWeights != null);
-            Contract.Requires(source != null && visitedGraph.ContainsVertex(source));
-            Contract.Requires(target != null && visitedGraph.ContainsVertex(target));
-            Contract.Requires(pathCount > 1);
-
             var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights)
             {
                 ShortestPathCount = pathCount
@@ -555,7 +497,6 @@ namespace PS.Graph.Algorithms
         public static IEnumerable<TVertex> Roots<TVertex, TEdge>(this IBidirectionalGraph<TVertex, TEdge> visitedGraph)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
             return RootsIterator(visitedGraph);
         }
 
@@ -569,7 +510,6 @@ namespace PS.Graph.Algorithms
         public static IEnumerable<TVertex> Roots<TVertex, TEdge>(this IVertexListGraph<TVertex, TEdge> visitedGraph)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
             return RootsIterator(visitedGraph);
         }
 
@@ -580,11 +520,6 @@ namespace PS.Graph.Algorithms
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-            Contract.Requires(edgeWeights != null);
-            Contract.Requires(costHeuristic != null);
-            Contract.Requires(source != null);
-
             var algorithm = new AStarShortestPathAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights, costHeuristic);
             var predecessorRecorder = new VertexPredecessorRecorderObserver<TVertex, TEdge>();
             using (predecessorRecorder.Attach(algorithm))
@@ -602,10 +537,6 @@ namespace PS.Graph.Algorithms
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-            Contract.Requires(edgeWeights != null);
-            Contract.Requires(source != null);
-
             var algorithm = new BellmanFordShortestPathAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights);
             var predecessorRecorder = new VertexPredecessorRecorderObserver<TVertex, TEdge>();
             using (predecessorRecorder.Attach(algorithm))
@@ -623,10 +554,6 @@ namespace PS.Graph.Algorithms
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-            Contract.Requires(edgeWeights != null);
-            Contract.Requires(source != null);
-
             var algorithm = new DagShortestPathAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights);
             var predecessorRecorder = new VertexPredecessorRecorderObserver<TVertex, TEdge>();
             using (predecessorRecorder.Attach(algorithm))
@@ -644,10 +571,6 @@ namespace PS.Graph.Algorithms
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-            Contract.Requires(edgeWeights != null);
-            Contract.Requires(source != null);
-
             var algorithm = new UndirectedDijkstraShortestPathAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights);
             var predecessorRecorder = new UndirectedVertexPredecessorRecorderObserver<TVertex, TEdge>();
             using (predecessorRecorder.Attach(algorithm))
@@ -665,10 +588,6 @@ namespace PS.Graph.Algorithms
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-            Contract.Requires(edgeWeights != null);
-            Contract.Requires(source != null);
-
             var algorithm = new DijkstraShortestPathAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights);
             var predecessorRecorder = new VertexPredecessorRecorderObserver<TVertex, TEdge>();
             using (predecessorRecorder.Attach(algorithm))
@@ -690,15 +609,12 @@ namespace PS.Graph.Algorithms
         public static IEnumerable<TVertex> Sinks<TVertex, TEdge>(this IVertexListGraph<TVertex, TEdge> visitedGraph)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
             return SinksIterator(visitedGraph);
         }
 
         public static IEnumerable<TVertex> SourceFirstTopologicalSort<TVertex, TEdge>(this IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-
             var vertices = new List<TVertex>(visitedGraph.VertexCount);
             SourceFirstTopologicalSort(visitedGraph, vertices);
             return vertices;
@@ -708,9 +624,6 @@ namespace PS.Graph.Algorithms
                                                                       IList<TVertex> vertices)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-            Contract.Requires(vertices != null);
-
             var topological = new SourceFirstTopologicalSortAlgorithm<TVertex, TEdge>(visitedGraph);
             topological.Compute(vertices);
         }
@@ -727,7 +640,6 @@ namespace PS.Graph.Algorithms
                                                                       out IDictionary<TVertex, int> components)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(g != null);
             Contract.Ensures(Contract.ValueAtReturn(out components) != null);
 
             components = new Dictionary<TVertex, int>();
@@ -751,8 +663,6 @@ namespace PS.Graph.Algorithms
         public static IEnumerable<TVertex> TopologicalSort<TVertex, TEdge>(this IUndirectedGraph<TVertex, TEdge> visitedGraph)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-
             var vertices = new List<TVertex>(visitedGraph.VertexCount);
             TopologicalSort(visitedGraph, vertices);
             return vertices;
@@ -776,9 +686,6 @@ namespace PS.Graph.Algorithms
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-            Contract.Requires(vertices != null);
-
             var topological = new UndirectedTopologicalSortAlgorithm<TVertex, TEdge>(visitedGraph);
             topological.Compute(vertices);
         }
@@ -798,8 +705,6 @@ namespace PS.Graph.Algorithms
         public static IEnumerable<TVertex> TopologicalSort<TVertex, TEdge>(this IVertexListGraph<TVertex, TEdge> visitedGraph)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-
             var vertices = new List<TVertex>(visitedGraph.VertexCount);
             TopologicalSort(visitedGraph, vertices);
             return vertices;
@@ -822,9 +727,6 @@ namespace PS.Graph.Algorithms
                                                            IList<TVertex> vertices)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-            Contract.Requires(vertices != null);
-
             var topological = new TopologicalSortAlgorithm<TVertex, TEdge>(visitedGraph);
             topological.Compute(vertices);
         }
@@ -833,9 +735,6 @@ namespace PS.Graph.Algorithms
                                                                                                   TVertex root)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-            Contract.Requires(root != null);
-            Contract.Requires(visitedGraph.ContainsVertex(root));
             Contract.Ensures(Contract.Result<TryFunc<TVertex, IEnumerable<TEdge>>>() != null);
 
             var algorithm = new BreadthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph);
@@ -853,9 +752,6 @@ namespace PS.Graph.Algorithms
                                                                                                   TVertex root)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-            Contract.Requires(root != null);
-            Contract.Requires(visitedGraph.ContainsVertex(root));
             Contract.Ensures(Contract.Result<TryFunc<TVertex, IEnumerable<TEdge>>>() != null);
 
             return TreeCyclePoppingRandom(visitedGraph, root, new NormalizedMarkovEdgeChain<TVertex, TEdge>());
@@ -866,9 +762,6 @@ namespace PS.Graph.Algorithms
                                                                                                   IMarkovEdgeChain<TVertex, TEdge> edgeChain)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-            Contract.Requires(root != null);
-            Contract.Requires(visitedGraph.ContainsVertex(root));
             Contract.Ensures(Contract.Result<TryFunc<TVertex, IEnumerable<TEdge>>>() != null);
 
             var algorithm = new CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>(visitedGraph, edgeChain);
@@ -894,9 +787,6 @@ namespace PS.Graph.Algorithms
                                                                                                 TVertex root)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-            Contract.Requires(root != null);
-            Contract.Requires(visitedGraph.ContainsVertex(root));
             Contract.Ensures(Contract.Result<TryFunc<TVertex, IEnumerable<TEdge>>>() != null);
 
             var algorithm = new DepthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph);
@@ -922,9 +812,6 @@ namespace PS.Graph.Algorithms
                                                                     IDictionary<TVertex, int> components)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(g != null);
-            Contract.Requires(components != null);
-
             var conn = new WeaklyConnectedComponentsAlgorithm<TVertex, TEdge>(g, components);
             conn.Compute();
             return conn.ComponentCount;

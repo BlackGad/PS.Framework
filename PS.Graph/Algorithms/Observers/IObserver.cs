@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Algorithms.Observers
 {
@@ -9,7 +8,6 @@ namespace PS.Graph.Algorithms.Observers
     /// <typeparam name="TAlgorithm">type of the algorithm</typeparam>
     /// <reference-ref
     ///     id="gof02designpatterns" />
-    [ContractClass(typeof(Contracts.ObserverContract<>))]
     public interface IObserver<in TAlgorithm>
     {
         #region Members

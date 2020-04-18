@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Algorithms.Observers
 {
@@ -26,7 +25,6 @@ namespace PS.Graph.Algorithms.Observers
         public VertexPredecessorPathRecorderObserver(
             IDictionary<TVertex, TEdge> vertexPredecessors)
         {
-            Contract.Requires(vertexPredecessors != null);
             VertexPredecessors = vertexPredecessors;
         }
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace PS.Graph
@@ -27,8 +26,6 @@ namespace PS.Graph
             bool allowParallelEdges)
             : base(tryGetAdjacentEdges, allowParallelEdges)
         {
-            Contract.Requires(vertices != null);
-            Contract.Requires(vertices.All(v => tryGetAdjacentEdges(v, out var edges)));
             _vertices = vertices;
         }
 

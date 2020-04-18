@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Services;
 
 namespace PS.Graph.Algorithms
@@ -38,16 +37,12 @@ namespace PS.Graph.Algorithms
 
         public void Compute(TVertex rootVertex)
         {
-            Contract.Requires(rootVertex != null);
-
             SetRootVertex(rootVertex);
             Compute();
         }
 
         public void SetRootVertex(TVertex rootVertex)
         {
-            Contract.Requires(rootVertex != null);
-
             var changed = Comparer<TVertex>.Default.Compare(_rootVertex, rootVertex) != 0;
             _rootVertex = rootVertex;
             if (changed)
@@ -72,8 +67,6 @@ namespace PS.Graph.Algorithms
 
         protected virtual void OnRootVertexChanged(EventArgs e)
         {
-            Contract.Requires(e != null);
-
             var eh = RootVertexChanged;
             eh?.Invoke(this, e);
         }

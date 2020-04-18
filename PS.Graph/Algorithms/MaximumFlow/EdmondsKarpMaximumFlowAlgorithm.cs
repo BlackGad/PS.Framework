@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Observers;
 using PS.Graph.Algorithms.Search;
 using PS.Graph.Algorithms.Services;
@@ -136,9 +135,6 @@ namespace PS.Graph.Algorithms.MaximumFlow
             TVertex sink
         )
         {
-            Contract.Requires(source != null);
-            Contract.Requires(sink != null);
-
             TEdge e;
 
             // find minimum residual capacity along the augmenting path

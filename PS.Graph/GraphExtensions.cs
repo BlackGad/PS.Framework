@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Linq;
-using PS.Graph.Contracts;
 
 namespace PS.Graph
 {
@@ -23,11 +21,6 @@ namespace PS.Graph
             ToAdjacencyGraph<TVertex>(this TVertex[][] edges
             )
         {
-            Contract.Requires(edges != null);
-            Contract.Requires(edges.Length == 2);
-            Contract.Requires(edges[0] != null);
-            Contract.Requires(edges[1] != null);
-            Contract.Requires(edges[0].Length == edges[1].Length);
             Contract.Ensures(Contract.Result<AdjacencyGraph<TVertex, SEquatableEdge<TVertex>>>() != null);
 
             var sources = edges[0];
@@ -55,9 +48,6 @@ namespace PS.Graph
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(edges != null);
-            Contract.Requires(EnumerableContract.ElementsNotNull(edges));
-
             var g = new AdjacencyGraph<TVertex, TEdge>(allowParallelEdges);
             g.AddVerticesAndEdgeRange(edges);
             return g;
@@ -74,9 +64,6 @@ namespace PS.Graph
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(edges != null);
-            Contract.Requires(EnumerableContract.ElementsNotNull(edges));
-
             return ToAdjacencyGraph<TVertex, TEdge>(edges, true);
         }
 
@@ -96,10 +83,6 @@ namespace PS.Graph
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(vertices != null);
-            Contract.Requires(outEdgesFactory != null);
-            Contract.Requires(EnumerableContract.ElementsNotNull(vertices));
-
             var g = new AdjacencyGraph<TVertex, TEdge>(allowParallelEdges);
             g.AddVertexRange(vertices);
             foreach (var vertex in g.Vertices)
@@ -135,8 +118,6 @@ namespace PS.Graph
         /// <returns></returns>
         public static AdjacencyGraph<TVertex, SEquatableEdge<TVertex>> ToAdjacencyGraph<TVertex>(this IEnumerable<SEquatableEdge<TVertex>> vertexPairs)
         {
-            Contract.Requires(vertexPairs != null);
-
             var g = new AdjacencyGraph<TVertex, SEquatableEdge<TVertex>>();
             g.AddVerticesAndEdgeRange(vertexPairs);
             return g;
@@ -153,8 +134,6 @@ namespace PS.Graph
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(graph != null);
-
             return new ArrayAdjacencyGraph<TVertex, TEdge>(graph);
         }
 
@@ -169,8 +148,6 @@ namespace PS.Graph
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(graph != null);
-
             return new ArrayBidirectionalGraph<TVertex, TEdge>(graph);
         }
 
@@ -185,8 +162,6 @@ namespace PS.Graph
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(graph != null);
-
             return new ArrayUndirectedGraph<TVertex, TEdge>(graph);
         }
 
@@ -200,8 +175,6 @@ namespace PS.Graph
         public static IBidirectionalGraph<TVertex, TEdge> ToBidirectionalGraph<TVertex, TEdge>(this IVertexAndEdgeListGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(graph != null);
-
             if (graph is IBidirectionalGraph<TVertex, TEdge> self)
             {
                 return self;
@@ -223,9 +196,6 @@ namespace PS.Graph
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(edges != null);
-            Contract.Requires(EnumerableContract.ElementsNotNull(edges));
-
             var g = new BidirectionalGraph<TVertex, TEdge>(allowParallelEdges);
             g.AddVerticesAndEdgeRange(edges);
             return g;
@@ -242,9 +212,6 @@ namespace PS.Graph
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(edges != null);
-            Contract.Requires(EnumerableContract.ElementsNotNull(edges));
-
             return ToBidirectionalGraph<TVertex, TEdge>(edges, true);
         }
 
@@ -264,10 +231,6 @@ namespace PS.Graph
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(vertices != null);
-            Contract.Requires(outEdgesFactory != null);
-            Contract.Requires(EnumerableContract.ElementsNotNull(vertices));
-
             var g = new BidirectionalGraph<TVertex, TEdge>(allowParallelEdges);
             g.AddVertexRange(vertices);
             foreach (var vertex in g.Vertices)
@@ -303,8 +266,6 @@ namespace PS.Graph
         /// <returns></returns>
         public static BidirectionalGraph<TVertex, SEquatableEdge<TVertex>> ToBidirectionalGraph<TVertex>(this IEnumerable<SEquatableEdge<TVertex>> vertexPairs)
         {
-            Contract.Requires(vertexPairs != null);
-
             var g = new BidirectionalGraph<TVertex, SEquatableEdge<TVertex>>();
             g.AddVerticesAndEdgeRange(vertexPairs);
             return g;
@@ -320,8 +281,6 @@ namespace PS.Graph
         public static CompressedSparseRowGraph<TVertex> ToCompressedRowGraph<TVertex, TEdge>(this IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
-
             return CompressedSparseRowGraph<TVertex>.FromGraph(visitedGraph);
         }
 
@@ -338,9 +297,6 @@ namespace PS.Graph
             TryFunc<TVertex, IEnumerable<TEdge>> tryGetInEdges)
             where TEdge : IEdge<TVertex>, IEquatable<TEdge>
         {
-            Contract.Requires(tryGetOutEdges != null);
-            Contract.Requires(tryGetInEdges != null);
-
             return new DelegateBidirectionalIncidenceGraph<TVertex, TEdge>(tryGetOutEdges, tryGetInEdges);
         }
 
@@ -354,7 +310,6 @@ namespace PS.Graph
         public static DelegateIncidenceGraph<TVertex, TEdge> ToDelegateIncidenceGraph<TVertex, TEdge>(this TryFunc<TVertex, IEnumerable<TEdge>> tryGetOutEdges)
             where TEdge : IEdge<TVertex>, IEquatable<TEdge>
         {
-            Contract.Requires(tryGetOutEdges != null);
             return new DelegateIncidenceGraph<TVertex, TEdge>(tryGetOutEdges);
         }
 
@@ -368,8 +323,6 @@ namespace PS.Graph
         public static DelegateIncidenceGraph<TVertex, TEdge> ToDelegateIncidenceGraph<TVertex, TEdge>(this Func<TVertex, IEnumerable<TEdge>> getOutEdges)
             where TEdge : IEdge<TVertex>, IEquatable<TEdge>
         {
-            Contract.Requires(getOutEdges != null);
-
             return ToDelegateIncidenceGraph(ToTryFunc(getOutEdges));
         }
 
@@ -385,9 +338,6 @@ namespace PS.Graph
             where TEdge : IEdge<TVertex>, IEquatable<TEdge>
             where TValue : IEnumerable<TEdge>
         {
-            Contract.Requires(dictionary != null);
-            Contract.Requires(dictionary.Values.All(v => v != null));
-
             return ToDelegateUndirectedGraph(dictionary, kv => kv.Value);
         }
 
@@ -406,9 +356,6 @@ namespace PS.Graph
         )
             where TEdge : IEdge<TVertex>, IEquatable<TEdge>
         {
-            Contract.Requires(dictionary != null);
-            Contract.Requires(keyValueToOutEdges != null);
-
             return new DelegateVertexAndEdgeListGraph<TVertex, TEdge>(
                 dictionary.Keys,
                 delegate(TVertex key, out IEnumerable<TEdge> edges)
@@ -436,10 +383,6 @@ namespace PS.Graph
                                                                                                         TryFunc<TVertex, IEnumerable<TEdge>> tryGetAdjacentEdges)
             where TEdge : IEdge<TVertex>, IEquatable<TEdge>
         {
-            Contract.Requires(vertices != null);
-            Contract.Requires(tryGetAdjacentEdges != null);
-            Contract.Requires(vertices.All(v => tryGetAdjacentEdges(v, out var edges)));
-
             return new DelegateUndirectedGraph<TVertex, TEdge>(vertices, tryGetAdjacentEdges, true);
         }
 
@@ -455,9 +398,6 @@ namespace PS.Graph
                                                                                                         Func<TVertex, IEnumerable<TEdge>> getAdjacentEdges)
             where TEdge : IEdge<TVertex>, IEquatable<TEdge>
         {
-            Contract.Requires(vertices != null);
-            Contract.Requires(getAdjacentEdges != null);
-
             return ToDelegateUndirectedGraph(
                 vertices,
                 ToTryFunc(getAdjacentEdges)
@@ -476,10 +416,6 @@ namespace PS.Graph
                                                                                                                       TryFunc<TVertex, IEnumerable<TEdge>> tryGetOutEdges)
             where TEdge : IEdge<TVertex>, IEquatable<TEdge>
         {
-            Contract.Requires(vertices != null);
-            Contract.Requires(tryGetOutEdges != null);
-            Contract.Requires(vertices.All(v => tryGetOutEdges(v, out var edges)));
-
             return new DelegateVertexAndEdgeListGraph<TVertex, TEdge>(vertices, tryGetOutEdges);
         }
 
@@ -495,9 +431,6 @@ namespace PS.Graph
                                                                                                                       Func<TVertex, IEnumerable<TEdge>> getOutEdges)
             where TEdge : IEdge<TVertex>, IEquatable<TEdge>
         {
-            Contract.Requires(vertices != null);
-            Contract.Requires(getOutEdges != null);
-
             return ToDelegateVertexAndEdgeListGraph(vertices, ToTryFunc(getOutEdges));
         }
 
@@ -511,8 +444,6 @@ namespace PS.Graph
         public static TryFunc<T, TResult> ToTryFunc<T, TResult>(Func<T, TResult> func)
             where TResult : class
         {
-            Contract.Requires(func != null);
-
             return (T value, out TResult result) =>
             {
                 result = func(value);
@@ -530,9 +461,6 @@ namespace PS.Graph
         public static UndirectedGraph<TVertex, TEdge> ToUndirectedGraph<TVertex, TEdge>(this IEnumerable<TEdge> edges)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(edges != null);
-            Contract.Requires(edges.All(e => e != null));
-
             return ToUndirectedGraph<TVertex, TEdge>(edges, true);
         }
 
@@ -548,9 +476,6 @@ namespace PS.Graph
                                                                                         bool allowParallelEdges)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(edges != null);
-            Contract.Requires(edges.All(e => e != null));
-
             var g = new UndirectedGraph<TVertex, TEdge>(allowParallelEdges);
             g.AddVerticesAndEdgeRange(edges);
             return g;
@@ -564,8 +489,6 @@ namespace PS.Graph
         /// <returns></returns>
         public static UndirectedGraph<TVertex, SEquatableEdge<TVertex>> ToUndirectedGraph<TVertex>(this IEnumerable<SEquatableEdge<TVertex>> vertexPairs)
         {
-            Contract.Requires(vertexPairs != null);
-
             var g = new UndirectedGraph<TVertex, SEquatableEdge<TVertex>>();
             g.AddVerticesAndEdgeRange(vertexPairs);
             return g;
@@ -583,9 +506,6 @@ namespace PS.Graph
             where TEdge : IEdge<TVertex>, IEquatable<TEdge>
             where TValue : IEnumerable<TEdge>
         {
-            Contract.Requires(dictionary != null);
-            Contract.Requires(dictionary.Values.All(v => v != null));
-
             return ToVertexAndEdgeListGraph(dictionary, kv => kv.Value);
         }
 
@@ -604,9 +524,6 @@ namespace PS.Graph
         )
             where TEdge : IEdge<TVertex>, IEquatable<TEdge>
         {
-            Contract.Requires(dictionary != null);
-            Contract.Requires(keyValueToOutEdges != null);
-
             return new DelegateVertexAndEdgeListGraph<TVertex, TEdge>(
                 dictionary.Keys,
                 delegate(TVertex key, out IEnumerable<TEdge> edges)

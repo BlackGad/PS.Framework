@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace PS.Graph
@@ -24,8 +23,6 @@ namespace PS.Graph
         public ArrayUndirectedGraph(
             IUndirectedGraph<TVertex, TEdge> graph)
         {
-            Contract.Requires(graph != null);
-
             EdgeEqualityComparer = graph.EdgeEqualityComparer;
             EdgeCount = graph.EdgeCount;
             _vertexEdges = new Dictionary<TVertex, TEdge[]>(graph.VertexCount);

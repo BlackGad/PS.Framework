@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace PS.Graph
@@ -22,8 +21,6 @@ namespace PS.Graph
             TryFunc<TVertex, IEnumerable<TEdge>> tryGetInEdges)
             : base(tryGetOutEdges)
         {
-            Contract.Requires(tryGetInEdges != null);
-
             TryGetInEdgesFunc = tryGetInEdges;
         }
 

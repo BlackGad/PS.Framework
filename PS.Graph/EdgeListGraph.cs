@@ -31,8 +31,6 @@ namespace PS.Graph
             bool allowParallelEdges,
             EdgeEdgeDictionary<TVertex, TEdge> edges)
         {
-            Contract.Requires(edges != null);
-
             IsDirected = isDirected;
             AllowParallelEdges = allowParallelEdges;
             _edges = edges;
@@ -49,7 +47,7 @@ namespace PS.Graph
 
         #endregion
 
-        #region IEdgeListGraph<TVertex,TEdge> Members
+        #region IMutableEdgeListGraph<TVertex,TEdge> Members
 
         public bool IsEdgesEmpty
         {
@@ -108,10 +106,6 @@ namespace PS.Graph
 
             return false;
         }
-
-        #endregion
-
-        #region IMutableEdgeListGraph<TVertex,TEdge> Members
 
         public bool AddEdge(TEdge edge)
         {

@@ -14,7 +14,6 @@ namespace PS.Graph.Predicates
         public InDictionaryVertexPredicate(
             IDictionary<TVertex, TValue> dictionary)
         {
-            Contract.Requires(dictionary != null);
             _dictionary = dictionary;
         }
 
@@ -25,8 +24,6 @@ namespace PS.Graph.Predicates
         [Pure]
         public bool Test(TVertex v)
         {
-            Contract.Requires(v != null);
-
             return _dictionary.ContainsKey(v);
         }
 

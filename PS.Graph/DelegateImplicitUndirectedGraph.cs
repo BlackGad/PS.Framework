@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace PS.Graph
@@ -20,8 +19,6 @@ namespace PS.Graph
             TryFunc<TVertex, IEnumerable<TEdge>> tryGetAdjacencyEdges,
             bool allowParallelEdges)
         {
-            Contract.Requires(tryGetAdjacencyEdges != null);
-
             TryGetAdjacencyEdgesFunc = tryGetAdjacencyEdges;
             AllowParallelEdges = allowParallelEdges;
         }

@@ -11,7 +11,6 @@ namespace PS.Graph.Graphviz
             : base(v)
         {
             #if CONTRACTS_BUG
-            Contract.Requires(vertexFormatter != null);
             #endif
             VertexFormatter = vertexFormatter;
         }

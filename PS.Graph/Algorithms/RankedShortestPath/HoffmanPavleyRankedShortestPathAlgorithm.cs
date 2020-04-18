@@ -43,8 +43,6 @@ namespace PS.Graph.Algorithms.RankedShortestPath
             IDistanceRelaxer distanceRelaxer)
             : base(host, visitedGraph, distanceRelaxer)
         {
-            Contract.Requires(edgeWeights != null);
-
             _edgeWeights = edgeWeights;
         }
 
@@ -123,11 +121,6 @@ namespace PS.Graph.Algorithms.RankedShortestPath
 
         public void Compute(TVertex rootVertex, TVertex goalVertex)
         {
-            Contract.Requires(rootVertex != null);
-            Contract.Requires(goalVertex != null);
-            Contract.Requires(VisitedGraph.ContainsVertex(rootVertex));
-            Contract.Requires(VisitedGraph.ContainsVertex(goalVertex));
-
             SetRootVertex(rootVertex);
             SetGoalVertex(goalVertex);
             Compute();
@@ -135,8 +128,6 @@ namespace PS.Graph.Algorithms.RankedShortestPath
 
         public void SetGoalVertex(TVertex goalVertex)
         {
-            Contract.Requires(goalVertex != null);
-            Contract.Requires(VisitedGraph.ContainsVertex(goalVertex));
             _goalVertex = goalVertex;
             _goalVertexSet = true;
         }
@@ -158,9 +149,6 @@ namespace PS.Graph.Algorithms.RankedShortestPath
             IDictionary<TVertex, TEdge> successors,
             TVertex startVertex)
         {
-            Contract.Requires(path != null);
-            Contract.Requires(successors != null);
-            Contract.Requires(startVertex != null);
             Contract.Ensures(path[path.Count - 1].Target.Equals(_goalVertex));
 
             var current = startVertex;
@@ -213,13 +201,6 @@ namespace PS.Graph.Algorithms.RankedShortestPath
             int startEdge
         )
         {
-            Contract.Requires(queue != null);
-            Contract.Requires(root != null);
-            Contract.Requires(distances != null);
-            Contract.Requires(path != null);
-            Contract.Requires(path[0].IsAdjacent(root));
-            Contract.Requires(0 <= startEdge && startEdge < path.Length);
-
             var previousVertex = root;
             double previousWeight = 0;
             var pathVertices = new Dictionary<TVertex, int>(path.Length);
@@ -267,10 +248,6 @@ namespace PS.Graph.Algorithms.RankedShortestPath
             double previousWeight
         )
         {
-            Contract.Requires(queue != null);
-            Contract.Requires(distances != null);
-            Contract.Requires(path != null);
-
             var edge = path[iEdge];
             foreach (var deviationEdge in VisitedGraph.OutEdges(previousVertex))
             {
@@ -306,12 +283,6 @@ namespace PS.Graph.Algorithms.RankedShortestPath
             IDictionary<TVertex, double> distances,
             TVertex root)
         {
-            Contract.Requires(queue != null);
-            Contract.Requires(queue.Count == 0);
-            Contract.Requires(successors != null);
-            Contract.Requires(distances != null);
-            Contract.Requires(root != null);
-
             var path = new List<TEdge>();
             AppendShortestPath(
                 path,
@@ -356,11 +327,6 @@ namespace PS.Graph.Algorithms.RankedShortestPath
                 TEdge deviationEdge,
                 double weight)
             {
-                Contract.Requires(parentPath != null);
-                Contract.Requires(0 <= deviationIndex && deviationIndex < parentPath.Length);
-                Contract.Requires(deviationEdge != null);
-                Contract.Requires(weight >= 0);
-
                 ParentPath = parentPath;
                 DeviationIndex = deviationIndex;
                 DeviationEdge = deviationEdge;

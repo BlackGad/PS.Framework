@@ -30,9 +30,6 @@ namespace PS.Graph.Algorithms.ShortestPath
         )
             : base(host, visitedGraph)
         {
-            Contract.Requires(weights != null);
-            Contract.Requires(distanceRelaxer != null);
-
             Weights = weights;
             DistanceRelaxer = distanceRelaxer;
         }
@@ -85,7 +82,6 @@ namespace PS.Graph.Algorithms.ShortestPath
 
         public bool TryGetDistance(TVertex vertex, out double distance)
         {
-            Contract.Requires(vertex != null);
             Contract.Assert(Distances != null);
 
             return Distances.TryGetValue(vertex, out distance);
@@ -108,8 +104,6 @@ namespace PS.Graph.Algorithms.ShortestPath
 
         protected bool Relax(TEdge e)
         {
-            Contract.Requires(e != null);
-
             var source = e.Source;
             var target = e.Target;
             if (source.Equals(target))

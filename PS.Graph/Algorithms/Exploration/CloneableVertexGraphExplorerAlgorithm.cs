@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Services;
 
 namespace PS.Graph.Algorithms.Exploration
@@ -158,15 +157,12 @@ namespace PS.Graph.Algorithms.Exploration
 
         private void OnBackEdge(TEdge e)
         {
-            Contract.Requires(e != null);
             var eh = BackEdge;
             eh?.Invoke(e);
         }
 
         private void OnDiscoverVertex(TVertex v)
         {
-            Contract.Requires(v != null);
-
             VisitedGraph.AddVertex(v);
             _unexploredVertices.Enqueue(v);
 
@@ -176,15 +172,12 @@ namespace PS.Graph.Algorithms.Exploration
 
         private void OnEdgeSkipped(TEdge e)
         {
-            Contract.Requires(e != null);
             var eh = EdgeSkipped;
             eh?.Invoke(e);
         }
 
         private void OnTreeEdge(TEdge e)
         {
-            Contract.Requires(e != null);
-
             var eh = TreeEdge;
             eh?.Invoke(e);
         }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace PS.Graph
@@ -26,7 +25,6 @@ namespace PS.Graph
             IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph
         )
         {
-            Contract.Requires(visitedGraph != null);
             _vertexOutEdges = new Dictionary<TVertex, TEdge[]>(visitedGraph.VertexCount);
             EdgeCount = visitedGraph.EdgeCount;
             foreach (var vertex in visitedGraph.Vertices)
@@ -41,10 +39,6 @@ namespace PS.Graph
             int edgeCount
         )
         {
-            Contract.Requires(vertexOutEdges != null);
-            Contract.Requires(edgeCount >= 0);
-            Contract.Requires(edgeCount == vertexOutEdges.Sum(kv => kv.Value?.Length ?? 0));
-
             _vertexOutEdges = vertexOutEdges;
             EdgeCount = edgeCount;
         }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph
 {
@@ -10,7 +9,6 @@ namespace PS.Graph
 
         protected VertexEventArgs(TVertex vertex)
         {
-            Contract.Requires(vertex != null);
             Vertex = vertex;
         }
 

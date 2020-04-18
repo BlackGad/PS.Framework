@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Algorithms
 {
-    [ContractClass(typeof(Contracts.ComputationContract))]
     public interface IComputation
     {
         #region Properties

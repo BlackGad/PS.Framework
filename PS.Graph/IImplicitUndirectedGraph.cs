@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using PS.Graph.Contracts;
 
 namespace PS.Graph
 {
-    [ContractClass(typeof(ImplicitUndirectedGraphContract<,>))]
     public interface IImplicitUndirectedGraph<in TVertex, TEdge> : IImplicitVertexSet<TVertex>,
                                                                    IGraph
         where TEdge : IEdge<TVertex>

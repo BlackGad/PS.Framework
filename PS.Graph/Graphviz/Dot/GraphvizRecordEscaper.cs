@@ -1,4 +1,3 @@
-using System.Diagnostics.Contracts;
 using System.Text.RegularExpressions;
 
 namespace PS.Graph.Graphviz.Dot
@@ -12,8 +11,6 @@ namespace PS.Graph.Graphviz.Dot
 
         public string Escape(string text)
         {
-            Contract.Requires(text != null);
-
             return _escapeRegExp.Replace(text, MatchEvaluator);
         }
 

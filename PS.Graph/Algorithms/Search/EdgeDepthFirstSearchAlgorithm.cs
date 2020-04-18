@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Services;
 
 namespace PS.Graph.Algorithms.Search
@@ -46,8 +45,6 @@ namespace PS.Graph.Algorithms.Search
         )
             : base(host, visitedGraph)
         {
-            Contract.Requires(colors != null);
-
             EdgeColors = colors;
             _maxDepth = int.MaxValue;
         }

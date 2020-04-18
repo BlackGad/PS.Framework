@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Services;
 using PS.Graph.Collections;
 
@@ -45,9 +44,6 @@ namespace PS.Graph.Algorithms.Search
         )
             : base(host, visitedGraph)
         {
-            Contract.Requires(vertexQueue != null);
-            Contract.Requires(vertexColors != null);
-
             VertexColors = vertexColors;
             _vertexQueue = vertexQueue;
         }
@@ -107,7 +103,7 @@ namespace PS.Graph.Algorithms.Search
 
         #endregion
 
-        #region IDistanceRecorderAlgorithm<TVertex,TEdge> Members
+        #region IDistanceRecorderAlgorithm<TVertex> Members
 
         public event VertexAction<TVertex> InitializeVertex;
 
@@ -125,7 +121,7 @@ namespace PS.Graph.Algorithms.Search
 
         #endregion
 
-        #region IVertexColorizerAlgorithm<TVertex,TEdge> Members
+        #region IVertexColorizerAlgorithm<TVertex> Members
 
         public GraphColor GetVertexColor(TVertex vertex)
         {

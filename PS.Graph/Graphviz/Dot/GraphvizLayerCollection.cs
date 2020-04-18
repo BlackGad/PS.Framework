@@ -1,14 +1,10 @@
-using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics.Contracts;
 using System.IO;
 
 namespace PS.Graph.Graphviz.Dot
 {
     public class GraphvizLayerCollection : Collection<GraphvizLayer>
     {
-        private string _mSeparators = ":";
-
         #region Constructors
 
         public GraphvizLayerCollection()
@@ -29,16 +25,7 @@ namespace PS.Graph.Graphviz.Dot
 
         #region Properties
 
-        public string Separators
-        {
-            get { return _mSeparators; }
-            set
-            {
-                Contract.Requires(!String.IsNullOrEmpty(value));
-
-                _mSeparators = value;
-            }
-        }
+        public string Separators { get; set; } = ":";
 
         #endregion
 

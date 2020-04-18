@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.Contracts;
-using PS.Graph.Contracts.Collections;
 
 namespace PS.Graph.Collections
 {
@@ -7,7 +6,6 @@ namespace PS.Graph.Collections
     ///     A disjoint-set data structure
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [ContractClass(typeof(DisjointSetContract<>))]
     public interface IDisjointSet<T>
     {
         #region Properties

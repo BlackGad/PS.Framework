@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Collections;
 
 namespace PS.Graph.Algorithms.TopologicalSort
@@ -97,8 +96,6 @@ namespace PS.Graph.Algorithms.TopologicalSort
 
         public void Compute(IList<TVertex> vertices)
         {
-            Contract.Requires(vertices != null);
-
             _sortedVertices = vertices;
             Compute();
         }

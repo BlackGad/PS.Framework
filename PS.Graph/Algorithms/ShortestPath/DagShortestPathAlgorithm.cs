@@ -88,7 +88,7 @@ namespace PS.Graph.Algorithms.ShortestPath
 
         #endregion
 
-        #region IDistanceRecorderAlgorithm<TVertex,TEdge> Members
+        #region IDistanceRecorderAlgorithm<TVertex> Members
 
         public event VertexAction<TVertex> InitializeVertex;
 

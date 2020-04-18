@@ -39,9 +39,6 @@ namespace PS.Graph.Collections
 
         public BinaryHeap(int capacity, Func<TPriority, TPriority, int> priorityComparison)
         {
-            Contract.Requires(capacity >= 0);
-            Contract.Requires(priorityComparison != null);
-
             _items = new KeyValuePair<TPriority, TValue>[capacity];
             PriorityComparison = priorityComparison;
         }
@@ -225,21 +222,11 @@ namespace PS.Graph.Collections
         [Pure]
         private bool Less(int i, int j)
         {
-            Contract.Requires(
-                (i >= 0) & (i < Count) &
-                (j >= 0) & (j < Count) &
-                (i != j));
-
             return PriorityComparison(_items[i].Key, _items[j].Key) <= 0;
         }
 
         private void Swap(int i, int j)
         {
-            Contract.Requires(
-                i >= 0 && i < Count &&
-                j >= 0 && j < Count &&
-                i != j);
-
             var kv = _items[i];
             _items[i] = _items[j];
             _items[j] = kv;

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Services;
 
 namespace PS.Graph.Algorithms.MaximumFlow
@@ -22,9 +21,6 @@ namespace PS.Graph.Algorithms.MaximumFlow
         )
             : base(host, visitedGraph)
         {
-            Contract.Requires(vertexFactory != null);
-            Contract.Requires(edgeFactory != null);
-
             VertexFactory = vertexFactory;
             EdgeFactory = edgeFactory;
         }
@@ -121,21 +117,18 @@ namespace PS.Graph.Algorithms.MaximumFlow
 
         private void OnEdgeAdded(TEdge e)
         {
-            Contract.Requires(e != null);
             var eh = EdgeAdded;
             eh?.Invoke(e);
         }
 
         private void OnSuperSinkAdded(TVertex v)
         {
-            Contract.Requires(v != null);
             var eh = SuperSinkAdded;
             eh?.Invoke(v);
         }
 
         private void OnSuperSourceAdded(TVertex v)
         {
-            Contract.Requires(v != null);
             var eh = SuperSourceAdded;
             eh?.Invoke(v);
         }

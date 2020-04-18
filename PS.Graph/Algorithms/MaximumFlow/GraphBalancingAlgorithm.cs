@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Algorithms.MaximumFlow
 {
@@ -25,14 +24,6 @@ namespace PS.Graph.Algorithms.MaximumFlow
             EdgeFactory<TVertex, TEdge> edgeFactory
         )
         {
-            Contract.Requires(visitedGraph != null);
-            Contract.Requires(vertexFactory != null);
-            Contract.Requires(edgeFactory != null);
-            Contract.Requires(source != null);
-            Contract.Requires(visitedGraph.ContainsVertex(source));
-            Contract.Requires(sink != null);
-            Contract.Requires(visitedGraph.ContainsVertex(sink));
-
             VisitedGraph = visitedGraph;
             VertexFactory = vertexFactory;
             EdgeFactory = edgeFactory;
@@ -60,15 +51,6 @@ namespace PS.Graph.Algorithms.MaximumFlow
             TVertex sink,
             IDictionary<TEdge, double> capacities)
         {
-            Contract.Requires(visitedGraph != null);
-            Contract.Requires(vertexFactory != null);
-            Contract.Requires(edgeFactory != null);
-            Contract.Requires(source != null);
-            Contract.Requires(visitedGraph.ContainsVertex(source));
-            Contract.Requires(sink != null);
-            Contract.Requires(visitedGraph.ContainsVertex(sink));
-            Contract.Requires(capacities != null);
-
             VisitedGraph = visitedGraph;
             Source = source;
             Sink = sink;
@@ -232,8 +214,6 @@ namespace PS.Graph.Algorithms.MaximumFlow
 
         public int GetBalancingIndex(TVertex v)
         {
-            Contract.Requires(v != null);
-
             var bi = 0;
             foreach (var edge in VisitedGraph.OutEdges(v))
             {
@@ -307,23 +287,18 @@ namespace PS.Graph.Algorithms.MaximumFlow
 
         private void OnDeficientVertexAdded(TVertex vertex)
         {
-            Contract.Requires(vertex != null);
-
             var eh = DeficientVertexAdded;
             eh?.Invoke(vertex);
         }
 
         private void OnEdgeAdded(TEdge edge)
         {
-            Contract.Requires(edge != null);
-
             var eh = EdgeAdded;
             eh?.Invoke(edge);
         }
 
         private void OnSurplusVertexAdded(TVertex vertex)
         {
-            Contract.Requires(vertex != null);
             var eh = SurplusVertexAdded;
             eh?.Invoke(vertex);
         }

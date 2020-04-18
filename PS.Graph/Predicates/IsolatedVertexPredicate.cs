@@ -16,8 +16,6 @@ namespace PS.Graph.Predicates
 
         public IsolatedVertexPredicate(IBidirectionalGraph<TVertex, TEdge> visitedGraph)
         {
-            Contract.Requires(visitedGraph != null);
-
             _visitedGraph = visitedGraph;
         }
 
@@ -28,8 +26,6 @@ namespace PS.Graph.Predicates
         [Pure]
         public bool Test(TVertex v)
         {
-            Contract.Requires(v != null);
-
             return _visitedGraph.IsInEdgesEmpty(v)
                    && _visitedGraph.IsOutEdgesEmpty(v);
         }

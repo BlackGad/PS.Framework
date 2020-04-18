@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using PS.Graph.Contracts;
 
 namespace PS.Graph
 {
@@ -8,7 +6,6 @@ namespace PS.Graph
     ///     A mutable vertex set
     /// </summary>
     /// <typeparam name="TVertex"></typeparam>
-    [ContractClass(typeof(MutableVertexSetContract<>))]
     public interface IMutableVertexSet<TVertex> : IVertexSet<TVertex>
     {
         #region Events

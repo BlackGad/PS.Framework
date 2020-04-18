@@ -23,9 +23,6 @@ namespace PS.Graph
 
         public STaggedEquatableEdge(TVertex source, TVertex target, TTag tag)
         {
-            Contract.Requires(source != null);
-            Contract.Requires(target != null);
-
             this.source = source;
             this.target = target;
             this.tag = tag;

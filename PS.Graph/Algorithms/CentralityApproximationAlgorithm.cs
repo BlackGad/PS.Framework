@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Observers;
 using PS.Graph.Algorithms.ShortestPath;
 
@@ -24,7 +23,6 @@ namespace PS.Graph.Algorithms
         {
             MaxIterationCount = 50;
             Rand = new Random();
-            Contract.Requires(distances != null);
 
             _dijkstra = new DijkstraShortestPathAlgorithm<TVertex, TEdge>(
                 VisitedGraph,

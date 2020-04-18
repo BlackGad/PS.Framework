@@ -35,8 +35,6 @@ namespace PS.Graph.Algorithms.ConnectedComponents
             IDictionary<TVertex, int> components)
             : base(host, visitedGraph)
         {
-            Contract.Requires(components != null);
-
             Components = components;
         }
 
@@ -95,7 +93,7 @@ namespace PS.Graph.Algorithms.ConnectedComponents
 
         #endregion
 
-        #region IConnectedComponentAlgorithm<TVertex,TEdge,IVertexListGraph<TVertex,TEdge>> Members
+        #region IConnectedComponentAlgorithm<TVertex,IVertexListGraph<TVertex,TEdge>> Members
 
         public IDictionary<TVertex, int> Components { get; }
 

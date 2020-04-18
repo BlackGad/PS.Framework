@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using PS.Graph.Contracts;
 
 namespace PS.Graph
 {
-    [ContractClass(typeof(IncidenceGraphContract<,>))]
-    public interface IIncidenceGraph<TVertex, TEdge> : IImplicitGraph<TVertex, TEdge>
+    public interface IIncidenceGraph<in TVertex, TEdge> : IImplicitGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
         #region Members

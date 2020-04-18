@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
 
 namespace PS.Graph
@@ -20,9 +19,6 @@ namespace PS.Graph
 
         public STaggedEdge(TVertex source, TVertex target, TTag tag)
         {
-            Contract.Requires(source != null);
-            Contract.Requires(target != null);
-
             Source = source;
             Target = target;
             this.tag = tag;

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Services;
 using PS.Graph.Collections;
 
@@ -29,8 +28,6 @@ namespace PS.Graph.Algorithms.MinimumSpanningTree
         )
             : base(host, visitedGraph)
         {
-            Contract.Requires(edgeWeights != null);
-
             _edgeWeights = edgeWeights;
         }
 

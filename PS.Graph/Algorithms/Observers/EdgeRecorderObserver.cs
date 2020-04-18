@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Algorithms.Observers
 {
@@ -23,8 +22,6 @@ namespace PS.Graph.Algorithms.Observers
 
         public EdgeRecorderObserver(IList<TEdge> edges)
         {
-            Contract.Requires(edges != null);
-
             Edges = edges;
         }
 
@@ -52,8 +49,6 @@ namespace PS.Graph.Algorithms.Observers
 
         private void RecordEdge(TEdge args)
         {
-            Contract.Requires(args != null);
-
             Edges.Add(args);
         }
 

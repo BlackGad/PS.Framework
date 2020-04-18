@@ -14,8 +14,6 @@ namespace PS.Graph
 
         public UndirectedBidirectionalGraph(IBidirectionalGraph<TVertex, TEdge> visitedGraph)
         {
-            Contract.Requires(visitedGraph != null);
-
             VisitedGraph = visitedGraph;
         }
 

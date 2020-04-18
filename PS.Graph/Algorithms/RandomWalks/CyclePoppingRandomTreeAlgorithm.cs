@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using PS.Graph.Algorithms.Services;
 
@@ -39,7 +38,6 @@ namespace PS.Graph.Algorithms.RandomWalks
         )
             : base(host, visitedGraph)
         {
-            Contract.Requires(edgeChain != null);
             EdgeChain = edgeChain;
         }
 
@@ -58,11 +56,7 @@ namespace PS.Graph.Algorithms.RandomWalks
         public Random Rnd
         {
             get { return _rnd; }
-            set
-            {
-                Contract.Requires(value != null);
-                _rnd = value;
-            }
+            set { _rnd = value; }
         }
 
         public IDictionary<TVertex, TEdge> Successors { get; } = new Dictionary<TVertex, TEdge>();
@@ -150,7 +144,7 @@ namespace PS.Graph.Algorithms.RandomWalks
 
         #endregion
 
-        #region IVertexColorizerAlgorithm<TVertex,TEdge> Members
+        #region IVertexColorizerAlgorithm<TVertex> Members
 
         public GraphColor GetVertexColor(TVertex v)
         {
@@ -178,9 +172,6 @@ namespace PS.Graph.Algorithms.RandomWalks
 
         public void RandomTreeWithRoot(TVertex root)
         {
-            Contract.Requires(root != null);
-            Contract.Requires(VisitedGraph.ContainsVertex(root));
-
             SetRootVertex(root);
             Compute();
         }
@@ -294,8 +285,6 @@ namespace PS.Graph.Algorithms.RandomWalks
 
         private void Tree(TVertex u, TEdge next)
         {
-            Contract.Requires(next != null);
-
             Successors[u] = next;
             OnTreeEdge(next);
         }

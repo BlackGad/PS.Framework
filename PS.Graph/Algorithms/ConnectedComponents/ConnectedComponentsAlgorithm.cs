@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Search;
 using PS.Graph.Algorithms.Services;
 
@@ -31,8 +30,6 @@ namespace PS.Graph.Algorithms.ConnectedComponents
             IDictionary<TVertex, int> components)
             : base(host, visitedGraph)
         {
-            Contract.Requires(components != null);
-
             Components = components;
         }
 
@@ -76,7 +73,7 @@ namespace PS.Graph.Algorithms.ConnectedComponents
 
         #endregion
 
-        #region IConnectedComponentAlgorithm<TVertex,TEdge,IUndirectedGraph<TVertex,TEdge>> Members
+        #region IConnectedComponentAlgorithm<TVertex,IUndirectedGraph<TVertex,TEdge>> Members
 
         public IDictionary<TVertex, int> Components { get; }
 

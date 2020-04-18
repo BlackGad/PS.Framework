@@ -24,7 +24,6 @@ namespace PS.Graph
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(visitedGraph != null);
             Contract.Ensures(Contract.Result<CompressedSparseRowGraph<TVertex>>() != null);
 
             var outEdgeStartRanges = new Dictionary<TVertex, Range>(visitedGraph.VertexCount);
@@ -65,9 +64,6 @@ namespace PS.Graph
             TVertex[] outEdges
         )
         {
-            Contract.Requires(outEdgeStartRanges != null);
-            Contract.Requires(outEdges != null);
-
             _outEdgeStartRanges = outEdgeStartRanges;
             _outEdges = outEdges;
         }
@@ -262,8 +258,6 @@ namespace PS.Graph
 
             public Range(int start, int end)
             {
-                Contract.Requires(start >= 0);
-                Contract.Requires(start <= end);
                 Contract.Ensures(Contract.ValueAtReturn(out this).Start == start);
                 Contract.Ensures(Contract.ValueAtReturn(out this).End == end);
 

@@ -128,7 +128,7 @@ namespace PS.Graph.Algorithms.Search
 
         #endregion
 
-        #region IVertexTimeStamperAlgorithm<TVertex,TEdge> Members
+        #region IVertexTimeStamperAlgorithm<TVertex> Members
 
         /// <summary>
         ///     Invoked when a vertex is encountered for the first time.

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 
 namespace PS.Graph.Graphviz.Dot
@@ -12,9 +11,6 @@ namespace PS.Graph.Graphviz.Dot
 
         public GraphvizSizeF(float width, float height)
         {
-            Contract.Requires(width >= 0);
-            Contract.Requires(height >= 0);
-
             Width = width;
             Height = height;
         }
@@ -51,9 +47,6 @@ namespace PS.Graph.Graphviz.Dot
 
         public GraphvizSize(int width, int height)
         {
-            Contract.Requires(width >= 0);
-            Contract.Requires(height >= 0);
-
             Width = width;
             Height = height;
         }

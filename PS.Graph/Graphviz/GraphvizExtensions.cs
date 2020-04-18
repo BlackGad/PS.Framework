@@ -50,7 +50,6 @@ namespace PS.Graph.Graphviz
         public static string ToSvg<TVertex, TEdge>(this IEdgeListGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(graph != null);
             Contract.Ensures(Contract.Result<string>() != null);
 
             return ToSvg(ToGraphviz(graph));
@@ -66,8 +65,6 @@ namespace PS.Graph.Graphviz
         public static string ToSvg<TVertex, TEdge>(this IEdgeListGraph<TVertex, TEdge> graph, Action<GraphvizAlgorithm<TVertex, TEdge>> initialization)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(graph != null);
-            Contract.Requires(initialization != null);
             Contract.Ensures(Contract.Result<string>() != null);
 
             return ToSvg(ToGraphviz(graph, initialization));
@@ -81,7 +78,6 @@ namespace PS.Graph.Graphviz
         /// <returns>the svg graph</returns>
         public static string ToSvg(string dot)
         {
-            Contract.Requires(dot != null);
             Contract.Ensures(Contract.Result<string>() != null);
 
             var request = WebRequest.Create("http://rise4fun.com/rest/ask/Agl/");

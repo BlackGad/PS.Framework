@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
-using System.Linq;
 using PS.Graph.Algorithms;
 
 namespace PS.Graph.Collections
@@ -38,11 +37,6 @@ namespace PS.Graph.Collections
             Func<TDistance, TDistance, int> distanceComparison
         )
         {
-            Contract.Requires(valueCount >= 0);
-            Contract.Requires(valueCount == 0 || values != null && valueCount == values.Count());
-            Contract.Requires(distances != null);
-            Contract.Requires(distanceComparison != null);
-
             _distances = distances;
             _cells = new Dictionary<TVertex, FibonacciHeapCell<TDistance, TVertex>>(valueCount);
             if (valueCount > 0)
@@ -69,9 +63,6 @@ namespace PS.Graph.Collections
             Func<TDistance, TDistance, int> distanceComparison
         )
         {
-            Contract.Requires(values != null);
-            Contract.Requires(distanceComparison != null);
-
             _distances = AlgorithmExtensions.GetIndexer(values);
             _cells = new Dictionary<TVertex, FibonacciHeapCell<TDistance, TVertex>>(values.Count);
             foreach (var kv in values)

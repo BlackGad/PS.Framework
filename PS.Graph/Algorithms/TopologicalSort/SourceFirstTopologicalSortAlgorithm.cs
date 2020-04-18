@@ -83,8 +83,6 @@ namespace PS.Graph.Algorithms.TopologicalSort
 
         public void Compute(IList<TVertex> vertices)
         {
-            Contract.Requires(vertices != null);
-
             _sortedVertices = vertices;
             Compute();
         }

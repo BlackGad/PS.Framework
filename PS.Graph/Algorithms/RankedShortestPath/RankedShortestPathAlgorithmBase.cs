@@ -20,8 +20,6 @@ namespace PS.Graph.Algorithms.RankedShortestPath
             IDistanceRelaxer distanceRelaxer)
             : base(host, visitedGraph)
         {
-            Contract.Requires(distanceRelaxer != null);
-
             DistanceRelaxer = distanceRelaxer;
         }
 
@@ -62,7 +60,6 @@ namespace PS.Graph.Algorithms.RankedShortestPath
             get { return _shortestPathCount; }
             set
             {
-                Contract.Requires(value > 1);
                 Contract.Ensures(ShortestPathCount == value);
 
                 _shortestPathCount = value;
@@ -85,9 +82,6 @@ namespace PS.Graph.Algorithms.RankedShortestPath
 
         protected void AddComputedShortestPath(List<TEdge> path)
         {
-            Contract.Requires(path != null);
-            Contract.Requires(path.All(e => e != null));
-
             var pathArray = path.ToArray();
             _computedShortestPaths.Add(pathArray);
         }

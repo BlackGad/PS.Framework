@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Predicates
 {
@@ -11,8 +10,6 @@ namespace PS.Graph.Predicates
         public ResidualEdgePredicate(
             IDictionary<TEdge, double> residualCapacities)
         {
-            Contract.Requires(residualCapacities != null);
-
             ResidualCapacities = residualCapacities;
         }
 
@@ -28,7 +25,6 @@ namespace PS.Graph.Predicates
 
         public bool Test(TEdge e)
         {
-            Contract.Requires(e != null);
             return 0 < ResidualCapacities[e];
         }
 

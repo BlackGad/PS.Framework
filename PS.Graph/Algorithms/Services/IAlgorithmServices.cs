@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.Contracts;
-
-namespace PS.Graph.Algorithms.Services
+﻿namespace PS.Graph.Algorithms.Services
 {
     /// <summary>
     ///     Common services available to algorithm instances
@@ -24,8 +22,6 @@ namespace PS.Graph.Algorithms.Services
 
         public AlgorithmServices(IAlgorithmComponent host)
         {
-            Contract.Requires(host != null);
-
             _host = host;
         }
 

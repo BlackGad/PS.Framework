@@ -34,10 +34,6 @@ namespace PS.Graph
                                                              TVertex vertex)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(edge != null);
-            Contract.Requires(vertex != null);
-            Contract.Requires(!edge.Source.Equals(edge.Target));
-            Contract.Requires(edge.Source.Equals(vertex) || edge.Target.Equals(vertex));
             Contract.Ensures(Contract.Result<TVertex>() != null);
             Contract.Ensures(Contract.Result<TVertex>().Equals(edge.Source.Equals(vertex) ? edge.Target : edge.Source));
 
@@ -67,9 +63,6 @@ namespace PS.Graph
         public static bool HasCycles<TVertex, TEdge>(this IEnumerable<TEdge> path)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(path != null);
-            Contract.Requires(typeof(TEdge).IsValueType || path.All(e => e != null));
-
             var vertices = new Dictionary<TVertex, int>();
             var first = true;
             foreach (var edge in path)
@@ -113,8 +106,6 @@ namespace PS.Graph
                                                       TVertex vertex)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(edge != null);
-            Contract.Requires(vertex != null);
             //Contract.Ensures(Contract.Result<bool>() ==
             //    (edge.Source.Equals(vertex) || edge.Target.Equals(vertex))
             //    );
@@ -127,9 +118,6 @@ namespace PS.Graph
         public static bool IsPath<TVertex, TEdge>(this IEnumerable<TEdge> path)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(path != null);
-            Contract.Requires(typeof(TEdge).IsValueType || path.All(e => e != null));
-
             var first = true;
             var lastTarget = default(TVertex);
             foreach (var edge in path)
@@ -157,10 +145,6 @@ namespace PS.Graph
         public static bool IsPathWithoutCycles<TVertex, TEdge>(this IEnumerable<TEdge> path)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(path != null);
-            Contract.Requires(typeof(TEdge).IsValueType || path.All(e => e != null));
-            Contract.Requires(IsPath<TVertex, TEdge>(path));
-
             var vertices = new Dictionary<TVertex, int>();
             var first = true;
             var lastTarget = default(TVertex);
@@ -212,13 +196,6 @@ namespace PS.Graph
                                                          TVertex vertex)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(predecessors != null);
-            Contract.Requires(root != null);
-            Contract.Requires(vertex != null);
-            Contract.Requires(
-                typeof(TEdge).IsValueType ||
-                predecessors.Values.All(e => e != null));
-
             var current = vertex;
             if (root.Equals(current))
             {
@@ -255,7 +232,6 @@ namespace PS.Graph
         public static bool IsSelfEdge<TVertex, TEdge>(this TEdge edge)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(edge != null);
             Contract.Ensures(Contract.Result<bool>() == edge.Source.Equals(edge.Target));
 
             return edge.Source.Equals(edge.Target);
@@ -269,8 +245,6 @@ namespace PS.Graph
         public static IEnumerable<SReversedEdge<TVertex, TEdge>> ReverseEdges<TVertex, TEdge>(IEnumerable<TEdge> edges)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(edges != null);
-            Contract.Requires(edges.All(e => e != null));
             Contract.Ensures(Contract.Result<IEnumerable<SReversedEdge<TVertex, TEdge>>>() != null);
 
             foreach (var edge in edges)
@@ -293,11 +267,6 @@ namespace PS.Graph
                                                                 TVertex target)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(edge != null);
-            Contract.Requires(source != null);
-            Contract.Requires(target != null);
-            Contract.Requires(Comparer<TVertex>.Default.Compare(source, target) <= 0);
-
             return edge.Source.Equals(source) && edge.Target.Equals(target);
         }
 
@@ -311,7 +280,6 @@ namespace PS.Graph
         public static SEquatableEdge<TVertex> ToVertexPair<TVertex, TEdge>(this TEdge edge)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(edge != null);
             Contract.Ensures(Contract.Result<SEquatableEdge<TVertex>>().Source.Equals(edge.Source));
             Contract.Ensures(Contract.Result<SEquatableEdge<TVertex>>().Target.Equals(edge.Target));
 
@@ -332,11 +300,6 @@ namespace PS.Graph
                                                       out IEnumerable<TEdge> result)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(predecessors != null);
-            Contract.Requires(v != null);
-            Contract.Requires(
-                typeof(TEdge).IsValueType ||
-                predecessors.Values.All(e => e != null));
             Contract.Ensures(
                 !Contract.Result<bool>() ||
                 Contract.ValueAtReturn(out result) != null &&
@@ -379,10 +342,6 @@ namespace PS.Graph
                                                                     TVertex target)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Requires(edge != null);
-            Contract.Requires(source != null);
-            Contract.Requires(target != null);
-
             return edge.Source.Equals(source) && edge.Target.Equals(target) ||
                    edge.Target.Equals(source) && edge.Source.Equals(target);
         }

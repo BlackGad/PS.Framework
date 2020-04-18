@@ -3,7 +3,6 @@ using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Algorithms.Contracts
 {
-    [ContractClassFor(typeof(IAlgorithm<>))]
     internal abstract class AlgorithmContract<TGraph> : IAlgorithm<TGraph>
     {
         #region IAlgorithm<TGraph> Members

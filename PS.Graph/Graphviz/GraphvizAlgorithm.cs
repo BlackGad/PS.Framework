@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.Text.RegularExpressions;
 using PS.Graph.Graphviz.Dot;
@@ -23,7 +22,6 @@ namespace PS.Graph.Graphviz
         #endregion
 
         private readonly Dictionary<TVertex, int> _vertexIds = new Dictionary<TVertex, int>();
-        private IEdgeListGraph<TVertex, TEdge> _visitedGraph;
 
         #region Constructors
 
@@ -38,11 +36,8 @@ namespace PS.Graph.Graphviz
             GraphvizImageType imageType
         )
         {
-            Contract.Requires(g != null);
-            Contract.Requires(!String.IsNullOrEmpty(path));
-
             ClusterCount = 0;
-            _visitedGraph = g;
+            VisitedGraph = g;
             ImageType = imageType;
             GraphFormat = new GraphvizGraph();
             CommonVertexFormat = new GraphvizVertex();
@@ -69,16 +64,7 @@ namespace PS.Graph.Graphviz
         /// </summary>
         public StringWriter Output { get; private set; }
 
-        public IEdgeListGraph<TVertex, TEdge> VisitedGraph
-        {
-            get { return _visitedGraph; }
-            set
-            {
-                Contract.Requires(value != null);
-
-                _visitedGraph = value;
-            }
-        }
+        public IEdgeListGraph<TVertex, TEdge> VisitedGraph { get; set; }
 
         internal int ClusterCount { get; set; }
 
@@ -170,9 +156,6 @@ namespace PS.Graph.Graphviz
 
         public string Generate(IDotEngine dot, string outputFileName)
         {
-            Contract.Requires(dot != null);
-            Contract.Requires(!String.IsNullOrEmpty(outputFileName));
-
             Generate();
             return dot.Run(ImageType, Output.ToString(), outputFileName);
         }
@@ -266,9 +249,6 @@ namespace PS.Graph.Graphviz
             IDictionary<TEdge, GraphColor> edgeColors,
             IEnumerable<TEdge> edges)
         {
-            Contract.Requires(edgeColors != null);
-            Contract.Requires(edges != null);
-
             foreach (var e in edges)
             {
                 if (edgeColors[e] != GraphColor.White)
@@ -302,9 +282,6 @@ namespace PS.Graph.Graphviz
             IDictionary<TVertex, GraphColor> colors,
             IEnumerable<TVertex> vertices)
         {
-            Contract.Requires(colors != null);
-            Contract.Requires(vertices != null);
-
             foreach (var v in vertices)
             {
                 if (colors[v] == GraphColor.White)

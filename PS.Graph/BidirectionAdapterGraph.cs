@@ -29,8 +29,6 @@ namespace PS.Graph
 
         public BidirectionAdapterGraph(IVertexAndEdgeListGraph<TVertex, TEdge> baseGraph)
         {
-            Contract.Requires(baseGraph != null);
-
             _baseGraph = baseGraph;
             _inEdges = new Dictionary<TVertex, EdgeList<TVertex, TEdge>>(_baseGraph.VertexCount);
             foreach (var edge in _baseGraph.Edges)

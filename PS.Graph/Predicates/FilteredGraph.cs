@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Predicates
 {
@@ -16,10 +15,6 @@ namespace PS.Graph.Predicates
             EdgePredicate<TVertex, TEdge> edgePredicate
         )
         {
-            Contract.Requires(baseGraph != null);
-            Contract.Requires(vertexPredicate != null);
-            Contract.Requires(edgePredicate != null);
-
             BaseGraph = baseGraph;
             VertexPredicate = vertexPredicate;
             EdgePredicate = edgePredicate;
@@ -43,7 +38,7 @@ namespace PS.Graph.Predicates
 
         #endregion
 
-        #region IGraph<TVertex,TEdge> Members
+        #region IGraph Members
 
         public bool IsDirected
         {

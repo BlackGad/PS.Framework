@@ -1,14 +1,10 @@
-﻿using System.Diagnostics.Contracts;
-using PS.Graph.Contracts;
-
-namespace PS.Graph
+﻿namespace PS.Graph
 {
     /// <summary>
     ///     A cloneable edge
     /// </summary>
     /// <typeparam name="TVertex">type of the vertex</typeparam>
     /// <typeparam name="TEdge">type of the edge</typeparam>
-    [ContractClass(typeof(CloneableEdgeContract<,>))]
     public interface ICloneableEdge<TVertex, out TEdge> : IEdge<TVertex>
         where TEdge : IEdge<TVertex>
     {

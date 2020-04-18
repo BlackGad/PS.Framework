@@ -21,8 +21,6 @@ namespace PS.Graph
         /// <param name="target">The target.</param>
         public Edge(TVertex source, TVertex target)
         {
-            Contract.Requires(source != null);
-            Contract.Requires(target != null);
             Contract.Ensures(Source.Equals(source));
             Contract.Ensures(Target.Equals(target));
 

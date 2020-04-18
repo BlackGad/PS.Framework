@@ -3,7 +3,6 @@ using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Algorithms.Contracts
 {
-    [ContractClassFor(typeof(IComputation))]
     internal abstract class ComputationContract : IComputation
     {
         #region IComputation Members

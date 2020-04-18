@@ -18,8 +18,6 @@ namespace PS.Graph
 
         public BidirectionalMatrixGraph(int vertexCount)
         {
-            Contract.Requires(vertexCount > 0);
-
             VertexCount = vertexCount;
             EdgeCount = 0;
             _edges = new TEdge[vertexCount, vertexCount];
@@ -30,12 +28,6 @@ namespace PS.Graph
             int edgeCount,
             TEdge[,] edges)
         {
-            Contract.Requires(vertexCount > 0);
-            Contract.Requires(edgeCount >= 0);
-            Contract.Requires(edges != null);
-            Contract.Requires(vertexCount == edges.GetLength(0));
-            Contract.Requires(vertexCount == edges.GetLength(1));
-
             VertexCount = vertexCount;
             EdgeCount = edgeCount;
             _edges = edges;
@@ -132,7 +124,7 @@ namespace PS.Graph
         [Pure]
         public bool TryGetInEdges(int v, out IEnumerable<TEdge> edges)
         {
-            Contract.Ensures(Contract.Result<bool>() == (v > VertexCount));
+            Contract.Ensures(Contract.Result<bool>() == v > VertexCount);
             Contract.Ensures(Contract.Result<bool>() == (Contract.ValueAtReturn(out edges) != null));
 
             if (v > -1 && v < VertexCount)
@@ -379,16 +371,12 @@ namespace PS.Graph
 
         public void ClearEdges(int v)
         {
-            Contract.Requires(0 <= v && v < VertexCount);
-
             ClearInEdges(v);
             ClearOutEdges(v);
         }
 
         public void ClearInEdges(int v)
         {
-            Contract.Requires(0 <= v && v < VertexCount);
-
             for (var i = 0; i < VertexCount; ++i)
             {
                 var e = _edges[i, v];
@@ -401,8 +389,6 @@ namespace PS.Graph
 
         public void ClearOutEdges(int v)
         {
-            Contract.Requires(0 <= v && v < VertexCount);
-
             for (var j = 0; j < VertexCount; ++j)
             {
                 var e = _edges[v, j];
@@ -424,8 +410,6 @@ namespace PS.Graph
 
         public int RemoveInEdgeIf(int v, EdgePredicate<int, TEdge> edgePredicate)
         {
-            Contract.Requires(0 <= v && v < VertexCount);
-
             var count = 0;
             for (var i = 0; i < VertexCount; ++i)
             {
@@ -442,8 +426,6 @@ namespace PS.Graph
 
         public int RemoveOutEdgeIf(int v, EdgePredicate<int, TEdge> predicate)
         {
-            Contract.Requires(0 <= v && v < VertexCount);
-
             var count = 0;
             for (var j = 0; j < VertexCount; ++j)
             {

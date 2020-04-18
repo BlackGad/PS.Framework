@@ -15,9 +15,6 @@ namespace PS.Graph.Collections
 
         private static void CompressPath(Element element, Element root)
         {
-            Contract.Requires(element != null);
-            Contract.Requires(root != null);
-
             // path compression
             var current = element;
             while (current != root)
@@ -36,7 +33,6 @@ namespace PS.Graph.Collections
 
         public ForestDisjointSet(int elementCapacity)
         {
-            Contract.Requires(elementCapacity >= 0 && elementCapacity < int.MaxValue);
             _elements = new Dictionary<T, Element>(elementCapacity);
             SetCount = 0;
         }
@@ -101,7 +97,6 @@ namespace PS.Graph.Collections
         /// <returns></returns>
         private Element Find(Element element)
         {
-            Contract.Requires(element != null);
             Contract.Ensures(Contract.Result<Element>() != null);
 
             var root = FindNoCompression(element);
@@ -112,7 +107,6 @@ namespace PS.Graph.Collections
         [Pure]
         private Element FindNoCompression(Element element)
         {
-            Contract.Requires(element != null);
             Contract.Ensures(Contract.Result<Element>() != null);
 
             // find root,
@@ -134,8 +128,6 @@ namespace PS.Graph.Collections
 
         private bool Union(Element left, Element right)
         {
-            Contract.Requires(left != null);
-            Contract.Requires(right != null);
             Contract.Ensures(
                 Contract.Result<bool>()
                     ? Contract.OldValue(SetCount) - 1 == SetCount
@@ -200,6 +192,7 @@ namespace PS.Graph.Collections
 
             #if DEBUG
             public readonly int Id;
+
             // ReSharper disable once StaticMemberInGenericType
             private static int _nextId;
             #endif

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Services;
 
 namespace PS.Graph.Algorithms.Search
@@ -230,9 +229,6 @@ namespace PS.Graph.Algorithms.Search
         /// <exception cref="ArgumentNullException">se cannot be null</exception>
         private void Visit(TEdge se, int depth)
         {
-            Contract.Requires(se != null);
-            Contract.Requires(depth >= 0);
-
             if (depth > _maxDepth)
             {
                 return;

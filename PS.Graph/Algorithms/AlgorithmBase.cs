@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Services;
 
 namespace PS.Graph.Algorithms
@@ -23,7 +22,6 @@ namespace PS.Graph.Algorithms
         /// <param name="visitedGraph"></param>
         protected AlgorithmBase(IAlgorithmComponent host, TGraph visitedGraph)
         {
-            Contract.Requires(visitedGraph != null);
             if (host == null)
             {
                 host = this;
@@ -35,7 +33,6 @@ namespace PS.Graph.Algorithms
 
         protected AlgorithmBase(TGraph visitedGraph)
         {
-            Contract.Requires(visitedGraph != null);
             VisitedGraph = visitedGraph;
             _algorithmServices = new AlgorithmServices(this);
         }
@@ -144,7 +141,6 @@ namespace PS.Graph.Algorithms
 
         protected void BeginComputation()
         {
-            Contract.Requires(State == ComputationState.NotRunning);
             lock (_syncRoot)
             {
                 _state = ComputationState.Running;
@@ -160,9 +156,6 @@ namespace PS.Graph.Algorithms
 
         protected void EndComputation()
         {
-            Contract.Requires(
-                State == ComputationState.Running ||
-                State == ComputationState.Aborted);
             lock (_syncRoot)
             {
                 switch (_state)
@@ -216,7 +209,6 @@ namespace PS.Graph.Algorithms
 
         protected virtual bool TryGetService(Type serviceType, out object service)
         {
-            Contract.Requires(serviceType != null);
             lock (SyncRoot)
             {
                 if (_services == null)

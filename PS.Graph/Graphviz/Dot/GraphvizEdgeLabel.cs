@@ -29,7 +29,7 @@ namespace PS.Graph.Graphviz.Dot
             if (Value == null) return;
 
             dic["label"] = Value;
-            if (Math.Abs(Angle - (-25)) > double.Epsilon)
+            if (Math.Abs(Angle - -25) > double.Epsilon)
             {
                 dic["labelangle"] = Angle;
             }

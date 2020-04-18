@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Algorithms.Observers
 {
@@ -26,9 +25,6 @@ namespace PS.Graph.Algorithms.Observers
             IList<TEdge> endPathEdges
         )
         {
-            Contract.Requires(edgePredecessors != null);
-            Contract.Requires(endPathEdges != null);
-
             EdgePredecessors = edgePredecessors;
             EndPathEdges = endPathEdges;
         }

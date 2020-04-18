@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Algorithms.RandomWalks
 {
@@ -14,8 +13,6 @@ namespace PS.Graph.Algorithms.RandomWalks
 
         protected WeightedMarkovEdgeChainBase(IDictionary<TEdge, double> weights)
         {
-            Contract.Requires(weights != null);
-
             _weights = weights;
         }
 
@@ -52,17 +49,12 @@ namespace PS.Graph.Algorithms.RandomWalks
 
         protected bool TryGetSuccessor(IImplicitGraph<TVertex, TEdge> g, TVertex u, double position, out TEdge successor)
         {
-            Contract.Requires(g != null);
-            Contract.Requires(u != null);
-
             var edges = g.OutEdges(u);
             return TryGetSuccessor(edges, position, out successor);
         }
 
         protected bool TryGetSuccessor(IEnumerable<TEdge> edges, double position, out TEdge successor)
         {
-            Contract.Requires(edges != null);
-
             double pos = 0;
             foreach (var e in edges)
             {

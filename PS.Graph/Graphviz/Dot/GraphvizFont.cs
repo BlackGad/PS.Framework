@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics.Contracts;
-
-namespace PS.Graph.Graphviz.Dot
+﻿namespace PS.Graph.Graphviz.Dot
 {
     public sealed class GraphvizFont
     {
@@ -9,9 +6,6 @@ namespace PS.Graph.Graphviz.Dot
 
         public GraphvizFont(string name, float sizeInPoints)
         {
-            Contract.Requires(!String.IsNullOrEmpty(name));
-            Contract.Requires(sizeInPoints > 0);
-
             Name = name;
             SizeInPoints = sizeInPoints;
         }

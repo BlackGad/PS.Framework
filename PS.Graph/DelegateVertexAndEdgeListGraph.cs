@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace PS.Graph
@@ -26,8 +25,6 @@ namespace PS.Graph
             TryFunc<TVertex, IEnumerable<TEdge>> tryGetOutEdges)
             : base(tryGetOutEdges)
         {
-            Contract.Requires(vertices != null);
-            Contract.Requires(vertices.All(v => tryGetOutEdges(v, out var edges)));
             _vertices = vertices;
         }
 

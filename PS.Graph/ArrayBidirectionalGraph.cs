@@ -31,8 +31,6 @@ namespace PS.Graph
             IBidirectionalGraph<TVertex, TEdge> visitedGraph
         )
         {
-            Contract.Requires(visitedGraph != null);
-
             _vertexEdges = new Dictionary<TVertex, InOutEdges>(visitedGraph.VertexCount);
             EdgeCount = visitedGraph.EdgeCount;
             foreach (var vertex in visitedGraph.Vertices)
@@ -48,9 +46,6 @@ namespace PS.Graph
             int edgeCount
         )
         {
-            Contract.Requires(vertexEdges != null);
-            Contract.Requires(edgeCount >= 0);
-
             _vertexEdges = vertexEdges;
             EdgeCount = edgeCount;
         }

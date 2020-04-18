@@ -1,13 +1,9 @@
-﻿using System.Diagnostics.Contracts;
-using PS.Graph.Contracts;
-
-namespace PS.Graph
+﻿namespace PS.Graph
 {
     /// <summary>
     ///     A directed edge
     /// </summary>
     /// <typeparam name="TVertex">type of the vertices</typeparam>
-    [ContractClass(typeof(EdgeContract<>))]
     public interface IEdge<out TVertex>
     {
         #region Properties

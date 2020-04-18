@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using PS.Graph.Contracts;
 
 namespace PS.Graph
 {
@@ -9,7 +7,6 @@ namespace PS.Graph
     /// </summary>
     /// <typeparam name="TVertex"></typeparam>
     /// <typeparam name="TEdge"></typeparam>
-    [ContractClass(typeof(MutableVertexAndEdgeSetContract<,>))]
     public interface IMutableVertexAndEdgeSet<TVertex, TEdge> : IMutableVertexSet<TVertex>,
                                                                 IMutableEdgeListGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>

@@ -97,7 +97,7 @@ namespace PS.Graph.Algorithms.ShortestPath
 
         #endregion
 
-        #region IDistanceRecorderAlgorithm<TVertex,TEdge> Members
+        #region IDistanceRecorderAlgorithm<TVertex> Members
 
         public event VertexAction<TVertex> InitializeVertex;
         public event VertexAction<TVertex> DiscoverVertex;
@@ -115,8 +115,6 @@ namespace PS.Graph.Algorithms.ShortestPath
 
         private void InternalGrayTarget(Object sender, UndirectedEdgeEventArgs<TVertex, TEdge> args)
         {
-            Contract.Requires(args != null);
-
             var decreased = Relax(args.Edge, args.Source, args.Target);
             if (decreased)
             {
@@ -132,8 +130,6 @@ namespace PS.Graph.Algorithms.ShortestPath
 
         private void InternalTreeEdge(Object sender, UndirectedEdgeEventArgs<TVertex, TEdge> args)
         {
-            Contract.Requires(args != null);
-
             var decreased = Relax(args.Edge, args.Source, args.Target);
             if (decreased)
             {
@@ -151,9 +147,6 @@ namespace PS.Graph.Algorithms.ShortestPath
 
         public void ComputeNoInit(TVertex s)
         {
-            Contract.Requires(s != null);
-            Contract.Requires(VisitedGraph.ContainsVertex(s));
-
             UndirectedBreadthFirstSearchAlgorithm<TVertex, TEdge> bfs = null;
             try
             {
@@ -214,10 +207,6 @@ namespace PS.Graph.Algorithms.ShortestPath
 
         private void ComputeFromRoot(TVertex rootVertex)
         {
-            Contract.Requires(rootVertex != null);
-            Contract.Requires(VisitedGraph.ContainsVertex(rootVertex));
-            Contract.Requires(VertexColors[rootVertex] == GraphColor.White);
-
             VertexColors[rootVertex] = GraphColor.Gray;
             Distances[rootVertex] = 0;
             ComputeNoInit(rootVertex);

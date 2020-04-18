@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Algorithms.Observers
 {
@@ -11,7 +10,6 @@ namespace PS.Graph.Algorithms.Observers
 
         public DisposableAction(Action action)
         {
-            Contract.Requires(action != null);
             _action = action;
         }
 

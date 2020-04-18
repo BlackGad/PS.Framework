@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Services;
 
 namespace PS.Graph.Algorithms.MaximumFlow
@@ -26,8 +25,6 @@ namespace PS.Graph.Algorithms.MaximumFlow
         )
             : base(host, visitedGraph)
         {
-            Contract.Requires(capacities != null);
-
             Capacities = capacities;
             Predecessors = new Dictionary<TVertex, TEdge>();
             EdgeFactory = edgeFactory;
@@ -54,28 +51,20 @@ namespace PS.Graph.Algorithms.MaximumFlow
         public TVertex Sink
         {
             get { return _sink; }
-            set
-            {
-                Contract.Requires(value != null);
-                _sink = value;
-            }
+            set { _sink = value; }
         }
 
         public TVertex Source
         {
             get { return _source; }
-            set
-            {
-                Contract.Requires(value != null);
-                _source = value;
-            }
+            set { _source = value; }
         }
 
         public Dictionary<TVertex, GraphColor> VertexColors { get; private set; }
 
         #endregion
 
-        #region IVertexColorizerAlgorithm<TVertex,TEdge> Members
+        #region IVertexColorizerAlgorithm<TVertex> Members
 
         public GraphColor GetVertexColor(TVertex vertex)
         {

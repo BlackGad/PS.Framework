@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.MaximumFlow;
 
 namespace PS.Graph.Algorithms
@@ -19,9 +18,6 @@ namespace PS.Graph.Algorithms
         )
             : base(visitedGraph)
         {
-            Contract.Requires(vertexFactory != null);
-            Contract.Requires(edgeFactory != null);
-
             VertexSetA = vertexSetA;
             VertexSetB = vertexSetB;
             VertexFactory = vertexFactory;

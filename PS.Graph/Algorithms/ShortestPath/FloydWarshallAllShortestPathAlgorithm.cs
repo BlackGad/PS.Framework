@@ -31,9 +31,6 @@ namespace PS.Graph.Algorithms.ShortestPath
         )
             : base(host, visitedGraph)
         {
-            Contract.Requires(weights != null);
-            Contract.Requires(distanceRelaxer != null);
-
             _weights = weights;
             _distanceRelaxer = distanceRelaxer;
             _data = new Dictionary<SEquatableEdge<TVertex>, VertexData>();
@@ -45,9 +42,6 @@ namespace PS.Graph.Algorithms.ShortestPath
             IDistanceRelaxer distanceRelaxer)
             : base(visitedGraph)
         {
-            Contract.Requires(weights != null);
-            Contract.Requires(distanceRelaxer != null);
-
             _weights = weights;
             _distanceRelaxer = distanceRelaxer;
             _data = new Dictionary<SEquatableEdge<TVertex>, VertexData>();
@@ -165,9 +159,6 @@ namespace PS.Graph.Algorithms.ShortestPath
 
         public bool TryGetDistance(TVertex source, TVertex target, out double cost)
         {
-            Contract.Requires(source != null);
-            Contract.Requires(target != null);
-
             if (_data.TryGetValue(new SEquatableEdge<TVertex>(source, target), out var value))
             {
                 cost = value.Distance;
@@ -183,9 +174,6 @@ namespace PS.Graph.Algorithms.ShortestPath
             TVertex target,
             out IEnumerable<TEdge> path)
         {
-            Contract.Requires(source != null);
-            Contract.Requires(target != null);
-            
             path = null;
 
             if (source.Equals(target)) return false;
@@ -257,7 +245,6 @@ namespace PS.Graph.Algorithms.ShortestPath
 
             public VertexData(double distance, TEdge edge)
             {
-                Contract.Requires(edge != null);
                 Distance = distance;
                 _predecessor = default;
                 _predecessorStored = false;
@@ -267,8 +254,6 @@ namespace PS.Graph.Algorithms.ShortestPath
 
             public VertexData(double distance, TVertex predecessor)
             {
-                Contract.Requires(predecessor != null);
-
                 Distance = distance;
                 _predecessor = predecessor;
                 _predecessorStored = true;

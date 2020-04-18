@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Algorithms.RandomWalks
 {
@@ -22,9 +21,6 @@ namespace PS.Graph.Algorithms.RandomWalks
             IEdgeChain<TVertex, TEdge> edgeChain
         )
         {
-            Contract.Requires(visitedGraph != null);
-            Contract.Requires(edgeChain != null);
-
             VisitedGraph = visitedGraph;
             _edgeChain = edgeChain;
         }
@@ -36,12 +32,7 @@ namespace PS.Graph.Algorithms.RandomWalks
         public IEdgeChain<TVertex, TEdge> EdgeChain
         {
             get { return _edgeChain; }
-            set
-            {
-                Contract.Requires(value != null);
-
-                _edgeChain = value;
-            }
+            set { _edgeChain = value; }
         }
 
         public EdgePredicate<TVertex, TEdge> EndPredicate
@@ -72,15 +63,11 @@ namespace PS.Graph.Algorithms.RandomWalks
 
         public void Generate(TVertex root)
         {
-            Contract.Requires(root != null);
-
             Generate(root, 100);
         }
 
         public void Generate(TVertex root, int walkCount)
         {
-            Contract.Requires(root != null);
-
             var count = 0;
             var v = root;
 

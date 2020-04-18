@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph
 {
@@ -20,8 +19,6 @@ namespace PS.Graph
         /// <param name="edge">The edge.</param>
         public EdgeEventArgs(TEdge edge)
         {
-            Contract.Requires(edge != null);
-
             Edge = edge;
         }
 

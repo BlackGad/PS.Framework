@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Algorithms.Condensation
 {
@@ -15,9 +14,6 @@ namespace PS.Graph.Algorithms.Condensation
         )
             : base(visitedGraph)
         {
-            Contract.Requires(condensatedGraph != null);
-            Contract.Requires(vertexPredicate != null);
-
             CondensatedGraph = condensatedGraph;
             VertexPredicate = vertexPredicate;
         }

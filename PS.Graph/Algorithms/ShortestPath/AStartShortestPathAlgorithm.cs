@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Search;
 using PS.Graph.Algorithms.Services;
 using PS.Graph.Collections;
@@ -55,8 +54,6 @@ namespace PS.Graph.Algorithms.ShortestPath
         )
             : base(host, visitedGraph, weights, distanceRelaxer)
         {
-            Contract.Requires(costHeuristic != null);
-
             CostHeuristic = costHeuristic;
         }
 
@@ -116,7 +113,7 @@ namespace PS.Graph.Algorithms.ShortestPath
 
         #endregion
 
-        #region IDistanceRecorderAlgorithm<TVertex,TEdge> Members
+        #region IDistanceRecorderAlgorithm<TVertex> Members
 
         public event VertexAction<TVertex> InitializeVertex;
         public event VertexAction<TVertex> DiscoverVertex;
@@ -242,10 +239,6 @@ namespace PS.Graph.Algorithms.ShortestPath
 
         private void ComputeFromRoot(TVertex rootVertex)
         {
-            Contract.Requires(rootVertex != null);
-            Contract.Requires(VisitedGraph.ContainsVertex(rootVertex));
-            Contract.Requires(VertexColors[rootVertex] == GraphColor.White);
-
             VertexColors[rootVertex] = GraphColor.Gray;
             Distances[rootVertex] = 0;
             ComputeNoInit(rootVertex);

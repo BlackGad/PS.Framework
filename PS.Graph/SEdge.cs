@@ -22,8 +22,6 @@ namespace PS.Graph
         /// <param name="target">The target.</param>
         public SEdge(TVertex source, TVertex target)
         {
-            Contract.Requires(source != null);
-            Contract.Requires(target != null);
             Contract.Ensures(Contract.ValueAtReturn(out this).Source.Equals(source));
             Contract.Ensures(Contract.ValueAtReturn(out this).Target.Equals(target));
 

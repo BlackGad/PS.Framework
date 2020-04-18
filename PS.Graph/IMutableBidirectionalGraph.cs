@@ -1,14 +1,10 @@
-﻿using System.Diagnostics.Contracts;
-using PS.Graph.Contracts;
-
-namespace PS.Graph
+﻿namespace PS.Graph
 {
     /// <summary>
     ///     A mutable bidirectional directed graph
     /// </summary>
     /// <typeparam name="TVertex">type of the vertices</typeparam>
     /// <typeparam name="TEdge">type of the edges</typeparam>
-    [ContractClass(typeof(MutableBidirectionalGraphContract<,>))]
     public interface IMutableBidirectionalGraph<TVertex, TEdge> : IMutableVertexAndEdgeListGraph<TVertex, TEdge>,
                                                                   IBidirectionalGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>

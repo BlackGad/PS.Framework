@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Algorithms.Observers
 {
@@ -25,10 +24,6 @@ namespace PS.Graph.Algorithms.Observers
             IDistanceRelaxer distanceRelaxer,
             IDictionary<TVertex, double> distances)
         {
-            Contract.Requires(edgeWeights != null);
-            Contract.Requires(distanceRelaxer != null);
-            Contract.Requires(distances != null);
-
             EdgeWeights = edgeWeights;
             DistanceRelaxer = distanceRelaxer;
             Distances = distances;

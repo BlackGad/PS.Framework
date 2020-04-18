@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using PS.Graph.Algorithms.Search;
 using PS.Graph.Algorithms.Services;
@@ -107,17 +106,12 @@ namespace PS.Graph.Algorithms
 
         public void Compute(TVertex root, IEnumerable<SEquatableEdge<TVertex>> pairs)
         {
-            Contract.Requires(root != null);
-            Contract.Requires(pairs != null);
-
             _pairs = pairs.ToArray();
             Compute(root);
         }
 
         public void SetVertexPairs(IEnumerable<SEquatableEdge<TVertex>> pairs)
         {
-            Contract.Requires(pairs != null);
-
             _pairs = new List<SEquatableEdge<TVertex>>(pairs).ToArray();
         }
 

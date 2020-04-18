@@ -55,8 +55,6 @@ namespace PS.Graph
 
         public AdjacencyGraph(bool allowParallelEdges, int vertexCapacity, int edgeCapacity, IEqualityComparer<TVertex> vertexComparer)
         {
-            Contract.Requires(vertexComparer != null);
-
             AllowParallelEdges = allowParallelEdges;
             if (vertexCapacity > -1)
             {
@@ -76,7 +74,6 @@ namespace PS.Graph
             int edgeCapacity,
             Func<int, IVertexEdgeDictionary<TVertex, TEdge>> vertexEdgesDictionaryFactory)
         {
-            Contract.Requires(vertexEdgesDictionaryFactory != null);
             AllowParallelEdges = allowParallelEdges;
             _vertexEdges = vertexEdgesDictionaryFactory(capacity);
             _edgeCapacity = edgeCapacity;
@@ -89,9 +86,6 @@ namespace PS.Graph
             bool allowParallelEdges
         )
         {
-            Contract.Requires(vertexEdges != null);
-            Contract.Requires(edgeCount >= 0);
-
             _vertexEdges = vertexEdges;
             EdgeCount = edgeCount;
             _edgeCapacity = edgeCapacity;
@@ -588,16 +582,12 @@ namespace PS.Graph
 
         protected virtual void OnVertexAdded(TVertex args)
         {
-            Contract.Requires(args != null);
-
             var eh = VertexAdded;
             eh?.Invoke(args);
         }
 
         protected virtual void OnVertexRemoved(TVertex args)
         {
-            Contract.Requires(args != null);
-
             var eh = VertexRemoved;
             eh?.Invoke(args);
         }

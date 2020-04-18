@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
-using PS.Graph.Contracts;
 
 namespace PS.Graph
 {
     /// <summary>
     ///     A mutable graph instance
     /// </summary>
-    [ContractClass(typeof(MutableGraphContract))]
     public interface IMutableGraph : IGraph
     {
         #region Events

@@ -14,7 +14,6 @@ namespace PS.Graph
 
         public ReversedBidirectionalGraph(IBidirectionalGraph<TVertex, TEdge> originalGraph)
         {
-            Contract.Requires(originalGraph != null);
             OriginalGraph = originalGraph;
         }
 

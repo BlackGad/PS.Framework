@@ -46,9 +46,6 @@ namespace PS.Graph
                                int vertexCapacity,
                                IEqualityComparer<TVertex> vertexComparer)
         {
-            Contract.Requires(edgeEqualityComparer != null);
-            Contract.Requires(vertexComparer != null);
-
             AllowParallelEdges = allowParallelEdges;
             _edgeEqualityComparer = edgeEqualityComparer;
             if (vertexCapacity > -1)
@@ -456,16 +453,12 @@ namespace PS.Graph
 
         protected virtual void OnVertexAdded(TVertex args)
         {
-            Contract.Requires(args != null);
-
             var eh = VertexAdded;
             eh?.Invoke(args);
         }
 
         protected virtual void OnVertexRemoved(TVertex args)
         {
-            Contract.Requires(args != null);
-
             var eh = VertexRemoved;
             eh?.Invoke(args);
         }
@@ -484,9 +477,6 @@ namespace PS.Graph
 
         private bool ContainsEdgeBetweenVertices(IEnumerable<TEdge> edges, TEdge edge)
         {
-            Contract.Requires(edges != null);
-            Contract.Requires(edge != null);
-
             var source = edge.Source;
             var target = edge.Target;
             foreach (var e in edges)

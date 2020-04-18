@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Collections
 {
@@ -24,9 +23,6 @@ namespace PS.Graph.Collections
             Func<TDistance, TDistance, int> distanceComparison
         )
         {
-            Contract.Requires(distances != null);
-            Contract.Requires(distanceComparison != null);
-
             _distances = distances;
             _heap = new BinaryHeap<TDistance, TVertex>(distanceComparison);
         }

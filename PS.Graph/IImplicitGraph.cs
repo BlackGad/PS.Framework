@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using PS.Graph.Contracts;
 
 namespace PS.Graph
 {
@@ -9,7 +8,6 @@ namespace PS.Graph
     /// </summary>
     /// <typeparam name="TVertex">The type of the vertex.</typeparam>
     /// <typeparam name="TEdge">The type of the edge.</typeparam>
-    [ContractClass(typeof(ImplicitGraphContract<,>))]
     public interface IImplicitGraph<in TVertex, TEdge> : IGraph,
                                                          IImplicitVertexSet<TVertex>
         where TEdge : IEdge<TVertex>

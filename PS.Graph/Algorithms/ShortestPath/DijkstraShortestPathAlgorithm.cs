@@ -99,7 +99,7 @@ namespace PS.Graph.Algorithms.ShortestPath
 
         #endregion
 
-        #region IDistanceRecorderAlgorithm<TVertex,TEdge> Members
+        #region IDistanceRecorderAlgorithm<TVertex> Members
 
         public event VertexAction<TVertex> InitializeVertex;
         public event VertexAction<TVertex> DiscoverVertex;
@@ -220,10 +220,6 @@ namespace PS.Graph.Algorithms.ShortestPath
 
         private void ComputeFromRoot(TVertex rootVertex)
         {
-            Contract.Requires(rootVertex != null);
-            Contract.Requires(VisitedGraph.ContainsVertex(rootVertex));
-            Contract.Requires(VertexColors[rootVertex] == GraphColor.White);
-
             VertexColors[rootVertex] = GraphColor.Gray;
             Distances[rootVertex] = 0;
             ComputeNoInit(rootVertex);

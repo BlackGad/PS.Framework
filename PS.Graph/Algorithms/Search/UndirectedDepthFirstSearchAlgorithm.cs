@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Services;
 
 namespace PS.Graph.Algorithms.Search
@@ -81,9 +80,6 @@ namespace PS.Graph.Algorithms.Search
         )
             : base(host, visitedGraph)
         {
-            Contract.Requires(colors != null);
-            Contract.Requires(adjacentEdgeEnumerator != null);
-
             VertexColors = colors;
             AdjacentEdgeEnumerator = adjacentEdgeEnumerator;
         }
@@ -97,11 +93,7 @@ namespace PS.Graph.Algorithms.Search
         public int MaxDepth
         {
             get { return _maxDepth; }
-            set
-            {
-                Contract.Requires(value > 0);
-                _maxDepth = value;
-            }
+            set { _maxDepth = value; }
         }
 
         public IDictionary<TVertex, GraphColor> VertexColors { get; }
@@ -164,7 +156,7 @@ namespace PS.Graph.Algorithms.Search
 
         #endregion
 
-        #region IDistanceRecorderAlgorithm<TVertex,TEdge> Members
+        #region IDistanceRecorderAlgorithm<TVertex> Members
 
         public event VertexAction<TVertex> InitializeVertex;
 
@@ -182,7 +174,7 @@ namespace PS.Graph.Algorithms.Search
 
         #endregion
 
-        #region IVertexColorizerAlgorithm<TVertex,TEdge> Members
+        #region IVertexColorizerAlgorithm<TVertex> Members
 
         public GraphColor GetVertexColor(TVertex vertex)
         {
@@ -195,8 +187,6 @@ namespace PS.Graph.Algorithms.Search
 
         public void Visit(TVertex root)
         {
-            Contract.Requires(root != null);
-
             var todo = new Stack<SearchFrame>();
             var oee = AdjacentEdgeEnumerator;
             var visitedEdges = new Dictionary<TEdge, int>(VisitedGraph.EdgeCount);
@@ -292,16 +282,12 @@ namespace PS.Graph.Algorithms.Search
 
         private void OnInitializeVertex(TVertex v)
         {
-            Contract.Requires(v != null);
-
             var eh = InitializeVertex;
             eh?.Invoke(v);
         }
 
         private void OnStartVertex(TVertex v)
         {
-            Contract.Requires(v != null);
-
             var eh = StartVertex;
             eh?.Invoke(v);
         }
@@ -314,8 +300,6 @@ namespace PS.Graph.Algorithms.Search
 
         private void OnVertexMaxDepthReached(TVertex v)
         {
-            Contract.Requires(v != null);
-
             var eh = VertexMaxDepthReached;
             eh?.Invoke(v);
         }
@@ -337,10 +321,6 @@ namespace PS.Graph.Algorithms.Search
                 IEnumerator<TEdge> edges,
                 int depth)
             {
-                Contract.Requires(vertex != null);
-                Contract.Requires(edges != null);
-                Contract.Requires(depth >= 0);
-
                 Vertex = vertex;
                 Edges = edges;
                 Depth = depth;

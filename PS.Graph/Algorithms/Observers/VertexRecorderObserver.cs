@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Algorithms.Observers
 {
@@ -23,8 +22,6 @@ namespace PS.Graph.Algorithms.Observers
 
         public VertexRecorderObserver(IList<TVertex> vertices)
         {
-            Contract.Requires(vertices != null);
-
             _vertices = vertices;
         }
 
@@ -39,7 +36,7 @@ namespace PS.Graph.Algorithms.Observers
 
         #endregion
 
-        #region IObserver<IVertexTimeStamperAlgorithm<TVertex,TEdge>> Members
+        #region IObserver<IVertexTimeStamperAlgorithm<TVertex>> Members
 
         public IDisposable Attach(IVertexTimeStamperAlgorithm<TVertex> algorithm)
         {

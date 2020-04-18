@@ -38,8 +38,6 @@ namespace PS.Graph.Algorithms.ConnectedComponents
             IDictionary<TVertex, int> components)
             : base(host, g)
         {
-            Contract.Requires(components != null);
-
             Components = components;
             _roots = new Dictionary<TVertex, TVertex>();
             _discoverTimes = new Dictionary<TVertex, int>();
@@ -106,7 +104,7 @@ namespace PS.Graph.Algorithms.ConnectedComponents
 
         #endregion
 
-        #region IConnectedComponentAlgorithm<TVertex,TEdge,IVertexListGraph<TVertex,TEdge>> Members
+        #region IConnectedComponentAlgorithm<TVertex,IVertexListGraph<TVertex,TEdge>> Members
 
         public IDictionary<TVertex, int> Components { get; }
 
@@ -159,8 +157,6 @@ namespace PS.Graph.Algorithms.ConnectedComponents
 
         private TVertex MinDiscoverTime(TVertex u, TVertex v)
         {
-            Contract.Requires(u != null);
-            Contract.Requires(v != null);
             Contract.Ensures(DiscoverTimes[u] < DiscoverTimes[v]
                                  ? Contract.Result<TVertex>().Equals(u)
                                  : Contract.Result<TVertex>().Equals(v)

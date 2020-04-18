@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using PS.Graph.Algorithms.Observers;
 using PS.Graph.Algorithms.Search;
@@ -22,8 +21,6 @@ namespace PS.Graph.Algorithms
         /// <returns>number of eulerian trails</returns>
         public static int ComputeEulerianPathCount(IVertexAndEdgeListGraph<TVertex, TEdge> g)
         {
-            Contract.Requires(g != null);
-
             if (g.EdgeCount < g.VertexCount)
             {
                 return 0;
@@ -319,7 +316,6 @@ namespace PS.Graph.Algorithms
         /// <exception cref="Exception">Eulerian trail not computed yet.</exception>
         public ICollection<ICollection<TEdge>> Trails(TVertex s)
         {
-            Contract.Requires(s != null);
             if (Circuit.Count == 0)
             {
                 throw new InvalidOperationException("Circuit is empty");
@@ -484,31 +480,24 @@ namespace PS.Graph.Algorithms
 
         private void OnCircuitEdge(TEdge e)
         {
-            Contract.Requires(e != null);
-
             var eh = CircuitEdge;
             eh?.Invoke(e);
         }
 
         private void OnTreeEdge(TEdge e)
         {
-            Contract.Requires(e != null);
             var eh = TreeEdge;
             eh?.Invoke(e);
         }
 
         private void OnVisitEdge(TEdge e)
         {
-            Contract.Requires(e != null);
-
             var eh = VisitEdge;
             eh?.Invoke(e);
         }
 
         private bool Search(TVertex u)
         {
-            Contract.Requires(u != null);
-
             foreach (var e in SelectOutEdgesNotInCircuit(u))
             {
                 OnTreeEdge(e);

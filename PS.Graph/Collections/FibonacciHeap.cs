@@ -107,8 +107,6 @@ namespace PS.Graph.Collections
 
         internal void AddLast(FibonacciHeapCell<TPriority, TValue> node)
         {
-            Contract.Requires(node != null);
-
             if (_last != null)
             {
                 _last.Next = node;
@@ -124,8 +122,6 @@ namespace PS.Graph.Collections
 
         internal void MergeLists(FibonacciHeapLinkedList<TPriority, TValue> list)
         {
-            Contract.Requires(list != null);
-
             if (list.First != null)
             {
                 if (_last != null)
@@ -144,8 +140,6 @@ namespace PS.Graph.Collections
 
         internal void Remove(FibonacciHeapCell<TPriority, TValue> node)
         {
-            Contract.Requires(node != null);
-
             if (node.Previous != null)
             {
                 node.Previous.Next = node.Next;
@@ -210,9 +204,6 @@ namespace PS.Graph.Collections
 
         private static int Max<T>(IEnumerable<T> values, Func<T, int> converter)
         {
-            Contract.Requires(values != null);
-            Contract.Requires(converter != null);
-
             var max = int.MinValue;
             foreach (var value in values)
             {
@@ -306,15 +297,11 @@ namespace PS.Graph.Collections
 
         public void ChangeKey(FibonacciHeapCell<TPriority, TValue> node, TPriority newKey)
         {
-            Contract.Requires(node != null);
-
             ChangeKeyInternal(node, newKey, false);
         }
 
         public void Delete(FibonacciHeapCell<TPriority, TValue> node)
         {
-            Contract.Requires(node != null);
-
             ChangeKeyInternal(node, default, true);
             Dequeue();
         }
@@ -442,8 +429,6 @@ namespace PS.Graph.Collections
 
         public void Merge(FibonacciHeap<TPriority, TValue> other)
         {
-            Contract.Requires(other != null);
-
             if (other.Direction != Direction)
             {
                 throw new Exception("Error: Heaps must go in the same direction when merging");
@@ -463,8 +448,6 @@ namespace PS.Graph.Collections
             TPriority newKey,
             bool deletingNode)
         {
-            Contract.Requires(node != null);
-
             var delta = Math.Sign(PriorityComparison(node.Priority, newKey));
             if (delta == 0)
             {
@@ -593,9 +576,6 @@ namespace PS.Graph.Collections
             FibonacciHeapCell<TPriority, TValue> parentNode,
             FibonacciHeapCell<TPriority, TValue> childNode)
         {
-            Contract.Requires(parentNode != null);
-            Contract.Requires(childNode != null);
-
             _nodes.Remove(childNode);
             parentNode.Children.AddLast(childNode);
             childNode.Parent = parentNode;
@@ -635,8 +615,6 @@ namespace PS.Graph.Collections
         private void UpdateNodesDegree(
             FibonacciHeapCell<TPriority, TValue> parentNode)
         {
-            Contract.Requires(parentNode != null);
-
             var oldDegree = parentNode.Degree;
             parentNode.Degree =
                 parentNode.Children.First != null

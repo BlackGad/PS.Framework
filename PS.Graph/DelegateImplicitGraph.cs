@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace PS.Graph
@@ -19,8 +18,6 @@ namespace PS.Graph
         public DelegateImplicitGraph(
             TryFunc<TVertex, IEnumerable<TEdge>> tryGetOutEdges)
         {
-            Contract.Requires(tryGetOutEdges != null);
-
             TryGetOutEdgesFunc = tryGetOutEdges;
         }
 

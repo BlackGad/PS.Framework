@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Algorithms.Observers
 {
@@ -25,8 +24,6 @@ namespace PS.Graph.Algorithms.Observers
 
         public VertexTimeStamperObserver(Dictionary<TVertex, int> discoverTimes)
         {
-            Contract.Requires(discoverTimes != null);
-
             _discoverTimes = discoverTimes;
             _finishTimes = null;
         }
@@ -35,9 +32,6 @@ namespace PS.Graph.Algorithms.Observers
             Dictionary<TVertex, int> discoverTimes,
             Dictionary<TVertex, int> finishTimes)
         {
-            Contract.Requires(discoverTimes != null);
-            Contract.Requires(finishTimes != null);
-
             _discoverTimes = discoverTimes;
             _finishTimes = finishTimes;
         }
@@ -58,7 +52,7 @@ namespace PS.Graph.Algorithms.Observers
 
         #endregion
 
-        #region IObserver<IVertexTimeStamperAlgorithm<TVertex,TEdge>> Members
+        #region IObserver<IVertexTimeStamperAlgorithm<TVertex>> Members
 
         public IDisposable Attach(IVertexTimeStamperAlgorithm<TVertex> algorithm)
         {

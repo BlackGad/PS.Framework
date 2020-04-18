@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 
@@ -25,9 +24,6 @@ namespace PS.Graph
         /// <param name="target">The target.</param>
         public UndirectedEdge(TVertex source, TVertex target)
         {
-            Contract.Requires(source != null);
-            Contract.Requires(target != null);
-            Contract.Requires(Comparer<TVertex>.Default.Compare(source, target) <= 0);
             Contract.Ensures(_source.Equals(source));
             Contract.Ensures(_target.Equals(target));
 

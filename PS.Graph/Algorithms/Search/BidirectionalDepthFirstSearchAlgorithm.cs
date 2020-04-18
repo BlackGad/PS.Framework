@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Services;
 
 namespace PS.Graph.Algorithms.Search
@@ -45,8 +44,6 @@ namespace PS.Graph.Algorithms.Search
         )
             : base(host, visitedGraph)
         {
-            Contract.Requires(colors != null);
-
             VertexColors = colors;
             _maxDepth = int.MaxValue;
         }
@@ -130,7 +127,7 @@ namespace PS.Graph.Algorithms.Search
 
         #endregion
 
-        #region IVertexColorizerAlgorithm<TVertex,TEdge> Members
+        #region IVertexColorizerAlgorithm<TVertex> Members
 
         public GraphColor GetVertexColor(TVertex vertex)
         {
@@ -143,8 +140,6 @@ namespace PS.Graph.Algorithms.Search
 
         public void Visit(TVertex u, int depth)
         {
-            Contract.Requires(u != null);
-
             if (depth > _maxDepth)
             {
                 return;

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Runtime.Serialization;
-using PS.Graph.Contracts.Collections;
 
 namespace PS.Graph.Collections
 {
@@ -11,7 +9,6 @@ namespace PS.Graph.Collections
     /// </summary>
     /// <typeparam name="TVertex"></typeparam>
     /// <typeparam name="TEdge"></typeparam>
-    [ContractClass(typeof(VertexEdgeDictionaryContract<,>))]
     public interface IVertexEdgeDictionary<TVertex, TEdge> : IDictionary<TVertex, IEdgeList<TVertex, TEdge>>,
                                                              ICloneable,
                                                              ISerializable

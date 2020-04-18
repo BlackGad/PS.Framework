@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using PS.Graph.Contracts;
 
 namespace PS.Graph
 {
@@ -8,7 +6,6 @@ namespace PS.Graph
     ///     A set of vertices
     /// </summary>
     /// <typeparam name="TVertex">type of the vertices</typeparam>
-    [ContractClass(typeof(VertexSetContract<>))]
     public interface IVertexSet<TVertex> : IImplicitVertexSet<TVertex>
     {
         #region Properties

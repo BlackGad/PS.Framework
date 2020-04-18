@@ -19,8 +19,6 @@ namespace PS.Graph
     {
         public SReversedEdge(TEdge originalEdge)
         {
-            Contract.Requires(originalEdge != null);
-
             OriginalEdge = originalEdge;
         }
 

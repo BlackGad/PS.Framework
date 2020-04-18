@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using PS.Graph.Contracts.Collections;
 
 namespace PS.Graph.Collections
 {
@@ -10,7 +8,6 @@ namespace PS.Graph.Collections
     /// </summary>
     /// <typeparam name="TVertex"></typeparam>
     /// <typeparam name="TEdge"></typeparam>
-    [ContractClass(typeof(EdgeListContract<,>))]
     public interface IEdgeList<TVertex, TEdge> : IList<TEdge>,
                                                  ICloneable
         where TEdge : IEdge<TVertex>

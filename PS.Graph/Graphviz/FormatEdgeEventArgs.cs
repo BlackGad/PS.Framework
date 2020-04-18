@@ -11,7 +11,6 @@ namespace PS.Graph.Graphviz
             : base(e)
         {
             #if CONTRACTS_BUG
-            Contract.Requires(edgeFormatter != null);
             #endif
             EdgeFormatter = edgeFormatter;
         }
