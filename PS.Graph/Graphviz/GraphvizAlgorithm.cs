@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using PS.Graph.Graphviz.Dot;
 
@@ -166,32 +165,34 @@ namespace PS.Graph.Graphviz
         )
         {
             ++ClusterCount;
-            foreach (var g in parent.Clusters.OfType<IVertexAndEdgeListGraph<TVertex, TEdge>>())
+            foreach (var cluster in parent.Clusters)
             {
+                if(cluster.IsVerticesEmpty) continue;
+
                 Output.Write("subgraph cluster{0}", ClusterCount.ToString());
                 Output.WriteLine(" {");
-                OnFormatCluster(g);
-                if (g is IClusteredAdjacencyGraph<TVertex, TEdge> graph)
+                OnFormatCluster(cluster);
+                if (cluster is IClusteredAdjacencyGraph<TVertex, TEdge> graph)
                 {
                     WriteClusters(colors, edgeColors, graph);
                 }
 
                 if (parent.Collapsed)
                 {
-                    foreach (var v in g.Vertices)
+                    foreach (var v in cluster.Vertices)
                     {
                         colors[v] = GraphColor.Black;
                     }
 
-                    foreach (var e in g.Edges)
+                    foreach (var e in cluster.Edges)
                     {
                         edgeColors[e] = GraphColor.Black;
                     }
                 }
                 else
                 {
-                    WriteVertices(colors, g.Vertices);
-                    WriteEdges(edgeColors, g.Edges);
+                    WriteVertices(colors, cluster.Vertices);
+                    WriteEdges(edgeColors, cluster.Edges);
                 }
 
                 Output.WriteLine("}");

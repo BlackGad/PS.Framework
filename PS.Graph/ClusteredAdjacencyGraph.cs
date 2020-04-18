@@ -267,13 +267,21 @@ namespace PS.Graph
 
         public void Clear()
         {
-            _clusters.Clear();
-            Wrapped.Clear();
+            foreach (var vertex in Vertices.ToList())
+            {
+                RemoveVertex(vertex);
+            }
         }
 
         public void ClearOutEdges(TVertex v)
         {
-            Wrapped.ClearOutEdges(v);
+            if (Wrapped.TryGetOutEdges(v, out var outEdges))
+            {
+                foreach (var outEdge in outEdges.ToList())
+                {
+                    RemoveEdge(outEdge);
+                }
+            }
         }
 
         public virtual bool RemoveEdge(TEdge e)
