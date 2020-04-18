@@ -267,10 +267,20 @@ namespace PS.Graph
 
         public void Clear()
         {
-            foreach (var vertex in Vertices.ToList())
+            var vertices = Vertices.ToList();
+            Wrapped.Clear();
+
+            foreach (var vertex in vertices)
             {
-                RemoveVertex(vertex);
+                Parent?.RemoveVertex(vertex);
             }
+
+            foreach (var cluster in Clusters)
+            {
+                cluster.Clear();
+            }
+
+            _clusters.Clear();
         }
 
         public void ClearOutEdges(TVertex v)
