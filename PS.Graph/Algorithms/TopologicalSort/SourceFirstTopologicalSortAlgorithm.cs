@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Collections;
 
 namespace PS.Graph.Algorithms.TopologicalSort
@@ -71,7 +70,7 @@ namespace PS.Graph.Algorithms.TopologicalSort
                     }
 
                     InDegrees[e.Target]--;
-                    Contract.Assert(InDegrees[e.Target] >= 0);
+
                     Heap.Update(e.Target);
                 }
             }

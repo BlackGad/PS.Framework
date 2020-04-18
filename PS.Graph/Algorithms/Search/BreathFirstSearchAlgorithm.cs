@@ -11,22 +11,22 @@ namespace PS.Graph.Algorithms.Search
     /// <reference-ref
     ///     idref="gross98graphtheory"
     ///     chapter="4.2" />
-    public sealed class BreadthFirstSearchAlgorithm<TVertex, TEdge> : RootedAlgorithmBase<TVertex, IVertexListGraph<TVertex, TEdge>>,
-                                                                      IVertexPredecessorRecorderAlgorithm<TVertex, TEdge>,
-                                                                      IDistanceRecorderAlgorithm<TVertex>,
-                                                                      IVertexColorizerAlgorithm<TVertex>
+    public sealed class BreathFirstSearchAlgorithm<TVertex, TEdge> : RootedAlgorithmBase<TVertex, IVertexListGraph<TVertex, TEdge>>,
+                                                                     IVertexPredecessorRecorderAlgorithm<TVertex, TEdge>,
+                                                                     IDistanceRecorderAlgorithm<TVertex>,
+                                                                     IVertexColorizerAlgorithm<TVertex>
         where TEdge : IEdge<TVertex>
     {
         private readonly IQueue<TVertex> _vertexQueue;
 
         #region Constructors
 
-        public BreadthFirstSearchAlgorithm(IVertexListGraph<TVertex, TEdge> g)
+        public BreathFirstSearchAlgorithm(IVertexListGraph<TVertex, TEdge> g)
             : this(g, new Collections.Queue<TVertex>(), new Dictionary<TVertex, GraphColor>())
         {
         }
 
-        public BreadthFirstSearchAlgorithm(
+        public BreathFirstSearchAlgorithm(
             IVertexListGraph<TVertex, TEdge> visitedGraph,
             IQueue<TVertex> vertexQueue,
             IDictionary<TVertex, GraphColor> vertexColors
@@ -35,7 +35,7 @@ namespace PS.Graph.Algorithms.Search
         {
         }
 
-        public BreadthFirstSearchAlgorithm(
+        public BreathFirstSearchAlgorithm(
             IAlgorithmComponent host,
             IVertexListGraph<TVertex, TEdge> visitedGraph,
             IQueue<TVertex> vertexQueue,
@@ -45,7 +45,7 @@ namespace PS.Graph.Algorithms.Search
         {
         }
 
-        public BreadthFirstSearchAlgorithm(
+        public BreathFirstSearchAlgorithm(
             IAlgorithmComponent host,
             IVertexListGraph<TVertex, TEdge> visitedGraph,
             IQueue<TVertex> vertexQueue,

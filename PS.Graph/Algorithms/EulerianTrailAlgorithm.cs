@@ -307,7 +307,7 @@ namespace PS.Graph.Algorithms
         ///         added to the trail collection. The shortest path between the
         ///         start vertex <paramref name="s" /> and the target vertex of the
         ///         temporary edge is then used to start the new trail. This shortest
-        ///         path is computed using the BreadthFirstSearchAlgorithm.
+        ///         path is computed using the BreathFirstSearchAlgorithm.
         ///     </para>
         /// </remarks>
         /// <param name="s">start vertex</param>
@@ -346,7 +346,7 @@ namespace PS.Graph.Algorithms
             var trails = new List<ICollection<TEdge>>();
             var trail = new List<TEdge>();
             var bfs =
-                new BreadthFirstSearchAlgorithm<TVertex, TEdge>(VisitedGraph);
+                new BreathFirstSearchAlgorithm<TVertex, TEdge>(VisitedGraph);
             var vis =
                 new VertexPredecessorRecorderObserver<TVertex, TEdge>();
             vis.Attach(bfs);

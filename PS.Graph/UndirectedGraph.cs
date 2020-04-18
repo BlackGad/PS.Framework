@@ -1,21 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using PS.Graph.Collections;
 
 namespace PS.Graph
 {
-    public delegate bool EdgeEqualityComparer<in TVertex, in TEdge>(TEdge edge, TVertex source, TVertex target)
-        where TEdge : IEdge<TVertex>;
-
     [Serializable]
     [DebuggerDisplay("VertexCount = {VertexCount}, EdgeCount = {EdgeCount}")]
     public class UndirectedGraph<TVertex, TEdge> : IMutableUndirectedGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
         private readonly VertexEdgeDictionary<TVertex, TEdge> _adjacentEdges;
-        private readonly EdgeEqualityComparer<TVertex, TEdge> _edgeEqualityComparer;
         private int _edgeCapacity = 4;
 
         #region Constructors
@@ -47,7 +42,7 @@ namespace PS.Graph
                                IEqualityComparer<TVertex> vertexComparer)
         {
             AllowParallelEdges = allowParallelEdges;
-            _edgeEqualityComparer = edgeEqualityComparer;
+            EdgeEqualityComparer = edgeEqualityComparer;
             if (vertexCapacity > -1)
             {
                 _adjacentEdges = new VertexEdgeDictionary<TVertex, TEdge>(vertexCapacity, vertexComparer);
@@ -72,14 +67,7 @@ namespace PS.Graph
 
         #region IMutableUndirectedGraph<TVertex,TEdge> Members
 
-        public EdgeEqualityComparer<TVertex, TEdge> EdgeEqualityComparer
-        {
-            get
-            {
-                Contract.Ensures(Contract.Result<EdgeEqualityComparer<TVertex, TEdge>>() != null);
-                return _edgeEqualityComparer;
-            }
-        }
+        public EdgeEqualityComparer<TVertex, TEdge> EdgeEqualityComparer { get; }
 
         public bool IsDirected
         {
@@ -201,7 +189,7 @@ namespace PS.Graph
         {
             foreach (var e in AdjacentEdges(source))
             {
-                if (_edgeEqualityComparer(e, source, target))
+                if (EdgeEqualityComparer(e, source, target))
                 {
                     edge = e;
                     return true;
@@ -332,7 +320,7 @@ namespace PS.Graph
                 }
 
                 EdgeCount--;
-                Contract.Assert(EdgeCount >= 0);
+
                 OnEdgeRemoved(edge);
                 return true;
             }
@@ -487,12 +475,6 @@ namespace PS.Graph
             }
 
             return false;
-        }
-
-        [ContractInvariantMethod]
-        private void ObjectInvariant()
-        {
-            Contract.Invariant(EdgeCount >= 0);
         }
 
         private void OnCleared(EventArgs e)

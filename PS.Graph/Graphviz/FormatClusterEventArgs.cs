@@ -27,9 +27,4 @@ namespace PS.Graph.Graphviz
 
         #endregion
     }
-
-    public delegate void FormatClusterEventHandler<TVertex, TEdge>(
-        Object sender,
-        FormatClusterEventArgs<TVertex, TEdge> e)
-        where TEdge : IEdge<TVertex>;
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Services;
 
 namespace PS.Graph.Algorithms.ShortestPath
@@ -74,16 +73,12 @@ namespace PS.Graph.Algorithms.ShortestPath
 
         public GraphColor GetVertexColor(TVertex vertex)
         {
-            Contract.Assert(Distances != null);
-
             return
                 VertexColors[vertex];
         }
 
         public bool TryGetDistance(TVertex vertex, out double distance)
         {
-            Contract.Assert(Distances != null);
-
             return Distances.TryGetValue(vertex, out distance);
         }
 

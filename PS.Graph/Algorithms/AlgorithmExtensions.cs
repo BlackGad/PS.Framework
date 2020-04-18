@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Condensation;
 using PS.Graph.Algorithms.ConnectedComponents;
 using PS.Graph.Algorithms.MaximumFlow;
@@ -208,8 +207,6 @@ namespace PS.Graph.Algorithms
         /// <returns></returns>
         public static Func<TKey, TValue> GetIndexer<TKey, TValue>(Dictionary<TKey, TValue> dictionary)
         {
-            Contract.Ensures(Contract.Result<Func<TKey, TValue>>() != null);
-
             // ReSharper disable once PossibleNullReferenceException
             var method = dictionary.GetType().GetProperty("Item").GetGetMethod();
             return (Func<TKey, TValue>)Delegate.CreateDelegate(typeof(Func<TKey, TValue>), dictionary, method, true);
@@ -640,10 +637,8 @@ namespace PS.Graph.Algorithms
                                                                       out IDictionary<TVertex, int> components)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Ensures(Contract.ValueAtReturn(out components) != null);
-
             components = new Dictionary<TVertex, int>();
-            var conn = new StronglyConnectedComponentsAlgorithm<TVertex, TEdge>(g, components);
+            var conn = new StronglyConnectedComponentAlgorithm<TVertex, TEdge>(g, components);
             conn.Compute();
             return conn.ComponentCount;
         }
@@ -731,13 +726,11 @@ namespace PS.Graph.Algorithms
             topological.Compute(vertices);
         }
 
-        public static TryFunc<TVertex, IEnumerable<TEdge>> TreeBreadthFirstSearch<TVertex, TEdge>(this IVertexListGraph<TVertex, TEdge> visitedGraph,
-                                                                                                  TVertex root)
+        public static TryFunc<TVertex, IEnumerable<TEdge>> TreeBreathFirstSearch<TVertex, TEdge>(this IVertexListGraph<TVertex, TEdge> visitedGraph,
+                                                                                                 TVertex root)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Ensures(Contract.Result<TryFunc<TVertex, IEnumerable<TEdge>>>() != null);
-
-            var algorithm = new BreadthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph);
+            var algorithm = new BreathFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph);
             var predecessorRecorder = new VertexPredecessorRecorderObserver<TVertex, TEdge>();
             using (predecessorRecorder.Attach(algorithm))
             {
@@ -752,8 +745,6 @@ namespace PS.Graph.Algorithms
                                                                                                   TVertex root)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Ensures(Contract.Result<TryFunc<TVertex, IEnumerable<TEdge>>>() != null);
-
             return TreeCyclePoppingRandom(visitedGraph, root, new NormalizedMarkovEdgeChain<TVertex, TEdge>());
         }
 
@@ -762,8 +753,6 @@ namespace PS.Graph.Algorithms
                                                                                                   IMarkovEdgeChain<TVertex, TEdge> edgeChain)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Ensures(Contract.Result<TryFunc<TVertex, IEnumerable<TEdge>>>() != null);
-
             var algorithm = new CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>(visitedGraph, edgeChain);
             var predecessorRecorder = new VertexPredecessorRecorderObserver<TVertex, TEdge>();
             using (predecessorRecorder.Attach(algorithm))
@@ -787,8 +776,6 @@ namespace PS.Graph.Algorithms
                                                                                                 TVertex root)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Ensures(Contract.Result<TryFunc<TVertex, IEnumerable<TEdge>>>() != null);
-
             var algorithm = new DepthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph);
             var predecessorRecorder = new VertexPredecessorRecorderObserver<TVertex, TEdge>();
             using (predecessorRecorder.Attach(algorithm))
@@ -812,7 +799,7 @@ namespace PS.Graph.Algorithms
                                                                     IDictionary<TVertex, int> components)
             where TEdge : IEdge<TVertex>
         {
-            var conn = new WeaklyConnectedComponentsAlgorithm<TVertex, TEdge>(g, components);
+            var conn = new WeaklyConnectedComponentAlgorithm<TVertex, TEdge>(g, components);
             conn.Compute();
             return conn.ComponentCount;
         }

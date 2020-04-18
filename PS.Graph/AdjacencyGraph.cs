@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using PS.Graph.Collections;
 
 namespace PS.Graph
@@ -320,11 +319,9 @@ namespace PS.Graph
 
         public virtual bool RemoveEdge(TEdge e)
         {
-            if (_vertexEdges.TryGetValue(e.Source, out var edges) &&
-                edges.Remove(e))
+            if (_vertexEdges.TryGetValue(e.Source, out var edges) && edges.Remove(e))
             {
                 EdgeCount--;
-                Contract.Assert(EdgeCount >= 0);
                 OnEdgeRemoved(e);
                 return true;
             }
@@ -357,7 +354,7 @@ namespace PS.Graph
         {
             _vertexEdges.Clear();
             EdgeCount = 0;
-            OnCleared(EventArgs.Empty);
+            Cleared?.Invoke(this, EventArgs.Empty);
         }
 
         public event EventHandler Cleared;
@@ -519,7 +516,6 @@ namespace PS.Graph
                 edgeToRemove.Clear();
             }
 
-            Contract.Assert(EdgeCount >= 0);
             _vertexEdges.Remove(v);
             OnVertexRemoved(v);
 
@@ -583,18 +579,6 @@ namespace PS.Graph
         {
             var eh = VertexRemoved;
             eh?.Invoke(args);
-        }
-
-        [ContractInvariantMethod]
-        private void ObjectInvariant()
-        {
-            Contract.Invariant(EdgeCount >= 0);
-        }
-
-        private void OnCleared(EventArgs e)
-        {
-            var eh = Cleared;
-            eh?.Invoke(this, e);
         }
 
         #endregion

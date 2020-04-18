@@ -50,7 +50,7 @@ namespace PS.Graph.Graphviz.Dot
 
         public int NsLimit1 { get; set; } = -1;
 
-        public GraphvizOutputMode OutputOrder { get; set; } = GraphvizOutputMode.BreadthFirst;
+        public GraphvizOutputMode OutputOrder { get; set; } = GraphvizOutputMode.BreathFirst;
 
         public GraphvizPageDirection PageDirection { get; set; } = GraphvizPageDirection.Bl;
 
@@ -185,7 +185,7 @@ namespace PS.Graph.Graphviz.Dot
                 pairs["nslimit1"] = NsLimit1;
             }
 
-            if (OutputOrder != GraphvizOutputMode.BreadthFirst)
+            if (OutputOrder != GraphvizOutputMode.BreathFirst)
             {
                 pairs["outputorder"] = OutputOrder.ToString().ToLower();
             }

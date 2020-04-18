@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph
 {
@@ -14,8 +13,6 @@ namespace PS.Graph
         public TaggedEdge(TVertex source, TVertex target, TTag tag)
             : base(source, target)
         {
-            Contract.Ensures(Equals(Tag, tag));
-
             _tag = tag;
         }
 

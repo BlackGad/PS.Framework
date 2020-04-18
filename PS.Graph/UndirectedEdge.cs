@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph
 {
@@ -12,9 +11,6 @@ namespace PS.Graph
     [DebuggerDisplay(EdgeExtensions.DebuggerDisplayUndirectedEdgeFormatString)]
     public class UndirectedEdge<TVertex> : IUndirectedEdge<TVertex>
     {
-        private readonly TVertex _source;
-        private readonly TVertex _target;
-
         #region Constructors
 
         /// <summary>
@@ -24,11 +20,8 @@ namespace PS.Graph
         /// <param name="target">The target.</param>
         public UndirectedEdge(TVertex source, TVertex target)
         {
-            Contract.Ensures(_source.Equals(source));
-            Contract.Ensures(_target.Equals(target));
-
-            _source = source;
-            _target = target;
+            Source = source;
+            Target = target;
         }
 
         #endregion
@@ -57,19 +50,13 @@ namespace PS.Graph
         ///     Gets the source vertex
         /// </summary>
         /// <value></value>
-        public TVertex Source
-        {
-            get { return _source; }
-        }
+        public TVertex Source { get; }
 
         /// <summary>
         ///     Gets the target vertex
         /// </summary>
         /// <value></value>
-        public TVertex Target
-        {
-            get { return _target; }
-        }
+        public TVertex Target { get; }
 
         #endregion
     }

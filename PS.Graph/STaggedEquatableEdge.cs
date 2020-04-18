@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
 
 namespace PS.Graph
@@ -83,12 +82,6 @@ namespace PS.Graph
         /// </returns>
         public bool Equals(STaggedEquatableEdge<TVertex, TTag> other)
         {
-            Contract.Ensures(
-                Contract.Result<bool>() ==
-                (Source.Equals(other.Source) &&
-                 Target.Equals(other.Target))
-            );
-
             return
                 source.Equals(other.source) &&
                 target.Equals(other.target);

@@ -107,14 +107,14 @@ namespace PS.Graph.Algorithms.Condensation
             IConnectedComponentAlgorithm<TVertex, IVertexListGraph<TVertex, TEdge>> componentAlgorithm;
             if (StronglyConnected)
             {
-                componentAlgorithm = new StronglyConnectedComponentsAlgorithm<TVertex, TEdge>(
+                componentAlgorithm = new StronglyConnectedComponentAlgorithm<TVertex, TEdge>(
                     this,
                     VisitedGraph,
                     components);
             }
             else
             {
-                componentAlgorithm = new WeaklyConnectedComponentsAlgorithm<TVertex, TEdge>(
+                componentAlgorithm = new WeaklyConnectedComponentAlgorithm<TVertex, TEdge>(
                     this,
                     VisitedGraph,
                     components);

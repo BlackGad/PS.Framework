@@ -103,7 +103,7 @@ namespace PS.Graph.Algorithms.MaximumFlow
                     Predecessors
                 );
                 var queue = new Collections.Queue<TVertex>();
-                var bfs = new BreadthFirstSearchAlgorithm<TVertex, TEdge>(
+                var bfs = new BreathFirstSearchAlgorithm<TVertex, TEdge>(
                     ResidualGraph,
                     queue,
                     VertexColors

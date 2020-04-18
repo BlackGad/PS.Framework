@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph
 {
@@ -24,8 +23,6 @@ namespace PS.Graph
         )
             where TEdge : IEdge<TVertex>
         {
-            Contract.Ensures(Contract.Result<CompressedSparseRowGraph<TVertex>>() != null);
-
             var outEdgeStartRanges = new Dictionary<TVertex, Range>(visitedGraph.VertexCount);
             var outEdges = new TVertex[visitedGraph.EdgeCount];
 
@@ -40,11 +37,7 @@ namespace PS.Graph
                 {
                     outEdges[index++] = edge.Target;
                 }
-
-                Contract.Assert(index == end);
             }
-
-            Contract.Assert(index == outEdges.Length);
 
             return new CompressedSparseRowGraph<TVertex>(
                 outEdgeStartRanges,
@@ -199,7 +192,7 @@ namespace PS.Graph
         {
             var range = _outEdgeStartRanges[v];
             var targetIndex = range.Start + index;
-            Contract.Assert(targetIndex < range.End);
+
             return new SEquatableEdge<TVertex>(v, _outEdges[targetIndex]);
         }
 
@@ -258,9 +251,6 @@ namespace PS.Graph
 
             public Range(int start, int end)
             {
-                Contract.Ensures(Contract.ValueAtReturn(out this).Start == start);
-                Contract.Ensures(Contract.ValueAtReturn(out this).End == end);
-
                 Start = start;
                 End = end;
             }
@@ -271,12 +261,7 @@ namespace PS.Graph
 
             public int Length
             {
-                get
-                {
-                    Contract.Ensures(Contract.Result<int>() >= 0);
-
-                    return End - Start;
-                }
+                get { return End - Start; }
             }
 
             #endregion

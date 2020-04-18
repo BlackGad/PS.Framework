@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Linq;
 
 namespace PS.Graph
 {
@@ -33,9 +31,6 @@ namespace PS.Graph
                                                              TVertex vertex)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Ensures(Contract.Result<TVertex>() != null);
-            Contract.Ensures(Contract.Result<TVertex>().Equals(edge.Source.Equals(vertex) ? edge.Target : edge.Source));
-
             return edge.Source.Equals(vertex) ? edge.Target : edge.Source;
         }
 
@@ -103,9 +98,7 @@ namespace PS.Graph
                                                       TVertex vertex)
             where TEdge : IEdge<TVertex>
         {
-            //Contract.Ensures(Contract.Result<bool>() ==
-            //    (edge.Source.Equals(vertex) || edge.Target.Equals(vertex))
-            //    );
+            //
 
             return edge.Source.Equals(vertex)
                    || edge.Target.Equals(vertex);
@@ -226,8 +219,6 @@ namespace PS.Graph
         public static bool IsSelfEdge<TVertex, TEdge>(this TEdge edge)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Ensures(Contract.Result<bool>() == edge.Source.Equals(edge.Target));
-
             return edge.Source.Equals(edge.Target);
         }
 
@@ -239,8 +230,6 @@ namespace PS.Graph
         public static IEnumerable<SReversedEdge<TVertex, TEdge>> ReverseEdges<TVertex, TEdge>(IEnumerable<TEdge> edges)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Ensures(Contract.Result<IEnumerable<SReversedEdge<TVertex, TEdge>>>() != null);
-
             foreach (var edge in edges)
             {
                 yield return new SReversedEdge<TVertex, TEdge>(edge);
@@ -274,9 +263,6 @@ namespace PS.Graph
         public static SEquatableEdge<TVertex> ToVertexPair<TVertex, TEdge>(this TEdge edge)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Ensures(Contract.Result<SEquatableEdge<TVertex>>().Source.Equals(edge.Source));
-            Contract.Ensures(Contract.Result<SEquatableEdge<TVertex>>().Target.Equals(edge.Target));
-
             return new SEquatableEdge<TVertex>(edge.Source, edge.Target);
         }
 
@@ -294,13 +280,6 @@ namespace PS.Graph
                                                       out IEnumerable<TEdge> result)
             where TEdge : IEdge<TVertex>
         {
-            Contract.Ensures(
-                !Contract.Result<bool>() ||
-                Contract.ValueAtReturn(out result) != null &&
-                (typeof(TEdge).IsValueType ||
-                 Contract.ValueAtReturn(out result).All(e => e != null))
-            );
-
             var path = new List<TEdge>();
 
             var vc = v;

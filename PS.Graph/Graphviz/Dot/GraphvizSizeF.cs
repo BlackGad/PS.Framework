@@ -1,14 +1,15 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 
 namespace PS.Graph.Graphviz.Dot
 {
     [DebuggerDisplay("{Width}x{Height}")]
-    public readonly struct GraphvizSize
+    public readonly struct GraphvizSizeF
     {
         #region Constructors
 
-        public GraphvizSize(int width, int height)
+        public GraphvizSizeF(float width, float height)
         {
             Width = width;
             Height = height;
@@ -18,14 +19,14 @@ namespace PS.Graph.Graphviz.Dot
 
         #region Properties
 
-        public int Height { get; }
+        public float Height { get; }
 
         public bool IsEmpty
         {
-            get { return Width == 0 || Height == 0; }
+            get { return Math.Abs(Width) < float.Epsilon || Math.Abs(Height) < float.Epsilon; }
         }
 
-        public int Width { get; }
+        public float Width { get; }
 
         #endregion
 

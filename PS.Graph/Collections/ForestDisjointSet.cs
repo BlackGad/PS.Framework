@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Collections
 {
@@ -96,8 +95,6 @@ namespace PS.Graph.Collections
         /// <returns></returns>
         private Element Find(Element element)
         {
-            Contract.Ensures(Contract.Result<Element>() != null);
-
             var root = FindNoCompression(element);
             CompressPath(element, root);
             return root;
@@ -105,8 +102,6 @@ namespace PS.Graph.Collections
 
         private Element FindNoCompression(Element element)
         {
-            Contract.Ensures(Contract.Result<Element>() != null);
-
             // find root,
             var current = element;
             while (current.Parent != null)
@@ -117,21 +112,8 @@ namespace PS.Graph.Collections
             return current;
         }
 
-        [ContractInvariantMethod]
-        private void ObjectInvariant()
-        {
-            Contract.Invariant(SetCount >= 0);
-            Contract.Invariant(SetCount <= _elements.Count);
-        }
-
         private bool Union(Element left, Element right)
         {
-            Contract.Ensures(
-                Contract.Result<bool>()
-                    ? Contract.OldValue(SetCount) - 1 == SetCount
-                    : Contract.OldValue(SetCount) == SetCount);
-            Contract.Ensures(FindNoCompression(left) == FindNoCompression(right));
-
             // shortcut when already united,
             if (left == right) return false;
 

@@ -20,6 +20,4 @@ namespace PS.Graph
 
         #endregion
     }
-
-    public delegate void VertexAction<in TVertex>(TVertex vertex);
 }

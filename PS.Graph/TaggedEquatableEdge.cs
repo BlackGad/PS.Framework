@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph
 {
@@ -21,8 +20,6 @@ namespace PS.Graph
         public TaggedEquatableEdge(TVertex source, TVertex target, TTag tag)
             : base(source, target)
         {
-            Contract.Ensures(Object.Equals(Tag, tag));
-
             _tag = tag;
         }
 

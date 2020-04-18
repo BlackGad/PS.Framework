@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Services;
 
 namespace PS.Graph.Algorithms.Search
@@ -259,12 +258,6 @@ namespace PS.Graph.Algorithms.Search
                 VertexColors[u] = GraphColor.Black;
                 OnFinishVertex(u);
             }
-        }
-
-        [ContractInvariantMethod]
-        private void ObjectInvariant()
-        {
-            Contract.Invariant(MaxDepth > 0);
         }
 
         private void OnBackEdge(TEdge e)

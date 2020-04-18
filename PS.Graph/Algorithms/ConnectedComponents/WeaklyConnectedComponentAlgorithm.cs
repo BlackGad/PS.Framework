@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Linq;
 using PS.Graph.Algorithms.Search;
 using PS.Graph.Algorithms.Services;
 
 namespace PS.Graph.Algorithms.ConnectedComponents
 {
     [Serializable]
-    public sealed class WeaklyConnectedComponentsAlgorithm<TVertex, TEdge> : AlgorithmBase<IVertexListGraph<TVertex, TEdge>>,
-                                                                             IConnectedComponentAlgorithm<TVertex, IVertexListGraph<TVertex, TEdge>>
+    public sealed class WeaklyConnectedComponentAlgorithm<TVertex, TEdge> : AlgorithmBase<IVertexListGraph<TVertex, TEdge>>,
+                                                                            IConnectedComponentAlgorithm<TVertex, IVertexListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
         private readonly Dictionary<int, int> _componentEquivalences = new Dictionary<int, int>();
@@ -17,19 +15,19 @@ namespace PS.Graph.Algorithms.ConnectedComponents
 
         #region Constructors
 
-        public WeaklyConnectedComponentsAlgorithm(IVertexListGraph<TVertex, TEdge> visitedGraph)
+        public WeaklyConnectedComponentAlgorithm(IVertexListGraph<TVertex, TEdge> visitedGraph)
             : this(visitedGraph, new Dictionary<TVertex, int>())
         {
         }
 
-        public WeaklyConnectedComponentsAlgorithm(
+        public WeaklyConnectedComponentAlgorithm(
             IVertexListGraph<TVertex, TEdge> visitedGraph,
             IDictionary<TVertex, int> components)
             : this(null, visitedGraph, components)
         {
         }
 
-        public WeaklyConnectedComponentsAlgorithm(
+        public WeaklyConnectedComponentAlgorithm(
             IAlgorithmComponent host,
             IVertexListGraph<TVertex, TEdge> visitedGraph,
             IDictionary<TVertex, int> components)
@@ -52,9 +50,6 @@ namespace PS.Graph.Algorithms.ConnectedComponents
 
         protected override void InternalCompute()
         {
-            Contract.Ensures(0 <= ComponentCount && ComponentCount <= VisitedGraph.VertexCount);
-            Contract.Ensures(VisitedGraph.Vertices.All(v => 0 <= Components[v] && Components[v] < ComponentCount));
-
             // shortcut for empty graph
             if (VisitedGraph.IsVerticesEmpty)
             {
@@ -110,7 +105,7 @@ namespace PS.Graph.Algorithms.ConnectedComponents
             if (otherComponent != _currentComponent)
             {
                 ComponentCount--;
-                Contract.Assert(ComponentCount > 0);
+
                 if (_currentComponent > otherComponent)
                 {
                     _componentEquivalences[_currentComponent] = otherComponent;

@@ -193,11 +193,11 @@ namespace PS.Graph.Algorithms.ShortestPath
 
         public void ComputeNoInit(TVertex s)
         {
-            BreadthFirstSearchAlgorithm<TVertex, TEdge> bfs = null;
+            BreathFirstSearchAlgorithm<TVertex, TEdge> bfs = null;
 
             try
             {
-                bfs = new BreadthFirstSearchAlgorithm<TVertex, TEdge>(
+                bfs = new BreathFirstSearchAlgorithm<TVertex, TEdge>(
                     this,
                     VisitedGraph,
                     _vertexQueue,

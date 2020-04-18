@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
-using System.Linq;
 using PS.Graph.Algorithms.Observers;
 using PS.Graph.Algorithms.Services;
 using PS.Graph.Algorithms.ShortestPath;
@@ -92,9 +90,6 @@ namespace PS.Graph.Algorithms.RankedShortestPath
                 var startEdge = path.Count;
                 AppendShortestPath(path, successors, deviation.DeviationEdge.Target);
 
-                Contract.Assert(Math.Abs(deviation.Weight - path.Sum(e => _edgeWeights(e))) < double.Epsilon);
-                Contract.Assert(path.Count > 0);
-
                 // add to list if loopless
                 if (!path.HasCycles<TVertex, TEdge>())
                 {
@@ -149,8 +144,6 @@ namespace PS.Graph.Algorithms.RankedShortestPath
             IDictionary<TVertex, TEdge> successors,
             TVertex startVertex)
         {
-            Contract.Ensures(path[path.Count - 1].Target.Equals(_goalVertex));
-
             var current = startVertex;
             while (successors.TryGetValue(current, out var edge))
             {

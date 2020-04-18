@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Search;
 using PS.Graph.Algorithms.Services;
 using PS.Graph.Collections;
@@ -147,10 +146,10 @@ namespace PS.Graph.Algorithms.ShortestPath
 
         public void ComputeNoInit(TVertex s)
         {
-            UndirectedBreadthFirstSearchAlgorithm<TVertex, TEdge> bfs = null;
+            UndirectedBreathFirstSearchAlgorithm<TVertex, TEdge> bfs = null;
             try
             {
-                bfs = new UndirectedBreadthFirstSearchAlgorithm<TVertex, TEdge>(
+                bfs = new UndirectedBreathFirstSearchAlgorithm<TVertex, TEdge>(
                     this,
                     VisitedGraph,
                     _vertexQueue,
@@ -200,7 +199,6 @@ namespace PS.Graph.Algorithms.ShortestPath
             {
                 if (Distances[top] > Distances[vertices[i]])
                 {
-                    Contract.Assert(false);
                 }
             }
         }

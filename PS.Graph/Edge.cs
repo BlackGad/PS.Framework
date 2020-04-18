@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph
 {
@@ -21,9 +20,6 @@ namespace PS.Graph
         /// <param name="target">The target.</param>
         public Edge(TVertex source, TVertex target)
         {
-            Contract.Ensures(Source.Equals(source));
-            Contract.Ensures(Target.Equals(target));
-
             Source = source;
             Target = target;
         }

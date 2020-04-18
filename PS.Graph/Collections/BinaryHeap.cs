@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph.Collections
 {
@@ -232,21 +231,7 @@ namespace PS.Graph.Collections
         }
 
         #if DEEP_INVARIANT
-        [ContractInvariantMethod]
-        void ObjectInvariant()
-        {
-            Contract.Invariant(this.items != null);
-            Contract.Invariant(
-                this.count > -1 &
-                this.count <= this.items.Length);
-            Contract.Invariant(
-                EnumerableContract.All(0, this.count, index =>
-                {
-                    var left = 2 * index + 1;
-                    var right = 2 * index + 2;
-                    return  (left >= count || this.Less(index, left)) &&
-                            (right >= count || this.Less(index, right));
-                })
+        )
             );
         }
         #endif
@@ -296,7 +281,6 @@ namespace PS.Graph.Collections
                         throw new InvalidOperationException();
                     }
 
-                    Contract.Assert(_index <= _count);
                     return _items[_index];
                 }
             }

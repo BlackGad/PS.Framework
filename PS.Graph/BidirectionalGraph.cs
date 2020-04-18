@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using PS.Graph.Collections;
 
 namespace PS.Graph
@@ -444,7 +443,6 @@ namespace PS.Graph
             {
                 _vertexInEdges[e.Target].Remove(e);
                 EdgeCount--;
-                Contract.Assert(EdgeCount >= 0);
 
                 OnEdgeRemoved(e);
                 return true;
@@ -532,15 +530,6 @@ namespace PS.Graph
         }
 
         #if DEEP_INVARIANT
-        [ContractInvariantMethod]
-        void ObjectInvariant()
-        {
-            Contract.Invariant(this.edgeCount >= 0);
-            Contract.Invariant(Enumerable.Sum(this.vertexInEdges.Values, ie => ie.Count) == this.edgeCount);
-            Contract.Invariant(this.vertexInEdges.Count == this.vertexOutEdges.Count);
-            Contract.Invariant(Enumerable.All(this.vertexInEdges, kv => this.vertexOutEdges.ContainsKey(kv.Key)));
-            Contract.Invariant(Enumerable.All(this.vertexOutEdges, kv => this.vertexInEdges.ContainsKey(kv.Key)));
-        }
         #endif
 
         public void ClearInEdges(TVertex v)

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace PS.Graph
@@ -151,7 +150,6 @@ namespace PS.Graph
 
             if (!io.TryGetOutEdges(out var edges))
             {
-                Contract.Assert(false);
             }
 
             return edges[index];
@@ -275,7 +273,6 @@ namespace PS.Graph
 
             if (!io.TryGetOutEdges(out var edges))
             {
-                Contract.Assert(false);
             }
 
             return edges[index];

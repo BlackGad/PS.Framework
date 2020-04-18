@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph
 {
@@ -21,8 +20,6 @@ namespace PS.Graph
             ToAdjacencyGraph<TVertex>(this TVertex[][] edges
             )
         {
-            Contract.Ensures(Contract.Result<AdjacencyGraph<TVertex, SEquatableEdge<TVertex>>>() != null);
-
             var sources = edges[0];
             var targets = edges[1];
             var n = sources.Length;

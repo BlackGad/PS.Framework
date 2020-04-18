@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
 
 namespace PS.Graph
@@ -22,9 +21,6 @@ namespace PS.Graph
         /// <param name="target">The target.</param>
         public SUndirectedEdge(TVertex source, TVertex target)
         {
-            Contract.Ensures(Contract.ValueAtReturn(out this).Source.Equals(source));
-            Contract.Ensures(Contract.ValueAtReturn(out this).Target.Equals(target));
-
             Source = source;
             Target = target;
         }

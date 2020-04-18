@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms;
 
 namespace PS.Graph.Collections
@@ -116,15 +115,13 @@ namespace PS.Graph.Collections
         public TVertex Dequeue()
         {
             var result = _heap.Top;
-            Contract.Assert(result != null);
+
             _heap.Dequeue();
             return result.Value;
         }
 
         public TVertex Peek()
         {
-            Contract.Assert(_heap.Top != null);
-
             return _heap.Top.Value;
         }
 

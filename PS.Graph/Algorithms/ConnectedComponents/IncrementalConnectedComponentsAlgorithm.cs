@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Services;
 using PS.Graph.Collections;
 
@@ -30,11 +29,7 @@ namespace PS.Graph.Algorithms.ConnectedComponents
 
         public int ComponentCount
         {
-            get
-            {
-                Contract.Assert(_ds != null);
-                return _ds.SetCount;
-            }
+            get { return _ds.SetCount; }
         }
 
         #endregion
@@ -98,12 +93,7 @@ namespace PS.Graph.Algorithms.ConnectedComponents
         /// <returns></returns>
         public KeyValuePair<int, IDictionary<TVertex, int>> GetComponents()
         {
-            Contract.Ensures(
-                Contract.Result<KeyValuePair<int, IDictionary<TVertex, int>>>().Key == ComponentCount);
-            Contract.Ensures(
-                Contract.Result<KeyValuePair<int, IDictionary<TVertex, int>>>().Value.Count == VisitedGraph.VertexCount);
-            // TODO: more contracts
-            Contract.Assert(_ds != null);
+            // TODO: more 
 
             var representatives = new Dictionary<TVertex, int>(_ds.SetCount);
             if (_components == null)

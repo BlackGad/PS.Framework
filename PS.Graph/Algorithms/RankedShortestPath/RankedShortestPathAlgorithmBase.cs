@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Linq;
 using PS.Graph.Algorithms.Services;
 
 namespace PS.Graph.Algorithms.RankedShortestPath
@@ -10,7 +8,6 @@ namespace PS.Graph.Algorithms.RankedShortestPath
         where TGraph : IGraph
     {
         private List<IEnumerable<TEdge>> _computedShortestPaths;
-        private int _shortestPathCount = 3;
 
         #region Constructors
 
@@ -29,12 +26,7 @@ namespace PS.Graph.Algorithms.RankedShortestPath
 
         public int ComputedShortestPathCount
         {
-            get
-            {
-                Contract.Ensures(Contract.Result<int>() == ComputedShortestPaths.Count());
-
-                return _computedShortestPaths?.Count ?? 0;
-            }
+            get { return _computedShortestPaths?.Count ?? 0; }
         }
 
         public IEnumerable<IEnumerable<TEdge>> ComputedShortestPaths
@@ -55,16 +47,7 @@ namespace PS.Graph.Algorithms.RankedShortestPath
 
         public IDistanceRelaxer DistanceRelaxer { get; }
 
-        public int ShortestPathCount
-        {
-            get { return _shortestPathCount; }
-            set
-            {
-                Contract.Ensures(ShortestPathCount == value);
-
-                _shortestPathCount = value;
-            }
-        }
+        public int ShortestPathCount { get; set; } = 3;
 
         #endregion
 

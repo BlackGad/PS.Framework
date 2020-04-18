@@ -12,22 +12,22 @@ namespace PS.Graph.Algorithms.Search
     ///     idref="gross98graphtheory"
     ///     chapter="4.2" />
     [Serializable]
-    public sealed class UndirectedBreadthFirstSearchAlgorithm<TVertex, TEdge> : RootedAlgorithmBase<TVertex, IUndirectedGraph<TVertex, TEdge>>,
-                                                                                IUndirectedVertexPredecessorRecorderAlgorithm<TVertex, TEdge>,
-                                                                                IDistanceRecorderAlgorithm<TVertex>,
-                                                                                IVertexColorizerAlgorithm<TVertex>
+    public sealed class UndirectedBreathFirstSearchAlgorithm<TVertex, TEdge> : RootedAlgorithmBase<TVertex, IUndirectedGraph<TVertex, TEdge>>,
+                                                                               IUndirectedVertexPredecessorRecorderAlgorithm<TVertex, TEdge>,
+                                                                               IDistanceRecorderAlgorithm<TVertex>,
+                                                                               IVertexColorizerAlgorithm<TVertex>
         where TEdge : IEdge<TVertex>
     {
         private IQueue<TVertex> _vertexQueue;
 
         #region Constructors
 
-        public UndirectedBreadthFirstSearchAlgorithm(IUndirectedGraph<TVertex, TEdge> g)
+        public UndirectedBreathFirstSearchAlgorithm(IUndirectedGraph<TVertex, TEdge> g)
             : this(g, new Collections.Queue<TVertex>(), new Dictionary<TVertex, GraphColor>())
         {
         }
 
-        public UndirectedBreadthFirstSearchAlgorithm(
+        public UndirectedBreathFirstSearchAlgorithm(
             IUndirectedGraph<TVertex, TEdge> visitedGraph,
             IQueue<TVertex> vertexQueue,
             IDictionary<TVertex, GraphColor> vertexColors
@@ -36,7 +36,7 @@ namespace PS.Graph.Algorithms.Search
         {
         }
 
-        public UndirectedBreadthFirstSearchAlgorithm(
+        public UndirectedBreathFirstSearchAlgorithm(
             IAlgorithmComponent host,
             IUndirectedGraph<TVertex, TEdge> visitedGraph,
             IQueue<TVertex> vertexQueue,

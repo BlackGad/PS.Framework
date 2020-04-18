@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
+using System.Linq;
 using PS.Graph.Collections;
 
 namespace PS.Graph
 {
     [Serializable]
-    [DebuggerDisplay("VertexCount = {VertexCount}, EdgeCount = {EdgeCount}")]
-    public class ClusteredAdjacencyGraph<TVertex, TEdge> : IVertexAndEdgeListGraph<TVertex, TEdge>,
-                                                           IEdgeListAndIncidenceGraph<TVertex, TEdge>,
-                                                           IClusteredGraph
+    [DebuggerDisplay("VertexCount = {VertexCount}, EdgeCount = {EdgeCount}, ClusterCount = {ClusterCount}")]
+    public class ClusteredAdjacencyGraph<TVertex, TEdge> : IClusteredAdjacencyGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
         #region Static members
@@ -23,7 +20,7 @@ namespace PS.Graph
 
         #endregion
 
-        private ArrayList _clusters;
+        private List<IClusteredAdjacencyGraph<TVertex, TEdge>> _clusters;
         private bool _collapsed;
 
         #region Constructors
@@ -32,69 +29,25 @@ namespace PS.Graph
         {
             Parent = null;
             Wrapped = wrapped ?? throw new ArgumentNullException(nameof(wrapped));
-            _clusters = new ArrayList();
-            _collapsed = false;
+            _clusters = new List<IClusteredAdjacencyGraph<TVertex, TEdge>>();
         }
 
         public ClusteredAdjacencyGraph(ClusteredAdjacencyGraph<TVertex, TEdge> parent)
         {
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
             Wrapped = new AdjacencyGraph<TVertex, TEdge>(parent.AllowParallelEdges);
-            _clusters = new ArrayList();
+            _clusters = new List<IClusteredAdjacencyGraph<TVertex, TEdge>>();
         }
 
         #endregion
 
         #region Properties
 
-        public int EdgeCapacity
-        {
-            get { return Wrapped.EdgeCapacity; }
-            set { Wrapped.EdgeCapacity = value; }
-        }
-
-        public ClusteredAdjacencyGraph<TVertex, TEdge> Parent { get; }
-
         protected AdjacencyGraph<TVertex, TEdge> Wrapped { get; }
 
         #endregion
 
-        #region IClusteredGraph Members
-
-        public bool Collapsed
-        {
-            get { return _collapsed; }
-            set { _collapsed = value; }
-        }
-
-        public IEnumerable Clusters
-        {
-            get { return _clusters; }
-        }
-
-        public int ClustersCount
-        {
-            get { return _clusters.Count; }
-        }
-
-        IClusteredGraph IClusteredGraph.AddCluster()
-        {
-            return AddCluster();
-        }
-
-        public void RemoveCluster(IClusteredGraph cluster)
-        {
-            if (cluster == null)
-            {
-                throw new ArgumentNullException(nameof(cluster));
-            }
-
-            _clusters.Remove(cluster);
-        }
-
-        #endregion
-
-        #region IVertexAndEdgeListGraph<TVertex,TEdge> Members
+        #region IClusteredAdjacencyGraph<TVertex,TEdge> Members
 
         public bool IsDirected
         {
@@ -192,65 +145,106 @@ namespace PS.Graph
             return Wrapped.TryGetEdges(source, target, out edges);
         }
 
-        #endregion
+        public bool Collapsed
+        {
+            get { return _collapsed; }
+            set
+            {
+                if (_collapsed == value) return;
+                _collapsed = value;
+                CollapsedChanged?.Invoke();
+            }
+        }
 
-        #region Members
+        public IClusteredAdjacencyGraph<TVertex, TEdge> Parent { get; }
 
-        public ClusteredAdjacencyGraph<TVertex, TEdge> AddCluster()
+        public event Action CollapsedChanged;
+
+        public bool IsClustersEmpty
+        {
+            get { return !_clusters.Any(); }
+        }
+
+        public int ClusterCount
+        {
+            get { return _clusters.Count; }
+        }
+
+        public IEnumerable<IClusteredAdjacencyGraph<TVertex, TEdge>> Clusters
+        {
+            get { return _clusters; }
+        }
+
+        public event ClusterAction<TVertex, TEdge> ClusterAdded;
+
+        public event ClusterAction<TVertex, TEdge> ClusterRemoved;
+
+        public IClusteredAdjacencyGraph<TVertex, TEdge> AddCluster()
         {
             var cluster = new ClusteredAdjacencyGraph<TVertex, TEdge>(this);
             _clusters.Add(cluster);
+            ClusterAdded?.Invoke(cluster);
             return cluster;
+        }
+
+        public bool RemoveCluster(IClusteredAdjacencyGraph<TVertex, TEdge> cluster)
+        {
+            if (!_clusters.Remove(cluster)) return false;
+            ClusterRemoved?.Invoke(cluster);
+            return true;
+        }
+
+        public bool ContainsCluster(IClusteredAdjacencyGraph<TVertex, TEdge> cluster)
+        {
+            return _clusters.Contains(cluster);
+        }
+
+        public event EdgeAction<TVertex, TEdge> EdgeAdded
+        {
+            add { Wrapped.EdgeAdded += value; }
+            remove { Wrapped.EdgeAdded -= value; }
+        }
+
+        public event EdgeAction<TVertex, TEdge> EdgeRemoved
+        {
+            add { Wrapped.EdgeRemoved += value; }
+            remove { Wrapped.EdgeRemoved -= value; }
         }
 
         public virtual bool AddEdge(TEdge e)
         {
-            Wrapped.AddEdge(e);
-            if (Parent != null && !Parent.ContainsEdge(e))
-            {
-                Parent.AddEdge(e);
-            }
-
+            if (!Wrapped.AddEdge(e)) return false;
+            Parent?.AddEdge(e);
             return true;
         }
 
         public int AddEdgeRange(IEnumerable<TEdge> edges)
         {
-            var count = 0;
-            foreach (var edge in edges)
-            {
-                if (AddEdge(edge))
-                {
-                    count++;
-                }
-            }
+            return edges.Count(AddEdge);
+        }
 
-            return count;
+        public event VertexAction<TVertex> VertexAdded
+        {
+            add { Wrapped.VertexAdded += value; }
+            remove { Wrapped.VertexAdded -= value; }
+        }
+
+        public event VertexAction<TVertex> VertexRemoved
+        {
+            add { Wrapped.VertexRemoved += value; }
+            remove { Wrapped.VertexRemoved -= value; }
         }
 
         public virtual bool AddVertex(TVertex v)
         {
-            if (!(Parent == null || Parent.ContainsVertex(v)))
-            {
-                Parent.AddVertex(v);
-                return Wrapped.AddVertex(v);
-            }
-
-            return Wrapped.AddVertex(v);
+            if (!Wrapped.AddVertex(v)) return false;
+            Parent?.AddVertex(v);
+            return true;
         }
 
         public virtual int AddVertexRange(IEnumerable<TVertex> vertices)
         {
-            var count = 0;
-            foreach (var v in vertices)
-            {
-                if (AddVertex(v))
-                {
-                    count++;
-                }
-            }
-
-            return count;
+            return vertices.Count(AddVertex);
         }
 
         public virtual bool AddVerticesAndEdge(TEdge e)
@@ -262,22 +256,19 @@ namespace PS.Graph
 
         public int AddVerticesAndEdgeRange(IEnumerable<TEdge> edges)
         {
-            var count = 0;
-            foreach (var edge in edges)
-            {
-                if (AddVerticesAndEdge(edge))
-                {
-                    count++;
-                }
-            }
+            return edges.Count(AddVerticesAndEdge);
+        }
 
-            return count;
+        public event EventHandler Cleared
+        {
+            add { Wrapped.Cleared += value; }
+            remove { Wrapped.Cleared -= value; }
         }
 
         public void Clear()
         {
-            Wrapped.Clear();
             _clusters.Clear();
+            Wrapped.Clear();
         }
 
         public void ClearOutEdges(TVertex v)
@@ -287,16 +278,19 @@ namespace PS.Graph
 
         public virtual bool RemoveEdge(TEdge e)
         {
-            if (!Wrapped.ContainsEdge(e))
+            if (Wrapped.RemoveEdge(e))
             {
-                return false;
+                foreach (var cluster in Clusters)
+                {
+                    cluster.RemoveEdge(e);
+                }
+
+                Parent?.RemoveEdge(e);
+
+                return true;
             }
 
-            RemoveChildEdge(e);
-            Wrapped.RemoveEdge(e);
-            Parent?.RemoveEdge(e);
-
-            return true;
+            return false;
         }
 
         public int RemoveEdgeIf(EdgePredicate<TVertex, TEdge> predicate)
@@ -326,18 +320,26 @@ namespace PS.Graph
             return edgeToRemoveCount;
         }
 
+        public void TrimEdgeExcess()
+        {
+            Wrapped.TrimEdgeExcess();
+        }
+
         public virtual bool RemoveVertex(TVertex v)
         {
-            if (!Wrapped.ContainsVertex(v))
+            if (Wrapped.RemoveVertex(v))
             {
-                return false;
+                foreach (var cluster in Clusters)
+                {
+                    cluster.RemoveVertex(v);
+                }
+
+                Parent?.RemoveVertex(v);
+
+                return true;
             }
 
-            RemoveChildVertex(v);
-            Wrapped.RemoveVertex(v);
-            Parent?.RemoveVertex(v);
-
-            return true;
+            return false;
         }
 
         public int RemoveVertexIf(VertexPredicate<TVertex> predicate)
@@ -357,38 +359,6 @@ namespace PS.Graph
             }
 
             return vertices.Count;
-        }
-
-        [ContractInvariantMethod]
-        private void ObjectInvariant()
-        {
-            Contract.Invariant(Wrapped.EdgeCount >= 0);
-        }
-
-        private void RemoveChildEdge(TEdge e)
-        {
-            foreach (ClusteredAdjacencyGraph<TVertex, TEdge> el in Clusters)
-            {
-                if (el.ContainsEdge(e))
-                {
-                    el.Wrapped.RemoveEdge(e);
-                    el.RemoveChildEdge(e);
-                    break;
-                }
-            }
-        }
-
-        private void RemoveChildVertex(TVertex v)
-        {
-            foreach (ClusteredAdjacencyGraph<TVertex, TEdge> el in Clusters)
-            {
-                if (el.ContainsVertex(v))
-                {
-                    el.Wrapped.RemoveVertex(v);
-                    el.RemoveChildVertex(v);
-                    break;
-                }
-            }
         }
 
         #endregion

@@ -32,9 +32,4 @@ namespace PS.Graph
 
         #endregion
     }
-
-    public delegate void UndirectedEdgeAction<TVertex, TEdge>(
-        Object sender,
-        UndirectedEdgeEventArgs<TVertex, TEdge> e)
-        where TEdge : IEdge<TVertex>;
 }

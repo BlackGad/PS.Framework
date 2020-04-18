@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using PS.Graph.Graphviz.Dot;
 
@@ -140,9 +141,9 @@ namespace PS.Graph.Graphviz
                 edgeColors[e] = GraphColor.White;
             }
 
-            if (VisitedGraph is IClusteredGraph)
+            if (VisitedGraph is IClusteredAdjacencyGraph<TVertex, TEdge>)
             {
-                WriteClusters(colors, edgeColors, VisitedGraph as IClusteredGraph);
+                WriteClusters(colors, edgeColors, VisitedGraph as IClusteredAdjacencyGraph<TVertex, TEdge>);
             }
 
             WriteVertices(colors, VisitedGraph.Vertices);
@@ -161,16 +162,16 @@ namespace PS.Graph.Graphviz
         internal void WriteClusters(
             IDictionary<TVertex, GraphColor> colors,
             IDictionary<TEdge, GraphColor> edgeColors,
-            IClusteredGraph parent
+            IClusteredAdjacencyGraph<TVertex, TEdge> parent
         )
         {
             ++ClusterCount;
-            foreach (IVertexAndEdgeListGraph<TVertex, TEdge> g in parent.Clusters)
+            foreach (var g in parent.Clusters.OfType<IVertexAndEdgeListGraph<TVertex, TEdge>>())
             {
                 Output.Write("subgraph cluster{0}", ClusterCount.ToString());
                 Output.WriteLine(" {");
                 OnFormatCluster(g);
-                if (g is IClusteredGraph graph)
+                if (g is IClusteredAdjacencyGraph<TVertex, TEdge> graph)
                 {
                     WriteClusters(colors, edgeColors, graph);
                 }

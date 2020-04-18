@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 
 namespace PS.Graph
 {
@@ -120,9 +119,6 @@ namespace PS.Graph
 
         public bool TryGetInEdges(int v, out IEnumerable<TEdge> edges)
         {
-            Contract.Ensures(Contract.Result<bool>() == v > VertexCount);
-            Contract.Ensures(Contract.Result<bool>() == (Contract.ValueAtReturn(out edges) != null));
-
             if (v > -1 && v < VertexCount)
             {
                 edges = InEdges(v);

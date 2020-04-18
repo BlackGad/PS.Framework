@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using PS.Graph.Algorithms.Services;
@@ -192,7 +191,7 @@ namespace PS.Graph.Algorithms.ShortestPath
             while (todo.Count > 0)
             {
                 var current = todo.Pop();
-                Contract.Assert(!current.Source.Equals(current.Target));
+
                 if (_data.TryGetValue(current, out var data))
                 {
                     if (data.TryGetEdge(out var edge))
@@ -204,14 +203,13 @@ namespace PS.Graph.Algorithms.ShortestPath
                         if (data.TryGetPredecessor(out var intermediate))
                         {
                             #if DEBUG && !SILVERLIGHT
-                            Contract.Assert(set.Add(intermediate));
+
                             #endif
                             todo.Push(new SEquatableEdge<TVertex>(intermediate, current.Target));
                             todo.Push(new SEquatableEdge<TVertex>(current.Source, intermediate));
                         }
                         else
                         {
-                            Contract.Assert(false);
                             return false;
                         }
                     }
@@ -223,8 +221,6 @@ namespace PS.Graph.Algorithms.ShortestPath
                 }
             }
 
-            Contract.Assert(todo.Count == 0);
-            Contract.Assert(edges.Count > 0);
             path = edges.ToArray();
             return true;
         }
@@ -289,13 +285,6 @@ namespace PS.Graph.Algorithms.ShortestPath
             {
                 predecessor = _predecessor;
                 return _predecessorStored;
-            }
-
-            [ContractInvariantMethod]
-            private void ObjectInvariant()
-            {
-                Contract.Invariant(!_edgeStored || _edge != null);
-                Contract.Invariant(!_predecessorStored || _predecessor != null);
             }
 
             #endregion

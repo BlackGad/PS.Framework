@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using PS.Graph.Algorithms.Services;
 using PS.Graph.Collections;
 
@@ -121,7 +120,6 @@ namespace PS.Graph.Algorithms.Search
                     }
                     else
                     {
-                        Contract.Assume(edgeColor == GraphColor.Gray);
                         // edge already seen, remove it
                         operators.Remove(edge);
                     }

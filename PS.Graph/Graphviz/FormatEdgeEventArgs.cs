@@ -10,8 +10,6 @@ namespace PS.Graph.Graphviz
         internal FormatEdgeEventArgs(TEdge e, GraphvizEdge edgeFormatter)
             : base(e)
         {
-            #if CONTRACTS_BUG
-            #endif
             EdgeFormatter = edgeFormatter;
         }
 
@@ -26,9 +24,4 @@ namespace PS.Graph.Graphviz
 
         #endregion
     }
-
-    public delegate void FormatEdgeAction<TVertex, TEdge>(
-        object sender,
-        FormatEdgeEventArgs<TVertex, TEdge> e)
-        where TEdge : IEdge<TVertex>;
 }

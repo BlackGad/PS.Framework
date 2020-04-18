@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
 
 namespace PS.Graph
@@ -26,9 +25,6 @@ namespace PS.Graph
         /// <param name="target">The target.</param>
         public SEquatableUndirectedEdge(TVertex source, TVertex target)
         {
-            Contract.Ensures(Contract.ValueAtReturn(out this).Source.Equals(source));
-            Contract.Ensures(Contract.ValueAtReturn(out this).Target.Equals(target));
-
             this.source = source;
             this.target = target;
         }
@@ -74,12 +70,6 @@ namespace PS.Graph
         /// </returns>
         public bool Equals(SEquatableUndirectedEdge<TVertex> other)
         {
-            Contract.Ensures(
-                Contract.Result<bool>() ==
-                (Source.Equals(other.Source) &&
-                 Target.Equals(other.Target))
-            );
-
             return
                 source.Equals(other.source) &&
                 target.Equals(other.target);

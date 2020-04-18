@@ -1,5 +1,4 @@
-﻿using System;
-using PS.Graph.Graphviz.Dot;
+﻿using PS.Graph.Graphviz.Dot;
 
 namespace PS.Graph.Graphviz
 {
@@ -10,8 +9,6 @@ namespace PS.Graph.Graphviz
         internal FormatVertexEventArgs(TVertex v, GraphvizVertex vertexFormatter)
             : base(v)
         {
-            #if CONTRACTS_BUG
-            #endif
             VertexFormatter = vertexFormatter;
         }
 
@@ -23,8 +20,4 @@ namespace PS.Graph.Graphviz
 
         #endregion
     }
-
-    public delegate void FormatVertexEventHandler<TVertex>(
-        Object sender,
-        FormatVertexEventArgs<TVertex> e);
 }
