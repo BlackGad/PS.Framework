@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using PS.Graph.Collections;
 
 namespace PS.Graph
@@ -352,50 +353,40 @@ namespace PS.Graph
 
         public void Clear()
         {
+            var obsoleteVertices = Vertices.ToList();
+            var obsoleteEdges = Edges.ToList();
             _vertexEdges.Clear();
             EdgeCount = 0;
-            Cleared?.Invoke(this, EventArgs.Empty);
+            OnCleared(obsoleteVertices, obsoleteEdges);
         }
 
         public event EventHandler Cleared;
 
         public void ClearOutEdges(TVertex v)
         {
-            var edges = _vertexEdges[v];
-            var count = edges.Count;
-            if (EdgeRemoved != null) // call only if someone is listening
+            foreach (var edge in _vertexEdges[v].ToList())
             {
-                foreach (var edge in edges)
-                {
-                    OnEdgeRemoved(edge);
-                }
+                RemoveEdge(edge);
             }
-
-            edges.Clear();
-            EdgeCount -= count;
         }
 
         public int RemoveOutEdgeIf(TVertex v, EdgePredicate<TVertex, TEdge> predicate)
         {
-            var edges = _vertexEdges[v];
-            var edgeToRemove = new EdgeList<TVertex, TEdge>(edges.Count);
-            foreach (var edge in edges)
+            var edges = new EdgeList<TVertex, TEdge>();
+            foreach (var edge in OutEdges(v))
             {
                 if (predicate(edge))
                 {
-                    edgeToRemove.Add(edge);
+                    edges.Add(edge);
                 }
             }
 
-            foreach (var edge in edgeToRemove)
+            foreach (var edge in edges)
             {
-                edges.Remove(edge);
-                OnEdgeRemoved(edge);
+                RemoveEdge(edge);
             }
 
-            EdgeCount -= edgeToRemove.Count;
-
-            return edgeToRemove.Count;
+            return edges.Count;
         }
 
         public void TrimEdgeExcess()
@@ -475,48 +466,15 @@ namespace PS.Graph
                 return false;
             }
 
-            // remove outEdges
+            var edgesToRemove = OutEdges(v).ToList();
+
+            foreach (var edgeToRemove in edgesToRemove)
             {
-                var edges = _vertexEdges[v];
-                if (EdgeRemoved != null) // lazily notify
-                {
-                    foreach (var edge in edges)
-                    {
-                        OnEdgeRemoved(edge);
-                    }
-                }
-
-                EdgeCount -= edges.Count;
-                edges.Clear();
-            }
-
-            // iterate over edges and remove each edge touching the vertex
-            var edgeToRemove = new EdgeList<TVertex, TEdge>();
-            foreach (var kv in _vertexEdges)
-            {
-                if (kv.Key.Equals(v)) continue; // we've already 
-                // collect edge to remove
-                foreach (var edge in kv.Value)
-                {
-                    if (edge.Target.Equals(v))
-                    {
-                        edgeToRemove.Add(edge);
-                    }
-                }
-
-                // remove edges
-                foreach (var edge in edgeToRemove)
-                {
-                    kv.Value.Remove(edge);
-                    OnEdgeRemoved(edge);
-                }
-
-                // update count
-                EdgeCount -= edgeToRemove.Count;
-                edgeToRemove.Clear();
+                RemoveEdge(edgeToRemove);
             }
 
             _vertexEdges.Remove(v);
+
             OnVertexRemoved(v);
 
             return true;
@@ -547,7 +505,7 @@ namespace PS.Graph
 
         #region Members
 
-        public AdjacencyGraph<TVertex, TEdge> Clone()
+        public virtual AdjacencyGraph<TVertex, TEdge> Clone()
         {
             return new AdjacencyGraph<TVertex, TEdge>(
                 _vertexEdges.Clone(),
@@ -557,28 +515,29 @@ namespace PS.Graph
             );
         }
 
+        protected virtual void OnCleared(IReadOnlyList<TVertex> obsoleteVertices, IReadOnlyList<TEdge> obsoleteEdges)
+        {
+            Cleared?.Invoke(this, EventArgs.Empty);
+        }
+
         protected virtual void OnEdgeAdded(TEdge args)
         {
-            var eh = EdgeAdded;
-            eh?.Invoke(args);
+            EdgeAdded?.Invoke(args);
         }
 
         protected virtual void OnEdgeRemoved(TEdge args)
         {
-            var eh = EdgeRemoved;
-            eh?.Invoke(args);
+            EdgeRemoved?.Invoke(args);
         }
 
         protected virtual void OnVertexAdded(TVertex args)
         {
-            var eh = VertexAdded;
-            eh?.Invoke(args);
+            VertexAdded?.Invoke(args);
         }
 
         protected virtual void OnVertexRemoved(TVertex args)
         {
-            var eh = VertexRemoved;
-            eh?.Invoke(args);
+            VertexRemoved?.Invoke(args);
         }
 
         #endregion

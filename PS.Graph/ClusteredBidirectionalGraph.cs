@@ -7,115 +7,162 @@ namespace PS.Graph
 {
     [Serializable]
     [DebuggerDisplay("VertexCount = {VertexCount}, EdgeCount = {EdgeCount}, ClusterCount = {ClusterCount}")]
-    public class ClusteredBidirectionalGraph<TVertex, TEdge> : BaseClusteredGraph<TVertex, TEdge>,
+    public class ClusteredBidirectionalGraph<TVertex, TEdge> : BidirectionalGraph<TVertex, TEdge>,
                                                                IClusteredBidirectionalGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
-        private IList<IClusteredGraph<TVertex, TEdge>> _children;
-        private IMutableBidirectionalGraph<TVertex, TEdge> _graph;
-        private ClusteredBidirectionalGraph<TVertex, TEdge> _parent;
+        private List<IClusteredGraph<TVertex, TEdge>> _clusters;
 
         #region Constructors
 
-        public ClusteredBidirectionalGraph(IMutableBidirectionalGraph<TVertex, TEdge> wrapped)
-            : this()
+        public ClusteredBidirectionalGraph()
+            : this(true)
         {
-            _graph = wrapped;
         }
 
-        private ClusteredBidirectionalGraph()
+        public ClusteredBidirectionalGraph(bool allowParallelEdges)
+            : base(allowParallelEdges)
         {
-            _children = new List<IClusteredGraph<TVertex, TEdge>>();
-        }
-
-        private ClusteredBidirectionalGraph(ClusteredBidirectionalGraph<TVertex, TEdge> parent)
-            : this()
-        {
-            _parent = parent;
-            _graph = new BidirectionalGraph<TVertex, TEdge>();
+            _clusters = new List<IClusteredGraph<TVertex, TEdge>>();
         }
 
         #endregion
 
         #region Override members
 
-        protected override IClusteredGraph<TVertex, TEdge> CreateChildCluster()
+        public override BidirectionalGraph<TVertex, TEdge> Clone()
         {
-            return new ClusteredBidirectionalGraph<TVertex, TEdge>(this);
+            throw new NotImplementedException();
         }
 
-        protected override IList<IClusteredGraph<TVertex, TEdge>> GetClusterChildren()
+        protected override void OnCleared(IReadOnlyList<TVertex> obsoleteVertices, IReadOnlyList<TEdge> obsoleteEdges)
         {
-            return _children;
+            foreach (var vertex in obsoleteVertices)
+            {
+                Parent?.RemoveVertex(vertex);
+            }
+
+            foreach (var cluster in Clusters)
+            {
+                cluster.Clear();
+            }
+
+            _clusters.Clear();
+
+            base.OnCleared(obsoleteVertices, obsoleteEdges);
         }
 
-        protected override IMutableVertexAndEdgeListGraph<TVertex, TEdge> GetClusterGraph()
+        protected override void OnEdgeAdded(TEdge args)
         {
-            return _graph;
+            Parent?.AddEdge(args);
+            base.OnEdgeAdded(args);
         }
 
-        protected override IClusteredGraph<TVertex, TEdge> GetClusterParent()
+        protected override void OnEdgeRemoved(TEdge args)
         {
-            return _parent;
+            foreach (var cluster in Clusters)
+            {
+                if (cluster.ContainsEdge(args)) cluster.RemoveEdge(args);
+            }
+
+            Parent?.RemoveEdge(args);
+
+            base.OnEdgeRemoved(args);
+        }
+
+        protected override void OnVertexAdded(TVertex args)
+        {
+            Parent?.AddVertex(args);
+            base.OnVertexAdded(args);
+        }
+
+        protected override void OnVertexRemoved(TVertex args)
+        {
+            foreach (var cluster in Clusters)
+            {
+                if (cluster.ContainsVertex(args)) cluster.RemoveVertex(args);
+                cluster.RemoveVertex(args);
+            }
+
+            Parent?.RemoveVertex(args);
+
+            base.OnVertexRemoved(args);
         }
 
         #endregion
 
         #region IClusteredBidirectionalGraph<TVertex,TEdge> Members
 
-        public void ClearEdges(TVertex v)
+        public int ClusterCount
         {
-            ClearInEdges(v);
-            ClearOutEdges(v);
+            get { return _clusters.Count; }
         }
 
-        public void ClearInEdges(TVertex v)
+        public virtual IEnumerable<IClusteredGraph<TVertex, TEdge>> Clusters
         {
-            if (_graph.TryGetInEdges(v, out var inEdges))
+            get { return _clusters; }
+        }
+
+        public virtual bool Collapsed { get; set; }
+
+        public bool IsClustersEmpty
+        {
+            get { return !_clusters.Any(); }
+        }
+
+        public IClusteredGraph<TVertex, TEdge> Parent { get; private set; }
+        public event ClusterAction<TVertex, TEdge> ClusterAdded;
+        public event ClusterAction<TVertex, TEdge> ClusterRemoved;
+
+        IClusteredGraph<TVertex, TEdge> IClusteredGraph<TVertex, TEdge>.AddCluster()
+        {
+            return AddCluster();
+        }
+
+        public bool ContainsCluster(IClusteredGraph<TVertex, TEdge> cluster)
+        {
+            return _clusters.Contains(cluster);
+        }
+
+        public bool RemoveCluster(IClusteredGraph<TVertex, TEdge> cluster)
+        {
+            if (_clusters.Remove(cluster))
             {
-                foreach (var inEdge in inEdges.ToList())
-                {
-                    RemoveEdge(inEdge);
-                }
+                OnClusterRemoved(cluster);
+                return true;
             }
+
+            return false;
         }
 
-        public int Degree(TVertex v)
+        #endregion
+
+        #region Members
+
+        public ClusteredBidirectionalGraph<TVertex, TEdge> AddCluster()
         {
-            return _graph.Degree(v);
+            var cluster = CreateCluster();
+            _clusters.Add(cluster);
+            OnClusterAdded(cluster);
+            return cluster;
         }
 
-        public int InDegree(TVertex v)
+        protected virtual ClusteredBidirectionalGraph<TVertex, TEdge> CreateCluster()
         {
-            return _graph.InDegree(v);
+            return new ClusteredBidirectionalGraph<TVertex, TEdge>
+            {
+                Parent = this
+            };
         }
 
-        public TEdge InEdge(TVertex v, int index)
+        protected virtual void OnClusterAdded(IClusteredGraph<TVertex, TEdge> args)
         {
-            return _graph.InEdge(v, index);
+            ClusterAdded?.Invoke(args);
         }
 
-        public IEnumerable<TEdge> InEdges(TVertex v)
+        protected virtual void OnClusterRemoved(IClusteredGraph<TVertex, TEdge> args)
         {
-            return _graph.InEdges(v);
-        }
-
-        public bool IsInEdgesEmpty(TVertex v)
-        {
-            return _graph.IsInEdgesEmpty(v);
-        }
-
-        public int RemoveInEdgeIf(TVertex v, EdgePredicate<TVertex, TEdge> edgePredicate)
-        {
-            var edgeToRemoveCount = _graph.RemoveInEdgeIf(v, edgePredicate);
-            _parent?.RemoveInEdgeIf(v, edgePredicate);
-
-            return edgeToRemoveCount;
-        }
-
-        public bool TryGetInEdges(TVertex v, out IEnumerable<TEdge> edges)
-        {
-            return _graph.TryGetInEdges(v, out edges);
+            ClusterRemoved?.Invoke(args);
         }
 
         #endregion

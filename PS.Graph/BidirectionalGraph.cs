@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using PS.Graph.Collections;
 
 namespace PS.Graph
@@ -19,9 +20,19 @@ namespace PS.Graph
                                                       ICloneable
         where TEdge : IEdge<TVertex>
     {
-        private readonly IVertexEdgeDictionary<TVertex, TEdge> _vertexOutEdges;
+        #region Static members
+
+        public static Type EdgeType
+        {
+            get { return typeof(TEdge); }
+        }
+
+        #endregion
+
         private readonly IVertexEdgeDictionary<TVertex, TEdge> _vertexInEdges;
-        private int _edgeCapacity = -1;
+        private readonly IVertexEdgeDictionary<TVertex, TEdge> _vertexOutEdges;
+
+        #region Constructors
 
         public BidirectionalGraph()
             : this(true)
@@ -57,7 +68,7 @@ namespace PS.Graph
                 _vertexOutEdges = new VertexEdgeDictionary<TVertex, TEdge>(vertexComparer);
             }
 
-            _edgeCapacity = edgeCapacity;
+            EdgeCapacity = edgeCapacity;
         }
 
         public BidirectionalGraph(
@@ -70,16 +81,39 @@ namespace PS.Graph
             _vertexOutEdges = vertexEdgesDictionaryFactory(capacity);
         }
 
-        public static Type EdgeType
+        private BidirectionalGraph(
+            IVertexEdgeDictionary<TVertex, TEdge> vertexInEdges,
+            IVertexEdgeDictionary<TVertex, TEdge> vertexOutEdges,
+            int edgeCount,
+            int edgeCapacity,
+            bool allowParallelEdges
+        )
         {
-            get { return typeof(TEdge); }
+            _vertexInEdges = vertexInEdges;
+            _vertexOutEdges = vertexOutEdges;
+            EdgeCount = edgeCount;
+            EdgeCapacity = edgeCapacity;
+            AllowParallelEdges = allowParallelEdges;
         }
 
-        public int EdgeCapacity
+        #endregion
+
+        #region Properties
+
+        public int EdgeCapacity { get; }
+
+        #endregion
+
+        #region ICloneable Members
+
+        object ICloneable.Clone()
         {
-            get { return _edgeCapacity; }
-            set { _edgeCapacity = value; }
+            return Clone();
         }
+
+        #endregion
+
+        #region IEdgeListAndIncidenceGraph<TVertex,TEdge> Members
 
         public bool IsDirected { get; } = true;
 
@@ -120,18 +154,6 @@ namespace PS.Graph
             return _vertexOutEdges[v];
         }
 
-        public bool TryGetInEdges(TVertex v, out IEnumerable<TEdge> edges)
-        {
-            if (_vertexInEdges.TryGetValue(v, out var list))
-            {
-                edges = list;
-                return true;
-            }
-
-            edges = null;
-            return false;
-        }
-
         public bool TryGetOutEdges(TVertex v, out IEnumerable<TEdge> edges)
         {
             if (_vertexOutEdges.TryGetValue(v, out var list))
@@ -149,31 +171,6 @@ namespace PS.Graph
             return _vertexOutEdges[v][index];
         }
 
-        public bool IsInEdgesEmpty(TVertex v)
-        {
-            return _vertexInEdges[v].Count == 0;
-        }
-
-        public int InDegree(TVertex v)
-        {
-            return _vertexInEdges[v].Count;
-        }
-
-        public IEnumerable<TEdge> InEdges(TVertex v)
-        {
-            return _vertexInEdges[v];
-        }
-
-        public TEdge InEdge(TVertex v, int index)
-        {
-            return _vertexInEdges[v][index];
-        }
-
-        public int Degree(TVertex v)
-        {
-            return OutDegree(v) + InDegree(v);
-        }
-
         public bool IsEdgesEmpty
         {
             get { return EdgeCount == 0; }
@@ -183,14 +180,7 @@ namespace PS.Graph
 
         public virtual IEnumerable<TEdge> Edges
         {
-            get
-            {
-                foreach (var edges in _vertexOutEdges.Values)
-                foreach (var edge in edges)
-                {
-                    yield return edge;
-                }
-            }
+            get { return _vertexOutEdges.Values.SelectMany(edges => edges); }
         }
 
         public bool ContainsEdge(TVertex source, TVertex target)
@@ -263,6 +253,47 @@ namespace PS.Graph
                    outEdges.Contains(edge);
         }
 
+        #endregion
+
+        #region IMutableBidirectionalGraph<TVertex,TEdge> Members
+
+        public bool TryGetInEdges(TVertex v, out IEnumerable<TEdge> edges)
+        {
+            if (_vertexInEdges.TryGetValue(v, out var list))
+            {
+                edges = list;
+                return true;
+            }
+
+            edges = null;
+            return false;
+        }
+
+        public bool IsInEdgesEmpty(TVertex v)
+        {
+            return _vertexInEdges[v].Count == 0;
+        }
+
+        public int InDegree(TVertex v)
+        {
+            return _vertexInEdges[v].Count;
+        }
+
+        public IEnumerable<TEdge> InEdges(TVertex v)
+        {
+            return _vertexInEdges[v];
+        }
+
+        public TEdge InEdge(TVertex v, int index)
+        {
+            return _vertexInEdges[v][index];
+        }
+
+        public int Degree(TVertex v)
+        {
+            return OutDegree(v) + InDegree(v);
+        }
+
         public virtual bool AddVertex(TVertex v)
         {
             if (ContainsVertex(v))
@@ -301,12 +332,6 @@ namespace PS.Graph
 
         public event VertexAction<TVertex> VertexAdded;
 
-        protected virtual void OnVertexAdded(TVertex args)
-        {
-            var eh = VertexAdded;
-            eh?.Invoke(args);
-        }
-
         public virtual bool RemoveVertex(TVertex v)
         {
             if (!ContainsVertex(v))
@@ -314,47 +339,22 @@ namespace PS.Graph
                 return false;
             }
 
-            // collect edges to remove
-            var edgesToRemove = new EdgeList<TVertex, TEdge>();
-            foreach (var outEdge in OutEdges(v))
-            {
-                _vertexInEdges[outEdge.Target].Remove(outEdge);
-                edgesToRemove.Add(outEdge);
-            }
+            var edgesToRemove = OutEdges(v).Union(InEdges(v)).ToList();
 
-            foreach (var inEdge in InEdges(v))
+            foreach (var edgeToRemove in edgesToRemove)
             {
-                // might already have been removed
-                if (_vertexOutEdges[inEdge.Source].Remove(inEdge))
-                {
-                    edgesToRemove.Add(inEdge);
-                }
-            }
-
-            // notify users
-            if (EdgeRemoved != null)
-            {
-                foreach (var edge in edgesToRemove)
-                {
-                    OnEdgeRemoved(edge);
-                }
+                RemoveEdge(edgeToRemove);
             }
 
             _vertexOutEdges.Remove(v);
             _vertexInEdges.Remove(v);
-            EdgeCount -= edgesToRemove.Count;
+
             OnVertexRemoved(v);
 
             return true;
         }
 
         public event VertexAction<TVertex> VertexRemoved;
-
-        protected virtual void OnVertexRemoved(TVertex args)
-        {
-            var eh = VertexRemoved;
-            eh?.Invoke(args);
-        }
 
         public int RemoveVertexIf(VertexPredicate<TVertex> predicate)
         {
@@ -431,12 +431,6 @@ namespace PS.Graph
 
         public event EdgeAction<TVertex, TEdge> EdgeAdded;
 
-        protected virtual void OnEdgeAdded(TEdge args)
-        {
-            var eh = EdgeAdded;
-            eh?.Invoke(args);
-        }
-
         public virtual bool RemoveEdge(TEdge e)
         {
             if (_vertexOutEdges[e.Source].Remove(e))
@@ -452,12 +446,6 @@ namespace PS.Graph
         }
 
         public event EdgeAction<TVertex, TEdge> EdgeRemoved;
-
-        protected virtual void OnEdgeRemoved(TEdge args)
-        {
-            var eh = EdgeRemoved;
-            eh?.Invoke(args);
-        }
 
         public int RemoveEdgeIf(EdgePredicate<TVertex, TEdge> predicate)
         {
@@ -518,31 +506,18 @@ namespace PS.Graph
 
         public void ClearOutEdges(TVertex v)
         {
-            var outEdges = _vertexOutEdges[v];
-            foreach (var edge in outEdges)
+            foreach (var edge in _vertexOutEdges[v].ToList())
             {
-                _vertexInEdges[edge.Target].Remove(edge);
-                OnEdgeRemoved(edge);
+                RemoveEdge(edge);
             }
-
-            EdgeCount -= outEdges.Count;
-            outEdges.Clear();
         }
-
-        #if DEEP_INVARIANT
-        #endif
 
         public void ClearInEdges(TVertex v)
         {
-            var inEdges = _vertexInEdges[v];
-            foreach (var edge in inEdges)
+            foreach (var edge in _vertexInEdges[v].ToList())
             {
-                _vertexOutEdges[edge.Source].Remove(edge);
-                OnEdgeRemoved(edge);
+                RemoveEdge(edge);
             }
-
-            EdgeCount -= inEdges.Count;
-            inEdges.Clear();
         }
 
         public void ClearEdges(TVertex v)
@@ -566,18 +541,30 @@ namespace PS.Graph
 
         public void Clear()
         {
+            var obsoleteVertices = Vertices.ToList();
+            var obsoleteEdges = Edges.ToList();
+
             _vertexOutEdges.Clear();
             _vertexInEdges.Clear();
             EdgeCount = 0;
-            OnCleared(EventArgs.Empty);
+            OnCleared(obsoleteVertices, obsoleteEdges);
         }
 
         public event EventHandler Cleared;
 
-        private void OnCleared(EventArgs e)
+        #endregion
+
+        #region Members
+
+        public virtual BidirectionalGraph<TVertex, TEdge> Clone()
         {
-            var eh = Cleared;
-            eh?.Invoke(this, e);
+            return new BidirectionalGraph<TVertex, TEdge>(
+                _vertexInEdges.Clone(),
+                _vertexOutEdges.Clone(),
+                EdgeCount,
+                EdgeCapacity,
+                AllowParallelEdges
+            );
         }
 
         public void MergeVertex(TVertex v, EdgeFactory<TVertex, TEdge> edgeFactory)
@@ -630,37 +617,29 @@ namespace PS.Graph
             }
         }
 
-        #region ICloneable Members
-
-        private BidirectionalGraph(
-            IVertexEdgeDictionary<TVertex, TEdge> vertexInEdges,
-            IVertexEdgeDictionary<TVertex, TEdge> vertexOutEdges,
-            int edgeCount,
-            int edgeCapacity,
-            bool allowParallelEdges
-        )
+        protected virtual void OnCleared(IReadOnlyList<TVertex> obsoleteVertices, IReadOnlyList<TEdge> obsoleteEdges)
         {
-            _vertexInEdges = vertexInEdges;
-            _vertexOutEdges = vertexOutEdges;
-            EdgeCount = edgeCount;
-            _edgeCapacity = edgeCapacity;
-            AllowParallelEdges = allowParallelEdges;
+            Cleared?.Invoke(this, EventArgs.Empty);
         }
 
-        public BidirectionalGraph<TVertex, TEdge> Clone()
+        protected virtual void OnEdgeAdded(TEdge args)
         {
-            return new BidirectionalGraph<TVertex, TEdge>(
-                _vertexInEdges.Clone(),
-                _vertexOutEdges.Clone(),
-                EdgeCount,
-                _edgeCapacity,
-                AllowParallelEdges
-            );
+            EdgeAdded?.Invoke(args);
         }
 
-        object ICloneable.Clone()
+        protected virtual void OnEdgeRemoved(TEdge args)
         {
-            return Clone();
+            EdgeRemoved?.Invoke(args);
+        }
+
+        protected virtual void OnVertexAdded(TVertex args)
+        {
+            VertexAdded?.Invoke(args);
+        }
+
+        protected virtual void OnVertexRemoved(TVertex args)
+        {
+            VertexRemoved?.Invoke(args);
         }
 
         #endregion

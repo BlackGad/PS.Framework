@@ -269,32 +269,6 @@ namespace PS.Graph
         }
 
         /// <summary>
-        ///     Converts a graph into an clustered adjacency graph
-        /// </summary>
-        /// <typeparam name="TVertex">type of the vertices</typeparam>
-        /// <typeparam name="TEdge">type of the edges</typeparam>
-        /// <param name="graph">Source graph</param>
-        /// <returns>Clustered adjacency graph</returns>
-        public static IClusteredAdjacencyGraph<TVertex, TEdge> ToClusteredGraph<TVertex, TEdge>(this IMutableVertexAndEdgeListGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
-        {
-            return new ClusteredAdjacencyGraph<TVertex, TEdge>(graph);
-        }
-
-        /// <summary>
-        ///     Converts a graph into an clustered bidirectional graph
-        /// </summary>
-        /// <typeparam name="TVertex">type of the vertices</typeparam>
-        /// <typeparam name="TEdge">type of the edges</typeparam>
-        /// <param name="graph">Source graph</param>
-        /// <returns>Clustered bidirectional graph</returns>
-        public static IClusteredBidirectionalGraph<TVertex, TEdge> ToClusteredGraph<TVertex, TEdge>(this IMutableBidirectionalGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
-        {
-            return new ClusteredBidirectionalGraph<TVertex, TEdge>(graph);
-        }
-
-        /// <summary>
         ///     Creates an immutable compressed row graph representation of the visited graph
         /// </summary>
         /// <typeparam name="TVertex">type of the vertices</typeparam>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace PS.Graph
 {
@@ -24,7 +23,7 @@ namespace PS.Graph
         /// <summary>
         ///     Indicates cluster collapsed state
         /// </summary>
-        bool Collapsed { get; set; }
+        bool Collapsed { get; }
 
         /// <summary>
         ///     Gets a value indicating whether there are no children clusters in this graph.
@@ -46,8 +45,6 @@ namespace PS.Graph
         event ClusterAction<TVertex, TEdge> ClusterAdded;
 
         event ClusterAction<TVertex, TEdge> ClusterRemoved;
-
-        event Action CollapsedChanged;
 
         #endregion
 
