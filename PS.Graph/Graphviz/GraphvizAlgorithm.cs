@@ -140,9 +140,9 @@ namespace PS.Graph.Graphviz
                 edgeColors[e] = GraphColor.White;
             }
 
-            if (VisitedGraph is IClusteredAdjacencyGraph<TVertex, TEdge>)
+            if (VisitedGraph is IClusteredGraph<TVertex, TEdge>)
             {
-                WriteClusters(colors, edgeColors, VisitedGraph as IClusteredAdjacencyGraph<TVertex, TEdge>);
+                WriteClusters(colors, edgeColors, VisitedGraph as IClusteredGraph<TVertex, TEdge>);
             }
 
             WriteVertices(colors, VisitedGraph.Vertices);
@@ -161,7 +161,7 @@ namespace PS.Graph.Graphviz
         internal void WriteClusters(
             IDictionary<TVertex, GraphColor> colors,
             IDictionary<TEdge, GraphColor> edgeColors,
-            IClusteredAdjacencyGraph<TVertex, TEdge> parent
+            IClusteredGraph<TVertex, TEdge> parent
         )
         {
             ++ClusterCount;
@@ -172,7 +172,7 @@ namespace PS.Graph.Graphviz
                 Output.Write("subgraph cluster{0}", ClusterCount.ToString());
                 Output.WriteLine(" {");
                 OnFormatCluster(cluster);
-                if (cluster is IClusteredAdjacencyGraph<TVertex, TEdge> graph)
+                if (cluster is IClusteredGraph<TVertex, TEdge> graph)
                 {
                     WriteClusters(colors, edgeColors, graph);
                 }
