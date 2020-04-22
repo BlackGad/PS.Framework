@@ -21,11 +21,6 @@ namespace PS.Graph
         IEnumerable<IClusteredGraph<TVertex, TEdge>> Clusters { get; }
 
         /// <summary>
-        ///     Indicates cluster collapsed state
-        /// </summary>
-        bool Collapsed { get; }
-
-        /// <summary>
         ///     Gets a value indicating whether there are no children clusters in this graph.
         /// </summary>
         /// <value>
@@ -55,6 +50,7 @@ namespace PS.Graph
         /// </summary>
         /// <returns>Child cluster graph</returns>
         IClusteredGraph<TVertex, TEdge> AddCluster();
+        //IClusteredGraph<TVertex, TEdge> AddCluster(IMutableVertexAndEdgeListGraph<TVertex, TEdge> cluster);
 
         /// <summary>
         ///     Determines whether the specified cluster set contains cluster.

@@ -102,8 +102,6 @@ namespace PS.Graph
             get { return _clusters; }
         }
 
-        public virtual bool Collapsed { get; set; }
-
         public bool IsClustersEmpty
         {
             get { return !_clusters.Any(); }

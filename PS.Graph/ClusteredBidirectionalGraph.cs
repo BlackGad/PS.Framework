@@ -18,6 +18,7 @@ namespace PS.Graph
         public ClusteredBidirectionalGraph()
             : this(true)
         {
+            
         }
 
         public ClusteredBidirectionalGraph(bool allowParallelEdges)
@@ -102,8 +103,6 @@ namespace PS.Graph
         {
             get { return _clusters; }
         }
-
-        public virtual bool Collapsed { get; set; }
 
         public bool IsClustersEmpty
         {

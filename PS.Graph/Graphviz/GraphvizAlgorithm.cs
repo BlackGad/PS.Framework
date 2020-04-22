@@ -177,23 +177,8 @@ namespace PS.Graph.Graphviz
                     WriteClusters(colors, edgeColors, graph);
                 }
 
-                if (parent.Collapsed)
-                {
-                    foreach (var v in cluster.Vertices)
-                    {
-                        colors[v] = GraphColor.Black;
-                    }
-
-                    foreach (var e in cluster.Edges)
-                    {
-                        edgeColors[e] = GraphColor.Black;
-                    }
-                }
-                else
-                {
-                    WriteVertices(colors, cluster.Vertices);
-                    WriteEdges(edgeColors, cluster.Edges);
-                }
+                WriteVertices(colors, cluster.Vertices);
+                WriteEdges(edgeColors, cluster.Edges);
 
                 Output.WriteLine("}");
             }

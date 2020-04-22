@@ -16,7 +16,6 @@ namespace PS.Graph
         private readonly ObservableCollection<IClusteredGraph<TVertex, TEdge>> _clusters;
         private readonly ObservableCollection<TEdge> _edges;
         private readonly ObservableCollection<TVertex> _vertices;
-        private bool _collapsed;
 
         #region Constructors
 
@@ -34,17 +33,6 @@ namespace PS.Graph
         public override IEnumerable<IClusteredGraph<TVertex, TEdge>> Clusters
         {
             get { return _clusters; }
-        }
-
-        public override bool Collapsed
-        {
-            get { return _collapsed; }
-            set
-            {
-                if (_collapsed == value) return;
-                _collapsed = value;
-                OnPropertyChanged();
-            }
         }
 
         public override IEnumerable<TEdge> Edges
