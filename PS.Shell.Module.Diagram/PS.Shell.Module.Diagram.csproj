@@ -30,6 +30,7 @@
 
   <!-- General references -->
   <ItemGroup>
+    <ProjectReference Include="..\PS.Graph\PS.Graph.csproj" />
     <ProjectReference Include="..\PS.IoC.Autofac\PS.IoC.Autofac.csproj" />
     <ProjectReference Include="..\PS.MVVM.WPF\PS.MVVM.WPF.csproj" />
     <ProjectReference Include="..\PS.MVVM\PS.MVVM.csproj" />
@@ -80,7 +81,10 @@
   
    <ItemGroup>
      <PackageReference Include="Autofac" Version="5.1.2" />
-     <PackageReference Include="QuickGraph" Version="3.6.61119.7" />
+   </ItemGroup>
+  
+   <ItemGroup>
+     <Folder Include="Test2\" />
    </ItemGroup>
 
 </Project>

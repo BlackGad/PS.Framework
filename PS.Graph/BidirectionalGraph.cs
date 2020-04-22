@@ -550,7 +550,7 @@ namespace PS.Graph
             OnCleared(obsoleteVertices, obsoleteEdges);
         }
 
-        public event EventHandler Cleared;
+        public event ClearAction<TVertex, TEdge> Cleared;
 
         #endregion
 
@@ -619,7 +619,7 @@ namespace PS.Graph
 
         protected virtual void OnCleared(IReadOnlyList<TVertex> obsoleteVertices, IReadOnlyList<TEdge> obsoleteEdges)
         {
-            Cleared?.Invoke(this, EventArgs.Empty);
+            Cleared?.Invoke(obsoleteVertices, obsoleteEdges);
         }
 
         protected virtual void OnEdgeAdded(TEdge args)

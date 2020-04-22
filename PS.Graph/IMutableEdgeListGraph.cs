@@ -7,7 +7,7 @@ namespace PS.Graph
     /// </summary>
     /// <typeparam name="TVertex">the vertex type</typeparam>
     /// <typeparam name="TEdge">the edge type</typeparam>
-    public interface IMutableEdgeListGraph<TVertex, TEdge> : IMutableGraph,
+    public interface IMutableEdgeListGraph<TVertex, TEdge> : IMutableGraph<TVertex, TEdge>,
                                                              IEdgeListGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

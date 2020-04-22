@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using PS.Graph.Collections;
 
 namespace PS.Graph
@@ -163,17 +164,20 @@ namespace PS.Graph
 
         public void Clear()
         {
-            var edges = _edges.Clone();
+            var obsoleteVertices = Vertices.ToList();
+            var obsoleteEdges = Edges.ToList();
+            
             _edges.Clear();
-            foreach (var edge in edges.Keys)
+
+            foreach (var edge in obsoleteEdges)
             {
                 OnEdgeRemoved(edge);
             }
 
-            OnCleared(EventArgs.Empty);
+            OnCleared(obsoleteVertices, obsoleteEdges);
         }
 
-        public event EventHandler Cleared;
+        public event ClearAction<TVertex, TEdge> Cleared;
 
         #endregion
 
@@ -207,6 +211,11 @@ namespace PS.Graph
             );
         }
 
+        protected virtual void OnCleared(IReadOnlyList<TVertex> obsoleteVertices, IReadOnlyList<TEdge> obsoleteEdges)
+        {
+            Cleared?.Invoke(obsoleteVertices, obsoleteEdges);
+        }
+
         protected virtual void OnEdgeAdded(TEdge args)
         {
             var eh = EdgeAdded;
@@ -229,12 +238,6 @@ namespace PS.Graph
             }
 
             return vertices;
-        }
-
-        private void OnCleared(EventArgs e)
-        {
-            var eh = Cleared;
-            eh?.Invoke(this, e);
         }
 
         #endregion

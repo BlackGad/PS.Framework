@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace PS.Graph
 {
@@ -286,6 +287,9 @@ namespace PS.Graph
 
         public void Clear()
         {
+            var obsoleteVertices = Vertices.ToList();
+            var obsoleteEdges = Edges.ToList();
+
             for (var i = 0; i < VertexCount; ++i)
             for (var j = 0; j < VertexCount; ++j)
             {
@@ -293,10 +297,11 @@ namespace PS.Graph
             }
 
             EdgeCount = 0;
-            OnCleared(EventArgs.Empty);
+
+            OnCleared(obsoleteVertices, obsoleteEdges);
         }
 
-        public event EventHandler Cleared;
+        public event ClearAction<int, TEdge> Cleared;
 
         public bool AddEdge(TEdge edge)
         {
@@ -423,6 +428,11 @@ namespace PS.Graph
             return count;
         }
 
+        protected virtual void OnCleared(IReadOnlyList<int> obsoleteVertices, IReadOnlyList<TEdge> obsoleteEdges)
+        {
+            Cleared?.Invoke(obsoleteVertices, obsoleteEdges);
+        }
+
         protected virtual void OnEdgeAdded(TEdge args)
         {
             var eh = EdgeAdded;
@@ -433,12 +443,6 @@ namespace PS.Graph
         {
             var eh = EdgeRemoved;
             eh?.Invoke(args);
-        }
-
-        private void OnCleared(EventArgs e)
-        {
-            var eh = Cleared;
-            eh?.Invoke(this, e);
         }
 
         #endregion

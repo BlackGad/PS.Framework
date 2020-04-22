@@ -5,7 +5,7 @@
     /// </summary>
     /// <typeparam name="TVertex"></typeparam>
     /// <typeparam name="TEdge"></typeparam>
-    public interface IMutableIncidenceGraph<TVertex, TEdge> : IMutableGraph,
+    public interface IMutableIncidenceGraph<TVertex, TEdge> : IMutableGraph<TVertex, TEdge>,
                                                               IIncidenceGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

@@ -1,18 +1,17 @@
-﻿using System;
-
-namespace PS.Graph
+﻿namespace PS.Graph
 {
     /// <summary>
     ///     A mutable graph instance
     /// </summary>
-    public interface IMutableGraph : IGraph
+    public interface IMutableGraph<TVertex, TEdge> : IGraph
+        where TEdge : IEdge<TVertex>
     {
         #region Events
 
         /// <summary>
         ///     Called when the graph vertices and edges have been cleared.
         /// </summary>
-        event EventHandler Cleared;
+        event ClearAction<TVertex, TEdge> Cleared;
 
         #endregion
 

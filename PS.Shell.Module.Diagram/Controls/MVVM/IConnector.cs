@@ -1,4 +1,4 @@
-﻿using QuickGraph;
+﻿using PS.Graph;
 
 namespace PS.Shell.Module.Diagram.Controls.MVVM
 {

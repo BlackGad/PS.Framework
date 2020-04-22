@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using PS.Graph.Graphviz.Dot;
 
@@ -167,7 +168,7 @@ namespace PS.Graph.Graphviz
             ++ClusterCount;
             foreach (var cluster in parent.Clusters)
             {
-                if(cluster.IsVerticesEmpty) continue;
+                if (cluster.Vertices.Select(v => colors[v]).All(c => c == GraphColor.Black)) continue;
 
                 Output.Write("subgraph cluster{0}", ClusterCount.ToString());
                 Output.WriteLine(" {");
@@ -188,8 +189,7 @@ namespace PS.Graph.Graphviz
         {
             if (FormatCluster != null)
             {
-                var args =
-                    new FormatClusterEventArgs<TVertex, TEdge>(cluster, new GraphvizGraph());
+                var args = new FormatClusterEventArgs<TVertex, TEdge>(cluster, new GraphvizGraph());
                 FormatCluster(this, args);
                 var s = args.GraphFormat.ToDot();
                 if (s.Length != 0)

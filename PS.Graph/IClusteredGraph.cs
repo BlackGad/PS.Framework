@@ -2,8 +2,7 @@
 
 namespace PS.Graph
 {
-    public interface IClusteredGraph<TVertex, TEdge> : IEdgeListAndIncidenceGraph<TVertex, TEdge>,
-                                                       IMutableVertexAndEdgeListGraph<TVertex, TEdge>
+    public interface IClusteredGraph<TVertex, TEdge> : IMutableVertexAndEdgeListGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
         #region Properties
@@ -31,7 +30,12 @@ namespace PS.Graph
         /// <summary>
         ///     Parent cluster graph
         /// </summary>
-        IClusteredGraph<TVertex, TEdge> Parent { get; }
+        IClusteredGraph<TVertex, TEdge> ParentCluster { get; }
+
+        /// <summary>
+        ///     Wrapped graph
+        /// </summary>
+        IGraph WrappedGraph { get; }
 
         #endregion
 
@@ -46,11 +50,16 @@ namespace PS.Graph
         #region Members
 
         /// <summary>
-        ///     Adds child cluster graph to this cluster graph
+        ///     Adds child graph to this cluster graph
         /// </summary>
         /// <returns>Child cluster graph</returns>
-        IClusteredGraph<TVertex, TEdge> AddCluster();
-        //IClusteredGraph<TVertex, TEdge> AddCluster(IMutableVertexAndEdgeListGraph<TVertex, TEdge> cluster);
+        IClusteredGraph<TVertex, TEdge> AddCluster(IGraph graph);
+
+        /// <summary>
+        ///     Adds child graphs to this cluster graph
+        /// </summary>
+        /// <returns>Newly added child cluster graphs</returns>
+        IReadOnlyList<IClusteredGraph<TVertex, TEdge>> AddClusterRange(IEnumerable<IEdgeListGraph<TVertex, TEdge>> graphs);
 
         /// <summary>
         ///     Determines whether the specified cluster set contains cluster.

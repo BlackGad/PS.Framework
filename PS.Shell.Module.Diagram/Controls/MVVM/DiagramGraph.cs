@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using PS.Extensions;
-using QuickGraph;
+using PS.Graph;
 
 namespace PS.Shell.Module.Diagram.Controls.MVVM
 {
@@ -28,12 +28,12 @@ namespace PS.Shell.Module.Diagram.Controls.MVVM
 
         #region IDiagramGraph Members
 
-        bool IGraph<INode, IConnector>.IsDirected
+        bool IGraph.IsDirected
         {
             get { return true; }
         }
 
-        bool IGraph<INode, IConnector>.AllowParallelEdges
+        bool IGraph.AllowParallelEdges
         {
             get { return true; }
         }

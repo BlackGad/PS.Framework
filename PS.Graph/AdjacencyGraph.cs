@@ -351,6 +351,8 @@ namespace PS.Graph
             return edges.Count;
         }
 
+        public event ClearAction<TVertex, TEdge> Cleared;
+
         public void Clear()
         {
             var obsoleteVertices = Vertices.ToList();
@@ -359,8 +361,6 @@ namespace PS.Graph
             EdgeCount = 0;
             OnCleared(obsoleteVertices, obsoleteEdges);
         }
-
-        public event EventHandler Cleared;
 
         public void ClearOutEdges(TVertex v)
         {
@@ -517,7 +517,7 @@ namespace PS.Graph
 
         protected virtual void OnCleared(IReadOnlyList<TVertex> obsoleteVertices, IReadOnlyList<TEdge> obsoleteEdges)
         {
-            Cleared?.Invoke(this, EventArgs.Empty);
+            Cleared?.Invoke(obsoleteVertices, obsoleteEdges);
         }
 
         protected virtual void OnEdgeAdded(TEdge args)
