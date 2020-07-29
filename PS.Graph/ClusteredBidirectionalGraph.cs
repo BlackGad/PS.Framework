@@ -82,12 +82,14 @@ namespace PS.Graph
 
             foreach (var vertex in cluster.Vertices)
             {
-                OnVertexAdded(vertex);
+                if(ContainsVertex(vertex)) continue;
+                AddVertex(vertex);
             }
 
             foreach (var edge in cluster.Edges)
             {
-                OnEdgeAdded(edge);
+                if(ContainsEdge(edge)) continue;
+                AddEdge(edge);
             }
 
             _clusters.Add(cluster);
@@ -441,6 +443,7 @@ namespace PS.Graph
         {
             ParentCluster?.AddEdge(args);
         }
+
 
         protected virtual void OnEdgeRemoved(TEdge args)
         {
