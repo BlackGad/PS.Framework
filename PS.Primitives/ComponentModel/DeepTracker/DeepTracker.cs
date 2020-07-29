@@ -9,10 +9,12 @@ using PS.ComponentModel.Extensions;
 using PS.ComponentModel.Navigation;
 using PS.ComponentModel.Navigation.Extensions;
 using PS.Extensions;
+using PS.Patterns.Aware;
 
 namespace PS.ComponentModel.DeepTracker
 {
-    public class DeepTracker : IDisposable
+    public class DeepTracker : IDisposable,
+                               IFluentActivationAware<DeepTracker>
     {
         #region Static members
 
@@ -69,7 +71,7 @@ namespace PS.ComponentModel.DeepTracker
 
         #endregion
 
-        #region Members
+        #region IFluentActivationAware<DeepTracker> Members
 
         public DeepTracker Activate()
         {
@@ -77,6 +79,7 @@ namespace PS.ComponentModel.DeepTracker
             if (source == null) return this;
 
             AddBranch(Routes.Empty, source, _configuration, Enumerable.Empty<int>().ToList());
+            IsActive = true;
 
             return this;
         }
@@ -107,8 +110,15 @@ namespace PS.ComponentModel.DeepTracker
                 _configuration.Raise(this, args);
             }
 
+            IsActive = false;
             return this;
         }
+
+        public bool IsActive { get; private set; }
+
+        #endregion
+
+        #region Members
 
         public object GetObject(Route route)
         {
@@ -142,6 +152,7 @@ namespace PS.ComponentModel.DeepTracker
                     void NotifyCollectionChangedHandler(object sender, NotifyCollectionChangedEventArgs args)
                     {
                         var previousItems = closureSourceItems.Target as object[];
+                        closureSourceItems = new WeakReference(sender.Enumerate().ToArray());
 
                         if (args.Action == NotifyCollectionChangedAction.Reset)
                         {
@@ -151,6 +162,19 @@ namespace PS.ComponentModel.DeepTracker
                                 {
                                     RemoveBranch(Route.Create(visitedRoute, id));
                                 }
+                            }
+
+                            foreach (var item in sender.Enumerate())
+                            {
+                                if (item == null) continue;
+
+                                if (!_collectionChildrenIds.TryGetValue(item, out var id))
+                                {
+                                    id = Guid.NewGuid().CreateDynamicRoute().ToString();
+                                    _collectionChildrenIds.Add(item, id);
+                                }
+
+                                AddBranch(Route.Create(visitedRoute, id), item, _configuration, visitedObjects);
                             }
                         }
                         else
@@ -176,8 +200,6 @@ namespace PS.ComponentModel.DeepTracker
                                 }
                             }
                         }
-
-                        closureSourceItems = new WeakReference(sender.Enumerate().ToArray());
 
                         var collectionChangedEventArgs = new ChangedCollectionEventArgs(visitedRoute, sender, args);
                         _configuration.Raise(this, collectionChangedEventArgs);
@@ -343,7 +365,7 @@ namespace PS.ComponentModel.DeepTracker
                     var attachedObject = recordToRemove.Item2.Target;
                     if (attachedObject != null)
                     {
-                        var objectDetachedEventArgs = new ObjectDetachedEventArgs(contextRoute, recordToRemove.Item2.Target);
+                        var objectDetachedEventArgs = new ObjectDetachedEventArgs(recordToRemove.Item1, recordToRemove.Item2.Target);
                         _configuration.Raise(this, objectDetachedEventArgs);
                     }
                 }
