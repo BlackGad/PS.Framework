@@ -159,10 +159,6 @@
       <Project>{4a9f1324-b810-40d7-b989-eb343344728e}</Project>
       <Name>PS.IoC</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PS.Logic\PS.Logic.csproj">
-      <Project>{0b57eea8-7539-4b08-9c56-79170b2798a0}</Project>
-      <Name>PS.Logic</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PS.MVVM.WPF\PS.MVVM.WPF.csproj">
       <Project>{90e3142e-53eb-4a92-954f-a8b833b87ab2}</Project>
       <Name>PS.MVVM.WPF</Name>
