@@ -1,193 +1,54 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{20371CA4-5733-4B50-AF97-047EE767F20C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
+    <TargetFrameworks>net5.0-windows;net461;</TargetFrameworks>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RootNamespace>PS.Shell</RootNamespace>
-    <AssemblyName>PS.Shell</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
+    <Authors>Volodymyr Shkolka</Authors>
+    <Company>Volodymyr Shkolka</Company>
+    <Product>PS Shell</Product>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/BlackGad/PS.Framework</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/BlackGad/PS.Framework</RepositoryUrl>
+    <RepositoryType>github</RepositoryType>
+    <PackageTags>Shell WPF</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Version>1.0.4</Version>
+    <Description>Shell project</Description>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Autofac, Version=6.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.6.1.0\lib\netstandard2.0\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.7.8\lib\net45\NLog.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=5.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.5.0.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
-    </Reference>
-    <Reference Include="System.IO.Compression, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
-    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Transactions" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase" />
+
+  <!-- .NET 4.6.1 references, compilation flags and build options -->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461'">
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
+
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="Models\BroadcastService.cs" />
-    <Compile Include="Models\IoCDataTemplate.cs" />
-    <Compile Include="Models\CommandService.cs" />
-    <Compile Include="Models\ModelResolverService.cs" />
-    <Compile Include="Models\WindowService.cs" />
-    <Compile Include="Models\ViewResolverService.cs" />
-    <Compile Include="Views\ShellView.xaml.cs">
-      <DependentUpon>ShellView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModels\ShellViewModel.cs" />
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Bootstrapper.cs" />
-    <Compile Include="MainModule.cs" />
-    <Compile Include="XamlResources.xaml.cs">
-      <DependentUpon>XamlResources.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Views\ShellView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="XamlResources.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <Content Include="NLog.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <None Include="NLog.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
     </None>
   </ItemGroup>
+
   <ItemGroup>
-    <None Include="App.config" />
+    <ProjectReference Include="..\PS.IoC.Autofac\PS.IoC.Autofac.csproj" />
+    <ProjectReference Include="..\PS.IoC\PS.IoC.csproj" />
+    <ProjectReference Include="..\PS.MVVM.WPF\PS.MVVM.WPF.csproj" />
+    <ProjectReference Include="..\PS.MVVM\PS.MVVM.csproj" />
+    <ProjectReference Include="..\PS.Primitives\PS.Primitives.csproj" />
+    <ProjectReference Include="..\PS.Shell.Infrastructure\PS.Shell.Infrastructure.csproj" />
+    <ProjectReference Include="..\PS.Shell.Module.Diagram\PS.Shell.Module.Diagram.csproj" />
+    <ProjectReference Include="..\PS.Windows.Interop\PS.Windows.Interop.csproj" />
+    <ProjectReference Include="..\PS.WPF\PS.WPF.csproj" />
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\PS.IoC.Autofac\PS.IoC.Autofac.csproj">
-      <Project>{43bea357-17a0-4a00-b66d-cd527235a0c4}</Project>
-      <Name>PS.IoC.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PS.IoC\PS.IoC.csproj">
-      <Project>{4a9f1324-b810-40d7-b989-eb343344728e}</Project>
-      <Name>PS.IoC</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PS.MVVM.WPF\PS.MVVM.WPF.csproj">
-      <Project>{90e3142e-53eb-4a92-954f-a8b833b87ab2}</Project>
-      <Name>PS.MVVM.WPF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PS.MVVM\PS.MVVM.csproj">
-      <Project>{0868ae84-8854-4954-b1d6-2bd635341e6a}</Project>
-      <Name>PS.MVVM</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PS.Primitives\PS.Primitives.csproj">
-      <Project>{eca35d4b-e842-4b5b-87a4-38e2a668b4da}</Project>
-      <Name>PS.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PS.Shell.Infrastructure\PS.Shell.Infrastructure.csproj">
-      <Project>{2917D527-F865-42D9-ACCA-D6C584B6140F}</Project>
-      <Name>PS.Shell.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PS.Shell.Module.Diagram\PS.Shell.Module.Diagram.csproj">
-      <Project>{e0748105-8bd5-4cb4-bb98-049b441a2218}</Project>
-      <Name>PS.Shell.Module.Diagram</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PS.Windows.Interop\PS.Windows.Interop.csproj">
-      <Project>{7CA13A48-6529-40E0-BDAF-41853316F889}</Project>
-      <Name>PS.Windows.Interop</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PS.WPF\PS.WPF.csproj">
-      <Project>{c510177f-99c4-40b7-a0f1-db7479df9987}</Project>
-      <Name>PS.WPF</Name>
-    </ProjectReference>
+    <PackageReference Include="Autofac" Version="6.1.0" />
+    <PackageReference Include="NLog" Version="4.7.8" />
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
 </Project>

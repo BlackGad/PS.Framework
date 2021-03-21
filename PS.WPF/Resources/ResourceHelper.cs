@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Management.Instrumentation;
 using System.Reflection;
 using System.Windows;
 
@@ -32,7 +31,7 @@ namespace PS.WPF.Resources
             });
             var result = element.FindResource(descriptor);
             if (descriptor.ResourceType.IsInstanceOfType(result)) return result;
-            throw new InstanceNotFoundException("Resource not found");
+            throw new InvalidOperationException("Resource not found");
         }
 
         public static void SetDefaultStyle(Type elementType, ResourceDescriptor descriptor)

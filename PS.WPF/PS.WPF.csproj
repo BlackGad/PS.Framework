@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net461;</TargetFrameworks>
+    <TargetFrameworks>net5.0-windows;net461;</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RootNamespace>PS.WPF</RootNamespace>
     <Authors>Volodymyr Shkolka</Authors>
@@ -15,77 +15,31 @@
     <NeutralLanguage>en</NeutralLanguage>
     <Version>1.0.4</Version>
     <Description>Common development primitives foo WPF</Description>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Controls\ChromelessWindow.xaml" />
-    <None Remove="Controls\IconicButton.xaml" />
-    <None Remove="Styles\Button.Apply.xaml" />
-    <None Remove="Styles\Button.xaml" />
-    <None Remove="Styles\CheckBox.Apply.xaml" />
-    <None Remove="Styles\CheckBox.xaml" />
-    <None Remove="Styles\ComboBox.Apply.xaml" />
-    <None Remove="Styles\ComboBox.xaml" />
-    <None Remove="Styles\Common.xaml" />
-    <None Remove="Styles\Menu.Apply.xaml" />
-    <None Remove="Styles\Menu.xaml" />
+  <!-- .NET 4.6.1 references, compilation flags and build options -->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461'">
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
 
   <!-- General references -->
   <ItemGroup>
     <ProjectReference Include="..\PS.Primitives\PS.Primitives.csproj" />
   </ItemGroup>
-  
-   <ItemGroup>
+
+  <ItemGroup>
     <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
-  
-   <ItemGroup>
-     <PackageReference Include="NETStandard.Library" Version="2.0.3" />
-   </ItemGroup>
-  
-   <ItemGroup>
-     <Page Include="Controls\IconicButton.xaml" />
-     <Page Include="Controls\UICommandsControl.xaml">
-       <Generator>XamlIntelliSenseFileGenerator</Generator>
-       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-     </Page>
-     <Page Include="Controls\ChromelessWindow.xaml">
-       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-       <Generator>XamlIntelliSenseFileGenerator</Generator>
-     </Page>
-     <Page Include="Controls\Window.xaml">
-       <Generator>XamlIntelliSenseFileGenerator</Generator>
-       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-     </Page>
-     <Page Include="Styles\Button.Apply.xaml" />
-     <Page Include="Styles\Button.xaml" />
-     <Page Include="Styles\CheckBox.Apply.xaml" />
-     <Page Include="Styles\CheckBox.xaml" />
-     <Page Include="Styles\ComboBox.Apply.xaml" />
-     <Page Include="Styles\ComboBox.xaml" />
-     <Page Include="Styles\Common.xaml" />
-     <Page Include="Styles\Menu.Apply.xaml" />
-     <Page Include="Styles\Menu.xaml" />
-   </ItemGroup>
-  
-   <ItemGroup>
-     <Reference Include="PresentationCore" />
-     <Reference Include="PresentationFramework" />
-     <Reference Include="System.Xaml" />
-     <Reference Include="WindowsBase" />
-   </ItemGroup>
-  
-   <ItemGroup>
-     <None Update="Controls\UICommandsControl.xaml">
-       <Generator>MSBuild:Compile</Generator>
-     </None>
-     <None Update="Controls\Window.xaml">
-       <Generator>MSBuild:Compile</Generator>
-     </None>
-   </ItemGroup>  
+
+  <ItemGroup>
+    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
+  </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net461;</TargetFrameworks>
+    <TargetFrameworks>net5.0-windows;net461;</TargetFrameworks>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RootNamespace>PS.Shell.Infrastructure</RootNamespace>
     <Authors>Volodymyr Shkolka</Authors>
@@ -15,11 +15,15 @@
     <NeutralLanguage>en</NeutralLanguage>
     <Version>1.0.4</Version>
     <Description>Shell infrastructure project</Description>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Views\NotificationView.xaml" />
-    <None Remove="XamlResources.xaml" />
+  <!-- .NET 4.6.1 references, compilation flags and build options -->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461'">
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
 
   <!-- General references -->
@@ -28,28 +32,12 @@
     <ProjectReference Include="..\PS.Primitives\PS.Primitives.csproj" />
     <ProjectReference Include="..\PS.WPF\PS.WPF.csproj" />
   </ItemGroup>
-  
-   <ItemGroup>
+
+  <ItemGroup>
     <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
-  
-   <ItemGroup>
-     <Page Include="Views\NotificationView.xaml">
-       <Generator>MSBuild:Compile</Generator>
-     </Page>
-     <Page Include="XamlResources.xaml">
-       <Generator>MSBuild:Compile</Generator>
-     </Page>
-   </ItemGroup>
-  
-   <ItemGroup>
-     <Reference Include="PresentationCore" />
-     <Reference Include="PresentationFramework" />
-     <Reference Include="System.Xaml" />
-     <Reference Include="WindowsBase" />
-   </ItemGroup>
 
 </Project>
