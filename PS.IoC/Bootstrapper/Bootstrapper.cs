@@ -91,7 +91,7 @@ namespace PS.IoC
 
             try
             {
-                _logger.Debug("Initializing critical components...");
+                _logger.Trace("Initializing critical components...");
 
                 InitializeCriticalComponents(_logger, parentContainer);
 

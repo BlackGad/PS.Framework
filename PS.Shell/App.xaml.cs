@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Versioning;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -292,6 +293,8 @@ namespace PS.Shell
             {
                 var version = currentAssembly.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version;
                 var informationalVersion = currentAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+                var framework = currentAssembly.GetCustomAttribute<TargetFrameworkAttribute>()?.FrameworkName;
+                var architecture = System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture;
                 var buildMode = Runtime.IsDebugBuild ? "Debug" : "Release";
                 var debuggingPanelState = "Disabled";
                 if (Runtime.IsDebugMode)
@@ -308,6 +311,8 @@ namespace PS.Shell
                 }
 
                 _logger.Debug("Application debug information");
+                _logger.Debug("* Framework: {0}", framework);
+                _logger.Debug("* Process architecture: {0}", architecture);
                 _logger.Debug("* File version: {0}", version ?? "<not specified>");
                 _logger.Debug("* Informational version: {0}", informationalVersion ?? "<not specified>");
                 _logger.Debug("* Build: {0}", buildMode);
