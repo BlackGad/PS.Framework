@@ -13,7 +13,6 @@ using NLog.Targets;
 using PS.Extensions;
 using PS.IoC;
 using PS.MVVM.Services.WindowService;
-using PS.Patterns.Dispose;
 using PS.Shell.Infrastructure;
 using PS.Shell.Infrastructure.ViewModels;
 using PS.Shell.ViewModels;
@@ -113,7 +112,7 @@ namespace PS.Shell
         #endregion
 
         private readonly Bootstrapper _bootstrapper;
-        private readonly RelayDispose _launchMutex;
+        private readonly IDisposable _launchMutex;
         private readonly ILogger _logger;
 
         #region Constructors
@@ -138,7 +137,7 @@ namespace PS.Shell
                 return;
             }
 
-            var token = Assembly.GetExecutingAssembly().FullName;
+            var token = Assembly.GetExecutingAssembly().FullName + Process.GetCurrentProcess().SessionId;
             _logger.Trace("Acquiring global application mutex...");
             _launchMutex = MutexHelper.Acquire(token);
             if (_launchMutex == null)
@@ -219,6 +218,14 @@ namespace PS.Shell
             try
             {
                 _bootstrapper.Dispose();
+            }
+            catch
+            {
+                //Nothing 
+            }
+
+            try
+            {
                 _launchMutex.Dispose();
             }
             catch
