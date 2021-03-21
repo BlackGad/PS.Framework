@@ -8,6 +8,36 @@ namespace PS.ComponentModel.Navigation
     internal class RouteTokenSequence : IReadOnlyList<RouteToken>,
                                         IFormattable
     {
+        public readonly IReadOnlyList<int> Hashes;
+        private readonly List<RouteToken> _records;
+
+        #region Constructors
+
+        public RouteTokenSequence(List<RouteToken> records, IReadOnlyList<int> hashes, int? recursiveStart, int? recursiveEnd, string regexInput, string regexPattern)
+        {
+            _records = records;
+            Hashes = hashes;
+
+            RecursiveStart = recursiveStart;
+            RecursiveEnd = recursiveEnd;
+            RegexPattern = regexPattern;
+            RegexInput = regexInput;
+        }
+
+        #endregion
+
+        #region IFormattable Members
+
+        string IFormattable.ToString(string format, IFormatProvider formatProvider)
+        {
+            var routeFormatProvider = formatProvider as RouteFormatting ?? RouteFormatting.Default;
+            return string.Join(routeFormatProvider.Separator,
+                               _records.Select(p => p.Value.Replace(routeFormatProvider.Separator,
+                                                                    RouteFormatting.EscapeSymbol + routeFormatProvider.Separator)));
+        }
+
+        #endregion
+
         #region Static members
 
         public static bool operator ==(RouteTokenSequence left, RouteTokenSequence right)
@@ -22,24 +52,17 @@ namespace PS.ComponentModel.Navigation
 
         #endregion
 
-        private readonly int _hash;
-        private readonly List<RouteToken> _records;
+        #region Properties
 
-        #region Constructors
-
-        public RouteTokenSequence(List<RouteToken> records, int hash, int? recursiveStart, int? recursiveEnd, string regexInput, string regexPattern)
+        public int Count
         {
-            _records = records;
-            _hash = hash;
-            RecursiveStart = recursiveStart;
-            RecursiveEnd = recursiveEnd;
-            RegexPattern = regexPattern;
-            RegexInput = regexInput;
+            get { return _records.Count; }
         }
 
-        #endregion
-
-        #region Properties
+        public RouteToken this[int index]
+        {
+            get { return _records[index]; }
+        }
 
         public int? RecursiveEnd { get; }
 
@@ -62,7 +85,7 @@ namespace PS.ComponentModel.Navigation
 
         public override int GetHashCode()
         {
-            return _hash;
+            return Hashes.LastOrDefault();
         }
 
         public override string ToString()
@@ -72,29 +95,7 @@ namespace PS.ComponentModel.Navigation
 
         #endregion
 
-        #region IFormattable Members
-
-        string IFormattable.ToString(string format, IFormatProvider formatProvider)
-        {
-            var routeFormatProvider = formatProvider as RouteFormatting ?? RouteFormatting.Default;
-            return string.Join(routeFormatProvider.Separator,
-                               _records.Select(p => p.Value.Replace(routeFormatProvider.Separator,
-                                                                    RouteFormatting.EscapeSymbol + routeFormatProvider.Separator)));
-        }
-
-        #endregion
-
         #region IReadOnlyList<RouteToken> Members
-
-        public int Count
-        {
-            get { return _records.Count; }
-        }
-
-        public RouteToken this[int index]
-        {
-            get { return _records[index]; }
-        }
 
         public IEnumerator<RouteToken> GetEnumerator()
         {
@@ -117,7 +118,7 @@ namespace PS.ComponentModel.Navigation
 
         protected bool Equals(RouteTokenSequence other)
         {
-            return _hash == other._hash;
+            return GetHashCode() == other.GetHashCode();
         }
 
         #endregion

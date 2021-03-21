@@ -96,11 +96,18 @@ namespace PS.ComponentModel
             return true;
         }
 
+        public bool TryGetDescriptor(out PropertyDescriptor descriptor)
+        {
+            if (!GetPair(out _, out descriptor)) return false;
+            return true;
+        }
+
         public bool TryGetValue(out object value)
         {
             value = null;
 
             if (!GetPair(out var source, out var descriptor)) return false;
+            if (typeof(Type).IsAssignableFrom(SourceType)) return false;
 
             value = descriptor.GetValue(source);
             return true;

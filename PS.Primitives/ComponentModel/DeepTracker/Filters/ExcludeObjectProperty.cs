@@ -30,7 +30,7 @@ namespace PS.ComponentModel.DeepTracker.Filters
 
         #region IExcludeTrackRoute Members
 
-        public bool Exclude(PropertyReference propertyReference, object value, Route route)
+        public bool Exclude(PropertyReference propertyReference, Lazy<object> value, Route route)
         {
             foreach (var objectType in ObjectProperties)
             {

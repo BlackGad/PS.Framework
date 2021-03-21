@@ -30,7 +30,7 @@ namespace PS.ComponentModel.DeepTracker.Filters
 
         #region IIncludeTrackRoute Members
 
-        public bool Include(PropertyReference propertyReference, object value, Route route)
+        public bool Include(PropertyReference propertyReference, Lazy<object> value, Route route)
         {
             foreach (var objectType in ObjectProperties)
             {
