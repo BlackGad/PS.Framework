@@ -33,22 +33,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\PS.IoC.Autofac\PS.IoC.Autofac.csproj" />
-    <ProjectReference Include="..\PS.IoC\PS.IoC.csproj" />
-    <ProjectReference Include="..\PS.MVVM.WPF\PS.MVVM.WPF.csproj" />
-    <ProjectReference Include="..\PS.MVVM\PS.MVVM.csproj" />
-    <ProjectReference Include="..\PS.Primitives\PS.Primitives.csproj" />
+    <ProjectReference Include="..\..\..\PS.IoC.Autofac\PS.IoC.Autofac.csproj" />
+    <ProjectReference Include="..\..\..\PS.IoC\PS.IoC.csproj" />
+    <ProjectReference Include="..\..\..\PS.MVVM.WPF\PS.MVVM.WPF.csproj" />
+    <ProjectReference Include="..\..\..\PS.MVVM\PS.MVVM.csproj" />
+    <ProjectReference Include="..\..\..\PS.Primitives\PS.Primitives.csproj" />
+    <ProjectReference Include="..\..\..\PS.WPF\PS.WPF.csproj" />
+    <ProjectReference Include="..\..\..\PS.Windows.Interop\PS.Windows.Interop.csproj" />
     <ProjectReference Include="..\PS.Shell.Infrastructure\PS.Shell.Infrastructure.csproj" />
     <ProjectReference Include="..\PS.Shell.Module.Diagram\PS.Shell.Module.Diagram.csproj" />
-    <ProjectReference Include="..\PS.Windows.Interop\PS.Windows.Interop.csproj" />
-    <ProjectReference Include="..\PS.WPF\PS.WPF.csproj" />
   </ItemGroup>
 
   <ItemGroup>

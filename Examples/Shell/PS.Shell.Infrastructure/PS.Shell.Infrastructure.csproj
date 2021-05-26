@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net5.0-windows;net461;</TargetFrameworks>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <RootNamespace>PS.Shell.Module.Diagram</RootNamespace>
+    <RootNamespace>PS.Shell.Infrastructure</RootNamespace>
     <Authors>Volodymyr Shkolka</Authors>
     <Company>Volodymyr Shkolka</Company>
     <Product>PS Shell</Product>
@@ -11,10 +11,10 @@
     <PackageProjectUrl>https://github.com/BlackGad/PS.Framework</PackageProjectUrl>
     <RepositoryUrl>https://github.com/BlackGad/PS.Framework</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
-    <PackageTags>Shell Module Diagram WPF</PackageTags>
+    <PackageTags>Shell Infrastructure WPF</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
     <Version>1.0.4</Version>
-    <Description>Shell diagram module project</Description>
+    <Description>Shell infrastructure project</Description>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
@@ -28,22 +28,9 @@
 
   <!-- General references -->
   <ItemGroup>
-    <ProjectReference Include="..\PS.IoC.Autofac\PS.IoC.Autofac.csproj" />
-    <ProjectReference Include="..\PS.MVVM.WPF\PS.MVVM.WPF.csproj" />
-    <ProjectReference Include="..\PS.MVVM\PS.MVVM.csproj" />
-    <ProjectReference Include="..\PS.Primitives\PS.Primitives.csproj" />
-    <ProjectReference Include="..\PS.WPF\PS.WPF.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.2.0" />
+    <ProjectReference Include="..\..\..\PS.MVVM\PS.MVVM.csproj" />
+    <ProjectReference Include="..\..\..\PS.Primitives\PS.Primitives.csproj" />
+    <ProjectReference Include="..\..\..\PS.WPF\PS.WPF.csproj" />
   </ItemGroup>
 
 </Project>
