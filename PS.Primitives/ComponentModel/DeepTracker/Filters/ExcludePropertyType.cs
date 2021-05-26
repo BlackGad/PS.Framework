@@ -33,7 +33,7 @@ namespace PS.ComponentModel.DeepTracker.Filters
 
         #region IExcludeTrackRoute Members
 
-        public bool Exclude(PropertyReference propertyReference, object value, Route route)
+        public bool Exclude(PropertyReference propertyReference, Lazy<object> value, Route route)
         {
             var propertyType = value?.GetType() ?? propertyReference.PropertyType;
             if (Derived) return Types.Any(t => t.IsAssignableFrom(propertyType));

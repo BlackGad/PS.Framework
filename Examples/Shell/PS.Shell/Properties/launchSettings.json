@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "PS.Shell": {
+      "commandName": "Project"
+    }
+  }
+}

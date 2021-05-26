@@ -11,6 +11,19 @@ namespace PS.MVVM.Components
     public abstract class BaseResolver<TService> : MarkupExtension
         where TService : class
     {
+        #region Static members
+
+        protected static string FormatServiceErrorMessage(DependencyProperty property)
+        {
+            var message = $"Could not resolve {typeof(TService).Name}. To fix this you can: " +
+                          $"set service instance directly via {nameof(Resolver)} property, " +
+                          $"specify {property.OwnerType.Name}.{property.Name} attached property to visual parent or " +
+                          "specify service globally";
+            return message;
+        }
+
+        #endregion
+
         private TService _resolver;
         private ResolverServiceSource _resolverSource;
 
@@ -24,15 +37,28 @@ namespace PS.MVVM.Components
 
         #endregion
 
-        #region Static members
+        #region Properties
 
-        protected static string FormatServiceErrorMessage(DependencyProperty property)
+        public TService Resolver
         {
-            var message = $"Could not resolve {typeof(TService).Name}. To fix this you can: " +
-                          $"set service instance directly via {nameof(Resolver)} property, " +
-                          $"specify {property.OwnerType.Name}.{property.Name} attached property to visual parent or " +
-                          "specify service globally";
-            return message;
+            get { return _resolver; }
+            set
+            {
+                if (_resolver.AreEqual(value)) return;
+                _resolver = value;
+                ResolverSource = value == null ? ResolverServiceSource.Global : ResolverServiceSource.Direct;
+            }
+        }
+
+        public ResolverServiceSource ResolverSource
+        {
+            get { return _resolverSource; }
+            set
+            {
+                if (_resolverSource.AreEqual(value)) return;
+                _resolverSource = value;
+                if (_resolverSource != ResolverServiceSource.Direct) Resolver = null;
+            }
         }
 
         #endregion
@@ -60,32 +86,6 @@ namespace PS.MVVM.Components
                     return Resolver;
                 default:
                     throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        #endregion
-
-        #region Properties
-
-        public TService Resolver
-        {
-            get { return _resolver; }
-            set
-            {
-                if (_resolver.AreEqual(value)) return;
-                _resolver = value;
-                ResolverSource = value == null ? ResolverServiceSource.Global : ResolverServiceSource.Direct;
-            }
-        }
-
-        public ResolverServiceSource ResolverSource
-        {
-            get { return _resolverSource; }
-            set
-            {
-                if (_resolverSource.AreEqual(value)) return;
-                _resolverSource = value;
-                if (_resolverSource != ResolverServiceSource.Direct) Resolver = null;
             }
         }
 

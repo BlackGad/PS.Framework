@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using PS.Data;
-using PS.Extensions;
 using PS.Patterns.Aware;
 
 namespace PS.ComponentModel
@@ -59,7 +58,7 @@ namespace PS.ComponentModel
             }
             catch (Exception e)
             {
-                if (Debugger.IsAttached) Debug.WriteLine(e.GetMessage());
+                if (Debugger.IsAttached) Debug.WriteLine(e.GetBaseException().Message);
             }
         }
 

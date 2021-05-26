@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net461;</TargetFrameworks>
+    <TargetFrameworks>net5.0-windows;net461;</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RootNamespace>PS.MVVM</RootNamespace>
     <Authors>Volodymyr Shkolka</Authors>
@@ -15,9 +15,9 @@
     <NeutralLanguage>en</NeutralLanguage>
     <Version>1.0.4</Version>
     <Description>Essential MVVM services implementation for WPF applications</Description>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
 
- <!-- General references -->
  <ItemGroup>
     <ProjectReference Include="..\PS.MVVM\PS.MVVM.csproj" />
     <ProjectReference Include="..\PS.Primitives\PS.Primitives.csproj" />
@@ -31,7 +31,7 @@
     </None>
   </ItemGroup>
   
-  <ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461'">
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Xaml" />

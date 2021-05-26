@@ -22,15 +22,16 @@ namespace PS.ComponentModel.Navigation
 
         #endregion
 
-        private readonly int _hash;
+        public readonly IReadOnlyList<int> Hashes;
         private readonly List<RouteToken> _records;
 
         #region Constructors
 
-        public RouteTokenSequence(List<RouteToken> records, int hash, int? recursiveStart, int? recursiveEnd, string regexInput, string regexPattern)
+        public RouteTokenSequence(List<RouteToken> records, IReadOnlyList<int> hashes, int? recursiveStart, int? recursiveEnd, string regexInput, string regexPattern)
         {
             _records = records;
-            _hash = hash;
+            Hashes = hashes;
+
             RecursiveStart = recursiveStart;
             RecursiveEnd = recursiveEnd;
             RegexPattern = regexPattern;
@@ -62,7 +63,7 @@ namespace PS.ComponentModel.Navigation
 
         public override int GetHashCode()
         {
-            return _hash;
+            return Hashes.LastOrDefault();
         }
 
         public override string ToString()
@@ -117,7 +118,7 @@ namespace PS.ComponentModel.Navigation
 
         protected bool Equals(RouteTokenSequence other)
         {
-            return _hash == other._hash;
+            return GetHashCode() == other.GetHashCode();
         }
 
         #endregion

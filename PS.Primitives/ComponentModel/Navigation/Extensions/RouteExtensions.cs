@@ -66,8 +66,17 @@ namespace PS.ComponentModel.Navigation.Extensions
             var modeIndex = (int)caseSensitive;
             if (modeIndex > 1) return false;
 
-            var match = Regex.Match(source.Sequences[modeIndex].RegexInput, "^" + route.Sequences[modeIndex].RegexPattern + "$");
-            return match.Success;
+            if (route.IsWild)
+            {
+                var match = Regex.Match(source.Sequences[modeIndex].RegexInput, "^" + route.Sequences[modeIndex].RegexPattern + "$");
+                return match.Success;
+            }
+
+            var routeCount = route.Count;
+            var sourceCount = source.Count;
+            if (routeCount != sourceCount) return false;
+
+            return source.Sequences[modeIndex].Hashes[routeCount - 1] == route.Sequences[modeIndex].Hashes[routeCount - 1];
         }
 
         public static bool MatchPartially(this Route source, Route route, RouteCaseMode caseSensitive = RouteCaseMode.Sensitive)
@@ -81,6 +90,22 @@ namespace PS.ComponentModel.Navigation.Extensions
             return false;
         }
 
+        public static Route Select(this Route source, Route route, RouteCaseMode caseSensitive = RouteCaseMode.Sensitive)
+        {
+            if (route.IsEmpty() && source.IsEmpty()) return Routes.Empty;
+
+            var modeIndex = (int)caseSensitive;
+            if (modeIndex > 1) return null;
+
+            var match = Regex.Match(source.Sequences[modeIndex].RegexInput, route.Sequences[modeIndex].RegexPattern);
+            if (!match.Success) return null;
+
+            var tokensToSkip = RouteTokenSequenceBuilder.TokenCountInSequence(source.Sequences[modeIndex].RegexInput.Substring(0, match.Index));
+            var tokensToTake = RouteTokenSequenceBuilder.TokenCountInSequence(match.Value);
+
+            return source.Sub(tokensToSkip, tokensToTake);
+        }
+
         public static bool StartWith(this Route source, Route route, RouteCaseMode caseSensitive = RouteCaseMode.Sensitive)
         {
             if (source.IsEmpty()) return route.IsEmpty();
@@ -89,8 +114,17 @@ namespace PS.ComponentModel.Navigation.Extensions
             var modeIndex = (int)caseSensitive;
             if (modeIndex > 1) return false;
 
-            var match = Regex.Match(source.Sequences[modeIndex].RegexInput, "^" + route.Sequences[modeIndex].RegexPattern);
-            return match.Success;
+            if (route.IsWild)
+            {
+                var match = Regex.Match(source.Sequences[modeIndex].RegexInput, "^" + route.Sequences[modeIndex].RegexPattern);
+                return match.Success;
+            }
+
+            var routeCount = route.Count;
+            var sourceCount = source.Count;
+            if (routeCount > sourceCount) return false;
+
+            return source.Sequences[modeIndex].Hashes[routeCount - 1] == route.Sequences[modeIndex].Hashes[routeCount - 1];
         }
 
         public static Route Sub(this Route source, int skip, int? take = null)

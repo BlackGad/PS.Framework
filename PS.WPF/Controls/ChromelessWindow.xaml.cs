@@ -88,6 +88,10 @@ namespace PS.WPF.Controls
 
         #endregion
 
+        #region Constants
+
+        #endregion
+
         #region Constructors
 
         static ChromelessWindow()

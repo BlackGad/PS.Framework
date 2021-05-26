@@ -9,6 +9,25 @@ namespace PS.WPF.Controls
 {
     public class UICommandsControl : ItemsControl
     {
+        #region Constructors
+
+        static UICommandsControl()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(UICommandsControl), new FrameworkPropertyMetadata(typeof(UICommandsControl)));
+            ResourceHelper.SetDefaultStyle(typeof(UICommandsControl), Resource.ControlStyle);
+        }
+
+        public UICommandsControl()
+        {
+            Loaded += (sender, args) => Dispatcher.Postpone(() =>
+            {
+                var commands = ItemsSource.Enumerate<IUICommand>();
+                commands.ForEach(command => command?.RaiseCanExecuteChanged());
+            });
+        }
+
+        #endregion
+
         #region Nested type: Resource
 
         public static class Resource
@@ -31,33 +50,6 @@ namespace PS.WPF.Controls
                                                            resourceDictionary: Default);
 
             #endregion
-        }
-
-        #endregion
-
-        #region Property definitions
-
-        #endregion
-
-        #region Properties
-
-        #endregion
-
-        #region Constructors
-
-        static UICommandsControl()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(UICommandsControl), new FrameworkPropertyMetadata(typeof(UICommandsControl)));
-            ResourceHelper.SetDefaultStyle(typeof(UICommandsControl), Resource.ControlStyle);
-        }
-
-        public UICommandsControl()
-        {
-            Loaded += (sender, args) => Dispatcher.Postpone(() =>
-            {
-                var commands = ItemsSource.Enumerate<IUICommand>();
-                commands.ForEach(command => command?.RaiseCanExecuteChanged());
-            });
         }
 
         #endregion

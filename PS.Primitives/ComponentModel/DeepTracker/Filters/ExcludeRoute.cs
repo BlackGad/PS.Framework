@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using PS.ComponentModel.Navigation;
 using PS.ComponentModel.Navigation.Extensions;
@@ -25,7 +26,7 @@ namespace PS.ComponentModel.DeepTracker.Filters
 
         #region IExcludeTrackRoute Members
 
-        public bool Exclude(PropertyReference propertyReference, object value, Route route)
+        public bool Exclude(PropertyReference propertyReference, Lazy<object> value, Route route)
         {
             return Routes.Any(r => route.MatchPartially(r));
         }

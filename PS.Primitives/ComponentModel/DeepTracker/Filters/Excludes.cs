@@ -14,6 +14,7 @@ namespace PS.ComponentModel.DeepTracker.Filters
                                   typeof(Type),
                                   typeof(Assembly),
                                   typeof(AppDomain),
+                                  //typeof(Dispatcher),
                                   typeof(Thread),
                                   typeof(Task),
                                   typeof(string));

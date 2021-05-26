@@ -7,7 +7,7 @@ namespace PS.ComponentModel.DeepTracker.Extensions
     {
         #region Static members
 
-        public static string FormatMessage(this ChangedEventArgs e)
+        public static string FormatMessage(this ChangedEventArgs e, bool trimOutput = true)
         {
             if (e is ChangedCollectionEventArgs collectionEventArgs)
             {
@@ -27,7 +27,20 @@ namespace PS.ComponentModel.DeepTracker.Extensions
                 return message;
             }
 
-            return $"{e.Route} property changed.";
+            if (e is ChangedPropertyEventArgs propertyEventArgs)
+            {
+                var oldValueString = propertyEventArgs.OldValue.GetEffectiveString();
+                var newValueString = propertyEventArgs.NewValue.GetEffectiveString();
+                if (trimOutput)
+                {
+                    if (oldValueString.Length > 100) oldValueString = oldValueString.Substring(0, 100) + "...";
+                    if (newValueString.Length > 100) newValueString = newValueString.Substring(0, 100) + "...";
+                }
+
+                return $"{e.Route} property changed '{oldValueString}' -> '{newValueString}'";
+            }
+
+            return $"{e.Route} changed.";
         }
 
         #endregion

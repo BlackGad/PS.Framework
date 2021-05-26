@@ -152,6 +152,7 @@ namespace PS.ComponentModel.DeepTracker
             }
 
             _excludeList.AddRange(excludeList);
+            _excludeList.Add(new ExcludeByAttribute());
 
             var result = new DeepTracker(this, _source);
             _source = null;
@@ -163,7 +164,7 @@ namespace PS.ComponentModel.DeepTracker
 
         #region Members
 
-        public bool IsAllowed(PropertyReference reference, object value, Navigation.Route propertyRoute)
+        public bool IsAllowed(PropertyReference reference, Lazy<object> value, Navigation.Route propertyRoute)
         {
             var isIncluded = true;
             if (_includeList.Any())
@@ -180,6 +181,17 @@ namespace PS.ComponentModel.DeepTracker
             foreach (var exclude in _excludeList)
             {
                 if (exclude.Exclude(reference, value, propertyRoute)) return false;
+            }
+
+            return true;
+        }
+
+        public bool IsAllowed(PropertyReference reference, Navigation.Route propertyRoute)
+        {
+            if (reference.TryGetDescriptor(out var descriptor))
+            {
+                var disableTrackingAttribute = descriptor.Attributes.Enumerate<DisableTrackingAttribute>().FirstOrDefault();
+                if (disableTrackingAttribute != null) return false;
             }
 
             return true;

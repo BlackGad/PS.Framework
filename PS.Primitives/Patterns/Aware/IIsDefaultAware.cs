@@ -2,6 +2,10 @@
 {
     public interface IIsDefaultAware
     {
+        #region Properties
+
         bool IsDefault { get; }
+
+        #endregion
     }
 }

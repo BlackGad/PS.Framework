@@ -9,11 +9,19 @@ using PS.ComponentModel.Extensions;
 using PS.ComponentModel.Navigation;
 using PS.ComponentModel.Navigation.Extensions;
 using PS.Extensions;
+using PS.Patterns.Aware;
 
 namespace PS.ComponentModel.DeepTracker
 {
-    public class DeepTracker : IDisposable
+    public class DeepTracker : IDisposable,
+                               IFluentActivationAware<DeepTracker>
     {
+        #region Constants
+
+        public static readonly object NotValidValue = new object();
+
+        #endregion
+
         #region Static members
 
         public static ITrackRouteConfiguration Setup(object source, params object[] routeParts)
@@ -28,13 +36,12 @@ namespace PS.ComponentModel.DeepTracker
 
         #endregion
 
-        private readonly List<Tuple<Route, WeakReference>> _attachmentObjectRegistry;
-
-        private readonly List<Tuple<Route, WeakReference, object[]>> _collectionChangedRegistry;
+        private readonly Registry<WeakReference> _attachmentObjectRegistry;
+        private readonly Registry<Tuple<WeakReference, object[]>> _collectionChangedRegistry;
         private readonly DynamicSubscription<INotifyCollectionChanged, NotifyCollectionChangedEventHandler> _collectionChangedSubscriptions;
         private readonly ConditionalWeakTable<object, string> _collectionChildrenIds;
         private readonly TrackRouteConfiguration _configuration;
-        private readonly List<Tuple<Route, PropertyReference, object>> _propertyChangedRegistry;
+        private readonly Registry<Tuple<PropertyReference, object>> _propertyChangedRegistry;
         private readonly DynamicSubscription<PropertyReference, EventHandler> _propertyChangedSubscriptions;
         private readonly WeakReference _sourceReference;
 
@@ -44,10 +51,10 @@ namespace PS.ComponentModel.DeepTracker
         {
             _configuration = configuration;
             _sourceReference = new WeakReference(source);
-            _propertyChangedRegistry = new List<Tuple<Route, PropertyReference, object>>();
-            _collectionChangedRegistry = new List<Tuple<Route, WeakReference, object[]>>();
+            _propertyChangedRegistry = new Registry<Tuple<PropertyReference, object>>();
+            _collectionChangedRegistry = new Registry<Tuple<WeakReference, object[]>>();
             _collectionChildrenIds = new ConditionalWeakTable<object, string>();
-            _attachmentObjectRegistry = new List<Tuple<Route, WeakReference>>();
+            _attachmentObjectRegistry = new Registry<WeakReference>();
 
             _propertyChangedSubscriptions = new DynamicSubscription<PropertyReference, EventHandler>(
                 (changed, handler) => changed.TryAddValueChanged(handler),
@@ -69,7 +76,7 @@ namespace PS.ComponentModel.DeepTracker
 
         #endregion
 
-        #region Members
+        #region IFluentActivationAware<DeepTracker> Members
 
         public DeepTracker Activate()
         {
@@ -77,6 +84,7 @@ namespace PS.ComponentModel.DeepTracker
             if (source == null) return this;
 
             AddBranch(Routes.Empty, source, _configuration, Enumerable.Empty<int>().ToList());
+            IsActive = true;
 
             return this;
         }
@@ -107,14 +115,26 @@ namespace PS.ComponentModel.DeepTracker
                 _configuration.Raise(this, args);
             }
 
+            IsActive = false;
             return this;
         }
+
+        public bool IsActive { get; private set; }
+
+        #endregion
+
+        #region Members
 
         public object GetObject(Route route)
         {
             lock (_attachmentObjectRegistry)
             {
-                return _attachmentObjectRegistry.FirstOrDefault(r => r.Item1.Equals(route))?.Item2?.Target;
+                if (_attachmentObjectRegistry.TryGetValue(route, out var result))
+                {
+                    return result?.Target;
+                }
+
+                return null;
             }
         }
 
@@ -127,7 +147,7 @@ namespace PS.ComponentModel.DeepTracker
             {
                 var objectAttachedEventArgs = new ObjectAttachedEventArgs(visitedRoute, source);
                 _configuration.Raise(this, objectAttachedEventArgs);
-                _attachmentObjectRegistry.Add(new Tuple<Route, WeakReference>(visitedRoute, new WeakReference(source)));
+                _attachmentObjectRegistry.Add(visitedRoute, new WeakReference(source));
             }
 
             visitedObjects = visitedObjects.UnionWith(source.GetHash()).ToList();
@@ -137,14 +157,14 @@ namespace PS.ComponentModel.DeepTracker
 
                 if (collection is INotifyCollectionChanged notifyCollection)
                 {
-                    var closureSourceItems = new WeakReference(sourceItems);
+                    var closureSourceItems = new WeakReference(sourceItems.Enumerate().ToList());
 
                     void NotifyCollectionChangedHandler(object sender, NotifyCollectionChangedEventArgs args)
                     {
-                        var previousItems = closureSourceItems.Target as object[];
-
+                        var previousItems = closureSourceItems.Target as List<object>;
                         if (args.Action == NotifyCollectionChangedAction.Reset)
                         {
+                            var newClosureSourceItems = sender.Enumerate().ToList();
                             foreach (var item in previousItems.Enumerate())
                             {
                                 if (_collectionChildrenIds.TryGetValue(item, out var id))
@@ -153,27 +173,45 @@ namespace PS.ComponentModel.DeepTracker
                                 }
                             }
 
-                            return;
-                        }
+                            closureSourceItems = new WeakReference(newClosureSourceItems);
 
-                        foreach (var item in args.NewItems.Enumerate())
-                        {
-                            if (item == null) continue;
-
-                            if (!_collectionChildrenIds.TryGetValue(item, out var id))
+                            foreach (var item in newClosureSourceItems)
                             {
-                                id = Guid.NewGuid().CreateDynamicRoute().ToString();
-                                _collectionChildrenIds.Add(item, id);
+                                if (item == null) continue;
+
+                                if (!_collectionChildrenIds.TryGetValue(item, out var id))
+                                {
+                                    id = Guid.NewGuid().CreateDynamicRoute().ToString();
+                                    _collectionChildrenIds.Add(item, id);
+                                }
+
+                                AddBranch(Route.Create(visitedRoute, id), item, _configuration, visitedObjects);
+                            }
+                        }
+                        else
+                        {
+                            foreach (var item in args.NewItems.Enumerate())
+                            {
+                                if (item == null) continue;
+
+                                if (!_collectionChildrenIds.TryGetValue(item, out var id))
+                                {
+                                    id = Guid.NewGuid().CreateDynamicRoute().ToString();
+                                    _collectionChildrenIds.Add(item, id);
+                                }
+
+                                AddBranch(Route.Create(visitedRoute, id), item, _configuration, visitedObjects);
+                                previousItems?.Add(item);
                             }
 
-                            AddBranch(Route.Create(visitedRoute, id), item, _configuration, visitedObjects);
-                        }
-
-                        foreach (var item in args.OldItems.Enumerate())
-                        {
-                            if (_collectionChildrenIds.TryGetValue(item, out var id))
+                            foreach (var item in args.OldItems.Enumerate())
                             {
-                                RemoveBranch(Route.Create(visitedRoute, id));
+                                if (_collectionChildrenIds.TryGetValue(item, out var id))
+                                {
+                                    RemoveBranch(Route.Create(visitedRoute, id));
+                                }
+
+                                previousItems?.Remove(item);
                             }
                         }
 
@@ -186,8 +224,8 @@ namespace PS.ComponentModel.DeepTracker
                         var args = new CollectionAttachedEventArgs(visitedRoute, collection);
                         _configuration.Raise(this, args);
 
-                        var record = new Tuple<Route, WeakReference, object[]>(visitedRoute, new WeakReference(collection), sourceItems);
-                        _collectionChangedRegistry.Add(record);
+                        var record = new Tuple<WeakReference, object[]>(new WeakReference(collection), sourceItems);
+                        _collectionChangedRegistry.Add(visitedRoute, record);
                     }
 
                     _collectionChangedSubscriptions.Subscribe(notifyCollection, NotifyCollectionChangedHandler);
@@ -224,13 +262,26 @@ namespace PS.ComponentModel.DeepTracker
             var match = propertyRoute.MatchPartially(configuration.Route);
             if (!match) return;
 
-            var validValue = reference.TryGetValue(out var value);
-            var isAllowed = configuration.IsAllowed(reference, value, propertyRoute);
-            if (!isAllowed) return;
+            var lazyValue = new Lazy<object>(() =>
+            {
+                try
+                {
+                    if (reference.TryGetValue(out var scopedValue)) return scopedValue;
+                }
+                catch
+                {
+                    //Nothing
+                }
+
+                return NotValidValue;
+            });
+
+            if (!configuration.IsAllowed(reference, lazyValue, propertyRoute)) return;
 
             try
             {
-                if (!validValue) return;
+                var value = lazyValue.Value;
+                if (value.AreEqual(NotValidValue)) return;
 
                 if (reference.SupportsChangeEvents)
                 {
@@ -284,8 +335,8 @@ namespace PS.ComponentModel.DeepTracker
                         var args = new PropertyAttachedEventArgs(propertyRoute, reference, value);
                         _configuration.Raise(this, args);
 
-                        var record = new Tuple<Route, PropertyReference, object>(propertyRoute, reference, value);
-                        _propertyChangedRegistry.Add(record);
+                        var record = new Tuple<PropertyReference, object>(reference, value);
+                        _propertyChangedRegistry.Add(propertyRoute, record);
                         _propertyChangedSubscriptions.Subscribe(reference, PropertyChangedHandler);
                     }
                 }
@@ -302,50 +353,149 @@ namespace PS.ComponentModel.DeepTracker
         {
             lock (_propertyChangedRegistry)
             {
-                var recordsToRemove = _propertyChangedRegistry.Where(r => r.Item1.StartWith(contextRoute)).ToList();
-                foreach (var recordToRemove in recordsToRemove)
+                foreach (var pair in _propertyChangedRegistry.Remove(contextRoute, true))
                 {
-                    if (recordToRemove.Item1.Match(contextRoute)) continue;
-
-                    var args = new PropertyDetachedEventArgs(recordToRemove.Item1, recordToRemove.Item2, recordToRemove.Item3);
+                    var args = new PropertyDetachedEventArgs(pair.Key, pair.Value.Item1, pair.Value.Item2);
                     _configuration.Raise(this, args);
 
-                    _propertyChangedSubscriptions.Unsubscribe(recordToRemove.Item2);
-                    _propertyChangedRegistry.Remove(recordToRemove);
+                    _propertyChangedSubscriptions.Unsubscribe(pair.Value.Item1);
                 }
             }
 
             lock (_collectionChangedRegistry)
             {
-                var recordsToRemove = _collectionChangedRegistry.Where(r => r.Item1.StartWith(contextRoute)).ToList();
-                foreach (var recordToRemove in recordsToRemove)
+                foreach (var pair in _collectionChangedRegistry.Remove(contextRoute, false))
                 {
-                    var collection = recordToRemove.Item2.Target as IEnumerable;
+                    var collection = pair.Value.Item1.Target as IEnumerable;
                     _collectionChangedSubscriptions.Unsubscribe(collection);
-                    _collectionChangedRegistry.Remove(recordToRemove);
 
                     if (collection == null) continue;
 
-                    var args = new CollectionDetachedEventArgs(recordToRemove.Item1, collection);
+                    var args = new CollectionDetachedEventArgs(pair.Key, collection);
                     _configuration.Raise(this, args);
                 }
             }
 
             lock (_attachmentObjectRegistry)
             {
-                var recordsToRemove = _attachmentObjectRegistry.Where(r => r.Item1.StartWith(contextRoute)).ToList();
-                foreach (var recordToRemove in recordsToRemove)
+                foreach (var pair in _attachmentObjectRegistry.Remove(contextRoute, false))
                 {
-                    _attachmentObjectRegistry.Remove(recordToRemove);
-
-                    var attachedObject = recordToRemove.Item2.Target;
+                    var attachedObject = pair.Value.Target;
                     if (attachedObject != null)
                     {
-                        var objectDetachedEventArgs = new ObjectDetachedEventArgs(contextRoute, recordToRemove.Item2.Target);
+                        var objectDetachedEventArgs = new ObjectDetachedEventArgs(pair.Key, attachedObject);
                         _configuration.Raise(this, objectDetachedEventArgs);
                     }
                 }
             }
+        }
+
+        #endregion
+
+        #region Nested type: Registry
+
+        private class Registry<TPayload>
+        {
+            private readonly Dictionary<int, HashSet<int>> _hierarchy;
+            private readonly Dictionary<int, KeyValuePair<Route, TPayload>> _registry;
+
+            #region Constructors
+
+            public Registry()
+            {
+                _registry = new Dictionary<int, KeyValuePair<Route, TPayload>>();
+                _hierarchy = new Dictionary<int, HashSet<int>>();
+            }
+
+            #endregion
+
+            #region Members
+
+            public void Add(Route route, TPayload payload)
+            {
+                if (_registry.ContainsKey(route.GetHashCode())) return;
+
+                _registry.Add(route.GetHashCode(), new KeyValuePair<Route, TPayload>(route, payload));
+
+                var hashes = route.GetHashCodes(RouteCaseMode.Sensitive);
+
+                for (var i = 0; i < hashes.Count; i++)
+                {
+                    var levelHash = hashes[i];
+                    if (!_hierarchy.ContainsKey(levelHash))
+                    {
+                        _hierarchy.Add(levelHash, new HashSet<int>());
+                    }
+
+                    if (i == 0) continue;
+
+                    var prevLevelHash = hashes[i - 1];
+                    _hierarchy[prevLevelHash].Add(levelHash);
+                }
+            }
+
+            public void Clear()
+            {
+                _registry.Clear();
+            }
+
+            public IEnumerable<KeyValuePair<Route, TPayload>> Remove(Route route, bool childrenOnly)
+            {
+                var hash = route.GetHashCode();
+
+                if (!_hierarchy.ContainsKey(hash)) yield break;
+
+                var keysToRemove = TakeHierarchyKeysForRemove(_hierarchy[hash]);
+                if (!childrenOnly) keysToRemove.Add(hash);
+
+                foreach (var keyToRemove in keysToRemove)
+                {
+                    if (!_registry.ContainsKey(keyToRemove)) continue;
+                    var valueToRemove = _registry[keyToRemove];
+                    _registry.Remove(keyToRemove);
+
+                    yield return new KeyValuePair<Route, TPayload>(valueToRemove.Key, valueToRemove.Value);
+                }
+            }
+
+            public bool TryGetValue(Route route, out TPayload payload)
+            {
+                if (route == null)
+                {
+                    payload = default(TPayload);
+                    return false;
+                }
+
+                var hash = route.GetHashCode();
+                if (_registry.TryGetValue(hash, out var pair))
+                {
+                    payload = pair.Value;
+                    return true;
+                }
+
+                payload = default(TPayload);
+                return false;
+            }
+
+            private IList<int> TakeHierarchyKeysForRemove(IEnumerable<int> from)
+            {
+                var result = new List<int>();
+                foreach (var key in from)
+                {
+                    result.Add(key);
+
+                    if (_hierarchy.ContainsKey(key))
+                    {
+                        var subKeys = _hierarchy[key];
+                        _hierarchy.Remove(key);
+                        result.AddRange(TakeHierarchyKeysForRemove(subKeys));
+                    }
+                }
+
+                return result;
+            }
+
+            #endregion
         }
 
         #endregion

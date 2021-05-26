@@ -8,15 +8,25 @@ namespace PS.ComponentModel.Navigation
     {
         #region Constants
 
+        public static readonly char EscapeSymbol = ';';
         private static readonly RouteToken Wildcard;
         private static readonly RouteToken WildcardRecursive;
 
         #endregion
 
+        #region Static members
+
+        public static int TokenCountInSequence(string sequence)
+        {
+            return sequence.Count(c => c == EscapeSymbol) / 2;
+        }
+
+        #endregion
+
+        private readonly List<int> _hashes;
         private readonly List<RouteToken> _records;
         private readonly List<string> _regexInputTokens;
         private readonly List<string> _regexPatternTokens;
-        private int _hash;
         private int? _recursiveEnd;
         private int? _recursiveStart;
 
@@ -33,6 +43,7 @@ namespace PS.ComponentModel.Navigation
             _regexPatternTokens = new List<string>();
             _regexInputTokens = new List<string>();
             _records = new List<RouteToken>();
+            _hashes = new List<int>();
         }
 
         #endregion
@@ -44,17 +55,18 @@ namespace PS.ComponentModel.Navigation
             _records.Add(record);
 
             var recordIndex = _records.Count;
-            _hash = _hash.MergeHash(record.Hash);
+            var hashForSize = _hashes.LastOrDefault().MergeHash(record.Hash);
+            _hashes.Add(hashForSize);
 
             if (Equals(record, Wildcard))
             {
-                _regexPatternTokens.Add("(;\\d+;)");
+                _regexPatternTokens.Add($"({EscapeSymbol}\\d+{EscapeSymbol})");
                 if (!_recursiveStart.HasValue) _recursiveStart = recordIndex - 1;
                 _recursiveEnd = recordIndex;
             }
             else if (Equals(record, WildcardRecursive))
             {
-                _regexPatternTokens.Add("(;\\d+;)*?");
+                _regexPatternTokens.Add($"({EscapeSymbol}\\d+{EscapeSymbol})*?");
                 if (!_recursiveStart.HasValue) _recursiveStart = recordIndex - 1;
                 _recursiveEnd = recordIndex;
             }
@@ -72,7 +84,7 @@ namespace PS.ComponentModel.Navigation
             var regexInput = _regexInputTokens.Aggregate(string.Empty, (agg, t) => agg + t);
 
             return new RouteTokenSequence(_records,
-                                          _hash,
+                                          _hashes.ToArray(),
                                           _recursiveStart,
                                           _recursiveEnd,
                                           regexInput,

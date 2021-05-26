@@ -1,4 +1,5 @@
-﻿using PS.ComponentModel.Navigation;
+﻿using System;
+using PS.ComponentModel.Navigation;
 
 namespace PS.ComponentModel.DeepTracker
 {
@@ -6,7 +7,7 @@ namespace PS.ComponentModel.DeepTracker
     {
         #region Members
 
-        bool Include(PropertyReference propertyReference, object value, Route route);
+        bool Include(PropertyReference propertyReference, Lazy<object> value, Route route);
 
         #endregion
     }

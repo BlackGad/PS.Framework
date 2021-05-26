@@ -9,9 +9,22 @@ namespace PS.Extensions
 {
     public static class TypeExtensions
     {
+        #region Constants
+
+        private static readonly HashSet<TypeCode> FloatingTypeCodes;
+        private static readonly HashSet<TypeCode> IntegerTypeCodes;
+        private static readonly HashSet<TypeCode> NumericTypeCodes;
+
+        #endregion
+
         #region Static members
 
-        public static Type[] GetAssemblyTypes(this Assembly assembly)
+        /// <summary>
+        ///     Returns assembly types.
+        /// </summary>
+        /// <param name="assembly">Source assembly</param>
+        /// <returns>List of types.</returns>
+        public static IReadOnlyList<Type> GetAssemblyTypes(this Assembly assembly)
         {
             if (assembly == null) throw new ArgumentNullException(nameof(assembly));
             try
@@ -24,6 +37,11 @@ namespace PS.Extensions
             }
         }
 
+        /// <summary>
+        ///     Returns display name for the type with respect to well known display attributes.
+        /// </summary>
+        /// <param name="type">Source type.</param>
+        /// <returns>Type display name.</returns>
         public static string GetDisplayName(this Type type)
         {
             if (type == null) return null;
@@ -48,7 +66,7 @@ namespace PS.Extensions
         /// </returns>
         public static string GetDisplayName(this FieldInfo field)
         {
-            if (field == null) throw new ArgumentNullException("field");
+            if (field == null) throw new ArgumentNullException(nameof(field));
 
             var result = string.Empty;
 
@@ -69,31 +87,78 @@ namespace PS.Extensions
         }
 
         /// <summary>
+        ///     Gets source type. Skips Nullable wrapper.
+        /// </summary>
+        /// <param name="type">Source type</param>
+        /// <returns>Source type or underline nullable type</returns>
+        public static Type GetSourceType(this Type type)
+        {
+            if (type == null) throw new ArgumentNullException(nameof(type));
+            return type.IsNullable() ? type.GetGenericArguments().First() : type;
+        }
+
+        /// <summary>
+        ///     Gets type system default value. Default instance for value types, null for reference types
+        /// </summary>
+        /// <param name="type">Given type.</param>
+        /// <returns>Default type value.</returns>
+        public static object GetSystemDefaultValue(this Type type)
+        {
+            if (type == null) throw new ArgumentNullException(nameof(type));
+            return type.IsValueType ? Activator.CreateInstance(type) : null;
+        }
+
+        /// <summary>
+        ///     Checks given type for floating numeric type
+        /// </summary>
+        /// <param name="type">Given type.</param>
+        /// <returns>True if type is floating numeric.</returns>
+        public static bool IsFloating(this Type type)
+        {
+            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (type.IsEnum) return false;
+
+            var typeCode = Type.GetTypeCode(type);
+            return FloatingTypeCodes.Contains(typeCode);
+        }
+
+        /// <summary>
+        ///     Checks given type for integer numeric type
+        /// </summary>
+        /// <param name="type">Given type.</param>
+        /// <returns>True if type is integer numeric.</returns>
+        public static bool IsInteger(this Type type)
+        {
+            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (type.IsEnum) return false;
+
+            var typeCode = Type.GetTypeCode(type);
+            return IntegerTypeCodes.Contains(typeCode);
+        }
+
+        /// <summary>
+        ///     Checks given type for Nullable wrapper.
+        /// </summary>
+        /// <param name="type">Given type.</param>
+        /// <returns>True if type is Nullable.</returns>
+        public static bool IsNullable(this Type type)
+        {
+            if (type == null) throw new ArgumentNullException(nameof(type));
+            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
+        }
+
+        /// <summary>
         ///     Checks given type for numeric
         /// </summary>
         /// <param name="type">Given type.</param>
         /// <returns>True if type is numeric.</returns>
         public static bool IsNumeric(this Type type)
         {
-            if (type == null) throw new ArgumentNullException("type");
+            if (type == null) throw new ArgumentNullException(nameof(type));
             if (type.IsEnum) return false;
-            var numericTypeCodes = new List<TypeCode>
-            {
-                TypeCode.Char,
-                TypeCode.SByte,
-                TypeCode.Byte,
-                TypeCode.Int16,
-                TypeCode.UInt16,
-                TypeCode.Int32,
-                TypeCode.UInt32,
-                TypeCode.Int64,
-                TypeCode.UInt64,
-                TypeCode.Single,
-                TypeCode.Double,
-                TypeCode.Decimal
-            };
+
             var typeCode = Type.GetTypeCode(type);
-            return numericTypeCodes.Contains(typeCode);
+            return NumericTypeCodes.Contains(typeCode);
         }
 
         /// <summary>
@@ -167,9 +232,33 @@ namespace PS.Extensions
             return true;
         }
 
-        public static IEnumerable<Type> TypesAssignableFrom(this Type candidateType)
+        #endregion
+
+        #region Constructors
+
+        static TypeExtensions()
         {
-            return candidateType.GetTypeInfo().ImplementedInterfaces.Concat(candidateType.Traverse(t => t.GetTypeInfo().BaseType));
+            FloatingTypeCodes = new HashSet<TypeCode>
+            {
+                TypeCode.Single,
+                TypeCode.Double,
+                TypeCode.Decimal
+            };
+
+            IntegerTypeCodes = new HashSet<TypeCode>
+            {
+                TypeCode.Char,
+                TypeCode.SByte,
+                TypeCode.Byte,
+                TypeCode.Int16,
+                TypeCode.UInt16,
+                TypeCode.Int32,
+                TypeCode.UInt32,
+                TypeCode.Int64,
+                TypeCode.UInt64,
+            };
+
+            NumericTypeCodes = new HashSet<TypeCode>(IntegerTypeCodes.Union(IntegerTypeCodes));
         }
 
         #endregion

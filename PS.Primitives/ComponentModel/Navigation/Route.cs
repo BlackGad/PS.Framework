@@ -126,6 +126,8 @@ namespace PS.ComponentModel.Navigation
 
         #endregion
 
+        private readonly int _hashCode;
+
         internal RouteTokenSequence[] Sequences;
 
         #region Constructors
@@ -152,11 +154,16 @@ namespace PS.ComponentModel.Navigation
                 sequenceInsensibleBuilder.Add(EnsureTokenCached(part.ToUpperInvariant()));
             }
 
+            var sensibleSequence = sequenceBuilder.Build();
             Sequences = new[]
             {
-                sequenceBuilder.Build(),
+                sensibleSequence,
                 sequenceInsensibleBuilder.Build()
             };
+
+            _hashCode = sensibleSequence.GetHashCode();
+            IsWild = sensibleSequence.RecursiveStart.HasValue;
+            Count = sensibleSequence.Count;
         }
 
         protected Route(SerializationInfo info, StreamingContext context)
@@ -169,10 +176,7 @@ namespace PS.ComponentModel.Navigation
 
         #region Properties
 
-        public bool IsWild
-        {
-            get { return Sequences[(int)RouteCaseMode.Sensitive].RecursiveStart.HasValue; }
-        }
+        public bool IsWild { get; }
 
         #endregion
 
@@ -187,8 +191,7 @@ namespace PS.ComponentModel.Navigation
 
         public override int GetHashCode()
         {
-            // ReSharper disable once NonReadonlyMemberInGetHashCode
-            return Sequences[(int)RouteCaseMode.Sensitive].GetHashCode();
+            return _hashCode;
         }
 
         public override string ToString()
@@ -211,7 +214,7 @@ namespace PS.ComponentModel.Navigation
 
         public bool Equals(Route other)
         {
-            return Equals(GetHashCode(), other?.GetHashCode());
+            return Equals(_hashCode, other?._hashCode);
         }
 
         #endregion
@@ -229,10 +232,7 @@ namespace PS.ComponentModel.Navigation
 
         #region IReadOnlyList<string> Members
 
-        public int Count
-        {
-            get { return Sequences[(int)RouteCaseMode.Sensitive].Count; }
-        }
+        public int Count { get; }
 
         public string this[int index]
         {
@@ -295,6 +295,11 @@ namespace PS.ComponentModel.Navigation
         public Route Clone()
         {
             return Merge(new Route(), this);
+        }
+
+        public IReadOnlyList<int> GetHashCodes(RouteCaseMode mode)
+        {
+            return Sequences[(int)mode].Hashes;
         }
 
         public string ToString(IFormatProvider formatProvider)
