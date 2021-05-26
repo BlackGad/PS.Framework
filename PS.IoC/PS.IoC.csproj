@@ -16,13 +16,6 @@
     <Version>1.0.4</Version>
     <Description>Components definition for IoC applications</Description>
   </PropertyGroup>
-
-  <!-- .NET Standard 2.0 references, compilation flags and build options -->
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
-    <DefineConstants>NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
-  </PropertyGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-  </ItemGroup>
   
   <!-- General references -->
   <ItemGroup>

@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using PS.WPF.Resources;
-using HorizontalAlignment = System.Windows.HorizontalAlignment;
 
 namespace PS.WPF.Controls
 {
@@ -27,6 +26,7 @@ namespace PS.WPF.Controls
                                         typeof(bool),
                                         typeof(Window),
                                         new FrameworkPropertyMetadata(true, OnResizableChanged));
+
         #endregion
 
         #region Static members
@@ -98,10 +98,6 @@ namespace PS.WPF.Controls
                 SetCurrentValue(CommandsProperty, new UICommandCollection(Commands));
             }
         }
-
-        #endregion
-
-        #region Members
 
         #endregion
 

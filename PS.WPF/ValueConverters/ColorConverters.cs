@@ -221,7 +221,6 @@ namespace PS.WPF.ValueConverters
                 if (sourceColor == null) return null;
 
                 var luminance = CalculateLuminance(sourceColor.Value);
-                var brightness = CalculateBrightness(sourceColor.Value);
 
                 Func<Color, double, Color> effect;
 
@@ -293,7 +292,7 @@ namespace PS.WPF.ValueConverters
                 var minimumRation = 4.5f;
                 if (parameter?.GetType().IsNumeric() == true)
                 {
-                    minimumRation = (dynamic)parameter;
+                    minimumRation = (float)parameter;
                 }
 
                 var immutableColor = objects[0].ToColor() ?? Colors.Black;

@@ -18,7 +18,6 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
- <!-- General references -->
  <ItemGroup>
     <ProjectReference Include="..\PS.MVVM\PS.MVVM.csproj" />
     <ProjectReference Include="..\PS.Primitives\PS.Primitives.csproj" />

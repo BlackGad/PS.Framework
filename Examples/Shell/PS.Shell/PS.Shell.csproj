@@ -55,11 +55,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <Page Update="Views\NotificationView.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-
 </Project>

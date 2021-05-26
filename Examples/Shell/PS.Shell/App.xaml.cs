@@ -11,7 +11,6 @@ using Autofac;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
-using PS.Extensions;
 using PS.IoC;
 using PS.MVVM.Services.WindowService;
 using PS.Shell.Infrastructure;
@@ -93,7 +92,10 @@ namespace PS.Shell
                 }
                 catch (Exception e)
                 {
-                    if (Debugger.IsAttached) Debug.WriteLine($"Logger configuration cannot be loaded. Details: {e.GetMessage()}");
+                    if (Debugger.IsAttached)
+                    {
+                        Debug.WriteLine($"Logger configuration cannot be loaded. Details: {e.GetBaseException().Message}");
+                    }
                 }
             }
 
@@ -133,7 +135,11 @@ namespace PS.Shell
             catch (Exception e)
             {
                 var message = "Unrecoverable error on logger creation";
-                if (Debugger.IsAttached) Debug.WriteLine($"{message}. Details: {e.GetMessage()}");
+                if (Debugger.IsAttached)
+                {
+                    Debug.WriteLine($"{message}. Details: {e.GetBaseException().Message}");
+                }
+
                 FatalShutdown(e, message);
                 return;
             }
@@ -260,7 +266,7 @@ namespace PS.Shell
                     var message = $"{e.Exception.Message}.";
                     if (e.Exception.InnerException != null)
                     {
-                        message += " " + $"Details: {e.Exception.GetMessage()}";
+                        message += " " + $"Details: {e.Exception.GetBaseException().Message}";
                     }
 
                     await _bootstrapper.Container

@@ -7,6 +7,8 @@ namespace PS.ComponentModel.DeepTracker.Filters
 {
     public static class Excludes
     {
+        #region Constants
+
         public static readonly ExcludeSourceType KnownSourceTypes =
             new ExcludeSourceType(true,
                                   typeof(Type),
@@ -16,5 +18,7 @@ namespace PS.ComponentModel.DeepTracker.Filters
                                   typeof(Thread),
                                   typeof(Task),
                                   typeof(string));
+
+        #endregion
     }
 }

@@ -106,7 +106,10 @@ namespace PS.WPF.Extensions
                         builder.AppendLine(paragraph.ToString());
                     }
                 }
-                else builder.AppendLine($"<Paragraph LineHeight=\"0.1\">{s}</Paragraph>");
+                else
+                {
+                    builder.AppendLine($"<Paragraph LineHeight=\"0.1\">{s}</Paragraph>");
+                }
             }
             catch (Exception)
             {

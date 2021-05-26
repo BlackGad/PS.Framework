@@ -3,7 +3,6 @@ using System.Windows;
 
 namespace PS.MVVM.Components
 {
-    
     public abstract class Adapter : Freezable,
                                     IDisposable
     {
@@ -66,7 +65,7 @@ namespace PS.MVVM.Components
 
     public abstract class Adapter<T> : Adapter
     {
-        #region Members
+        #region Override members
 
         protected sealed override void OnAttach(object container)
         {
@@ -91,6 +90,10 @@ namespace PS.MVVM.Components
                 throw new ArgumentException($"Invalid container type. {typeof(T).Name} expected");
             }
         }
+
+        #endregion
+
+        #region Members
 
         protected abstract void OnAttach(T container);
         protected abstract void OnDetach(T container);

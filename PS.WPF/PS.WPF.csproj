@@ -19,11 +19,12 @@
   </PropertyGroup>
 
   <!-- .NET 4.6.1 references, compilation flags and build options -->
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
 
   <!-- General references -->
@@ -38,8 +39,9 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
+  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0-windows'">
+    <!--<PackageReference Include="NETStandard.Library" Version="2.0.3" />-->
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
   </ItemGroup>
 
 </Project>

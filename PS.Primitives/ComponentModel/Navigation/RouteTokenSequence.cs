@@ -8,6 +8,20 @@ namespace PS.ComponentModel.Navigation
     internal class RouteTokenSequence : IReadOnlyList<RouteToken>,
                                         IFormattable
     {
+        #region Static members
+
+        public static bool operator ==(RouteTokenSequence left, RouteTokenSequence right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(RouteTokenSequence left, RouteTokenSequence right)
+        {
+            return !Equals(left, right);
+        }
+
+        #endregion
+
         public readonly IReadOnlyList<int> Hashes;
         private readonly List<RouteToken> _records;
 
@@ -26,43 +40,7 @@ namespace PS.ComponentModel.Navigation
 
         #endregion
 
-        #region IFormattable Members
-
-        string IFormattable.ToString(string format, IFormatProvider formatProvider)
-        {
-            var routeFormatProvider = formatProvider as RouteFormatting ?? RouteFormatting.Default;
-            return string.Join(routeFormatProvider.Separator,
-                               _records.Select(p => p.Value.Replace(routeFormatProvider.Separator,
-                                                                    RouteFormatting.EscapeSymbol + routeFormatProvider.Separator)));
-        }
-
-        #endregion
-
-        #region Static members
-
-        public static bool operator ==(RouteTokenSequence left, RouteTokenSequence right)
-        {
-            return Equals(left, right);
-        }
-
-        public static bool operator !=(RouteTokenSequence left, RouteTokenSequence right)
-        {
-            return !Equals(left, right);
-        }
-
-        #endregion
-
         #region Properties
-
-        public int Count
-        {
-            get { return _records.Count; }
-        }
-
-        public RouteToken this[int index]
-        {
-            get { return _records[index]; }
-        }
 
         public int? RecursiveEnd { get; }
 
@@ -95,7 +73,29 @@ namespace PS.ComponentModel.Navigation
 
         #endregion
 
+        #region IFormattable Members
+
+        string IFormattable.ToString(string format, IFormatProvider formatProvider)
+        {
+            var routeFormatProvider = formatProvider as RouteFormatting ?? RouteFormatting.Default;
+            return string.Join(routeFormatProvider.Separator,
+                               _records.Select(p => p.Value.Replace(routeFormatProvider.Separator,
+                                                                    RouteFormatting.EscapeSymbol + routeFormatProvider.Separator)));
+        }
+
+        #endregion
+
         #region IReadOnlyList<RouteToken> Members
+
+        public int Count
+        {
+            get { return _records.Count; }
+        }
+
+        public RouteToken this[int index]
+        {
+            get { return _records[index]; }
+        }
 
         public IEnumerator<RouteToken> GetEnumerator()
         {

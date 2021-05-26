@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Xml.Linq;
 using PS.ComponentModel.Extensions;
 
 namespace PS.Extensions
@@ -11,51 +10,6 @@ namespace PS.Extensions
     public static class ObjectExtensions
     {
         #region Static members
-
-        public static bool AreEqual(this object source, object target)
-        {
-            if (ReferenceEquals(source, target)) return true;
-
-            if (source == null) return false;
-            if (target == null) return false;
-
-            if (source is XNode sourceNode && target is XNode targetNode)
-            {
-                return XNode.DeepEquals(sourceNode, targetNode);
-            }
-
-            var sourceType = source.GetType();
-            var targetType = target.GetType();
-
-            if (sourceType != targetType)
-            {
-                if (sourceType.IsNumeric() && targetType.IsNumeric()) return (dynamic)source == (dynamic)target;
-
-                return false;
-            }
-
-            var equatableInterface = sourceType.GetTypeInfo()
-                                               .ImplementedInterfaces
-                                               .Where(i => i.IsGenericType)
-                                               .FirstOrDefault(i => i.GetGenericTypeDefinition() == typeof(IEquatable<>));
-            if (equatableInterface != null && equatableInterface.GetGenericArguments().Single().IsAssignableFrom(targetType))
-            {
-                var equalMethod = equatableInterface.GetMethods().Single();
-                return (bool)equalMethod.Invoke(source, new[] { target });
-            }
-
-            var equalityComparerInterface = sourceType.GetTypeInfo()
-                                                      .ImplementedInterfaces
-                                                      .Where(i => i.IsGenericType)
-                                                      .FirstOrDefault(i => i.GetGenericTypeDefinition() == typeof(IEqualityComparer<>));
-            if (equalityComparerInterface != null && equalityComparerInterface.GetGenericArguments().Single().IsAssignableFrom(targetType))
-            {
-                var equalsMethod = equalityComparerInterface.GetMethods().Single(m => Equals(m.Name, nameof(Equals)));
-                return (bool)equalsMethod.Invoke(source, new[] { source, target });
-            }
-
-            return Equals(source, target);
-        }
 
         public static string GetEffectiveString(this object item)
         {
@@ -153,7 +107,19 @@ namespace PS.Extensions
             return (hash * 397) ^ addHash;
         }
 
-        public static IReadOnlyList<string> SplitPropertyPath(this string path)
+        public static object UnwrapValue(this object value)
+        {
+            if (value is WeakReference weak) return weak.Target;
+            return value;
+        }
+
+        public static object WrapValue(this object value)
+        {
+            var valueIsReference = value?.GetType().IsClass == true;
+            return valueIsReference ? new WeakReference(value) : value;
+        }
+
+        private static IReadOnlyList<string> SplitPropertyPath(this string path)
         {
             path = path ?? string.Empty;
             path = "(" + path + ")";
@@ -225,18 +191,6 @@ namespace PS.Extensions
             }
 
             return splitParts.Where(p => !string.IsNullOrEmpty(p)).ToArray();
-        }
-
-        public static object UnwrapValue(this object value)
-        {
-            if (value is WeakReference weak) return weak.Target;
-            return value;
-        }
-
-        public static object WrapValue(this object value)
-        {
-            var valueIsReference = value?.GetType().IsClass == true;
-            return valueIsReference ? new WeakReference(value) : value;
         }
 
         #endregion
