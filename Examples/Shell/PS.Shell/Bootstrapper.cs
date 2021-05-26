@@ -41,10 +41,6 @@ namespace PS.Shell
             GlobalServices.Register(container.Resolve<IViewResolverService>());
             logger.Debug("View resolver initialized successfully");
 
-            logger.Trace("Initializing model resolver...");
-            GlobalServices.Register(container.Resolve<IModelResolverService>());
-            logger.Debug("Model resolver initialized successfully");
-
             logger.Trace("Initializing command service...");
             container.Resolve<ICommandService>();
             logger.Debug("Command service initialized successfully");

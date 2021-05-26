@@ -17,12 +17,11 @@ namespace PS.Shell.Views
 
         #endregion
 
-        #region Properties
+        #region IView<ShellViewModel> Members
 
         public ShellViewModel ViewModel
         {
             get { return DataContext as ShellViewModel; }
-            set { DataContext = value; }
         }
 
         #endregion

@@ -4,12 +4,12 @@
     {
     }
 
-    public interface IView<T> : IView
+    public interface IView<out T> : IView
         where T : IViewModel
     {
         #region Properties
 
-        T ViewModel { get; set; }
+        T ViewModel { get; }
 
         #endregion
     }

@@ -14,22 +14,28 @@ namespace PS.Shell.Infrastructure.ViewModels
         #region Property definitions
 
         public static readonly DependencyProperty ContentProperty =
-            DependencyProperty.Register("Content",
+            DependencyProperty.Register(nameof(Content),
                                         typeof(object),
                                         typeof(NotificationViewModel),
                                         new FrameworkPropertyMetadata(OnContentChanged));
 
-        internal static readonly DependencyProperty FlowDocumentProperty =
-            DependencyProperty.Register("FlowDocument",
-                                        typeof(FlowDocument),
-                                        typeof(NotificationViewModel),
-                                        new FrameworkPropertyMetadata(default(FlowDocument)));
+        private static readonly DependencyPropertyKey FlowDocumentPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(FlowDocument),
+                                                typeof(FlowDocument),
+                                                typeof(NotificationViewModel),
+                                                new FrameworkPropertyMetadata(default(FlowDocument)));
+
+        public static readonly DependencyProperty FlowDocumentProperty = FlowDocumentPropertyKey.DependencyProperty;
 
         public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register("Title",
+            DependencyProperty.Register(nameof(Title),
                                         typeof(string),
                                         typeof(NotificationViewModel),
                                         new FrameworkPropertyMetadata(default(string)));
+
+        #endregion
+
+        #region Constants
 
         #endregion
 
@@ -51,10 +57,10 @@ namespace PS.Shell.Infrastructure.ViewModels
             set { SetValue(ContentProperty, value); }
         }
 
-        internal FlowDocument FlowDocument
+        public FlowDocument FlowDocument
         {
             get { return (FlowDocument)GetValue(FlowDocumentProperty); }
-            set { SetValue(FlowDocumentProperty, value); }
+            private set { SetValue(FlowDocumentPropertyKey, value); }
         }
 
         #endregion

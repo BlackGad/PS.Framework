@@ -5,7 +5,6 @@ using PS.IoC.Extensions;
 using PS.MVVM.Extensions;
 using PS.MVVM.Services;
 using PS.Shell.Infrastructure.ViewModels;
-using PS.Shell.Infrastructure.Views;
 using PS.Shell.ViewModels;
 using PS.Shell.Views;
 using PS.WPF.DataTemplate;

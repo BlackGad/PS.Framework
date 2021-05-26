@@ -22,7 +22,6 @@ namespace PS.Shell.Module.Diagram.Views
         public EditorViewModel ViewModel
         {
             get { return DataContext as EditorViewModel; }
-            set { DataContext = value; }
         }
 
         #endregion

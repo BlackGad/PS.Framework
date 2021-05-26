@@ -1,7 +1,7 @@
 ﻿using PS.MVVM.Patterns;
 using PS.Shell.Infrastructure.ViewModels;
 
-namespace PS.Shell.Infrastructure.Views
+namespace PS.Shell.Views
 {
     public partial class NotificationView : IView<NotificationViewModel>
     {
@@ -19,7 +19,6 @@ namespace PS.Shell.Infrastructure.Views
         public NotificationViewModel ViewModel
         {
             get { return DataContext as NotificationViewModel; }
-            set { DataContext = value; }
         }
 
         #endregion
