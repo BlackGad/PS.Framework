@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -91,7 +92,11 @@ namespace PS.Threading.Queue
                 }
             });
 
-            _consumeQueueThread.SetApartmentState(configuration.ApartmentState);
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                _consumeQueueThread.SetApartmentState(configuration.ApartmentState);
+            }
+
             _consumeQueueThread.IsBackground = true;
         }
 

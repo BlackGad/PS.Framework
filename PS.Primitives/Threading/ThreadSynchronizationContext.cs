@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using PS.Extensions;
@@ -34,7 +35,11 @@ namespace PS.Threading
                 IsBackground = false
             };
 
-            Thread.SetApartmentState(apartmentState);
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                Thread.SetApartmentState(apartmentState);
+            }
+
             Thread.Start();
         }
 
