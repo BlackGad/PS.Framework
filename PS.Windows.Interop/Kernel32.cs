@@ -20,7 +20,6 @@ namespace PS.Windows.Interop
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool AllocConsole();
 
-        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool CloseHandle(IntPtr handle);
 
