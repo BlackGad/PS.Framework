@@ -24,13 +24,15 @@ namespace PS.IoC.Extensions
                                                .Select(t =>
                                                {
                                                    var lifetimeAttribute = t.GetCustomAttribute<DependencyLifetimeAttribute>();
+                                                   var dependencyAutoActivateAttribute = t.GetCustomAttribute<DependencyAutoActivateAttribute>();
                                                    return new
                                                    {
                                                        Type = t,
                                                        RegistrationTypes = GetRegistrationTypes(t),
                                                        GenericRegistrationTypes = GetGenericRegistrationTypes(t),
                                                        Lifetime = lifetimeAttribute?.Lifetime ?? DependencyLifetime.InstancePerDependency,
-                                                       LifetimeScopes = lifetimeAttribute?.Scopes
+                                                       LifetimeScopes = lifetimeAttribute?.Scopes,
+                                                       AutoActivate = dependencyAutoActivateAttribute != null
                                                    };
                                                })
                                                .Where(s => s.RegistrationTypes.Any() || s.GenericRegistrationTypes.Any())
@@ -45,6 +47,7 @@ namespace PS.IoC.Extensions
                         var registrationBuilder = builder.RegisterGeneric(selection.Type)
                                                          .As(selection.GenericRegistrationTypes);
                         SetupLifetime(registrationBuilder, group.Key, selection.LifetimeScopes);
+                        if (selection.AutoActivate) registrationBuilder.AutoActivate();
                     }
 
                     if (selection.RegistrationTypes.Any())
@@ -53,6 +56,7 @@ namespace PS.IoC.Extensions
                                                          .As(selection.RegistrationTypes);
 
                         SetupLifetime(registrationBuilder, group.Key, selection.LifetimeScopes);
+                        if (selection.AutoActivate) registrationBuilder.AutoActivate();
                     }
                 }
             }
