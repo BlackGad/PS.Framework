@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using PS.Collections;
@@ -232,6 +233,51 @@ namespace PS.Extensions
 
                 return min;
             }
+        }
+
+        /// <summary>
+        ///     Inserts item to list. If index less than 0 inserts as first item.
+        ///     If item bigger than actual collection size adds item to the tail.
+        /// </summary>
+        /// <typeparam name="T">Item type</typeparam>
+        /// <param name="collection">Source collection</param>
+        /// <param name="index">Item position</param>
+        /// <param name="item">Source item</param>
+        /// <returns>Actual item index after insertion.</returns>
+        public static int SafeInsert<T>(this IList<T> collection, int index, T item)
+        {
+            if (collection == null) throw new ArgumentNullException(nameof(collection));
+            if (index < 0) index = 0;
+
+            if (index < collection.Count)
+            {
+                collection.Insert(index, item);
+                return index;
+            }
+
+            collection.Add(item);
+            return collection.Count - 1;
+        }
+
+        /// <summary>
+        ///     Inserts item to list. If index less than 0 inserts as first item.
+        ///     If item bigger than actual collection size adds item to the tail.
+        /// </summary>
+        /// <param name="collection">Source collection</param>
+        /// <param name="index">Item position</param>
+        /// <param name="item">Source item</param>
+        /// <returns>Actual item index after insertion.</returns>
+        public static int SafeInsert(this IList collection, int index, object item)
+        {
+            if (collection == null) throw new ArgumentNullException(nameof(collection));
+            if (index < collection.Count)
+            {
+                collection.Insert(index, item);
+                return index;
+            }
+
+            collection.Add(item);
+            return collection.Count - 1;
         }
 
         public static IEnumerable<T> UnionWith<T>(this IEnumerable<T> enumerable, params T[] unitedItems)
