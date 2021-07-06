@@ -64,7 +64,7 @@ namespace PS.Commander.Views
                     ? Place.Before
                     : Place.After;
 
-                _explorerService.PlaceExplorer(sourceFilesViewModel, placeType, targetFilesViewModel);
+                _explorerService.Place(sourceFilesViewModel?.Explorer, placeType, targetFilesViewModel?.Explorer);
             }
         }
 

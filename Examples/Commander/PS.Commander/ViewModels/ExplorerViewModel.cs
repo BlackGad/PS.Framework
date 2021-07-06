@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Autofac;
+using PS.Commander.Models.BroadcastService;
 using PS.Commander.Models.ExplorerService;
+using PS.Extensions;
 using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
+using PS.MVVM.Services;
+using PS.MVVM.Services.Extensions;
 using PS.Patterns.Aware;
 using PS.WPF;
 
@@ -13,23 +16,28 @@ namespace PS.Commander.ViewModels
     [DependencyRegisterAsSelf]
     public class ExplorerViewModel : BaseNotifyPropertyChanged,
                                      IViewModel,
-                                     IIDAware,
-                                     ITitleAware
+                                     ITitleAware,
+                                     IDisposable
     {
-        private readonly ILifetimeScope _scope;
+        private readonly IBroadcastService _broadcastService;
+        private readonly ExplorerService _explorerService;
         private IReadOnlyList<FileSystemItemViewModel> _items;
-        private string _origin;
+
+        private string _title;
 
         #region Constructors
 
-        public ExplorerViewModel(ILifetimeScope scope, Explorer explorer)
+        public ExplorerViewModel(Explorer explorer, ExplorerService explorerService, IBroadcastService broadcastService)
         {
-            _scope = scope ?? throw new ArgumentNullException(nameof(scope));
-            
-            Id = explorer.Id;
-            Origin = explorer.Origin;
+            Explorer = explorer ?? throw new ArgumentNullException(nameof(explorer));
+            _explorerService = explorerService ?? throw new ArgumentNullException(nameof(explorerService));
+            _broadcastService = broadcastService ?? throw new ArgumentNullException(nameof(broadcastService));
 
             CloseCommand = new RelayUICommand(Close);
+
+            _broadcastService.Subscribe<OriginChangedArgs>(OnOriginChanged);
+
+            Refresh();
         }
 
         #endregion
@@ -37,6 +45,7 @@ namespace PS.Commander.ViewModels
         #region Properties
 
         public IUICommand CloseCommand { get; }
+        public Explorer Explorer { get; }
 
         public IReadOnlyList<FileSystemItemViewModel> Items
         {
@@ -44,24 +53,14 @@ namespace PS.Commander.ViewModels
             private set { SetField(ref _items, value); }
         }
 
-        public string Origin
-        {
-            get { return _origin; }
-            set
-            {
-                if (SetField(ref _origin, value))
-                {
-                    OnPropertyChanged(nameof(Title));
-                    RefreshFiles();
-                }
-            }
-        }
-
         #endregion
 
-        #region IIDAware Members
+        #region IDisposable Members
 
-        public string Id { get; }
+        public void Dispose()
+        {
+            _broadcastService.Unsubscribe<OriginChangedArgs>(OnOriginChanged);
+        }
 
         #endregion
 
@@ -69,7 +68,8 @@ namespace PS.Commander.ViewModels
 
         public string Title
         {
-            get { return new DirectoryInfo(_origin ?? string.Empty).Name; }
+            get { return _title; }
+            set { SetField(ref _title, value); }
         }
 
         #endregion
@@ -78,12 +78,20 @@ namespace PS.Commander.ViewModels
 
         private void Close()
         {
-            _scope.Resolve<ExplorerService>().Delete(this);
+            _explorerService.Delete(Explorer);
         }
 
-        private void RefreshFiles()
+        private void OnOriginChanged(OriginChangedArgs args)
         {
-            Items = _scope.Resolve<ExplorerService>().GetFileSystemItems(Origin);
+            if (args.Explorer.AreDiffers(Explorer)) return;
+
+            Refresh();
+        }
+
+        private void Refresh()
+        {
+            Items = _explorerService.GetFileSystemItems(Explorer.Origin);
+            Title = new DirectoryInfo(Explorer.Origin ?? string.Empty).Name;
         }
 
         #endregion

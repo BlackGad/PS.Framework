@@ -1,29 +1,19 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace PS.Commander.Models.ExplorerService
 {
     public class Explorer : BaseNotifyPropertyChanged
     {
-        private string _id;
+        private Area _area;
         private string _origin;
-
-        #region Constructors
-
-        public Explorer()
-        {
-            Id = Guid.NewGuid().ToString("N");
-        }
-
-        #endregion
 
         #region Properties
 
         [JsonProperty]
-        public string Id
+        public Area Area
         {
-            get { return _id; }
-            set { SetField(ref _id, value); }
+            get { return _area; }
+            set { SetField(ref _area, value); }
         }
 
         [JsonProperty]
