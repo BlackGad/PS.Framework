@@ -26,9 +26,10 @@ namespace PS.Collections
         #endregion
     }
 
-    [DebuggerDisplay("Count = {Count}")]
+    [DebuggerDisplay("Count = {" + nameof(Count) + "}")]
     [DebuggerTypeProxy(typeof(CollectionViewProxy<,>))]
     public class CollectionView<TSource, TTarget> : IList<TTarget>,
+                                                    IReadOnlyList<TTarget>,
                                                     IList,
                                                     INotifyCollectionChanged,
                                                     INotifyPropertyChanged,
