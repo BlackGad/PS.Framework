@@ -3,29 +3,8 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFrameworks>net5.0-windows;net461;</TargetFrameworks>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <RootNamespace>PS.Shell</RootNamespace>
-    <Authors>Volodymyr Shkolka</Authors>
-    <Company>Volodymyr Shkolka</Company>
-    <Product>PS Shell</Product>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageProjectUrl>https://github.com/BlackGad/PS.Framework</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/BlackGad/PS.Framework</RepositoryUrl>
-    <RepositoryType>github</RepositoryType>
-    <PackageTags>Shell WPF</PackageTags>
-    <NeutralLanguage>en</NeutralLanguage>
-    <Version>1.0.4</Version>
-    <Description>Shell project</Description>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
-
-  <!-- .NET 4.6.1 references, compilation flags and build options -->
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461'">
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461'">
     <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="5.0.1" />
@@ -39,19 +18,33 @@
     <ProjectReference Include="..\..\..\PS.Primitives\PS.Primitives.csproj" />
     <ProjectReference Include="..\..\..\PS.WPF\PS.WPF.csproj" />
     <ProjectReference Include="..\..\..\PS.Windows.Interop\PS.Windows.Interop.csproj" />
-    <ProjectReference Include="..\PS.Shell.Infrastructure\PS.Shell.Infrastructure.csproj" />
-    <ProjectReference Include="..\PS.Shell.Module.Diagram\PS.Shell.Module.Diagram.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NLog" Version="4.7.10" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\ConfirmationView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NotificationView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="XamlResources.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
   </ItemGroup>
 
 </Project>
