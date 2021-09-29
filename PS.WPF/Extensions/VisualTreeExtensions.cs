@@ -70,6 +70,15 @@ namespace PS.WPF.Extensions
             return traverse.LastOrDefault().AreEqual(source);
         }
 
+        public static DependencyObject TraverseVisualParentWhere(this DependencyObject source, Func<DependencyObject, bool> func)
+        {
+            var result = source.Traverse(e => e.GetVisualParent(), func).LastOrDefault();
+            if (result == null) return null;
+
+            if (func?.Invoke(result) == false) return result;
+            return null;
+        }
+
         #endregion
 
         #region Constructors

@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net5.0-windows;net461;</TargetFrameworks>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <RootNamespace>PS.Shell.Module.Controls</RootNamespace>
+    <Authors>Volodymyr Shkolka</Authors>
+    <Company>Volodymyr Shkolka</Company>
+    <Product>PS Shell</Product>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/BlackGad/PS.Framework</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/BlackGad/PS.Framework</RepositoryUrl>
+    <RepositoryType>github</RepositoryType>
+    <PackageTags>Shell Module Controls</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Version>1.0.4</Version>
+    <Description>Shell controls module project</Description>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <!-- .NET 4.6.1 references, compilation flags and build options -->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461'">
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+
+  <!-- General references -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\PS.IoC.Autofac\PS.IoC.Autofac.csproj" />
+    <ProjectReference Include="..\..\..\PS.MVVM.WPF\PS.MVVM.WPF.csproj" />
+    <ProjectReference Include="..\..\..\PS.MVVM\PS.MVVM.csproj" />
+    <ProjectReference Include="..\..\..\PS.Primitives\PS.Primitives.csproj" />
+    <ProjectReference Include="..\..\..\PS.WPF\PS.WPF.csproj" />
+    <ProjectReference Include="..\PS.Shell.Infrastructure\PS.Shell.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.2.0" />
+  </ItemGroup>
+
+</Project>

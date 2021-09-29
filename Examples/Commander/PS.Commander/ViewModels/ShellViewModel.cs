@@ -1,6 +1,5 @@
 ﻿using System;
 using Autofac;
-using PS.Commander.Models.ExplorerService;
 using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
 using PS.Patterns.Aware;
@@ -14,23 +13,22 @@ namespace PS.Commander.ViewModels
     {
         #region Constructors
 
-        public ShellViewModel(ILifetimeScope scope, ExplorerService explorerService)
+        public ShellViewModel(ILifetimeScope scope)
         {
             if (scope == null) throw new ArgumentNullException(nameof(scope));
-            if (explorerService == null) throw new ArgumentNullException(nameof(explorerService));
 
             Title = App.GetApplicationTitle();
 
-            LeftArea = scope.Resolve<WorkingAreaViewModel>(TypedParameter.From(explorerService.GetExplorers(Area.Left)));
-            RightArea = scope.Resolve<WorkingAreaViewModel>(TypedParameter.From(explorerService.GetExplorers(Area.Right)));
+            Left = scope.Resolve<WorkingAreaViewModel>(TypedParameter.From(nameof(Left)));
+            Right = scope.Resolve<WorkingAreaViewModel>(TypedParameter.From(nameof(Right)));
         }
 
         #endregion
 
         #region Properties
 
-        public WorkingAreaViewModel LeftArea { get; }
-        public WorkingAreaViewModel RightArea { get; }
+        public WorkingAreaViewModel Left { get; }
+        public WorkingAreaViewModel Right { get; }
 
         #endregion
 

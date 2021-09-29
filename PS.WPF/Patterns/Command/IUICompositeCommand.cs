@@ -1,6 +1,6 @@
 ﻿using PS.Patterns.Aware;
 
-namespace PS.WPF
+namespace PS.WPF.Patterns.Command
 {
     public interface IUICompositeCommand : IUICommand,
                                            IChildrenAware

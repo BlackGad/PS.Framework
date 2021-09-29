@@ -10,6 +10,16 @@ namespace PS.Extensions
     {
         #region Static members
 
+        public static void AddRange(this IList list, IEnumerable items)
+        {
+            if (list == null) return;
+
+            foreach (var item in items.Enumerate())
+            {
+                list.Add(item);
+            }
+        }
+
         /// <summary>
         ///     Compares two enumeration and returns detailed comparison result.
         /// </summary>

@@ -1,43 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using PS.Commander.Models.BroadcastService;
+using System.Linq;
+using Autofac;
+using Newtonsoft.Json;
 using PS.Commander.Models.ExplorerService;
 using PS.Extensions;
 using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
-using PS.MVVM.Services;
-using PS.MVVM.Services.Extensions;
 using PS.Patterns.Aware;
 using PS.WPF;
+using PS.WPF.Patterns.Command;
 
 namespace PS.Commander.ViewModels
 {
     [DependencyRegisterAsSelf]
+    [JsonObject(MemberSerialization.OptIn)]
     public class ExplorerViewModel : BaseNotifyPropertyChanged,
                                      IViewModel,
                                      ITitleAware,
-                                     IDisposable
+                                     IExplorerSerializableProperties
     {
-        private readonly IBroadcastService _broadcastService;
-        private readonly ExplorerService _explorerService;
-        private IReadOnlyList<FileSystemItemViewModel> _items;
+        #region Static members
 
+        public static string GetDefaultPath()
+        {
+            return DriveInfo.GetDrives()
+                            .First(d => d.DriveType == DriveType.Fixed && d.IsReady)
+                            .RootDirectory.FullName;
+        }
+
+        #endregion
+
+        private readonly ILifetimeScope _scope;
+        private string _container;
+        private IReadOnlyList<FileSystemItemViewModel> _items;
+        private string _origin;
         private string _title;
 
         #region Constructors
 
-        public ExplorerViewModel(Explorer explorer, ExplorerService explorerService, IBroadcastService broadcastService)
+        public ExplorerViewModel(ILifetimeScope scope)
         {
-            Explorer = explorer ?? throw new ArgumentNullException(nameof(explorer));
-            _explorerService = explorerService ?? throw new ArgumentNullException(nameof(explorerService));
-            _broadcastService = broadcastService ?? throw new ArgumentNullException(nameof(broadcastService));
-
+            _scope = scope ?? throw new ArgumentNullException(nameof(scope));
+            Origin = GetDefaultPath();
             CloseCommand = new RelayUICommand(Close);
-
-            _broadcastService.Subscribe<OriginChangedArgs>(OnOriginChanged);
-
-            Refresh();
+            TestCommand = new RelayUICommand(Test);
         }
 
         #endregion
@@ -45,7 +53,6 @@ namespace PS.Commander.ViewModels
         #region Properties
 
         public IUICommand CloseCommand { get; }
-        public Explorer Explorer { get; }
 
         public IReadOnlyList<FileSystemItemViewModel> Items
         {
@@ -53,13 +60,30 @@ namespace PS.Commander.ViewModels
             private set { SetField(ref _items, value); }
         }
 
+        public IUICommand TestCommand { get; }
+
         #endregion
 
-        #region IDisposable Members
+        #region IExplorerSerializableProperties Members
 
-        public void Dispose()
+        [JsonProperty]
+        public string Container
         {
-            _broadcastService.Unsubscribe<OriginChangedArgs>(OnOriginChanged);
+            get { return _container; }
+            set { SetField(ref _container, value); }
+        }
+
+        [JsonProperty]
+        public string Origin
+        {
+            get { return _origin; }
+            set
+            {
+                if (SetField(ref _origin, value))
+                {
+                    Refresh();
+                }
+            }
         }
 
         #endregion
@@ -76,22 +100,28 @@ namespace PS.Commander.ViewModels
 
         #region Members
 
-        private void Close()
+        public void ResetOrigin()
         {
-            _explorerService.Delete(Explorer);
+            Origin = GetDefaultPath();
         }
 
-        private void OnOriginChanged(OriginChangedArgs args)
+        private void Close()
         {
-            if (args.Explorer.AreDiffers(Explorer)) return;
-
-            Refresh();
+            _scope.Resolve<ExplorerService>().ExplorerViewModels.Remove(this);
         }
 
         private void Refresh()
         {
-            Items = _explorerService.GetFileSystemItems(Explorer.Origin);
-            Title = new DirectoryInfo(Explorer.Origin ?? string.Empty).Name;
+            var directoryInfo = new DirectoryInfo(Origin ?? string.Empty);
+            Items = directoryInfo.GetFileSystemInfos()
+                                 .Select(i => _scope.Resolve<FileSystemItemViewModel>(TypedParameter.From(i)))
+                                 .ToList();
+            Title = directoryInfo.Name;
+        }
+
+        private void Test()
+        {
+            Container = Container.AreEqual("Left") ? "Right" : "Left";
         }
 
         #endregion

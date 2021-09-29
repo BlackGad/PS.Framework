@@ -5,6 +5,7 @@ using System.Windows;
 using PS.Extensions;
 using PS.Patterns.Aware;
 using PS.WPF.Extensions;
+using PS.WPF.Patterns.Command;
 
 namespace PS.WPF.Commands
 {

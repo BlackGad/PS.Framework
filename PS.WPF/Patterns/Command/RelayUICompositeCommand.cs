@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.ObjectModel;
 
-namespace PS.WPF
+namespace PS.WPF.Patterns.Command
 {
     public class RelayUICompositeCommand : RelayUICompositeCommand<object>
     {

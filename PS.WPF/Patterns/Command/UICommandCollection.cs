@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace PS.WPF
+namespace PS.WPF.Patterns.Command
 {
     public class UICommandCollection : ObservableCollection<IUICommand>
     {

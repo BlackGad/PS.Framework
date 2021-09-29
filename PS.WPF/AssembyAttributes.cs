@@ -2,6 +2,7 @@
 
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF")]
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.DataTemplateSelector")]
+[assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.Patterns.Command")]
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.StyleSelector")]
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.ValueConverters.SwitchValueConverter")]
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.ValueConverters")]
@@ -9,6 +10,7 @@
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.Commands")]
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.Theme")]
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.Components")]
+[assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.Data")]
 [assembly: XmlnsPrefix("http://schemas.ps.com/2019/xaml", "ps")]
 
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml/markup", "PS.WPF.Markup")]

@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using PS.Extensions;
 using PS.WPF.Extensions;
+using PS.WPF.Patterns.Command;
 using PS.WPF.Resources;
 
 namespace PS.WPF.Controls

@@ -3,9 +3,10 @@
                     xmlns:aware="clr-namespace:PS.Patterns.Aware;assembly=PS.Primitives"
                     xmlns:controls="clr-namespace:PS.WPF.Controls"
                     xmlns:presentation="clr-namespace:PS.WPF"
-                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters">
+                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
+                    xmlns:command="clr-namespace:PS.WPF.Patterns.Command">
 
-    <DataTemplate x:Key="{x:Static controls:UICommandsControl+Resource.CommandButtonTemplate}" DataType="presentation:IUICommand">
+    <DataTemplate x:Key="{x:Static controls:UICommandsControl+Resource.CommandButtonTemplate}" DataType="command:IUICommand">
         <Button x:Name="Button"
                 MinWidth="75"
                 MinHeight="25"

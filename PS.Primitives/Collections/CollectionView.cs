@@ -36,6 +36,7 @@ namespace PS.Collections
                                                     IDisposable
     {
         private readonly Func<TTarget, TSource> _convertBackFunc;
+        private readonly Action<TTarget> _disposeAction;
         private readonly Dictionary<int, TSource> _convertBackMap;
         private readonly Func<TSource, TTarget> _convertFunc;
         private readonly Dictionary<int, TTarget> _convertMap;
@@ -49,11 +50,13 @@ namespace PS.Collections
         #region Constructors
 
         public CollectionView(Func<TSource, TTarget> convertFunc,
-                              Func<TTarget, TSource> convertBackFunc,
-                              Func<TSource, bool> filterPredicate = null)
+                              Func<TTarget, TSource> convertBackFunc = null,
+                              Func<TSource, bool> filterPredicate = null,
+                              Action<TTarget> disposeAction = null)
         {
             _convertFunc = convertFunc ?? throw new ArgumentNullException(nameof(convertFunc));
-            _convertBackFunc = convertBackFunc ?? throw new ArgumentNullException(nameof(convertBackFunc));
+            _convertBackFunc = convertBackFunc;
+            _disposeAction = disposeAction;
             _filterPredicate = filterPredicate ?? (source => true);
 
             _convertMap = new Dictionary<int, TTarget>();
@@ -195,7 +198,7 @@ namespace PS.Collections
 
         public bool IsReadOnly
         {
-            get { return ItemsSource.CollectionIsReadOnly(); }
+            get { return ItemsSource.CollectionIsReadOnly() || _convertBackFunc == null; }
         }
 
         public TTarget this[int index]
@@ -320,6 +323,8 @@ namespace PS.Collections
 
         private void OnCollectionChanged(object sender, ChangedCollectionEventArgs e)
         {
+            if (e.Collection.AreEqual(this)) return;
+
             NotifyCollectionChangedEventArgs args;
 
             var newItems = e.EventArgs.NewItems.Enumerate<TSource>().Where(_filterPredicate).Select(Convert).ToList();
@@ -336,7 +341,8 @@ namespace PS.Collections
             }
 
             if (action == NotifyCollectionChangedAction.Move && !newItems.Any()) return;
-
+            
+            IList<TTarget> removedItems = oldItems;
             int newStartIndex, oldStartIndex;
             switch (action)
             {
@@ -349,7 +355,7 @@ namespace PS.Collections
                     args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, oldItems, oldStartIndex);
                     break;
                 case NotifyCollectionChangedAction.Replace:
-                    oldStartIndex = GetSourceItems().IndexOf(newItems.First());
+                    oldStartIndex = Items.IndexOf(newItems.First());
                     args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, newItems, oldItems, oldStartIndex);
                     break;
                 case NotifyCollectionChangedAction.Move:
@@ -359,6 +365,11 @@ namespace PS.Collections
                     break;
                 case NotifyCollectionChangedAction.Reset:
                     args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
+                    removedItems = Items;
+
+                    _convertMap.Clear();
+                    _convertBackMap.Clear();
+
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -366,6 +377,14 @@ namespace PS.Collections
 
             DeferResync();
             CollectionChanged?.Invoke(this, args);
+            
+            if (_disposeAction != null && removedItems.Any())
+            {
+                foreach (var removedItem in removedItems)
+                {
+                    _disposeAction(removedItem);
+                }
+            }
         }
 
         private void OnPropertyChanged(object sender, ChangedPropertyEventArgs e)
@@ -425,6 +444,8 @@ namespace PS.Collections
 
         private TSource ConvertBack(TTarget item)
         {
+            if (_convertBackFunc == null) throw new NotSupportedException();
+
             return _convertBackMap.GetOrAdd(RuntimeHelpers.GetHashCode(item),
                                             key =>
                                             {
@@ -438,13 +459,6 @@ namespace PS.Collections
         {
             return ItemsSource.Enumerate<TSource>().Where(_filterPredicate).Select(Convert).ToList();
         }
-
-        //private bool OnFilterItem(TSource item)
-        //{
-        //    var args = new FilterEventArgs(item);
-        //    Filter?.Invoke(this, args);
-        //    return args.Accepted;
-        //}
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

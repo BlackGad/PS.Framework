@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using PS.Patterns.Aware;
 
-namespace PS.WPF
+namespace PS.WPF.Patterns.Command
 {
     public interface IUICommand : ICommand,
                                   IDescriptionAware,

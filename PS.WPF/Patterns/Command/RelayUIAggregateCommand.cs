@@ -7,7 +7,7 @@ using PS.ComponentModel.DeepTracker;
 using PS.ComponentModel.Navigation;
 using PS.Extensions;
 
-namespace PS.WPF
+namespace PS.WPF.Patterns.Command
 {
     public class RelayUIAggregateCommand : RelayUIAggregateCommand<object>
     {

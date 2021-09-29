@@ -1,0 +1,192 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:styles="clr-namespace:PS.WPF.Styles"
+                    xmlns:theme="clr-namespace:PS.WPF.Theme"
+                    xmlns:local="clr-namespace:PS.WPF.Controls">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/PS.WPF;component/Styles/Common.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Geometry x:Key="ResetButtonGeometry">M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z</Geometry>
+
+    <Style x:Key="{x:Static local:TimeSpanBox+Resource.SideButtonStyle}" TargetType="local:IconicButton">
+        <Setter Property="Background" Value="{x:Static theme:ThemeBrushes.Marker}" />
+        <Setter Property="Geometry" Value="{StaticResource ResetButtonGeometry}" />
+        <Setter Property="Height" Value="16" />
+        <Setter Property="IconHeight" Value="12" />
+        <Setter Property="IconWidth" Value="12" />
+        <Setter Property="Margin" Value="1,0,0,0" />
+        <Setter Property="Stretch" Value="Uniform" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+
+        <Setter Property="Width" Value="16" />
+    </Style>
+
+    <ControlTemplate x:Key="{x:Static local:TimeSpanBox+Resource.ControlTemplate}" TargetType="local:TimeSpanBox">
+        <Grid>
+            <Border Name="Border"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    SnapsToDevicePixels="True" />
+
+            <Grid Margin="{TemplateBinding Padding}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Name="TextBox"
+                         Grid.Column="0"
+                         Margin="0"
+                         Padding="0"
+                         Background="Transparent"
+                         Foreground="{TemplateBinding Foreground}"
+                         BorderThickness="0"
+                         FocusVisualStyle="{x:Null}"
+                         FontFamily="{TemplateBinding FontFamily}"
+                         FontSize="{TemplateBinding FontSize}"
+                         IsReadOnly="{TemplateBinding IsReadOnly}"
+                         Style="{StaticResource {x:Static styles:Common.NormalTextBoxStyle}}"
+                         Text="{Binding EditableText, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         TextAlignment="{TemplateBinding TextAlignment}"
+                         TextWrapping="NoWrap"
+                         Visibility="Collapsed" />
+
+                <ContentControl Name="TextBlockWrapper"
+                                Grid.Column="0"
+                                Focusable="False">
+                    <ContentControl.ContentTemplate>
+                        <DataTemplate DataType="local:TimeSpanBox">
+                            <TextBlock Padding="0"
+                                       Background="{Binding Background}"
+                                       Foreground="{Binding Foreground}"
+                                       DataContext="{Binding RelativeSource={RelativeSource AncestorType=local:TimeSpanBox}}"
+                                       FontFamily="{Binding FontFamily}"
+                                       FontSize="{Binding FontSize}"
+                                       Style="{StaticResource {x:Static styles:Common.NormalTextBlockStyle}}"
+                                       Text="{Binding DisplayText}"
+                                       TextAlignment="{Binding TextAlignment}"
+                                       TextWrapping="NoWrap" />
+                        </DataTemplate>
+                    </ContentControl.ContentTemplate>
+                </ContentControl>
+
+                <TextBlock Name="TextBlockWatermark"
+                           Grid.Column="0"
+                           Background="Transparent"
+                           Foreground="{TemplateBinding Foreground}"
+                           FontFamily="{TemplateBinding FontFamily}"
+                           FontSize="{TemplateBinding FontSize}"
+                           FontStyle="Italic"
+                           Opacity="0.5"
+                           Style="{StaticResource {x:Static styles:Common.NormalTextBlockStyle}}"
+                           Text="{TemplateBinding Watermark}"
+                           TextAlignment="{TemplateBinding TextAlignment}"
+                           TextWrapping="NoWrap"
+                           Visibility="Collapsed" />
+
+                <local:IconicButton Name="SideButton"
+                                    Grid.Column="1"
+                                    Command="{TemplateBinding SideButtonCommand}"
+                                    Opacity="0.5"
+                                    Style="{TemplateBinding SideButtonStyle}"
+                                    Visibility="Collapsed" />
+            </Grid>
+
+            <Rectangle Name="FocusBorder"
+                       Style="{StaticResource {x:Static styles:Common.FocusRectangleStyle}}"
+                       Visibility="Hidden" />
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsReadOnly" Value="True">
+                <Setter TargetName="Border" Property="Opacity" Value="0.2" />
+            </Trigger>
+
+            <Trigger Property="IsWatermarkAvailable" Value="True">
+                <Setter TargetName="TextBlockWatermark" Property="Visibility" Value="Visible" />
+                <Setter TargetName="TextBlockWrapper" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+
+            <Trigger Property="IsEditMode" Value="True">
+                <Setter TargetName="SideButton" Property="Opacity" Value="1" />
+                <Setter TargetName="TextBlockWatermark" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="TextBlockWrapper" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="TextBox" Property="Visibility" Value="Visible" />
+            </Trigger>
+
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="Border" Property="Opacity" Value="0.2" />
+                <Setter TargetName="TextBlockWrapper" Property="Opacity" Value="0.2" />
+            </Trigger>
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsFocused" Value="True" />
+                    <Condition Property="FocusBorderVisibility" Value="Visible" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="FocusBorder" Property="Visibility" Value="Visible" />
+            </MultiTrigger>
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsDisplayTextSelectable" Value="True" />
+                    <Condition Property="IsReadOnly" Value="True" />
+                </MultiTrigger.Conditions>
+
+                <Setter TargetName="TextBlockWrapper" Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate DataType="local:TimeSpanBox">
+                            <TextBox Padding="0"
+                                     Background="{Binding Background}"
+                                     Foreground="{Binding Foreground}"
+                                     BorderThickness="0"
+                                     DataContext="{Binding RelativeSource={RelativeSource AncestorType=local:TimeSpanBox}}"
+                                     FontFamily="{Binding FontFamily}"
+                                     FontSize="{Binding FontSize}"
+                                     IsReadOnly="True"
+                                     Style="{StaticResource {x:Static styles:Common.NormalTextBoxStyle}}"
+                                     Text="{Binding DisplayText}"
+                                     TextAlignment="{Binding TextAlignment}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </MultiTrigger>
+
+            <Trigger Property="IsReadOnly" Value="True">
+                <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
+            </Trigger>
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsReadOnly" Value="False" />
+                    <Condition Property="IsSideButtonVisible" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="SideButton" Property="Visibility" Value="Visible" />
+            </MultiTrigger>
+
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="{x:Static local:TimeSpanBox+Resource.ControlStyle}" TargetType="local:TimeSpanBox">
+        <Setter Property="Background" Value="{x:Static theme:ThemeBrushes.Main}" />
+        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.Basic}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="FontFamily" Value="{x:Static theme:ThemeFonts.FontFamily}" />
+        <Setter Property="FontSize" Value="{x:Static theme:ThemeFonts.FontSize}" />
+        <Setter Property="Foreground" Value="{x:Static theme:ThemeBrushes.Marker}" />
+        <Setter Property="Margin" Value="2" />
+        <Setter Property="MinHeight" Value="16" />
+        <Setter Property="Padding" Value="3" />
+        <Setter Property="SideButtonStyle" Value="{StaticResource {x:Static local:TimeSpanBox+Resource.SideButtonStyle}}" />
+        <Setter Property="Template" Value="{StaticResource {x:Static local:TimeSpanBox+Resource.ControlTemplate}}" />
+        <Setter Property="TextAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Watermark" Value="Not set" />
+    </Style>
+
+
+</ResourceDictionary>
