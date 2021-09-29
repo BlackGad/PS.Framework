@@ -15,6 +15,7 @@
     <NeutralLanguage>en</NeutralLanguage>
     <Description>Windows interop</Description>
     <Version>1.0.4</Version>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
   
   <!-- General references -->
