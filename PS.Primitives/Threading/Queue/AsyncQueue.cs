@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
+#if !NETFRAMEWORK
+using System.Runtime.InteropServices;
+#endif
 namespace PS.Threading.Queue
 {
     public static class AsyncQueue
@@ -91,8 +93,9 @@ namespace PS.Threading.Queue
                     threadSynchronizationContext?.Dispose();
                 }
             });
-
+            #if !NETFRAMEWORK
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            #endif
             {
                 _consumeQueueThread.SetApartmentState(configuration.ApartmentState);
             }
