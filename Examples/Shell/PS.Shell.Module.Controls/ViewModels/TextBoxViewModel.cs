@@ -1,20 +1,20 @@
 ﻿using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
-using PS.Shell.Infrastructure.ViewModels;
+using PS.Shell.Infrastructure.Models.ControlsService;
 
 namespace PS.Shell.Module.Controls.ViewModels
 {
     [DependencyRegisterAsSelf]
-    public class TextBoxGenericViewModel : BaseNotifyPropertyChanged,
-                                           IControlViewModel,
-                                           IViewModel
+    public class TextBoxViewModel : BaseNotifyPropertyChanged,
+                                    IControlViewModel,
+                                    IViewModel
     {
         #region Constructors
 
-        public TextBoxGenericViewModel()
+        public TextBoxViewModel()
         {
-            Title = "Generic";
-            Group = "TextBox";
+            Title = "TextBox";
+            Group = "Controls";
         }
 
         #endregion
@@ -22,7 +22,6 @@ namespace PS.Shell.Module.Controls.ViewModels
         #region IControlViewModel Members
 
         public string Group { get; }
-
         public string Title { get; }
 
         #endregion

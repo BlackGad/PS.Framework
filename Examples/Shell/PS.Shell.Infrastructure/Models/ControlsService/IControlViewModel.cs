@@ -1,7 +1,6 @@
-﻿using System.ComponentModel;
-using PS.Patterns.Aware;
+﻿using PS.Patterns.Aware;
 
-namespace PS.Shell.Infrastructure.ViewModels
+namespace PS.Shell.Infrastructure.Models.ControlsService
 {
     public interface IControlViewModel : ITitleAware,
                                          IGroupAware

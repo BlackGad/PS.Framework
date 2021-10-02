@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using PS.Shell.Infrastructure.ViewModels;
 
-namespace PS.Shell.Infrastructure.Models
+namespace PS.Shell.Infrastructure.Models.ControlsService
 {
     public interface IControlsService
     {

@@ -63,7 +63,6 @@ namespace PS.Commander.Models.ExplorerService
                                   .Subscribe<ChangedEventArgs>(OnChangedEvent)
                                   .Create()
                                   .Activate();
-            //_saveTrigger = ThrottlingTrigger.Setup
         }
 
         #endregion

@@ -4,7 +4,7 @@ using Autofac.Core.Registration;
 using PS.IoC.Extensions;
 using PS.MVVM.Extensions;
 using PS.MVVM.Services;
-using PS.Shell.Infrastructure.Models;
+using PS.Shell.Infrastructure.Models.ControlsService;
 using PS.Shell.Module.Controls.ViewModels;
 using PS.Shell.Module.Controls.Views;
 using PS.WPF.DataTemplate;
@@ -32,14 +32,16 @@ namespace PS.Shell.Module.Controls
 
         private void ControlsServiceActivation(ILifetimeScope scope, IControlsService service)
         {
-            service.Controls.Add(scope.Resolve<TextBoxGenericViewModel>());
-            service.Controls.Add(scope.Resolve<DecimalTextBoxGenericViewModel>());
+            service.Controls.Add(scope.Resolve<TextBoxViewModel>());
+            service.Controls.Add(scope.Resolve<DecimalTextBoxViewModel>());
+            service.Controls.Add(scope.Resolve<CancelableProcessCommandViewModel>());
         }
 
         private void ViewResolverServiceActivation(ILifetimeScope scope, IViewResolverService service)
         {
-            service.AssociateTemplate<TextBoxGenericViewModel>(scope.Resolve<IDataTemplate<TextBoxGenericView>>());
-            service.AssociateTemplate<DecimalTextBoxGenericViewModel>(scope.Resolve<IDataTemplate<DecimalTextBoxGenericView>>());
+            service.AssociateTemplate<TextBoxViewModel>(scope.Resolve<IDataTemplate<TextBoxView>>());
+            service.AssociateTemplate<DecimalTextBoxViewModel>(scope.Resolve<IDataTemplate<DecimalTextBoxView>>());
+            service.AssociateTemplate<CancelableProcessCommandViewModel>(scope.Resolve<IDataTemplate<CancelableProcessCommandView>>());
         }
 
         #endregion

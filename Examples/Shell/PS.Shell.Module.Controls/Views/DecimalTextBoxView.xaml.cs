@@ -6,23 +6,23 @@ using PS.Shell.Module.Controls.ViewModels;
 namespace PS.Shell.Module.Controls.Views
 {
     [DependencyRegisterAsSelf]
-    [DependencyRegisterAsInterface(typeof(IView<TextBoxGenericViewModel>))]
-    public partial class TextBoxGenericView : IView<TextBoxGenericViewModel>
+    [DependencyRegisterAsInterface(typeof(IView<DecimalTextBoxViewModel>))]
+    public partial class DecimalTextBoxView : IView<DecimalTextBoxViewModel>
     {
         #region Constructors
 
-        public TextBoxGenericView()
+        public DecimalTextBoxView()
         {
             InitializeComponent();
         }
 
         #endregion
 
-        #region IView<TextBoxViewModel> Members
+        #region IView<DecimalTextBoxViewModel> Members
 
-        public TextBoxGenericViewModel ViewModel
+        public DecimalTextBoxViewModel ViewModel
         {
-            get { return DataContext as TextBoxGenericViewModel; }
+            get { return DataContext as DecimalTextBoxViewModel; }
         }
 
         #endregion

@@ -3,6 +3,7 @@ using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
 using PS.Patterns.Aware;
 using PS.Shell.Infrastructure.Models;
+using PS.Shell.Infrastructure.Models.ControlsService;
 
 namespace PS.Shell.ViewModels
 {

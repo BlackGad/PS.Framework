@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using PS.IoC.Attributes;
 using PS.Shell.Infrastructure.Models;
+using PS.Shell.Infrastructure.Models.ControlsService;
 using PS.Shell.Infrastructure.ViewModels;
 
 namespace PS.Shell.Models

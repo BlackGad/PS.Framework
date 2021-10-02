@@ -9,6 +9,8 @@
       xmlns:mvvm="http://schemas.ps.com/2019/xaml/mvvm"
       xmlns:ps="http://schemas.ps.com/2019/xaml"
       xmlns:viewModels="clr-namespace:PS.Shell.ViewModels"
+      xmlns:models1="clr-namespace:PS.Shell.Infrastructure.Models;assembly=PS.Shell.Infrastructure"
+      xmlns:controlsService="clr-namespace:PS.Shell.Infrastructure.Models.ControlsService;assembly=PS.Shell.Infrastructure"
       Margin="5"
       d:DataContext="{d:DesignInstance viewModels:ShellViewModel}"
       d:DesignHeight="450"
@@ -26,7 +28,7 @@
                                 <ContentPresenter />
                             </ps:GroupExpander.Header>
                             <ps:GroupExpander.Content>
-                                <ItemsPresenter HorizontalAlignment="Stretch" />
+                                <ItemsPresenter />
                             </ps:GroupExpander.Content>
                         </ps:GroupExpander>
                     </ControlTemplate>
@@ -48,7 +50,7 @@
             </DataTemplate.Triggers>
         </DataTemplate>
 
-        <DataTemplate x:Key="ItemTemplate" DataType="{x:Type models:IControlViewModel}">
+        <DataTemplate x:Key="ItemTemplate" DataType="{x:Type controlsService:IControlViewModel}">
             <TextBlock Name="Label"
                        FontFamily="{x:Static ps:ThemeFonts.FontFamilyLight}"
                        FontSize="{x:Static ps:ThemeFonts.FontSizeL}"
@@ -66,11 +68,6 @@
              BorderThickness="1"
              ItemTemplate="{StaticResource ItemTemplate}"
              SelectedItem="{Binding Path=Content, Mode=TwoWay}">
-        <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-                <WrapPanel />
-            </ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
         <ItemsControl.GroupStyle>
             <GroupStyle ContainerStyle="{StaticResource GroupContainerStyle}"
                         HeaderTemplate="{StaticResource GroupHeaderTemplate}"

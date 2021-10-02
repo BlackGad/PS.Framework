@@ -47,7 +47,7 @@ namespace PS.WPF.Controls
             DependencyProperty.Register("Precision",
                                         typeof(int?),
                                         typeof(DecimalTextBox),
-                                        new FrameworkPropertyMetadata(default(int?)));
+                                        new FrameworkPropertyMetadata(default(int?), OnPrecisionChanged));
 
         public static readonly DependencyProperty SmallChangeProperty =
             DependencyProperty.Register("SmallChange",
@@ -85,6 +85,12 @@ namespace PS.WPF.Controls
         {
             var owner = (DecimalTextBox)d;
             return owner.CoerceEditableText(baseValue as string);
+        }
+
+        private static void OnPrecisionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var owner = (DecimalTextBox)d;
+            owner.UpdateDisplayText();
         }
 
         private static void OnRangeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -185,6 +191,11 @@ namespace PS.WPF.Controls
 
         #region Override members
 
+        protected override void OnCancelEdit()
+        {
+            ClearValue(EditableTextProperty);
+        }
+
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -234,6 +245,7 @@ namespace PS.WPF.Controls
         protected override void OnEndEdit(EndEditReason reason)
         {
             ((IValueProvider)this).SetValue(EditableText);
+            ClearValue(EditableTextProperty);
         }
 
         #endregion
