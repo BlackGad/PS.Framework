@@ -5,6 +5,7 @@ using PS.MVVM.Services;
 using PS.MVVM.Services.CommandService;
 using PS.Shell.Module.Controls;
 using PS.Shell.Module.Diagram;
+using PS.Shell.Module.Ribbon;
 
 namespace PS.Shell
 {
@@ -76,9 +77,12 @@ namespace PS.Shell
         private void RegisterContainerTypes(IBootstrapperLogger logger, ContainerBuilder builder)
         {
             logger.Trace("Registering modules...");
+
             builder.RegisterModule<MainModule>();
             builder.RegisterModule<DiagramModule>();
             builder.RegisterModule<ControlsModule>();
+            builder.RegisterModule<RibbonModule>();
+
             logger.Debug("Modules registered");
         }
 

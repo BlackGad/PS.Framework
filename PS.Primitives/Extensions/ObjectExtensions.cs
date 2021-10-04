@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
 using PS.ComponentModel.Extensions;
 
 namespace PS.Extensions
@@ -10,6 +9,31 @@ namespace PS.Extensions
     public static class ObjectExtensions
     {
         #region Static members
+
+        public static object ConvertNumericValueTo(this object value, Type targetType)
+        {
+            if (value == null) return null;
+            if (targetType == null) return value;
+
+            var valueConverter = TypeDescriptor.GetConverter(value.GetType());
+            var targetConverter = TypeDescriptor.GetConverter(targetType);
+
+            if (targetConverter.CanConvertFrom(value.GetType())) return targetConverter.ConvertFrom(value);
+            if (valueConverter.CanConvertTo(targetType)) return valueConverter.ConvertTo(value, targetType);
+
+            if (targetType.IsNullable())
+            {
+                var sourceTargetType = targetType.GetSourceType();
+                var sourceTargetConverter = TypeDescriptor.GetConverter(sourceTargetType);
+
+                if (sourceTargetConverter.CanConvertFrom(value.GetType())) return sourceTargetConverter.ConvertFrom(value);
+                if (valueConverter.CanConvertTo(sourceTargetType)) return valueConverter.ConvertTo(value, sourceTargetType);
+
+                return Convert.ChangeType(value, sourceTargetType);
+            }
+
+            return value;
+        }
 
         public static string GetEffectiveString(this object item)
         {
@@ -51,55 +75,6 @@ namespace PS.Extensions
         public static int GetHash(this object instance)
         {
             return instance?.GetHashCode() ?? 0;
-        }
-
-        /// <summary>
-        ///     Calls internal method from different assembly using reflection.
-        /// </summary>
-        /// <param name="obj">Object instance.</param>
-        /// <param name="methodName">Internal method name.</param>
-        /// <param name="args">Internal method arguments.</param>
-        /// <returns>Internal method return.</returns>
-        public static object InternalMethodCall<T>(this T obj, string methodName, params object[] args)
-            where T : class
-        {
-            return obj.InternalMethodCall(typeof(T), methodName, args);
-        }
-
-        /// <summary>
-        ///     Calls internal method from different assembly using reflection.
-        /// </summary>
-        /// <param name="obj">Object instance.</param>
-        /// <param name="type">Required reflection type.</param>
-        /// <param name="methodName">Internal method name.</param>
-        /// <param name="args">Internal method arguments.</param>
-        /// <returns>Internal method return.</returns>
-        public static object InternalMethodCall(this object obj, Type type, string methodName, params object[] args)
-        {
-            if (obj == null) throw new ArgumentNullException(nameof(obj));
-            MethodInfo dynamicMethod;
-            if (args.Any(a => a == null))
-            {
-                dynamicMethod = type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
-            }
-            else
-            {
-                dynamicMethod = type.GetMethod(methodName,
-                                               BindingFlags.NonPublic | BindingFlags.Instance,
-                                               null,
-                                               args.Select(a => a.GetType()).ToArray(),
-                                               null);
-            }
-
-            try
-            {
-                return dynamicMethod?.Invoke(obj, args);
-            }
-            catch (TargetInvocationException e)
-            {
-                // ReSharper disable once PossibleNullReferenceException
-                throw e.InnerException;
-            }
         }
 
         public static int MergeHash(this int hash, int addHash)

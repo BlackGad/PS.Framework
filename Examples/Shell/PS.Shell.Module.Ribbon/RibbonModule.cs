@@ -5,13 +5,13 @@ using PS.IoC.Extensions;
 using PS.MVVM.Extensions;
 using PS.MVVM.Services;
 using PS.Shell.Infrastructure.Models.ControlsService;
-using PS.Shell.Module.Controls.ViewModels;
-using PS.Shell.Module.Controls.Views;
+using PS.Shell.Module.Ribbon.ViewModels;
+using PS.Shell.Module.Ribbon.Views;
 using PS.WPF.DataTemplate;
 
-namespace PS.Shell.Module.Controls
+namespace PS.Shell.Module.Ribbon
 {
-    public class ControlsModule : Autofac.Module
+    public class RibbonModule : Autofac.Module
     {
         #region Override members
 
@@ -32,16 +32,12 @@ namespace PS.Shell.Module.Controls
 
         private void ControlsServiceActivation(ILifetimeScope scope, IControlsService service)
         {
-            service.Controls.Add(scope.Resolve<TextBoxViewModel>());
-            service.Controls.Add(scope.Resolve<DecimalTextBoxViewModel>());
-            service.Controls.Add(scope.Resolve<CancelableProcessCommandViewModel>());
+            service.Controls.Add(scope.Resolve<RibbonViewModel>());
         }
 
         private void ViewResolverServiceActivation(ILifetimeScope scope, IViewResolverService service)
         {
-            service.AssociateTemplate<TextBoxViewModel>(scope.Resolve<IDataTemplate<TextBoxView>>())
-                   .AssociateTemplate<DecimalTextBoxViewModel>(scope.Resolve<IDataTemplate<DecimalTextBoxView>>())
-                   .AssociateTemplate<CancelableProcessCommandViewModel>(scope.Resolve<IDataTemplate<CancelableProcessCommandView>>());
+            service.AssociateTemplate<RibbonViewModel>(scope.Resolve<IDataTemplate<RibbonView>>());
         }
 
         #endregion

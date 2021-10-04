@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:m="http://schemas.ps.com/2019/xaml/markup"
+                    xmlns:ps="http://schemas.ps.com/2019/xaml"
+                    xmlns:ribbon="clr-namespace:PS.Shell.Module.Ribbon">
+
+    <SolidColorBrush x:Key="{x:Static ribbon:XamlResources.RibbonAccentBrush}" Color="{x:Static ps:ThemeColors.Accent}" />
+    <SolidColorBrush x:Key="{x:Static ribbon:XamlResources.RibbonHeaderBackgroundBrush}" Color="{Binding Source={StaticResource {x:Static ribbon:XamlResources.RibbonAccentBrush}}, Converter={x:Static ps:ColorConverters.Shade}, ConverterParameter={m:Double 0.2}}" />
+    <SolidColorBrush x:Key="{x:Static ribbon:XamlResources.RibbonBackgroundBrush}" Color="{Binding Source={x:Static ps:ThemeColors.Main}, Converter={x:Static ps:ColorConverters.Shade}, ConverterParameter={m:Double 0.01}}" />
+    <SolidColorBrush x:Key="{x:Static ribbon:XamlResources.RibbonBorderBrushBrush}" Color="{x:Static ps:ThemeColors.Basic}" />
+    <SolidColorBrush x:Key="{x:Static ribbon:XamlResources.ContextualBackgroundBrush}" Color="{Binding Source={StaticResource {x:Static ribbon:XamlResources.RibbonAccentBrush}}, Converter={x:Static ps:ColorConverters.Shade}, ConverterParameter={m:Double 0.4}}" />
+    <SolidColorBrush x:Key="{x:Static ribbon:XamlResources.RibbonForegroundBrush}" Color="{x:Static ps:ThemeColors.Marker}" />
+
+    <Style x:Key="{x:Static ribbon:XamlResources.RibbonStyle}" TargetType="ps:Ribbon">
+        <Setter Property="Accent" Value="{StaticResource {x:Static ribbon:XamlResources.RibbonAccentBrush}}" />
+        <Setter Property="Background" Value="{StaticResource {x:Static ribbon:XamlResources.RibbonBackgroundBrush}}" />
+        <Setter Property="BorderBrush" Value="{StaticResource {x:Static ribbon:XamlResources.RibbonBorderBrushBrush}}" />
+        <Setter Property="CaptionForeground" Value="{StaticResource {x:Static ribbon:XamlResources.RibbonBackgroundBrush}}" />
+        <Setter Property="ContextualTabHeaderBackground" Value="{StaticResource {x:Static ribbon:XamlResources.ContextualBackgroundBrush}}" />
+        <Setter Property="FontFamily" Value="{x:Static ps:ThemeFonts.FontFamilyStrong}" />
+        <Setter Property="Foreground" Value="{StaticResource {x:Static ribbon:XamlResources.RibbonForegroundBrush}}" />
+        <Setter Property="SelectedTabHeaderBackground" Value="{StaticResource {x:Static ribbon:XamlResources.RibbonBackgroundBrush}}" />
+        <Setter Property="SelectedTabHeaderForeground" Value="{StaticResource {x:Static ribbon:XamlResources.RibbonHeaderBackgroundBrush}}" />
+        <Setter Property="TabHeaderBackground" Value="{StaticResource {x:Static ribbon:XamlResources.RibbonHeaderBackgroundBrush}}" />
+        <Setter Property="TabHeaderForeground" Value="{StaticResource {x:Static ribbon:XamlResources.RibbonBackgroundBrush}}" />
+    </Style>
+</ResourceDictionary>

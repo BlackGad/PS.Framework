@@ -1,0 +1,171 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:markup="clr-namespace:PS.WPF.Markup"
+                    xmlns:theme="clr-namespace:PS.WPF.Theme"
+                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
+                    xmlns:controls="clr-namespace:PS.WPF.Controls.Ribbon.Controls"
+                    xmlns:components="clr-namespace:PS.WPF.Components">
+
+    <Geometry x:Key="CheckGeometry">M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z</Geometry>
+
+    <ControlTemplate x:Key="{x:Static controls:RibbonCheckBox+Resource.ControlTemplate}" TargetType="controls:RibbonCheckBox">
+        <Grid x:Name="Layout"
+              Background="Transparent"
+              SnapsToDevicePixels="True">
+            <components:StoreBrush.Background>
+                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.Main}">
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                </PriorityBinding>
+            </components:StoreBrush.Background>
+            <components:StoreBrush.BorderBrush>
+                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.Basic}">
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                </PriorityBinding>
+            </components:StoreBrush.BorderBrush>
+            <StackPanel x:Name="StackPanel"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                <Grid x:Name="PART_CheckBox"
+                      Width="32"
+                      Height="32"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center">
+                    <Grid Width="14"
+                          Height="14"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center">
+                        <Border x:Name="Border"
+                                Background="{Binding ElementName=Layout, Path=(components:StoreBrush.Background)}"
+                                BorderBrush="{Binding ElementName=Layout, Path=(components:StoreBrush.BorderBrush)}"
+                                BorderThickness="1" />
+                        <Border x:Name="MouseOverBorder"
+                                BorderThickness="1"
+                                Visibility="Hidden">
+                            <Border.Background>
+                                <PriorityBinding>
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                    <Binding ElementName="Border" Path="Background" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.1}" />
+                                </PriorityBinding>
+                            </Border.Background>
+                            <Border.BorderBrush>
+                                <PriorityBinding>
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                    <Binding ElementName="Border" Path="BorderBrush" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.1}" />
+                                </PriorityBinding>
+                            </Border.BorderBrush>
+                        </Border>
+                        <Border x:Name="PressedBorder"
+                                BorderThickness="1"
+                                Visibility="Hidden">
+                            <Border.Background>
+                                <PriorityBinding>
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="PressedBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.PressedBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                    <Binding ElementName="Border" Path="Background" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.3}" />
+                                </PriorityBinding>
+                            </Border.Background>
+                            <Border.BorderBrush>
+                                <PriorityBinding>
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="PressedBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.PressedBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                    <Binding ElementName="Border" Path="BorderBrush" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.3}" />
+                                </PriorityBinding>
+                            </Border.BorderBrush>
+                        </Border>
+                        <Path x:Name="CheckBoxPath"
+                              Margin="2"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Data="{StaticResource CheckGeometry}"
+                              Fill="{Binding ElementName=Layout, Path=(components:StoreBrush.BorderBrush), Converter={x:Static valueConverters:ColorConverters.Shade}, ConverterParameter={markup:Double 0.5}}"
+                              Stretch="Uniform"
+                              Visibility="Hidden" />
+                    </Grid>
+                </Grid>
+                <Grid x:Name="Grid"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center">
+                    <RibbonTwoLineText x:Name="TwoLineText"
+                                       Margin="1,1,1,0"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Top"
+                                       HasTwoLines="{TemplateBinding RibbonTwoLineText.HasTwoLines}"
+                                       LineHeight="13px"
+                                       LineStackingStrategy="BlockLineHeight"
+                                       PathData="{TemplateBinding RibbonTwoLineText.PathData}"
+                                       PathFill="{TemplateBinding Foreground}"
+                                       Text="{TemplateBinding Label}"
+                                       TextAlignment="Center" />
+                </Grid>
+            </StackPanel>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.ImageSize}" Value="Large">
+                <Setter Property="MinHeight" Value="66" />
+                <Setter Property="MinWidth" Value="44" />
+                <Setter TargetName="Grid" Property="MinHeight" Value="26" />
+                <Setter TargetName="TwoLineText" Property="HasTwoLines" Value="True" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.ImageSize}" Value="Small">
+                <Setter Property="Height" Value="22.0" />
+                <Setter TargetName="PART_CheckBox" Property="Height" Value="16" />
+                <Setter TargetName="PART_CheckBox" Property="Margin" Value="3,0,1,0" />
+                <Setter TargetName="PART_CheckBox" Property="Width" Value="16" />
+                <Setter TargetName="StackPanel" Property="Orientation" Value="Horizontal" />
+                <Setter TargetName="TwoLineText" Property="HorizontalAlignment" Value="Left" />
+                <Setter TargetName="TwoLineText" Property="Margin" Value="1" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.ImageSize}" Value="Small" />
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsInQuickAccessToolBar}" Value="True" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Height" Value="Auto" />
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.IsLabelVisible}" Value="False">
+                <Setter TargetName="TwoLineText" Property="Margin" Value="0" />
+                <Setter TargetName="TwoLineText" Property="Text" Value="{x:Null}" />
+            </DataTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True"/>
+                    <Condition Property="IsEnabled" Value="True"/>
+                </MultiTrigger.Conditions>
+                <Setter TargetName="MouseOverBorder" Property="Visibility" Value="Visible" />
+            </MultiTrigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter TargetName="PressedBorder" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter TargetName="MouseOverBorder" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="Grid" Property="Opacity" Value="0.5" />
+                <Setter TargetName="PART_CheckBox" Property="Opacity" Value="0.5" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="CheckBoxPath" Property="Visibility" Value="Visible" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="{x:Static controls:RibbonCheckBox+Resource.ControlStyle}" TargetType="controls:RibbonCheckBox">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="QuickAccessToolBarControlSizeDefinition">
+            <Setter.Value>
+                <RibbonControlSizeDefinition ImageSize="Small" IsLabelVisible="True" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template" Value="{StaticResource {x:Static controls:RibbonCheckBox+Resource.ControlTemplate}}" />
+        <Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
+        <Setter Property="ToolTipService.InitialShowDelay" Value="900" />
+        <Setter Property="ToolTipService.ShowDuration" Value="20000" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+
+</ResourceDictionary>

@@ -1,0 +1,97 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:markup="clr-namespace:PS.WPF.Markup"
+                    xmlns:resources="clr-namespace:PS.WPF.Resources"
+                    xmlns:theme="clr-namespace:PS.WPF.Theme"
+                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
+                    xmlns:controls="clr-namespace:PS.WPF.Controls.Ribbon"
+                    xmlns:components="clr-namespace:PS.WPF.Components">
+
+    <ResourceDictionary.MergedDictionaries>
+        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Ribbon/RibbonResizeThumbs.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <ControlTemplate x:Key="{x:Static controls:RibbonLikeContextMenu+Resource.ControlTemplate}" TargetType="controls:RibbonLikeContextMenu">
+        <Border Name="Layout"
+                Background="{Binding RelativeSource={RelativeSource Self}, Path=(components:StoreBrush.Background)}"
+                BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=(components:StoreBrush.BorderBrush)}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                SnapsToDevicePixels="True"
+                TextElement.Foreground="{Binding RelativeSource={RelativeSource Self}, Path=(components:StoreBrush.Foreground)}">
+            <components:StoreBrush.Background>
+                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.Main}">
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                </PriorityBinding>
+            </components:StoreBrush.Background>
+            <components:StoreBrush.BorderBrush>
+                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.Basic}">
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                </PriorityBinding>
+            </components:StoreBrush.BorderBrush>
+            <components:StoreBrush.Foreground>
+                <PriorityBinding>
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Foreground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Foreground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource Self}" Path="Background" Converter="{x:Static valueConverters:ColorConverters.ContrastForeground}" />
+                </PriorityBinding>
+            </components:StoreBrush.Foreground>
+            <components:StoreBrush.MouseOver>
+                <PriorityBinding>
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource Self}" Path="(components:StoreBrush.Background)" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.2}" />
+                </PriorityBinding>
+            </components:StoreBrush.MouseOver>
+            <components:StoreBrush.MouseOverBorder>
+                <PriorityBinding>
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource Self}" Path="(components:StoreBrush.BorderBrush)" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.1}" />
+                </PriorityBinding>
+            </components:StoreBrush.MouseOverBorder>
+            <components:StoreBrush.Accent>
+                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.Accent}">
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Accent" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.(controls:Ribbon.Accent)" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                </PriorityBinding>
+            </components:StoreBrush.Accent>
+            <Border.Child>
+                <Grid Margin="{TemplateBinding Padding}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <ScrollViewer x:Name="PART_SubMenuScrollViewer"
+                                  CanContentScroll="True"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  Style="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type FrameworkElement}, ResourceId=MenuScrollViewer}}">
+                        <ItemsPresenter x:Name="ItemsPresenter"
+                                        Grid.IsSharedSizeScope="True"
+                                        KeyboardNavigation.DirectionalNavigation="Cycle"
+                                        KeyboardNavigation.TabNavigation="Cycle"
+                                        RenderOptions.ClearTypeHint="Enabled" />
+                    </ScrollViewer>
+                    <Border Name="ResizeControl"
+                            Grid.Row="1"
+                            Background="Transparent"
+                            BorderBrush="{Binding ElementName=Layout, Path=(components:StoreBrush.BorderBrush)}"
+                            BorderThickness="0,1,0,0"
+                            Visibility="Collapsed">
+                        <Thumb x:Name="PART_ResizeThumb" Style="{StaticResource {x:Static controls:RibbonResizeThumbs.ThumbBothRightTopStyle}}" />
+                    </Border>
+                </Grid>
+            </Border.Child>
+        </Border>
+    </ControlTemplate>
+
+    <Style x:Key="{x:Static controls:RibbonLikeContextMenu+Resource.ControlStyle}" TargetType="controls:RibbonLikeContextMenu">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Foreground" Value="{x:Null}" />
+        <Setter Property="Padding" Value="1" />
+        <Setter Property="Template" Value="{StaticResource {x:Static controls:RibbonLikeContextMenu+Resource.ControlTemplate}}" />
+    </Style>
+
+</ResourceDictionary>

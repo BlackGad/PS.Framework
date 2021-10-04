@@ -11,6 +11,8 @@
         <Setter Property="HeaderBackground" Value="{x:Static ps:ThemeBrushes.Accent}" />
         <Setter Property="LinkHeaderAndContentAreas" Value="False" />
         <Setter Property="Padding" Value="0" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
+        <Setter Property="TextOptions.TextRenderingMode" Value="Aliased" />
         <Setter Property="WindowIconVisibility" Value="Collapsed" />
         <Style.Triggers>
             <DataTrigger Binding="{Binding Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ITitleAware}}" Value="{m:Boolean True}">

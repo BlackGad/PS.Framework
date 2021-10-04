@@ -1,0 +1,134 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:PS.WPF.Controls.Ribbon.Controls"
+                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters">
+
+    <ControlTemplate x:Key="{x:Static controls:RibbonButtonContent+Resource.ControlTemplate}" TargetType="controls:RibbonButtonContent">
+        <Grid x:Name="Layout">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="PART_GridColumnFirst" />
+                <ColumnDefinition x:Name="PART_GridColumnSecond" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="PART_GridRowFirst" />
+                <RowDefinition x:Name="PART_GridRowSecond" />
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="PART_ImageLayout"
+                  Grid.Row="0"
+                  Grid.Column="0"
+                  Margin="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Image x:Name="PART_Image"
+                       Grid.Column="0"
+                       RenderOptions.BitmapScalingMode="NearestNeighbor" />
+                <Path x:Name="PART_ImageLabelGeometry"
+                      Grid.Column="1"
+                      Margin="1"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Data="{TemplateBinding LabelGeometry}"
+                      Fill="{TemplateBinding Foreground}"
+                      Visibility="Collapsed" />
+            </Grid>
+
+            <RibbonTwoLineText x:Name="PART_TwoLineText"
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               Margin="{TemplateBinding Padding}"
+                               LineHeight="13px"
+                               LineStackingStrategy="BlockLineHeight"
+                               PathData="{TemplateBinding LabelGeometry}"
+                               PathFill="{TemplateBinding Foreground}"
+                               Text="{TemplateBinding Label}" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="ImageSize" Value="Large">
+                <Setter Property="Height" Value="66" />
+                <Setter Property="MinWidth" Value="44" />
+                <Setter TargetName="PART_GridColumnFirst" Property="Width" Value="*" />
+                <Setter TargetName="PART_GridColumnSecond" Property="Width" Value="Auto" />
+                <Setter TargetName="PART_GridRowFirst" Property="Height" Value="Auto" />
+                <Setter TargetName="PART_GridRowSecond" Property="Height" Value="*" />
+                <Setter TargetName="PART_Image" Property="Height" Value="32" />
+                <Setter TargetName="PART_Image" Property="Source" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LargeImageSource}" />
+                <Setter TargetName="PART_Image" Property="Width" Value="32" />
+                <Setter TargetName="PART_ImageLayout" Property="HorizontalAlignment" Value="Center" />
+                <Setter TargetName="PART_ImageLayout" Property="VerticalAlignment" Value="Center" />
+                <Setter TargetName="PART_TwoLineText" Property="Grid.Column" Value="0" />
+                <Setter TargetName="PART_TwoLineText" Property="Grid.Row" Value="1" />
+                <Setter TargetName="PART_TwoLineText" Property="HasTwoLines" Value="True" />
+                <Setter TargetName="PART_TwoLineText" Property="Height" Value="26" />
+                <Setter TargetName="PART_TwoLineText" Property="HorizontalAlignment" Value="Center" />
+                <Setter TargetName="PART_TwoLineText" Property="Margin" Value="0,4,0,0" />
+                <Setter TargetName="PART_TwoLineText" Property="TextAlignment" Value="Center" />
+                <Setter TargetName="PART_TwoLineText" Property="VerticalAlignment" Value="Top" />
+            </Trigger>
+            <Trigger Property="ImageSize" Value="Small">
+                <Setter Property="Height" Value="22.0" />
+                <Setter TargetName="PART_GridColumnFirst" Property="Width" Value="Auto" />
+                <Setter TargetName="PART_GridColumnSecond" Property="Width" Value="*" />
+                <Setter TargetName="PART_GridRowFirst" Property="Height" Value="*" />
+                <Setter TargetName="PART_GridRowSecond" Property="Height" Value="Auto" />
+                <Setter TargetName="PART_Image" Property="Height" Value="16" />
+                <Setter TargetName="PART_Image" Property="Source" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SmallImageSource}" />
+                <Setter TargetName="PART_Image" Property="Width" Value="16" />
+                <Setter TargetName="PART_ImageLayout" Property="HorizontalAlignment" Value="Center" />
+                <Setter TargetName="PART_ImageLayout" Property="VerticalAlignment" Value="Center" />
+                <Setter TargetName="PART_TwoLineText" Property="Grid.Column" Value="1" />
+                <Setter TargetName="PART_TwoLineText" Property="Grid.Row" Value="0" />
+                <Setter TargetName="PART_TwoLineText" Property="HasTwoLines" Value="False" />
+                <Setter TargetName="PART_TwoLineText" Property="HorizontalAlignment" Value="Left" />
+                <Setter TargetName="PART_TwoLineText" Property="Margin" Value="3,0" />
+                <Setter TargetName="PART_TwoLineText" Property="TextAlignment" Value="Left" />
+                <Setter TargetName="PART_TwoLineText" Property="VerticalAlignment" Value="Center" />
+            </Trigger>
+            <Trigger Property="ImageSize" Value="Collapsed">
+                <Setter TargetName="PART_GridColumnFirst" Property="Width" Value="*" />
+                <Setter TargetName="PART_GridColumnSecond" Property="Width" Value="Auto" />
+                <Setter TargetName="PART_GridRowFirst" Property="Height" Value="*" />
+                <Setter TargetName="PART_GridRowSecond" Property="Height" Value="Auto" />
+                <Setter TargetName="PART_Image" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_TwoLineText" Property="Grid.Column" Value="0" />
+                <Setter TargetName="PART_TwoLineText" Property="Grid.Row" Value="0" />
+                <Setter TargetName="PART_TwoLineText" Property="HasTwoLines" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HasTwoLines}" />
+                <Setter TargetName="PART_TwoLineText" Property="HorizontalAlignment" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HorizontalContentAlignment}" />
+                <Setter TargetName="PART_TwoLineText" Property="Margin" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Padding}" />
+                <Setter TargetName="PART_TwoLineText" Property="TextAlignment" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LabelTextAlignment}" />
+                <Setter TargetName="PART_TwoLineText" Property="VerticalAlignment" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=VerticalContentAlignment}" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="ImageSize" Value="Small" />
+                    <Condition Property="IsInQuickAccessToolBar" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Height" Value="Auto" />
+                <Setter Property="Height" Value="Auto" />
+            </MultiTrigger>
+            <Trigger Property="IsLabelVisible" Value="False">
+                <Setter TargetName="PART_TwoLineText" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsLabelVisible}" Value="False" />
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=LabelGeometry, Converter={x:Static valueConverters:ObjectConverters.Exist}}" Value="True" />
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="PART_ImageLabelGeometry" Property="Visibility" Value="Visible" />
+            </MultiDataTrigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="PART_Image" Property="Opacity" Value="0.5" />
+                <Setter TargetName="PART_TwoLineText" Property="Opacity" Value="0.5" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="{x:Static controls:RibbonButtonContent+Resource.ControlStyle}" TargetType="controls:RibbonButtonContent">
+        <Setter Property="Padding" Value="1" />
+        <Setter Property="Template" Value="{StaticResource {x:Static controls:RibbonButtonContent+Resource.ControlTemplate}}" />
+    </Style>
+
+</ResourceDictionary>
