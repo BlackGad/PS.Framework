@@ -14,13 +14,19 @@ namespace PS.Shell.Module.Ribbon.ViewModels
 
         public RibbonViewModel()
         {
-            Title = "Ribbon";
-            Group = "Controls";
+            Title = "XAML usage";
+            Group = "Ribbon";
             SomeCommand = new RelayUICommand();
         }
 
         #endregion
+
+        #region Properties
+
         public IUICommand SomeCommand { get; }
+
+        #endregion
+
         #region IControlViewModel Members
 
         public string Group { get; }

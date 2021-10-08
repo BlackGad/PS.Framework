@@ -10,7 +10,7 @@
         <resources:SharedResourceDictionary Source="/PS.WPF;component/Styles/Common.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <ControlTemplate x:Key="{x:Static styles:Button.ButtonTemplate}" TargetType="Button">
+    <ControlTemplate x:Key="{x:Static styles:ToggleButton.ToggleButtonTemplate}" TargetType="ToggleButton">
         <Border Name="PART_Border"
                 Background="{TemplateBinding Background}"
                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -35,7 +35,6 @@
                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                   Content="{TemplateBinding Content}"
                                   ContentTemplate="{TemplateBinding ContentTemplate}" />
-
                 <Rectangle Name="PART_FocusRectangle"
                            Margin="1"
                            Opacity="0.5"
@@ -44,6 +43,7 @@
                            StrokeThickness="1"
                            Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsFocused, Converter={x:Static valueConverters:BooleanConverters.ToVisibility}}" />
             </Grid>
+
         </Border>
         <ControlTemplate.Triggers>
             <MultiTrigger>
@@ -53,21 +53,34 @@
                 </MultiTrigger.Conditions>
                 <Setter TargetName="PART_Border" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}" />
             </MultiTrigger>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="PART_Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background, Converter={x:Static valueConverters:ColorConverters.Tint}, ConverterParameter={markup:Double 0.2}}" />
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="PART_Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background, Converter={x:Static valueConverters:ColorConverters.Shade}, ConverterParameter={markup:Double 0.3}}" />
             </Trigger>
-            <Trigger Property="IsPressed" Value="True">
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True" />
+                    <Condition Property="IsChecked" Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="PART_Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background, Converter={x:Static valueConverters:ColorConverters.Tint}, ConverterParameter={markup:Double 0.2}}" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True" />
+                    <Condition Property="IsChecked" Value="True" />
+                </MultiTrigger.Conditions>
                 <Setter TargetName="PART_Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background, Converter={x:Static valueConverters:ColorConverters.Shade}, ConverterParameter={markup:Double 0.2}}" />
+            </MultiTrigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter TargetName="PART_Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background, Converter={x:Static valueConverters:ColorConverters.Shade}, ConverterParameter={markup:Double 0.4}}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="PART_Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background, Converter={x:Static valueConverters:ColorConverters.Tint}, ConverterParameter={markup:Double 0.95}}" />
                 <Setter TargetName="PART_ContentPresenter" Property="Opacity" Value="0.5" />
             </Trigger>
         </ControlTemplate.Triggers>
-
     </ControlTemplate>
 
-    <Style x:Key="{x:Static styles:Button.ButtonStyle}" TargetType="Button">
+    <Style x:Key="{x:Static styles:ToggleButton.ToggleButtonStyle}" TargetType="ToggleButton">
         <Setter Property="Background" Value="{x:Static theme:ThemeBrushes.Accent}" />
         <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.Basic}" />
         <Setter Property="BorderThickness" Value="1" />
@@ -78,7 +91,7 @@
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Padding" Value="4,2" />
         <Setter Property="SnapsToDevicePixels" Value="true" />
-        <Setter Property="Template" Value="{StaticResource {x:Static styles:Button.ButtonTemplate}}" />
+        <Setter Property="Template" Value="{StaticResource {x:Static styles:ToggleButton.ToggleButtonTemplate}}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
     </Style>
 

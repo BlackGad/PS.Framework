@@ -158,7 +158,7 @@
                 </Setter>
                 <Setter TargetName="PART_MenuButton" Property="ControlSizeDefinition">
                     <Setter.Value>
-                        <RibbonControlSizeDefinition ImageSize="Collapsed" IsLabelVisible="{Binding RelativeSource={RelativeSource AncestorType=RibbonSplitButton}, Path=ControlSizeDefinition.IsLabelVisible}" />
+                        <RibbonControlSizeDefinition ImageSize="Collapsed" IsLabelVisible="True" />
                     </Setter.Value>
                 </Setter>
                 <Setter TargetName="PART_MenuButton" Property="Grid.Column" Value="1" />
