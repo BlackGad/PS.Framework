@@ -42,7 +42,7 @@
                            Stroke="{Binding ElementName=PART_Border, Path=(TextElement.Foreground)}"
                            StrokeDashArray="4 2"
                            StrokeThickness="1"
-                           Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsFocused, Converter={x:Static valueConverters:BooleanConverters.ToVisibility}}" />
+                           Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsKeyboardFocused, Converter={x:Static valueConverters:BooleanConverters.ToVisibility}}" />
             </Grid>
         </Border>
         <ControlTemplate.Triggers>

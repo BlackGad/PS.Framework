@@ -16,6 +16,12 @@
                 <ResourceDictionary Source="/PS.WPF;component/Styles/Button.Apply.xaml" />
                 <ResourceDictionary Source="/PS.WPF;component/Styles/ToggleButton.Apply.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="MenuItem">
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+
         </ResourceDictionary>
     </Grid.Resources>
 
@@ -23,62 +29,136 @@
         <ColumnDefinition />
         <ColumnDefinition />
     </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+        <RowDefinition Height="300" />
+    </Grid.RowDefinitions>
 
-    <Grid VerticalAlignment="Center" Column="0">
+    <Grid Grid.Row="0"
+          VerticalAlignment="Center"
+          Column="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0"
+        <TextBlock Grid.Row="1"
                    Grid.Column="0"
-                   Text="Button"
+                   VerticalAlignment="Center"
+                   Text="Direct usage"
                    TextAlignment="Center" />
-        <Button Grid.Row="1"
-                Grid.Column="0"
-                Margin="10"
-                Content="{Binding ElementName=ValueControl, Path=Text}"
-                IsEnabled="{Binding ElementName=IsEnabledControl, Path=IsChecked}" />
+        <TextBlock Grid.Row="2"
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   Text="MVVM usage"
+                   TextAlignment="Center" />
         <TextBlock Grid.Row="0"
                    Grid.Column="1"
-                   Text="ToggleButton"
+                   Text="Button"
                    TextAlignment="Center" />
-        <ToggleButton Grid.Row="1"
-                      Grid.Column="1"
-                      Margin="10"
-                      Content="{Binding ElementName=ValueControl, Path=Text}"
-                      IsEnabled="{Binding ElementName=IsEnabledControl, Path=IsChecked}" />
+
+        <Button Grid.Row="1"
+                Grid.Column="1"
+                Margin="10"
+                Click="Button_OnClick"
+                Content="{Binding ElementName=ValueControl, Path=Text}"
+                IsEnabled="{Binding ElementName=IsEnabledControl, Path=IsChecked}" />
+
+        <Button Grid.Row="2"
+                Grid.Column="1"
+                Margin="10"
+                Command="{Binding ButtonAction}"
+                Content="{Binding ElementName=ValueControl, Path=Text}"
+                IsEnabled="{Binding ElementName=IsEnabledControl, Path=IsChecked}" />
+
         <TextBlock Grid.Row="0"
                    Grid.Column="2"
-                   Text="SplitButton"
+                   Text="ToggleButton"
                    TextAlignment="Center" />
-        <ps:SplitButton Grid.Row="1"
-                        Grid.Column="2"
-                        Margin="10"
-                        Header="{Binding ElementName=ValueControl, Path=Text}"
-                        IsEnabled="{Binding ElementName=IsEnabledControl, Path=IsChecked}">
+
+        <ToggleButton Grid.Row="1"
+                      Grid.Column="2"
+                      Margin="10"
+                      Checked="ToggleButton_OnChecked"
+                      Content="{Binding ElementName=ValueControl, Path=Text}"
+                      IsEnabled="{Binding ElementName=IsEnabledControl, Path=IsChecked}"
+                      Unchecked="ToggleButton_OnUnchecked" />
+
+        <ToggleButton Grid.Row="2"
+                      Grid.Column="2"
+                      Margin="10"
+                      Command="{Binding ToggleButtonAction}"
+                      CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}"
+                      Content="{Binding ElementName=ValueControl, Path=Text}"
+                      IsEnabled="{Binding ElementName=IsEnabledControl, Path=IsChecked}" />
+
+        <TextBlock Grid.Row="0"
+                   Grid.Column="3"
+                   Text="SplitMenuButton"
+                   TextAlignment="Center" />
+        <ps:SplitMenuButton Grid.Row="1"
+                            Grid.Column="3"
+                            Margin="10"
+                            Checked="SplitButton_OnChecked"
+                            Click="SplitButton_OnClick"
+                            Header="{Binding ElementName=ValueControl, Path=Text}"
+                            IsEnabled="{Binding ElementName=IsEnabledControl, Path=IsChecked}"
+                            Unchecked="SplitButton_OnUnchecked">
             <MenuItem Header="Item 1" />
+            <MenuItem Header="Item X" />
             <MenuItem Header="Item 2">
                 <MenuItem Header="Item 3" />
                 <MenuItem Header="Item 4" />
                 <MenuItem Header="Item 5" />
             </MenuItem>
-        </ps:SplitButton>
+        </ps:SplitMenuButton>
+
+        <ps:SplitMenuButton Grid.Row="2"
+                            Grid.Column="3"
+                            Margin="10"
+                            Command="{Binding SplitButtonAction}"
+                            Header="{Binding ElementName=ValueControl, Path=Text}"
+                            IsEnabled="{Binding ElementName=IsEnabledControl, Path=IsChecked}"
+                            ItemsSource="{Binding SplitMenuButtonCommands}">
+            <ps:SplitMenuButton.MenuItemTemplate>
+                <DataTemplate DataType="{x:Type ps:IUICommand}">
+                    <TextBlock Text="{Binding Title}" />
+                </DataTemplate>
+            </ps:SplitMenuButton.MenuItemTemplate>
+        </ps:SplitMenuButton>
+
     </Grid>
-    <StackPanel Grid.Column="1" Orientation="Vertical">
-        <ps:KeyValueContentControl Header="Value">
-            <TextBox x:Name="ValueControl"
-                     VerticalAlignment="Center"
-                     Text="Content" />
-        </ps:KeyValueContentControl>
-        <ps:KeyValueContentControl Header="IsEnabled">
-            <CheckBox x:Name="IsEnabledControl"
-                      VerticalAlignment="Center"
-                      IsChecked="True" />
-        </ps:KeyValueContentControl>
-    </StackPanel>
+    <Border Grid.Row="0"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            BorderBrush="{x:Static ps:ThemeBrushes.Basic}"
+            BorderThickness="1,0,0,0">
+        <StackPanel>
+            <ps:KeyValueContentControl Header="Value">
+                <TextBox x:Name="ValueControl"
+                         VerticalAlignment="Center"
+                         Text="Content" />
+            </ps:KeyValueContentControl>
+            <ps:KeyValueContentControl Header="IsEnabled">
+                <CheckBox x:Name="IsEnabledControl"
+                          VerticalAlignment="Center"
+                          IsChecked="True" />
+            </ps:KeyValueContentControl>
+        </StackPanel>
+    </Border>
+    <Border Grid.Row="1"
+            Grid.Column="0"
+            BorderBrush="{x:Static ps:ThemeBrushes.Basic}"
+            BorderThickness="0,1,0,0">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Log}" />
+        </ScrollViewer>
+    </Border>
+
 </Grid>

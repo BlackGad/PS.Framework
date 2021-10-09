@@ -25,7 +25,7 @@ namespace PS.WPF.Controls.Ribbon.Controls
 
         protected override void OnDismissPopup(RibbonDismissPopupEventArgs e)
         {
-            if (this.IsVisualParentOf(e.OriginalSource as DependencyObject))
+            if (this.HasVisualParent(e.OriginalSource as DependencyObject))
             {
                 e.Handled = true;
                 return;

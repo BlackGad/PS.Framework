@@ -256,10 +256,10 @@ namespace PS.WPF.Controls
 
                 if (e.NewFocus is DependencyObject newFocusElement && newFocusElement.AreDiffers(this))
                 {
-                    if (this.IsVisualParentOf(newFocusElement)) return;
+                    if (this.HasVisualParent(newFocusElement)) return;
 
                     var parentPopup = newFocusElement.FindVisualParentOf<System.Windows.Controls.Primitives.Popup>();
-                    if (parentPopup != null && this.IsVisualParentOf(parentPopup.PlacementTarget)) return;
+                    if (parentPopup != null && this.HasVisualParent(parentPopup.PlacementTarget)) return;
 
                     if (RequireConfirmationOnFocusLost)
                     {
@@ -350,7 +350,7 @@ namespace PS.WPF.Controls
             var newObject = (UIElement)e.NewFocus;
             if (!ReferenceEquals(newObject, this)) return;
 
-            if (oldObject == null || !this.IsVisualParentOf(oldObject))
+            if (oldObject == null || !this.HasVisualParent(oldObject))
             {
                 Dispatcher.Postpone(BeginEdit);
             }
