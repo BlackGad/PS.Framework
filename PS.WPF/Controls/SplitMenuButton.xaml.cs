@@ -298,12 +298,6 @@ namespace PS.WPF.Controls
             if (GetTemplateChild("PART_Button") is Button button)
             {
                 _actionButton = button;
-                _actionButton.SetBinding(ButtonBase.CommandProperty,
-                                         new Binding
-                                         {
-                                             Path = new PropertyPath(ButtonBase.CommandProperty),
-                                             Source = this
-                                         });
             }
 
             if (GetTemplateChild("PART_ToggleButton") is ToggleButton toggleButton)
