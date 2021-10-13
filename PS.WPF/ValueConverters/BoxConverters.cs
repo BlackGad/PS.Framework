@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Windows;
 using PS.Extensions;
 
 namespace PS.WPF.ValueConverters
@@ -15,6 +16,7 @@ namespace PS.WPF.ValueConverters
         public static readonly RelayValueConverter Int32ToString;
         public static readonly RelayValueConverter StringToDecimal;
         public static readonly RelayValueConverter StringToInt32;
+        public static readonly RelayValueConverter DoubleToGridLength;
 
         #endregion
 
@@ -93,6 +95,10 @@ namespace PS.WPF.ValueConverters
             DecimalToString = new RelayValueConverter(
                 (value, targetType, parameter, culture) => Convert<Decimal, String>(value, IsNullable(targetType), culture),
                 (value, targetType, parameter, culture) => Convert<String, Decimal>(value, IsNullable(targetType), culture));
+            
+            DoubleToGridLength = new RelayValueConverter(
+                (value, targetType, parameter, culture) => value is double d ? new GridLength(d) : GridLength.Auto,
+                (value, targetType, parameter, culture) => value is GridLength gridLength ? gridLength.Value : 0d);
         }
 
         #endregion

@@ -157,7 +157,7 @@
                                       ContentTemplate="{TemplateBinding TitleTemplate}"
                                       IsHitTestVisible="False">
                         <TextElement.Foreground>
-                            <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.Marker}">
+                            <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.MainForeground}">
                                 <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="CaptionForeground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                                 <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Foreground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                             </PriorityBinding>

@@ -64,7 +64,7 @@
     </Grid.ColumnDefinitions>
     <ListBox Grid.Column="0"
              Margin="0,0,5,0"
-             BorderBrush="{x:Static ps:ThemeBrushes.Basic}"
+             BorderBrush="{x:Static ps:ThemeBrushes.MainBorder}"
              BorderThickness="1"
              ItemTemplate="{StaticResource ItemTemplate}"
              SelectedItem="{Binding Path=Content, Mode=TwoWay}">
@@ -87,7 +87,7 @@
         </ItemsControl.ItemsSource>
     </ListBox>
     <Border Grid.Column="1"
-            BorderBrush="{x:Static ps:ThemeBrushes.Basic}"
+            BorderBrush="{x:Static ps:ThemeBrushes.MainBorder}"
             BorderThickness="1">
         <ContentControl ContentTemplateSelector="{mvvm:TemplateResolver}" Content="{Binding Content}" />
     </Border>

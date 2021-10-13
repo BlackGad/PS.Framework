@@ -11,7 +11,7 @@
     <Geometry x:Key="ResetButtonGeometry">M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z</Geometry>
 
     <Style x:Key="{x:Static local:TextBox+Resource.SideButtonStyle}" TargetType="local:IconicButton">
-        <Setter Property="Background" Value="{x:Static theme:ThemeBrushes.Marker}" />
+        <Setter Property="Background" Value="{x:Static theme:ThemeBrushes.MainForeground}" />
         <Setter Property="Height" Value="16" />
         <Setter Property="IconHeight" Value="12" />
         <Setter Property="IconWidth" Value="12" />
@@ -173,12 +173,12 @@
 
     <Style x:Key="{x:Static local:TextBox+Resource.ControlStyle}" TargetType="local:TextBox">
         <Setter Property="Background" Value="{x:Static theme:ThemeBrushes.Main}" />
-        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.Basic}" />
+        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.MainBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="FontFamily" Value="{x:Static theme:ThemeFonts.FontFamily}" />
         <Setter Property="FontSize" Value="{x:Static theme:ThemeFonts.FontSize}" />
-        <Setter Property="Foreground" Value="{x:Static theme:ThemeBrushes.Marker}" />
+        <Setter Property="Foreground" Value="{x:Static theme:ThemeBrushes.MainForeground}" />
         <Setter Property="Margin" Value="2" />
         <Setter Property="MinHeight" Value="16" />
         <Setter Property="Padding" Value="3,3,1,3" />

@@ -95,11 +95,11 @@
 
     <Style x:Key="{x:Static local:DecimalTextBox+Resource.ControlStyle}" TargetType="local:DecimalTextBox">
         <Setter Property="Background" Value="{x:Static theme:ThemeBrushes.Main}" />
-        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.Basic}" />
+        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.MainBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="FontFamily" Value="{x:Static theme:ThemeFonts.FontFamily}" />
         <Setter Property="FontSize" Value="{x:Static theme:ThemeFonts.FontSize}" />
-        <Setter Property="Foreground" Value="{x:Static theme:ThemeBrushes.Marker}" />
+        <Setter Property="Foreground" Value="{x:Static theme:ThemeBrushes.MainForeground}" />
         <Setter Property="Margin" Value="2" />
         <Setter Property="MinHeight" Value="16" />
         <Setter Property="Padding" Value="2" />

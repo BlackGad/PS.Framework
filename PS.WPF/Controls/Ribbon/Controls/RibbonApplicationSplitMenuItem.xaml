@@ -99,7 +99,7 @@
                 BorderThickness="0"
                 SnapsToDevicePixels="True">
             <Border.BorderBrush>
-                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.Basic}">
+                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.MainBorder}">
                     <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                     <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>

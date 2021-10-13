@@ -33,12 +33,6 @@ namespace PS.WPF.Components
                                                 typeof(StoreBrush),
                                                 new PropertyMetadata(default(Brush)));
 
-        public static readonly DependencyProperty FocusedBorderProperty =
-            DependencyProperty.RegisterAttached("FocusedBorder",
-                                                typeof(Brush),
-                                                typeof(StoreBrush),
-                                                new PropertyMetadata(default(Brush)));
-
         public static readonly DependencyProperty FocusedProperty =
             DependencyProperty.RegisterAttached("Focused",
                                                 typeof(Brush),
@@ -122,11 +116,6 @@ namespace PS.WPF.Components
             return (Brush)element.GetValue(FocusedProperty);
         }
 
-        public static Brush GetFocusedBorder(DependencyObject element)
-        {
-            return (Brush)element.GetValue(FocusedBorderProperty);
-        }
-
         public static Brush GetForeground(DependencyObject element)
         {
             return (Brush)element.GetValue(ForegroundProperty);
@@ -190,11 +179,6 @@ namespace PS.WPF.Components
         public static void SetFocused(DependencyObject element, Brush value)
         {
             element.SetValue(FocusedProperty, value);
-        }
-
-        public static void SetFocusedBorder(DependencyObject element, Brush value)
-        {
-            element.SetValue(FocusedBorderProperty, value);
         }
 
         public static void SetForeground(DependencyObject element, Brush value)

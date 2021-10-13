@@ -6,7 +6,7 @@
                     xmlns:shell="clr-namespace:PS.Shell">
 
     <Style x:Key="{x:Static shell:XamlResources.ShellWindowStyle}" TargetType="ps:ChromelessWindow">
-        <Setter Property="BorderBrush" Value="{x:Static ps:ThemeBrushes.Basic}" />
+        <Setter Property="BorderBrush" Value="{x:Static ps:ThemeBrushes.MainBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="HeaderBackground" Value="{x:Static ps:ThemeBrushes.Accent}" />
         <Setter Property="LinkHeaderAndContentAreas" Value="False" />

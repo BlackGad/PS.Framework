@@ -31,20 +31,20 @@
                 </PriorityBinding>
             </components:StoreBrush.Selected>
             <components:StoreBrush.BorderBrush>
-                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.Basic}">
+                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.MainBorder}">
                     <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                     <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.BorderBrush>
             <components:StoreBrush.Foreground>
-                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.Marker}">
+                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.MainForeground}">
                     <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Foreground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                     <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.(controls:Ribbon.TabHeaderForeground)" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                     <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Foreground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.Foreground>
             <components:StoreBrush.SelectedForeground>
-                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.Marker}">
+                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.MainForeground}">
                     <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Foreground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                     <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.(controls:Ribbon.SelectedTabHeaderForeground)" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                     <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Foreground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />

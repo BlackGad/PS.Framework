@@ -1,21 +1,18 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:cases1="clr-namespace:PS.WPF.ValueConverters.SwitchValueConverter.Cases"
+                    xmlns:cases="clr-namespace:PS.WPF.ValueConverters.SwitchValueConverter.Cases"
                     xmlns:local="clr-namespace:PS.WPF.Controls"
-                    xmlns:markup1="clr-namespace:PS.WPF.Markup"
-                    xmlns:switchValueConverter1="clr-namespace:PS.WPF.ValueConverters.SwitchValueConverter"
-                    xmlns:theme1="clr-namespace:PS.WPF.Theme"
-                    xmlns:valueConverters1="clr-namespace:PS.WPF.ValueConverters"
-                    xmlns:styles="clr-namespace:PS.WPF.Styles">
+                    xmlns:markup="clr-namespace:PS.WPF.Markup"
+                    xmlns:styles="clr-namespace:PS.WPF.Styles"
+                    xmlns:switchValueConverter="clr-namespace:PS.WPF.ValueConverters.SwitchValueConverter"
+                    xmlns:theme="clr-namespace:PS.WPF.Theme">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/PS.WPF;component/Styles/Common.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <valueConverters1:DoubleToGridLengthConverter x:Key="SpacingGridColumnLengthConverter" />
-
-    <switchValueConverter1:SwitchValueConverter x:Key="ContentVisibilityConverter" ConvertDefault="{markup1:Visibility Visible}">
-        <cases1:EqualTo Result="{markup1:Visibility Collapsed}" Value="{x:Null}" />
-    </switchValueConverter1:SwitchValueConverter>
+    <switchValueConverter:SwitchValueConverter x:Key="ContentVisibilityConverter" ConvertDefault="{markup:Visibility Visible}">
+        <cases:EqualTo Result="{markup:Visibility Collapsed}" Value="{x:Null}" />
+    </switchValueConverter:SwitchValueConverter>
 
     <ControlTemplate x:Key="{x:Static local:IconicButton+Resource.ControlTemplate}" TargetType="local:IconicButton">
         <Border Name="PART_Layout"
@@ -119,7 +116,7 @@
     </ControlTemplate>
 
     <Style x:Key="{x:Static local:IconicButton+Resource.ControlStyle}" TargetType="local:IconicButton">
-        <Setter Property="Background" Value="{x:Static theme1:ThemeBrushes.Marker}" />
+        <Setter Property="Background" Value="{x:Static theme:ThemeBrushes.MainForeground}" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />

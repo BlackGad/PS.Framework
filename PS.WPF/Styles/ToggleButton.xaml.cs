@@ -11,17 +11,8 @@ namespace PS.WPF.Styles
 
         public static readonly Uri DictionaryLocation = new Uri("/PS.WPF;component/Styles/ToggleButton.xaml", UriKind.RelativeOrAbsolute);
 
-        public static readonly ResourceDescriptor ToggleButtonStyle =
-            ResourceDescriptor.Create<Style>(
-                description: "ToggleButton style",
-                resourceDictionary: DictionaryLocation
-            );
-
-        public static readonly ResourceDescriptor ToggleButtonTemplate =
-            ResourceDescriptor.Create<ControlTemplate>(
-                description: "ToggleButton template",
-                resourceDictionary: DictionaryLocation
-            );
+        public static readonly ResourceDescriptor ToggleButtonStyle = ResourceDescriptor.Create<Style>(DictionaryLocation);
+        public static readonly ResourceDescriptor ToggleButtonTemplate = ResourceDescriptor.Create<ControlTemplate>(DictionaryLocation);
 
         #endregion
     }

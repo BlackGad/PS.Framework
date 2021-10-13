@@ -35,7 +35,7 @@ namespace PS.WPF.ValueConverters
                         {
                             Drawing = new GeometryDrawing
                             {
-                                Brush = new SolidColorBrush(ThemeColors.Marker),
+                                Brush = new SolidColorBrush(ThemeColors.MainForeground),
                                 Geometry = geometry
                             }
                         };

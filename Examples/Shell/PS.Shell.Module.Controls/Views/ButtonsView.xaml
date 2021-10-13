@@ -137,7 +137,7 @@
     <Border Grid.Row="0"
             Grid.RowSpan="2"
             Grid.Column="1"
-            BorderBrush="{x:Static ps:ThemeBrushes.Basic}"
+            BorderBrush="{x:Static ps:ThemeBrushes.MainBorder}"
             BorderThickness="1,0,0,0">
         <StackPanel>
             <ps:KeyValueContentControl Header="Value">
@@ -154,7 +154,7 @@
     </Border>
     <Border Grid.Row="1"
             Grid.Column="0"
-            BorderBrush="{x:Static ps:ThemeBrushes.Basic}"
+            BorderBrush="{x:Static ps:ThemeBrushes.MainBorder}"
             BorderThickness="0,1,0,0">
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding Log}" />

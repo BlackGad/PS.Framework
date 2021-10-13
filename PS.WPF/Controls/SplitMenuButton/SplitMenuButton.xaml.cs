@@ -23,7 +23,63 @@ namespace PS.WPF.Controls
     {
         #region Property definitions
 
-        
+        private static readonly DependencyPropertyKey HasHeaderPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(HasHeader),
+                                                typeof(bool),
+                                                typeof(SplitMenuButton),
+                                                new FrameworkPropertyMetadata(default(bool)));
+
+        private static readonly DependencyPropertyKey HasItemsPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(HasItems),
+                                                typeof(bool),
+                                                typeof(SplitMenuButton),
+                                                new FrameworkPropertyMetadata(default(bool)));
+
+        public static readonly DependencyProperty CommandParameterProperty =
+            DependencyProperty.Register(nameof(CommandParameter),
+                                        typeof(object),
+                                        typeof(SplitMenuButton),
+                                        new FrameworkPropertyMetadata(default(object)));
+
+        public static readonly DependencyProperty CommandProperty =
+            DependencyProperty.Register(nameof(Command),
+                                        typeof(ICommand),
+                                        typeof(SplitMenuButton),
+                                        new FrameworkPropertyMetadata(default(ICommand)));
+
+        public static readonly DependencyProperty CommandTargetProperty =
+            DependencyProperty.Register(nameof(CommandTarget),
+                                        typeof(IInputElement),
+                                        typeof(SplitMenuButton),
+                                        new FrameworkPropertyMetadata(default(IInputElement)));
+
+        public static readonly DependencyProperty HasHeaderProperty = HasHeaderPropertyKey.DependencyProperty;
+
+        public static readonly DependencyProperty HasItemsProperty = HasItemsPropertyKey.DependencyProperty;
+
+        public static readonly DependencyProperty HeaderProperty =
+            DependencyProperty.Register(nameof(Header),
+                                        typeof(object),
+                                        typeof(SplitMenuButton),
+                                        new FrameworkPropertyMetadata(OnHeaderChanged));
+
+        public static readonly DependencyProperty HeaderStringFormatProperty =
+            DependencyProperty.Register(nameof(HeaderStringFormat),
+                                        typeof(string),
+                                        typeof(SplitMenuButton),
+                                        new FrameworkPropertyMetadata(default(string)));
+
+        public static readonly DependencyProperty HeaderTemplateProperty =
+            DependencyProperty.Register(nameof(HeaderTemplate),
+                                        typeof(System.Windows.DataTemplate),
+                                        typeof(SplitMenuButton),
+                                        new FrameworkPropertyMetadata(default(System.Windows.DataTemplate)));
+
+        public static readonly DependencyProperty HeaderTemplateSelectorProperty =
+            DependencyProperty.Register(nameof(HeaderTemplateSelector),
+                                        typeof(System.Windows.Controls.DataTemplateSelector),
+                                        typeof(SplitMenuButton),
+                                        new FrameworkPropertyMetadata(default(System.Windows.Controls.DataTemplateSelector)));
 
         public static readonly DependencyProperty IsMenuOpenedProperty =
             DependencyProperty.Register(nameof(IsMenuOpened),
@@ -72,64 +128,6 @@ namespace PS.WPF.Controls
                                         typeof(Style),
                                         typeof(SplitMenuButton),
                                         new FrameworkPropertyMetadata(default(Style)));
-
-        private static readonly DependencyPropertyKey HasItemsPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(HasItems),
-                                                typeof(bool),
-                                                typeof(SplitMenuButton),
-                                                new FrameworkPropertyMetadata(default(bool)));
-
-        public static readonly DependencyProperty HasItemsProperty = HasItemsPropertyKey.DependencyProperty;
-
-        public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register(nameof(Header),
-                                        typeof(object),
-                                        typeof(SplitMenuButton),
-                                        new FrameworkPropertyMetadata(OnHeaderChanged));
-
-        public static readonly DependencyProperty CommandParameterProperty =
-            DependencyProperty.Register(nameof(CommandParameter),
-                                        typeof(object),
-                                        typeof(SplitMenuButton),
-                                        new FrameworkPropertyMetadata(default(object)));
-
-        public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.Register(nameof(Command),
-                                        typeof(ICommand),
-                                        typeof(SplitMenuButton),
-                                        new FrameworkPropertyMetadata(default(ICommand)));
-
-        public static readonly DependencyProperty CommandTargetProperty =
-            DependencyProperty.Register(nameof(CommandTarget),
-                                        typeof(IInputElement),
-                                        typeof(SplitMenuButton),
-                                        new FrameworkPropertyMetadata(default(IInputElement)));
-
-        private static readonly DependencyPropertyKey HasHeaderPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(HasHeader),
-                                                typeof(bool),
-                                                typeof(SplitMenuButton),
-                                                new FrameworkPropertyMetadata(default(bool)));
-
-        public static readonly DependencyProperty HasHeaderProperty = HasHeaderPropertyKey.DependencyProperty;
-
-        public static readonly DependencyProperty HeaderStringFormatProperty =
-            DependencyProperty.Register(nameof(HeaderStringFormat),
-                                        typeof(string),
-                                        typeof(SplitMenuButton),
-                                        new FrameworkPropertyMetadata(default(string)));
-
-        public static readonly DependencyProperty HeaderTemplateProperty =
-            DependencyProperty.Register(nameof(HeaderTemplate),
-                                        typeof(System.Windows.DataTemplate),
-                                        typeof(SplitMenuButton),
-                                        new FrameworkPropertyMetadata(default(System.Windows.DataTemplate)));
-
-        public static readonly DependencyProperty HeaderTemplateSelectorProperty =
-            DependencyProperty.Register(nameof(HeaderTemplateSelector),
-                                        typeof(System.Windows.Controls.DataTemplateSelector),
-                                        typeof(SplitMenuButton),
-                                        new FrameworkPropertyMetadata(default(System.Windows.Controls.DataTemplateSelector)));
 
         #endregion
 
@@ -366,7 +364,7 @@ namespace PS.WPF.Controls
             }
             else
             {
-                UpdateHasItems();    
+                UpdateHasItems();
             }
         }
 
@@ -411,7 +409,7 @@ namespace PS.WPF.Controls
         {
             #region Constants
 
-            private static readonly Uri Default = new Uri("/PS.WPF;component/Controls/SplitMenuButton.xaml", UriKind.RelativeOrAbsolute);
+            private static readonly Uri Default = new Uri("/PS.WPF;component/Controls/SplitMenuButton/SplitMenuButton.xaml", UriKind.RelativeOrAbsolute);
             public static readonly ResourceDescriptor ControlStyle = ResourceDescriptor.Create<Style>(Default);
             public static readonly ResourceDescriptor ControlTemplate = ResourceDescriptor.Create<ControlTemplate>(Default);
 

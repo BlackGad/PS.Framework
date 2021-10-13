@@ -19,7 +19,7 @@
                   HorizontalAlignment="Center"
                   VerticalAlignment="Center"
                   Data="M 0,0 V6 L 4,3 Z"
-                  Fill="{x:Static theme:ThemeBrushes.Marker}"
+                  Fill="{x:Static theme:ThemeBrushes.MainForeground}"
                   SnapsToDevicePixels="True"
                   Stretch="Uniform" />
             <ContentPresenter Grid.Column="1" />
@@ -63,7 +63,7 @@
 
     <Style x:Key="{x:Static controls:GroupExpander+Resource.ControlStyle}" TargetType="controls:GroupExpander">
         <Setter Property="Background" Value="{x:Static theme:ThemeBrushes.Main}" />
-        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.Basic}" />
+        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.MainBorder}" />
         <Setter Property="HeaderPadding" Value="2" />
         <Setter Property="IsExpanded" Value="True" />
         <Setter Property="IsTabStop" Value="False" />
