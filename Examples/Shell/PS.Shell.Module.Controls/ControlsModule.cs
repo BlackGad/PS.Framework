@@ -36,6 +36,7 @@ namespace PS.Shell.Module.Controls
             service.Controls.Add(scope.Resolve<DecimalTextBoxViewModel>());
             service.Controls.Add(scope.Resolve<CancelableProcessCommandViewModel>());
             service.Controls.Add(scope.Resolve<ButtonsViewModel>());
+            service.Controls.Add(scope.Resolve<BusyContainerViewModel>());
         }
 
         private void ViewResolverServiceActivation(ILifetimeScope scope, IViewResolverService service)
@@ -43,6 +44,7 @@ namespace PS.Shell.Module.Controls
             service.AssociateTemplate<TextBoxViewModel>(scope.Resolve<IDataTemplate<TextBoxView>>())
                    .AssociateTemplate<DecimalTextBoxViewModel>(scope.Resolve<IDataTemplate<DecimalTextBoxView>>())
                    .AssociateTemplate<ButtonsViewModel>(scope.Resolve<IDataTemplate<ButtonsViewView>>())
+                   .AssociateTemplate<BusyContainerViewModel>(scope.Resolve<IDataTemplate<BusyContainerView>>())
                    .AssociateTemplate<CancelableProcessCommandViewModel>(scope.Resolve<IDataTemplate<CancelableProcessCommandView>>());
         }
 

@@ -1,0 +1,102 @@
+﻿<Grid x:Class="PS.Shell.Module.Controls.Views.BusyContainerView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:busyContainer="clr-namespace:PS.WPF.Controls.BusyContainer;assembly=PS.WPF"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:m="http://schemas.ps.com/2019/xaml/markup"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ps="http://schemas.ps.com/2019/xaml"
+      xmlns:switch="http://schemas.ps.com/2019/xaml/switchvalueconverter"
+      xmlns:viewModels="clr-namespace:PS.Shell.Module.Controls.ViewModels"
+      xmlns:views="clr-namespace:PS.Shell.Module.Controls.Views"
+      Margin="5"
+      d:DataContext="{d:DesignInstance viewModels:BusyContainerViewModel}"
+      ps:KeyValueContentControl.KeyColumnWidth="150"
+      Focusable="False"
+      mc:Ignorable="d">
+
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+        <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+
+    <busyContainer:BusyContainer x:Name="Control"
+                                 Grid.Column="0"
+                                 Margin="20">
+        <Button Height="50" />
+    </busyContainer:BusyContainer>
+
+
+    <StackPanel Grid.Column="1">
+
+        <ps:GroupExpander Header="Behavior">
+            <StackPanel>
+                <ps:KeyValueContentControl Header="BusyBehavior">
+                    <ComboBox Height="25"
+                              VerticalAlignment="Center"
+                              ItemsSource="{Binding Source={x:Type busyContainer:BusyBehavior}, Converter={x:Static ps:TypeConverters.EnumValues}}"
+                              SelectedItem="{Binding ElementName=Control, Path=Behavior, Mode=TwoWay}" />
+                </ps:KeyValueContentControl>
+
+                <ps:KeyValueContentControl x:Name="ControlIsBusy" Header="Is busy">
+                    <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=IsBusy, Mode=TwoWay}" />
+                </ps:KeyValueContentControl>
+            </StackPanel>
+        </ps:GroupExpander>
+        <ps:GroupExpander Header="Busy state">
+            <StackPanel>
+                <ps:KeyValueContentControl Header="Type">
+                    <ComboBox x:Name="ControlPayloadType"
+                              Height="25"
+                              VerticalAlignment="Center"
+                              SelectedIndex="0"
+                              SelectionChanged="ControlPayloadType_OnSelectionChanged">
+                        <ComboBox.ItemsSource>
+                            <ps:ObjectCollection>
+                                <x:Static Member="NullPayload" MemberType="views:BusyContainerView" />
+                                <x:Static Member="StringPayload" MemberType="views:BusyContainerView" />
+                                <x:Static Member="BusyStatePayload" MemberType="views:BusyContainerView" />
+                            </ps:ObjectCollection>
+                        </ComboBox.ItemsSource>
+                    </ComboBox>
+                </ps:KeyValueContentControl>
+                <StackPanel x:Name="StackPayloadString" Visibility="Collapsed">
+                    <ps:KeyValueContentControl x:Name="OptionStringPayload" Header="String">
+                        <ps:TextBox x:Name="ControlStringPayload"
+                                    VerticalAlignment="Center"
+                                    IsSideButtonVisible="True" />
+                    </ps:KeyValueContentControl>
+                </StackPanel>
+                <StackPanel x:Name="StackPayloadBusyState" Visibility="Collapsed">
+                    <ps:KeyValueContentControl Header="Is BusyState assigned">
+                        <CheckBox x:Name="ControlIsBusyStateAssigned"
+                                  VerticalAlignment="Center"
+                                  Checked="ControlIsBusyStateAssigned_OnCheckedUnchecked"
+                                  Unchecked="ControlIsBusyStateAssigned_OnCheckedUnchecked" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="Title">
+                        <ps:TextBox VerticalAlignment="Center"
+                                    IsSideButtonVisible="True"
+                                    Value="{Binding Source={x:Static views:BusyContainerView.BusyState}, Path=Title}" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="Description">
+                        <ps:TextBox VerticalAlignment="Center"
+                                    IsSideButtonVisible="True"
+                                    Value="{Binding Source={x:Static views:BusyContainerView.BusyState}, Path=Description}" />
+                    </ps:KeyValueContentControl>
+                </StackPanel>
+            </StackPanel>
+        </ps:GroupExpander>
+
+
+        <ps:KeyValueContentControl Header="Description">
+            <!--<TextBox VerticalAlignment="Center" Text="{Binding Path=Command.Description, UpdateSourceTrigger=PropertyChanged}" />-->
+        </ps:KeyValueContentControl>
+        <ps:KeyValueContentControl Header="CanExecute">
+            <!--<CheckBox VerticalAlignment="Center" IsChecked="{Binding Path=CanExecute}" />-->
+        </ps:KeyValueContentControl>
+        <ps:KeyValueContentControl Header="Process">
+            <!--<Button Click="Execute_OnClick" Content="Click" />-->
+        </ps:KeyValueContentControl>
+    </StackPanel>
+</Grid>
