@@ -42,5 +42,13 @@ namespace PS.WPF.Controls.BusyContainer
         }
 
         #endregion
+
+        #region Members
+
+        public void Dispose()
+        {
+        }
+
+        #endregion
     }
 }

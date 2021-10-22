@@ -1,90 +1,90 @@
-﻿<Grid x:Class="PS.Shell.Module.Controls.Views.DecimalTextBoxView"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:ps="http://schemas.ps.com/2019/xaml"
-      xmlns:viewModels="clr-namespace:PS.Shell.Module.Controls.ViewModels"
-      Margin="5"
-      d:DataContext="{d:DesignInstance viewModels:DecimalTextBoxViewModel}"
-      ps:KeyValueContentControl.KeyColumnWidth="150"
-      Focusable="False"
-      mc:Ignorable="d">
-    <Grid.ColumnDefinitions>
-        <ColumnDefinition />
-        <ColumnDefinition />
-    </Grid.ColumnDefinitions>
-
-    <ps:DecimalTextBox x:Name="Control"
-                       Grid.Column="0"
-                       Margin="20"
-                       VerticalAlignment="Center"
-                       Value="42" />
-
-    <StackPanel Grid.Column="1" Orientation="Vertical">
-        <ps:KeyValueContentControl Header="Value">
-            <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=Value, Mode=TwoWay, Converter={x:Static ps:BoxConverters.DecimalToString}}" />
-        </ps:KeyValueContentControl>
-        <ps:KeyValueContentControl Header="Maximum">
-            <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=Maximum, Mode=TwoWay, Converter={x:Static ps:BoxConverters.DecimalToString}}" />
-        </ps:KeyValueContentControl>
-        <ps:KeyValueContentControl Header="Minimum">
-            <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=Minimum, Mode=TwoWay, Converter={x:Static ps:BoxConverters.DecimalToString}}" />
-        </ps:KeyValueContentControl>
-        <ps:KeyValueContentControl Header="SmallChange">
-            <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=SmallChange, Mode=TwoWay, Converter={x:Static ps:BoxConverters.DecimalToString}}" />
-        </ps:KeyValueContentControl>
-        <ps:KeyValueContentControl Header="LargeChange">
-            <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=LargeChange, Mode=TwoWay, Converter={x:Static ps:BoxConverters.DecimalToString}}" />
-        </ps:KeyValueContentControl>
-        <ps:KeyValueContentControl Header="DisplayText">
-            <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=DisplayText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        </ps:KeyValueContentControl>
-        <ps:KeyValueContentControl Header="EditableText">
-            <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=EditableText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        </ps:KeyValueContentControl>
-        <ps:KeyValueContentControl Header="Watermark">
-            <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=Watermark, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        </ps:KeyValueContentControl>
-        <ps:KeyValueContentControl Header="FormatString">
-            <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=FormatString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        </ps:KeyValueContentControl>
-        <ps:KeyValueContentControl Header="Precision">
-            <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=Precision, Mode=TwoWay, Converter={x:Static ps:BoxConverters.Int32ToString}}" />
-        </ps:KeyValueContentControl>
-        <ps:KeyValueContentControl Header="IsReadOnly">
-            <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=IsReadOnly}" />
-        </ps:KeyValueContentControl>
-        <ps:KeyValueContentControl Header="HandleArrowsAsTabs">
-            <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=HandleArrowsAsTabs}" />
-        </ps:KeyValueContentControl>
-        <ps:KeyValueContentControl Header="IsEditMode" IsEnabled="False">
-            <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=IsEditMode, Mode=OneWay}" />
-        </ps:KeyValueContentControl>
-        <ps:KeyValueContentControl Header="IsWatermarkAvailable" IsEnabled="False">
-            <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=IsWatermarkAvailable, Mode=OneWay}" />
-        </ps:KeyValueContentControl>
-        <ps:KeyValueContentControl Header="ManualEditMode">
-            <StackPanel Orientation="Horizontal">
-                <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=ManualEditMode}" />
-                <StackPanel IsEnabled="{Binding ElementName=Control, Path=ManualEditMode}" Orientation="Horizontal">
-                    <Button Width="70"
-                            Margin="2"
-                            Click="BeginEdit_OnClick"
-                            Content="Begin edit" />
-                    <Button Width="70"
-                            Margin="2"
-                            Click="EndEdit_OnClick"
-                            Content="End edit" />
-                    <Button Width="70"
-                            Margin="2"
-                            Click="CancelEdit_OnClick"
-                            Content="Cancel edit" />
+﻿<components:PageControl x:Class="PS.Shell.Module.Controls.Views.DecimalTextBoxView"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:components="clr-namespace:PS.Shell.Infrastructure.Components;assembly=PS.Shell.Infrastructure"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:ps="http://schemas.ps.com/2019/xaml"
+                        xmlns:viewModels="clr-namespace:PS.Shell.Module.Controls.ViewModels"
+                        d:DataContext="{d:DesignInstance viewModels:DecimalTextBoxViewModel}"
+                        Log="{Binding Log}"
+                        mc:Ignorable="d">
+    <components:PageControl.Editor>
+        <ps:DecimalTextBox x:Name="Control"
+                           
+                           VerticalAlignment="Center"
+                           Value="42" />
+    </components:PageControl.Editor>
+    <components:PageControl.Properties>
+        <StackPanel>
+            <ps:GroupExpander Header="Generic">
+                <StackPanel>
+                    <ps:KeyValueContentControl Header="Value">
+                        <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=Value, Mode=TwoWay, Converter={x:Static ps:BoxConverters.DecimalToString}}" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="Maximum">
+                        <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=Maximum, Mode=TwoWay, Converter={x:Static ps:BoxConverters.DecimalToString}}" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="Minimum">
+                        <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=Minimum, Mode=TwoWay, Converter={x:Static ps:BoxConverters.DecimalToString}}" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="SmallChange">
+                        <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=SmallChange, Mode=TwoWay, Converter={x:Static ps:BoxConverters.DecimalToString}}" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="LargeChange">
+                        <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=LargeChange, Mode=TwoWay, Converter={x:Static ps:BoxConverters.DecimalToString}}" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="DisplayText">
+                        <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=DisplayText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="EditableText">
+                        <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=EditableText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="Watermark">
+                        <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=Watermark, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="FormatString">
+                        <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=FormatString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="Precision">
+                        <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=Precision, Mode=TwoWay, Converter={x:Static ps:BoxConverters.Int32ToString}}" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="IsReadOnly">
+                        <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=IsReadOnly}" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="HandleArrowsAsTabs">
+                        <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=HandleArrowsAsTabs}" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="IsEditMode" IsEnabled="False">
+                        <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=IsEditMode, Mode=OneWay}" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="IsWatermarkAvailable" IsEnabled="False">
+                        <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=IsWatermarkAvailable, Mode=OneWay}" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="ManualEditMode">
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=ManualEditMode}" />
+                            <StackPanel IsEnabled="{Binding ElementName=Control, Path=ManualEditMode}" Orientation="Horizontal">
+                                <Button Width="70"
+                                        Margin="2"
+                                        Click="BeginEdit_OnClick"
+                                        Content="Begin edit" />
+                                <Button Width="70"
+                                        Margin="2"
+                                        Click="EndEdit_OnClick"
+                                        Content="End edit" />
+                                <Button Width="70"
+                                        Margin="2"
+                                        Click="CancelEdit_OnClick"
+                                        Content="Cancel edit" />
+                            </StackPanel>
+                        </StackPanel>
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="RequireConfirmationOnFocusLost">
+                        <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=RequireConfirmationOnFocusLost}" />
+                    </ps:KeyValueContentControl>
                 </StackPanel>
-            </StackPanel>
-        </ps:KeyValueContentControl>
-        <ps:KeyValueContentControl Header="RequireConfirmationOnFocusLost">
-            <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=RequireConfirmationOnFocusLost}" />
-        </ps:KeyValueContentControl>
-    </StackPanel>
-</Grid>
+            </ps:GroupExpander>
+        </StackPanel>
+    </components:PageControl.Properties>
+</components:PageControl>

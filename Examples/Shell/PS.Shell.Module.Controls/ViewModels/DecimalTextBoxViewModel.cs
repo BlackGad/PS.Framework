@@ -1,4 +1,5 @@
-﻿using PS.IoC.Attributes;
+﻿using System.Collections.ObjectModel;
+using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
 using PS.Shell.Infrastructure.Models.ControlsService;
 
@@ -15,7 +16,15 @@ namespace PS.Shell.Module.Controls.ViewModels
         {
             Title = "DecimalTextBox";
             Group = "Controls";
+
+            Log = new ObservableCollection<string>();
         }
+
+        #endregion
+
+        #region Properties
+
+        public ObservableCollection<string> Log { get; }
 
         #endregion
 

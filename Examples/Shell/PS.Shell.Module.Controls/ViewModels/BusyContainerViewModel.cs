@@ -1,7 +1,6 @@
 ﻿using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
 using PS.Shell.Infrastructure.Models.ControlsService;
-using PS.WPF.Controls.BusyContainer;
 
 namespace PS.Shell.Module.Controls.ViewModels
 {
@@ -10,27 +9,13 @@ namespace PS.Shell.Module.Controls.ViewModels
                                           IViewModel,
                                           IControlViewModel
     {
-        #region Constants
-
-     
-
-        #endregion
-
-      
         #region Constructors
 
         public BusyContainerViewModel()
         {
             Title = "BusyContainer";
             Group = "Controls";
-
         }
-
-        #endregion
-
-        #region Properties
-
-      
 
         #endregion
 

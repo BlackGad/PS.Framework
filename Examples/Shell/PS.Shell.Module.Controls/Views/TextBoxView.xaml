@@ -7,15 +7,13 @@
                         xmlns:ps="http://schemas.ps.com/2019/xaml"
                         xmlns:viewModels="clr-namespace:PS.Shell.Module.Controls.ViewModels"
                         d:DataContext="{d:DesignInstance viewModels:TextBoxViewModel}"
+                        Log="{Binding Log}"
                         mc:Ignorable="d">
-
     <components:PageControl.Editor>
         <ps:TextBox x:Name="Control"
-                    Margin="20"
                     VerticalAlignment="Center"
                     Value="Test value" />
     </components:PageControl.Editor>
-
     <components:PageControl.Properties>
         <StackPanel>
             <ps:GroupExpander Header="Generic">
@@ -91,5 +89,4 @@
             </ps:GroupExpander>
         </StackPanel>
     </components:PageControl.Properties>
-
 </components:PageControl>

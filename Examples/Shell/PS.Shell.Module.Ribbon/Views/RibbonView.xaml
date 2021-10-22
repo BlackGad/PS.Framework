@@ -1,110 +1,112 @@
-﻿<Grid x:Class="PS.Shell.Module.Ribbon.Views.RibbonView"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:ps="http://schemas.ps.com/2019/xaml"
-      xmlns:resources="clr-namespace:PS.WPF.Resources;assembly=PS.WPF"
-      xmlns:ribbon="clr-namespace:PS.Shell.Module.Ribbon"
-      xmlns:viewModels="clr-namespace:PS.Shell.Module.Ribbon.ViewModels"
-      Background="Brown"
-      d:DataContext="{d:DesignInstance viewModels:RibbonViewModel}"
-      d:DesignHeight="450"
-      d:DesignWidth="800"
-      Focusable="False"
-      mc:Ignorable="d">
-    <Grid.Resources>
+﻿<components:PageControl x:Class="PS.Shell.Module.Ribbon.Views.RibbonView"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:components="clr-namespace:PS.Shell.Infrastructure.Components;assembly=PS.Shell.Infrastructure"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:ps="http://schemas.ps.com/2019/xaml"
+                        xmlns:resources="clr-namespace:PS.WPF.Resources;assembly=PS.WPF"
+                        xmlns:ribbon="clr-namespace:PS.Shell.Module.Ribbon"
+                        xmlns:viewModels="clr-namespace:PS.Shell.Module.Ribbon.ViewModels"
+                        d:DataContext="{d:DesignInstance viewModels:RibbonViewModel}"
+                        mc:Ignorable="d">
+    <components:PageControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <resources:SharedResourceDictionary Source="../XamlResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Grid.Resources>
-    <Grid.RowDefinitions>
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
-    <ps:Ribbon Title="Some ribbon Title" Style="{StaticResource {x:Static ribbon:XamlResources.RibbonStyle}}">
-        <!--  Help Pane, located at the right-hand side  -->
-        <ps:Ribbon.HelpPaneContent>
-            <ps:RibbonButton SmallImageSource="..\Images\help.png" />
-        </ps:Ribbon.HelpPaneContent>
+    </components:PageControl.Resources>
 
-        <!--  Quick Access Toolbar - located at the upper-left corner  -->
-        <ps:Ribbon.QuickAccessToolBar>
-            <ps:RibbonQuickAccessToolBar>
-                <ps:RibbonButton x:Name="Save" SmallImageSource="..\Images\save.png" />
-                <ps:RibbonSplitButton x:Name="Undo" SmallImageSource="..\Images\undo.png">
-                    <ps:RibbonMenuItem Command="{Binding SomeCommand}" Header="Undo 1">
-                        <ps:RibbonMenuItem Header="Undo 2" />
-                    </ps:RibbonMenuItem>
-                    <ps:RibbonMenuItem Header="Undo 3" />
-                </ps:RibbonSplitButton>
-                <ps:RibbonSplitButton x:Name="Redo" SmallImageSource="..\Images\redo.png">
-                    <ps:RibbonMenuItem Header="Redo 1" />
-                </ps:RibbonSplitButton>
-            </ps:RibbonQuickAccessToolBar>
-        </ps:Ribbon.QuickAccessToolBar>
+    <components:PageControl.Editor>
+        <Grid Background="{x:Static ps:ThemeBrushes.AccentHigh}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ps:Ribbon Title="Some ribbon Title" Style="{StaticResource {x:Static ribbon:XamlResources.RibbonStyle}}">
+                <!--  Help Pane, located at the right-hand side  -->
+                <ps:Ribbon.HelpPaneContent>
+                    <ps:RibbonButton SmallImageSource="..\Images\help.png" />
+                </ps:Ribbon.HelpPaneContent>
 
-        <!--  Application Menu, located at the left-hand side (down arrow)  -->
-        <ps:Ribbon.ApplicationMenu>
-            <ps:RibbonApplicationMenu KeyTip="F">
-                <ps:RibbonApplicationMenuItem Header="Options" ImageSource="..\Images\options.png" />
-                <ps:RibbonApplicationMenuItem Header="Exit" ImageSource="..\Images\quit.png" />
-            </ps:RibbonApplicationMenu>
-        </ps:Ribbon.ApplicationMenu>
-        <ps:RibbonTab Header="Home" KeyTip="H">
-            <ps:RibbonGroup x:Name="ClipboardGroup" Header="Home">
-                <ps:RibbonMenuButton KeyTip="V"
-                                     Label="Paste"
-                                     LargeImageSource="..\Images\paste.png">
-                    <ps:RibbonMenuItem Header="Keep Text Only"
-                                       ImageSource="..\Images\paste.png"
-                                       KeyTip="T" />
-                    <ps:RibbonMenuItem Header="Paste Special..."
-                                       ImageSource="..\Images\paste.png"
-                                       KeyTip="S" />
-                </ps:RibbonMenuButton>
-                <ps:RibbonButton KeyTip="X"
-                                 Label="Cut"
-                                 SmallImageSource="..\Images\cut.png" />
-                <ps:RibbonButton KeyTip="C"
-                                 Label="Copy"
-                                 SmallImageSource="..\Images\copy.png" />
-                <ps:RibbonButton KeyTip="FP"
-                                 Label="Format Painter"
-                                 SmallImageSource="..\Images\format_painter.png" />
-            </ps:RibbonGroup>
-            <ps:RibbonGroup x:Name="Employee" Header="Employee And Payroll">
-                <ps:RibbonMenuButton KeyTip="V"
-                                     Label="Employee"
-                                     LargeImageSource="..\Images\personal.png">
-                    <ps:RibbonMenuItem Header="Keep Text Only"
-                                       ImageSource="..\Images\paste.png"
-                                       KeyTip="T" />
-                    <ps:RibbonMenuItem Header="Paste Special..."
-                                       ImageSource="..\Images\paste.png"
-                                       KeyTip="S" />
-                </ps:RibbonMenuButton>
-                <ps:RibbonSplitButton KeyTip="G"
-                                      Label="Split"
-                                      LargeImageSource="..\Images\save.png">
-                    <ps:RibbonMenuItem Header="Keep Text Only"
-                                       ImageSource="..\Images\paste.png"
-                                       KeyTip="T" />
-                    <ps:RibbonMenuItem Header="Paste Special..."
-                                       ImageSource="..\Images\paste.png"
-                                       KeyTip="S" />
-                </ps:RibbonSplitButton>
-                <ps:RibbonButton KeyTip="X"
-                                 Label="Save"
-                                 SmallImageSource="..\Images\save.png" />
-                <ps:RibbonButton KeyTip="C"
-                                 Label="Add"
-                                 SmallImageSource="..\Images\add.png" />
-            </ps:RibbonGroup>
-        </ps:RibbonTab>
-        <ps:RibbonTab Header="Insert" KeyTip="I" />
-        <ps:RibbonTab Header="PageLayout" KeyTip="L" />
-    </ps:Ribbon>
-</Grid>
+                <!--  Quick Access Toolbar - located at the upper-left corner  -->
+                <ps:Ribbon.QuickAccessToolBar>
+                    <ps:RibbonQuickAccessToolBar>
+                        <ps:RibbonButton x:Name="Save" SmallImageSource="..\Images\save.png" />
+                        <ps:RibbonSplitButton x:Name="Undo" SmallImageSource="..\Images\undo.png">
+                            <ps:RibbonMenuItem Command="{Binding SomeCommand}" Header="Undo 1">
+                                <ps:RibbonMenuItem Header="Undo 2" />
+                            </ps:RibbonMenuItem>
+                            <ps:RibbonMenuItem Header="Undo 3" />
+                        </ps:RibbonSplitButton>
+                        <ps:RibbonSplitButton x:Name="Redo" SmallImageSource="..\Images\redo.png">
+                            <ps:RibbonMenuItem Header="Redo 1" />
+                        </ps:RibbonSplitButton>
+                    </ps:RibbonQuickAccessToolBar>
+                </ps:Ribbon.QuickAccessToolBar>
+
+                <!--  Application Menu, located at the left-hand side (down arrow)  -->
+                <ps:Ribbon.ApplicationMenu>
+                    <ps:RibbonApplicationMenu KeyTip="F">
+                        <ps:RibbonApplicationMenuItem Header="Options" ImageSource="..\Images\options.png" />
+                        <ps:RibbonApplicationMenuItem Header="Exit" ImageSource="..\Images\quit.png" />
+                    </ps:RibbonApplicationMenu>
+                </ps:Ribbon.ApplicationMenu>
+                <ps:RibbonTab Header="Home" KeyTip="H">
+                    <ps:RibbonGroup x:Name="ClipboardGroup" Header="Home">
+                        <ps:RibbonMenuButton KeyTip="V"
+                                             Label="Paste"
+                                             LargeImageSource="..\Images\paste.png">
+                            <ps:RibbonMenuItem Header="Keep Text Only"
+                                               ImageSource="..\Images\paste.png"
+                                               KeyTip="T" />
+                            <ps:RibbonMenuItem Header="Paste Special..."
+                                               ImageSource="..\Images\paste.png"
+                                               KeyTip="S" />
+                        </ps:RibbonMenuButton>
+                        <ps:RibbonButton KeyTip="X"
+                                         Label="Cut"
+                                         SmallImageSource="..\Images\cut.png" />
+                        <ps:RibbonButton KeyTip="C"
+                                         Label="Copy"
+                                         SmallImageSource="..\Images\copy.png" />
+                        <ps:RibbonButton KeyTip="FP"
+                                         Label="Format Painter"
+                                         SmallImageSource="..\Images\format_painter.png" />
+                    </ps:RibbonGroup>
+                    <ps:RibbonGroup x:Name="Employee" Header="Employee And Payroll">
+                        <ps:RibbonMenuButton KeyTip="V"
+                                             Label="Employee"
+                                             LargeImageSource="..\Images\personal.png">
+                            <ps:RibbonMenuItem Header="Keep Text Only"
+                                               ImageSource="..\Images\paste.png"
+                                               KeyTip="T" />
+                            <ps:RibbonMenuItem Header="Paste Special..."
+                                               ImageSource="..\Images\paste.png"
+                                               KeyTip="S" />
+                        </ps:RibbonMenuButton>
+                        <ps:RibbonSplitButton KeyTip="G"
+                                              Label="Split"
+                                              LargeImageSource="..\Images\save.png">
+                            <ps:RibbonMenuItem Header="Keep Text Only"
+                                               ImageSource="..\Images\paste.png"
+                                               KeyTip="T" />
+                            <ps:RibbonMenuItem Header="Paste Special..."
+                                               ImageSource="..\Images\paste.png"
+                                               KeyTip="S" />
+                        </ps:RibbonSplitButton>
+                        <ps:RibbonButton KeyTip="X"
+                                         Label="Save"
+                                         SmallImageSource="..\Images\save.png" />
+                        <ps:RibbonButton KeyTip="C"
+                                         Label="Add"
+                                         SmallImageSource="..\Images\add.png" />
+                    </ps:RibbonGroup>
+                </ps:RibbonTab>
+                <ps:RibbonTab Header="Insert" KeyTip="I" />
+                <ps:RibbonTab Header="PageLayout" KeyTip="L" />
+            </ps:Ribbon>
+        </Grid>
+    </components:PageControl.Editor>
+</components:PageControl>

@@ -1,44 +1,41 @@
-﻿<Grid x:Class="PS.Shell.Module.Controls.Views.CancelableProcessCommandView"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:ps="http://schemas.ps.com/2019/xaml"
-      xmlns:viewModels="clr-namespace:PS.Shell.Module.Controls.ViewModels"
-      Margin="5"
-      d:DataContext="{d:DesignInstance viewModels:CancelableProcessCommandViewModel}"
-      ps:KeyValueContentControl.KeyColumnWidth="150"
-      Focusable="False"
-      mc:Ignorable="d">
-    <Grid.ColumnDefinitions>
-        <ColumnDefinition />
-        <ColumnDefinition />
-    </Grid.ColumnDefinitions>
-
-    <StackPanel Grid.Column="0"
-                Margin="20"
-                VerticalAlignment="Center"
-                Orientation="Vertical">
-        <Button x:Name="Control"
-                Height="50"
-                Command="{Binding Command}"
-                Content="{Binding Command.Title}"
-                ToolTip="{Binding Command.Description}" />
-        <TextBlock Text="{Binding Progress, StringFormat=Progress: {0}}" Visibility="{Binding ProgressVisibility}" />
-    </StackPanel>
-
-    <StackPanel Grid.Column="1" Orientation="Vertical">
-        <ps:KeyValueContentControl Header="Title">
-            <TextBox VerticalAlignment="Center" Text="{Binding Path=Command.Title, UpdateSourceTrigger=PropertyChanged}" />
-        </ps:KeyValueContentControl>
-        <ps:KeyValueContentControl Header="Description">
-            <TextBox VerticalAlignment="Center" Text="{Binding Path=Command.Description, UpdateSourceTrigger=PropertyChanged}" />
-        </ps:KeyValueContentControl>
-        <ps:KeyValueContentControl Header="CanExecute">
-            <CheckBox VerticalAlignment="Center" IsChecked="{Binding Path=CanExecute}" />
-        </ps:KeyValueContentControl>
-        <ps:KeyValueContentControl Header="Process">
-            <Button Click="Execute_OnClick" Content="Click" />
-        </ps:KeyValueContentControl>
-    </StackPanel>
-</Grid>
+﻿<components:PageControl x:Class="PS.Shell.Module.Controls.Views.CancelableProcessCommandView"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:components="clr-namespace:PS.Shell.Infrastructure.Components;assembly=PS.Shell.Infrastructure"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:ps="http://schemas.ps.com/2019/xaml"
+                        xmlns:viewModels="clr-namespace:PS.Shell.Module.Controls.ViewModels"
+                        d:DataContext="{d:DesignInstance viewModels:CancelableProcessCommandViewModel}"
+                        mc:Ignorable="d">
+    <components:PageControl.Editor>
+        <StackPanel VerticalAlignment="Center">
+            <Button x:Name="Control"
+                    Height="50"
+                    Command="{Binding Command}"
+                    Content="{Binding Command.Title}"
+                    ToolTip="{Binding Command.Description}" />
+            <TextBlock Text="{Binding Progress, StringFormat=Progress: {0}}" Visibility="{Binding ProgressVisibility}" />
+        </StackPanel>
+    </components:PageControl.Editor>
+    <components:PageControl.Properties>
+        <StackPanel>
+            <ps:GroupExpander Header="Generic">
+                <StackPanel>
+                    <ps:KeyValueContentControl Header="Title">
+                        <TextBox VerticalAlignment="Center" Text="{Binding Path=Command.Title, UpdateSourceTrigger=PropertyChanged}" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="Description">
+                        <TextBox VerticalAlignment="Center" Text="{Binding Path=Command.Description, UpdateSourceTrigger=PropertyChanged}" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="CanExecute">
+                        <CheckBox VerticalAlignment="Center" IsChecked="{Binding Path=CanExecute}" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="Process">
+                        <Button Click="Execute_OnClick" Content="Click" />
+                    </ps:KeyValueContentControl>
+                </StackPanel>
+            </ps:GroupExpander>
+        </StackPanel>
+    </components:PageControl.Properties>
+</components:PageControl>

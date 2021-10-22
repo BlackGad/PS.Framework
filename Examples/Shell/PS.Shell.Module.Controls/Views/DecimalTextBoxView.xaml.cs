@@ -32,16 +32,19 @@ namespace PS.Shell.Module.Controls.Views
         private void BeginEdit_OnClick(object sender, RoutedEventArgs e)
         {
             Control.BeginEdit();
+            ViewModel.Log.Add("Begin edit called");
         }
 
         private void CancelEdit_OnClick(object sender, RoutedEventArgs e)
         {
             Control.CancelEdit();
+            ViewModel.Log.Add("Cancel edit called");
         }
 
         private void EndEdit_OnClick(object sender, RoutedEventArgs e)
         {
             Control.EndEdit();
+            ViewModel.Log.Add("End edit called");
         }
 
         #endregion

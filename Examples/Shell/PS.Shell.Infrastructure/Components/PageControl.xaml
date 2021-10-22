@@ -3,16 +3,18 @@
                     xmlns:controls="clr-namespace:PS.Shell.Infrastructure.Components"
                     xmlns:ps="http://schemas.ps.com/2019/xaml">
     <ControlTemplate x:Key="{x:Static controls:PageControl+Resource.ControlTemplate}" TargetType="controls:PageControl">
-        <Grid>
+        <Grid Margin="{TemplateBinding Padding}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="400" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="300" />
             </Grid.RowDefinitions>
-            <ContentPresenter Grid.Column="0" ContentSource="Editor" />
+            <ContentPresenter Grid.Column="0"
+                              Margin="20"
+                              ContentSource="Editor" />
             <Border Grid.Row="0"
                     Grid.RowSpan="2"
                     Grid.Column="1"
@@ -35,6 +37,7 @@
         <Setter Property="Background" Value="{x:Static ps:ThemeBrushes.Main}" />
         <Setter Property="BorderBrush" Value="{x:Static ps:ThemeBrushes.MainBorder}" />
         <Setter Property="Focusable" Value="False" />
+        <Setter Property="Padding" Value="5" />
         <Setter Property="Template" Value="{StaticResource {x:Static controls:PageControl+Resource.ControlTemplate}}" />
     </Style>
 </ResourceDictionary>
