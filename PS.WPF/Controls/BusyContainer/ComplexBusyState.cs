@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using PS.Extensions;
 using PS.Patterns.Aware;
 
@@ -28,6 +29,7 @@ namespace PS.WPF.Controls.BusyContainer
         #region Properties
 
         public bool IsBusy { get; private set; }
+        public SynchronizationContext SynchronizationContext { get; set; }
 
         #endregion
 
@@ -64,6 +66,18 @@ namespace PS.WPF.Controls.BusyContainer
             }
         }
 
+        private void SafeCall(Action action)
+        {
+            if (SynchronizationContext != null)
+            {
+                SynchronizationContext.Post(o => action(), null);
+            }
+            else
+            {
+                action();
+            }
+        }
+
         private void StateDescriptionChanged(InternalBusyState state, string value)
         {
             lock (_locker)
@@ -73,8 +87,7 @@ namespace PS.WPF.Controls.BusyContainer
 
                 Description = value;
 
-                //TODO: Controllable dispatch
-                OnPropertyChanged(nameof(Description));
+                SafeCall(() => OnPropertyChanged(nameof(Title)));
             }
         }
 
@@ -101,8 +114,7 @@ namespace PS.WPF.Controls.BusyContainer
 
                 Title = value;
 
-                //TODO: Controllable dispatch
-                OnPropertyChanged(nameof(Title));
+                SafeCall(() => OnPropertyChanged(nameof(Title)));
             }
         }
 
@@ -132,10 +144,20 @@ namespace PS.WPF.Controls.BusyContainer
                 Description = newDescription;
                 IsBusy = newIsBusy;
 
-                //TODO: Controllable dispatch
-                OnPropertyChanged(nameof(Title));
-                OnPropertyChanged(nameof(Description));
-                OnPropertyChanged(nameof(IsBusy));
+                SafeCall(() =>
+                {
+                    OnPropertyChanged(nameof(Title));
+                    OnPropertyChanged(nameof(Description));
+                    OnPropertyChanged(nameof(IsBusy));
+                });
+                if (SynchronizationContext != null)
+                {
+                    SynchronizationContext.Post(o => OnPropertyChanged(nameof(Description)), null);
+                }
+                else
+                {
+                    OnPropertyChanged(nameof(Title));
+                }
             }
         }
 
