@@ -39,8 +39,8 @@
     </Style>
 
     <ControlTemplate x:Key="{x:Static controls:GroupExpander+Resource.ControlTemplate}" TargetType="controls:GroupExpander">
-        <Grid x:Name="Layout" Background="{TemplateBinding Background}">
-            <Border Background="{TemplateBinding BorderBrush}" Opacity="0.25" />
+        <Grid x:Name="Layout">
+            <Border Background="{TemplateBinding BorderBrush}" />
             <StackPanel Orientation="Vertical">
                 <ToggleButton FontFamily="{x:Static theme:ThemeFonts.FontFamilyStrong}"
                               IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsExpanded, Mode=TwoWay}"
@@ -63,7 +63,7 @@
 
     <Style x:Key="{x:Static controls:GroupExpander+Resource.ControlStyle}" TargetType="controls:GroupExpander">
         <Setter Property="Background" Value="{x:Static theme:ThemeBrushes.Main}" />
-        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.MainBorder}" />
+        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.MainBorderHigh}" />
         <Setter Property="HeaderPadding" Value="2" />
         <Setter Property="IsExpanded" Value="True" />
         <Setter Property="IsTabStop" Value="False" />
