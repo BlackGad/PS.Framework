@@ -15,7 +15,6 @@ namespace PS.WPF.Theme
             AccentForeground = (Color)ColorConverter.ConvertFromString("#FFFFFFFF");
             AccentBorder = (Color)ColorConverter.ConvertFromString("#FFFFFFFF");
             Main = (Color)ColorConverter.ConvertFromString("#FFFFFFFF");
-            MainHigh = (Color)ColorConverter.ConvertFromString("#FFFEFF8C");
             MainForeground = (Color)ColorConverter.ConvertFromString("#FF000000");
             MainBorder = (Color)ColorConverter.ConvertFromString("#FFA9A9A9");
             Success = (Color)ColorConverter.ConvertFromString("#FF008000");
@@ -27,11 +26,12 @@ namespace PS.WPF.Theme
             AccentBorderHigh = ColorConverters.ApplyTint(AccentBorder, 0.2);
             AccentBorderLow = ColorConverters.ApplyShade(AccentBorder, 0.3);
             AccentBorderDeep = ColorConverters.ApplyShade(AccentBorder, 0.5);
+            MainHigh = ColorConverters.ApplyTint(Accent, 0.2);
             MainLow = ColorConverters.ApplyShade(Main, 0.3);
             MainDeep = ColorConverters.ApplyShade(Main, 0.5);
-            MainBorderHigh = ColorConverters.ApplyTint(AccentBorder, 0.2);
-            MainBorderLow = ColorConverters.ApplyShade(AccentBorder, 0.3);
-            MainBorderDeep = ColorConverters.ApplyShade(AccentBorder, 0.5);
+            MainBorderHigh = ColorConverters.ApplyTint(MainBorder, 0.5);
+            MainBorderLow = ColorConverters.ApplyShade(MainBorder, 0.3);
+            MainBorderDeep = ColorConverters.ApplyShade(MainBorder, 0.5);
         }
 
         private static Color _accent;

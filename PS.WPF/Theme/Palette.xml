@@ -10,14 +10,14 @@
   <Color Name="AccentBorderDeep" Transform="AccentBorder:Shade:0.5"/>
 
   <Color Name="Main" Value="#FFFFFFFF"/>
-  <Color Name="MainHigh" Value="#FFFEFF8C"/>
+  <Color Name="MainHigh" Transform="Accent:Tint:0.2"/>
   <Color Name="MainLow" Transform="Main:Shade:0.3"/>
   <Color Name="MainDeep" Transform="Main:Shade:0.5"/>
   <Color Name="MainForeground" Value="#FF000000" />
   <Color Name="MainBorder" Value="#FFA9A9A9"/>
-  <Color Name="MainBorderHigh" Transform="AccentBorder:Tint:0.2" />
-  <Color Name="MainBorderLow" Transform="AccentBorder:Shade:0.3" />
-  <Color Name="MainBorderDeep" Transform="AccentBorder:Shade:0.5" />
+  <Color Name="MainBorderHigh" Transform="MainBorder:Tint:0.5" />
+  <Color Name="MainBorderLow" Transform="MainBorder:Shade:0.3" />
+  <Color Name="MainBorderDeep" Transform="MainBorder:Shade:0.5" />
 
   <Color Name="Success" Value="#FF008000"/>
   <Color Name="Failure" Value="#FFFF0000" />
