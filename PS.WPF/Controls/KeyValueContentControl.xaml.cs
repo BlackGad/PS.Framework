@@ -12,29 +12,23 @@ namespace PS.WPF.Controls
     {
         #region Property definitions
 
-        public static readonly DependencyProperty IsResizableProperty =
-            DependencyProperty.RegisterAttached(nameof(IsResizable),
-                                                typeof(bool),
-                                                typeof(KeyValueContentControl),
-                                                new FrameworkPropertyMetadata(true));
-
-        public static readonly DependencyProperty KeyColumnWidthProperty =
-            DependencyProperty.RegisterAttached(nameof(KeyColumnWidth),
-                                                typeof(double),
-                                                typeof(KeyValueContentControl),
-                                                new FrameworkPropertyMetadata(100d, OnKeyColumnWidthChanged));
-
-        internal static readonly DependencyProperty KeyColumnGridLengthProperty =
-            DependencyProperty.Register(nameof(KeyColumnGridLength),
-                                        typeof(GridLength),
-                                        typeof(KeyValueContentControl),
-                                        new FrameworkPropertyMetadata(OnKeyColumnGridLengthChanged));
-
         public static readonly DependencyProperty HeaderPaddingProperty =
             DependencyProperty.Register(nameof(HeaderPadding),
                                         typeof(Thickness),
                                         typeof(KeyValueContentControl),
                                         new FrameworkPropertyMetadata(default(Thickness)));
+
+        public static readonly DependencyProperty HorizontalHeaderAlignmentProperty =
+            DependencyProperty.Register(nameof(HorizontalHeaderAlignment),
+                                        typeof(HorizontalAlignment),
+                                        typeof(KeyValueContentControl),
+                                        new FrameworkPropertyMetadata(default(HorizontalAlignment)));
+
+        public static readonly DependencyProperty IsResizableProperty =
+            DependencyProperty.RegisterAttached(nameof(IsResizable),
+                                                typeof(bool),
+                                                typeof(KeyValueContentControl),
+                                                new FrameworkPropertyMetadata(true));
 
         public static readonly DependencyProperty KeyColumnWidthAdjustmentProperty =
             DependencyProperty.Register(nameof(KeyColumnWidthAdjustment),
@@ -42,11 +36,11 @@ namespace PS.WPF.Controls
                                         typeof(KeyValueContentControl),
                                         new FrameworkPropertyMetadata(OnKeyColumnWidthAdjustmentChanged));
 
-        public static readonly DependencyProperty HorizontalHeaderAlignmentProperty =
-            DependencyProperty.Register(nameof(HorizontalHeaderAlignment),
-                                        typeof(HorizontalAlignment),
-                                        typeof(KeyValueContentControl),
-                                        new FrameworkPropertyMetadata(default(HorizontalAlignment)));
+        public static readonly DependencyProperty KeyColumnWidthProperty =
+            DependencyProperty.RegisterAttached(nameof(KeyColumnWidth),
+                                                typeof(double),
+                                                typeof(KeyValueContentControl),
+                                                new FrameworkPropertyMetadata(100d, OnKeyColumnWidthChanged));
 
         public static readonly DependencyProperty KeyContextMenuProperty =
             DependencyProperty.Register(nameof(KeyContextMenu),
@@ -65,6 +59,12 @@ namespace PS.WPF.Controls
                                         typeof(VerticalAlignment),
                                         typeof(KeyValueContentControl),
                                         new FrameworkPropertyMetadata(default(VerticalAlignment)));
+
+        internal static readonly DependencyProperty KeyColumnGridLengthProperty =
+            DependencyProperty.Register(nameof(KeyColumnGridLength),
+                                        typeof(GridLength),
+                                        typeof(KeyValueContentControl),
+                                        new FrameworkPropertyMetadata(OnKeyColumnGridLengthChanged));
 
         #endregion
 
