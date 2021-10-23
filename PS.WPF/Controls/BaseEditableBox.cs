@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using PS.Extensions;
 using PS.WPF.Extensions;
@@ -14,6 +15,18 @@ namespace PS.WPF.Controls
                                             IEditableObject
     {
         #region Property definitions
+
+        private static readonly DependencyPropertyKey IsEditModePropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(IsEditMode),
+                                                typeof(bool),
+                                                typeof(BaseEditableBox),
+                                                new FrameworkPropertyMetadata(default(bool)));
+
+        private static readonly DependencyPropertyKey IsWatermarkAvailablePropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(IsWatermarkAvailable),
+                                                typeof(bool),
+                                                typeof(BaseEditableBox),
+                                                new FrameworkPropertyMetadata(default(bool)));
 
         public static readonly DependencyProperty CultureInfoProperty =
             DependencyProperty.Register("CultureInfo",
@@ -39,14 +52,30 @@ namespace PS.WPF.Controls
                                         typeof(BaseEditableBox),
                                         new FrameworkPropertyMetadata(OnFormatStringChanged));
 
+        public static readonly DependencyProperty HandleArrowsAsTabsProperty =
+            DependencyProperty.Register("HandleArrowsAsTabs",
+                                        typeof(bool),
+                                        typeof(BaseEditableBox),
+                                        new FrameworkPropertyMetadata(default(bool)));
+
+        public static readonly DependencyProperty IsEditModeProperty = IsEditModePropertyKey.DependencyProperty;
+
         public static readonly DependencyProperty IsReadOnlyProperty =
             DependencyProperty.Register("IsReadOnly",
                                         typeof(bool),
                                         typeof(BaseEditableBox),
                                         new FrameworkPropertyMetadata(default(bool)));
 
+        public static readonly DependencyProperty IsWatermarkAvailableProperty = IsWatermarkAvailablePropertyKey.DependencyProperty;
+
         public static readonly DependencyProperty ManualEditModeProperty =
             DependencyProperty.Register("ManualEditMode",
+                                        typeof(bool),
+                                        typeof(BaseEditableBox),
+                                        new FrameworkPropertyMetadata(default(bool)));
+
+        public static readonly DependencyProperty RequireConfirmationOnFocusLostProperty =
+            DependencyProperty.Register(nameof(RequireConfirmationOnFocusLost),
                                         typeof(bool),
                                         typeof(BaseEditableBox),
                                         new FrameworkPropertyMetadata(default(bool)));
@@ -57,39 +86,11 @@ namespace PS.WPF.Controls
                                         typeof(BaseEditableBox),
                                         new FrameworkPropertyMetadata(default(TextAlignment)));
 
-        private static readonly DependencyPropertyKey IsWatermarkAvailablePropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(IsWatermarkAvailable),
-                                                typeof(bool),
-                                                typeof(BaseEditableBox),
-                                                new FrameworkPropertyMetadata(default(bool)));
-
-        public static readonly DependencyProperty IsWatermarkAvailableProperty = IsWatermarkAvailablePropertyKey.DependencyProperty;
-
         public static readonly DependencyProperty WatermarkProperty =
             DependencyProperty.Register("Watermark",
                                         typeof(string),
                                         typeof(BaseEditableBox),
                                         new FrameworkPropertyMetadata("Empty", OnWatermarkChanged));
-
-        public static readonly DependencyProperty HandleArrowsAsTabsProperty =
-            DependencyProperty.Register("HandleArrowsAsTabs",
-                                        typeof(bool),
-                                        typeof(BaseEditableBox),
-                                        new FrameworkPropertyMetadata(default(bool)));
-
-        private static readonly DependencyPropertyKey IsEditModePropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(IsEditMode),
-                                                typeof(bool),
-                                                typeof(BaseEditableBox),
-                                                new FrameworkPropertyMetadata(default(bool)));
-
-        public static readonly DependencyProperty IsEditModeProperty = IsEditModePropertyKey.DependencyProperty;
-
-        public static readonly DependencyProperty RequireConfirmationOnFocusLostProperty =
-            DependencyProperty.Register(nameof(RequireConfirmationOnFocusLost),
-                                        typeof(bool),
-                                        typeof(BaseEditableBox),
-                                        new FrameworkPropertyMetadata(default(bool)));
 
         #endregion
 
@@ -138,6 +139,15 @@ namespace PS.WPF.Controls
         {
             var owner = (BaseEditableBox)d;
             owner.UpdateWatermarkAvailability();
+        }
+
+        #endregion
+
+        #region Constructors
+
+        protected BaseEditableBox()
+        {
+            UpdateWatermarkAvailability();
         }
 
         #endregion
@@ -258,7 +268,7 @@ namespace PS.WPF.Controls
                 {
                     if (this.HasVisualParent(newFocusElement)) return;
 
-                    var parentPopup = newFocusElement.FindVisualParentOf<System.Windows.Controls.Primitives.Popup>();
+                    var parentPopup = newFocusElement.FindVisualParentOf<Popup>();
                     if (parentPopup != null && this.HasVisualParent(parentPopup.PlacementTarget)) return;
 
                     if (RequireConfirmationOnFocusLost)

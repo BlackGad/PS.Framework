@@ -170,8 +170,7 @@ namespace PS.WPF.Controls
             SetCurrentValue(SideButtonCommandProperty,
                             new RelayUICommand(() =>
                             {
-                                EditableText = string.Empty;
-                                Value = string.Empty;
+                                Value = null;
                                 EndEdit();
                             }));
         }

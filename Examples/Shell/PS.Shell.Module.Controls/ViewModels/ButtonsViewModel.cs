@@ -23,12 +23,12 @@ namespace PS.Shell.Module.Controls.ViewModels
             {
                 CreateUICommand("Item 1"),
                 CreateUICommand("Item 2", false),
-                CreateUICommand("Item 3"),
+                CreateUICommand("Item 3")
             };
 
             SplitButtonAction = CreateUICommand("Split Menu Button action");
             ButtonAction = CreateUICommand("Button action");
-            ToggleButtonAction = CreateUICommand<bool>("Button action");
+            ToggleButtonAction = CreateUICommand<bool>("Toggle Button action");
         }
 
         #endregion

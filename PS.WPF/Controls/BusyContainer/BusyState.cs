@@ -3,8 +3,8 @@
 namespace PS.WPF.Controls.BusyContainer
 {
     public class BusyState : BaseNotifyPropertyChanged,
-                             ITitleAware,
-                             IDescriptionAware
+                             IMutableTitleAware,
+                             IMutableDescriptionAware
     {
         private string _description;
         private string _title;
@@ -23,7 +23,7 @@ namespace PS.WPF.Controls.BusyContainer
 
         #endregion
 
-        #region IDescriptionAware Members
+        #region IMutableDescriptionAware Members
 
         public string Description
         {
@@ -33,7 +33,7 @@ namespace PS.WPF.Controls.BusyContainer
 
         #endregion
 
-        #region ITitleAware Members
+        #region IMutableTitleAware Members
 
         public string Title
         {

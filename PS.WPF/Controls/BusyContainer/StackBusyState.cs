@@ -7,20 +7,20 @@ using PS.Patterns.Aware;
 
 namespace PS.WPF.Controls.BusyContainer
 {
-    public class ComplexBusyState : BaseNotifyPropertyChanged,
-                                    ITitleAware,
-                                    IDescriptionAware
+    public class StackBusyState : BaseNotifyPropertyChanged,
+                                  ITitleAware,
+                                  IDescriptionAware
     {
         private readonly object _locker;
-        private readonly Queue<IBusyState> _queue;
+        private readonly Stack<IBusyState> _stack;
         private readonly HashSet<IBusyState> _states;
 
         #region Constructors
 
-        public ComplexBusyState()
+        public StackBusyState()
         {
             _locker = new object();
-            _queue = new Queue<IBusyState>();
+            _stack = new Stack<IBusyState>();
             _states = new HashSet<IBusyState>();
         }
 
@@ -47,7 +47,7 @@ namespace PS.WPF.Controls.BusyContainer
 
         #region Members
 
-        public IBusyState Enqueue(string title = null, string description = null)
+        public IBusyState Push(string title = null, string description = null)
         {
             lock (_locker)
             {
@@ -55,7 +55,7 @@ namespace PS.WPF.Controls.BusyContainer
                                                   StateDescriptionChanged,
                                                   StateDisposed);
                 _states.Add(state);
-                _queue.Enqueue(state);
+                _stack.Push(state);
 
                 state.Title = title;
                 state.Description = description;
@@ -82,7 +82,7 @@ namespace PS.WPF.Controls.BusyContainer
         {
             lock (_locker)
             {
-                var isTopState = _queue.Any() && _queue.Peek().AreEqual(state);
+                var isTopState = _stack.Any() && _stack.Peek().AreEqual(state);
                 if (!isTopState) return;
 
                 Description = value;
@@ -97,10 +97,10 @@ namespace PS.WPF.Controls.BusyContainer
             {
                 _states.Remove(state);
 
-                var isTopState = _queue.Any() && _queue.Peek().AreEqual(state);
+                var isTopState = _stack.Any() && _stack.Peek().AreEqual(state);
                 if (!isTopState) return;
 
-                _queue.Dequeue();
+                _stack.Pop();
                 UpdateTopState();
             }
         }
@@ -109,7 +109,7 @@ namespace PS.WPF.Controls.BusyContainer
         {
             lock (_locker)
             {
-                var isTopState = _queue.Any() && _queue.Peek().AreEqual(state);
+                var isTopState = _stack.Any() && _stack.Peek().AreEqual(state);
                 if (!isTopState) return;
 
                 Title = value;
@@ -126,9 +126,9 @@ namespace PS.WPF.Controls.BusyContainer
                 string newDescription = null;
                 var newIsBusy = false;
 
-                while (_queue.Any())
+                while (_stack.Any())
                 {
-                    var topState = _queue.Peek();
+                    var topState = _stack.Peek();
                     if (_states.Contains(topState))
                     {
                         newTitle = topState.Title;
@@ -137,7 +137,7 @@ namespace PS.WPF.Controls.BusyContainer
                         break;
                     }
 
-                    _queue.Dequeue();
+                    _stack.Pop();
                 }
 
                 Title = newTitle;

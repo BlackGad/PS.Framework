@@ -1,0 +1,85 @@
+﻿<components:PageControl x:Class="PS.Shell.Module.Controls.Views.BusyContainer.BusyContainerAdvancedView"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:aware="clr-namespace:PS.Patterns.Aware;assembly=PS.Primitives"
+                        xmlns:busyContainer="clr-namespace:PS.Shell.Module.Controls.ViewModels.BusyContainer"
+                        xmlns:components="clr-namespace:PS.Shell.Infrastructure.Components;assembly=PS.Shell.Infrastructure"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:ps="http://schemas.ps.com/2019/xaml"
+                        d:DataContext="{d:DesignInstance busyContainer:BusyContainerAdvancedViewModel}"
+                        mc:Ignorable="d">
+    <components:PageControl.Editor>
+        <ps:BusyContainer x:Name="Control"
+                          IsBusy="{Binding IsBusy, Mode=TwoWay}"
+                          State="{Binding Content}">
+            <Button Height="50" Content="Content" />
+        </ps:BusyContainer>
+    </components:PageControl.Editor>
+    <components:PageControl.Properties>
+        <StackPanel>
+            <ps:GroupExpander Header="Behavior">
+                <StackPanel>
+                    <ps:KeyValueContentControl Header="Busy behavior">
+                        <ComboBox VerticalAlignment="Center"
+                                  ItemsSource="{Binding Source={x:Type ps:BusyBehavior}, Converter={x:Static ps:TypeConverters.EnumValues}}"
+                                  SelectedItem="{Binding ElementName=Control, Path=Behavior, Mode=TwoWay}" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="Is busy">
+                        <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsBusy, Mode=TwoWay}" />
+                    </ps:KeyValueContentControl>
+                </StackPanel>
+            </ps:GroupExpander>
+            <ps:GroupExpander Header="Payload">
+                <StackPanel>
+                    <ps:KeyValueContentControl Header="Control">
+                        <ps:UICommandsControl ItemsSource="{Binding ContentControlCommands}">
+                            <ps:UICommandsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ps:UICommandsControl.ItemsPanel>
+                        </ps:UICommandsControl>
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="Title">
+                        <ps:TextBox IsSideButtonVisible="True">
+                            <ps:TextBox.Style>
+                                <Style TargetType="ps:TextBox">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Content, Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ITitleAware}}" Value="True">
+                                            <Setter Property="Value" Value="{Binding Content.Title, Mode=OneWay}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Content, Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IMutableTitleAware}}" Value="True">
+                                            <Setter Property="IsEnabled" Value="True" />
+                                            <Setter Property="Value" Value="{Binding Content.Title}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ps:TextBox.Style>
+                        </ps:TextBox>
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="Description">
+                        <ps:TextBox IsSideButtonVisible="True">
+                            <ps:TextBox.Style>
+                                <Style TargetType="ps:TextBox">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                    <Setter Property="Value" Value="{x:Null}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Content, Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IDescriptionAware}}" Value="True">
+                                            <Setter Property="Value" Value="{Binding Content.Description, Mode=OneWay}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Content, Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IMutableDescriptionAware}}" Value="True">
+                                            <Setter Property="IsEnabled" Value="True" />
+                                            <Setter Property="Value" Value="{Binding Content.Description}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ps:TextBox.Style>
+                        </ps:TextBox>
+                    </ps:KeyValueContentControl>
+                </StackPanel>
+            </ps:GroupExpander>
+        </StackPanel>
+    </components:PageControl.Properties>
+</components:PageControl>

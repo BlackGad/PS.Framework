@@ -17,7 +17,7 @@ namespace PS.WPF.Controls.BusyContainer
             DependencyProperty.Register(nameof(Behavior),
                                         typeof(BusyBehavior),
                                         typeof(BusyContainer),
-                                        new FrameworkPropertyMetadata(default(BusyBehavior)));
+                                        new FrameworkPropertyMetadata(OnBusyBehaviorChanged));
 
         public static readonly DependencyProperty IsBusyProperty =
             DependencyProperty.Register(nameof(IsBusy),
@@ -34,6 +34,12 @@ namespace PS.WPF.Controls.BusyContainer
         #endregion
 
         #region Static members
+
+        private static void OnBusyBehaviorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var owner = (BusyContainer)d;
+            owner.Dispatcher.Postpone(owner.UpdateBusyState);
+        }
 
         private static void OnBusyStateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
