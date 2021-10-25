@@ -152,7 +152,7 @@ namespace PS.WPF.Controls.BusyContainer
                 });
                 if (SynchronizationContext != null)
                 {
-                    SynchronizationContext.Post(o => OnPropertyChanged(nameof(Description)), null);
+                    SynchronizationContext.Send(o => OnPropertyChanged(nameof(Description)), null);
                 }
                 else
                 {
