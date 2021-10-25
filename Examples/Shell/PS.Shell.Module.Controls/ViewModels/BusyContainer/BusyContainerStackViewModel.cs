@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
 using PS.Shell.Infrastructure.Models.ControlsService;
@@ -39,6 +41,11 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
                                    () => FirstState != null)
                 {
                     Title = "Reset"
+                },
+                new RelayUICommand(async () => await PayloadBackgroundOperation(FirstState),
+                                   () => FirstState != null)
+                {
+                    Title = "Payload"
                 }
             };
 
@@ -140,6 +147,24 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
 
         public string Title { get; }
         public string Group { get; }
+
+        #endregion
+
+        #region Members
+
+        private async Task PayloadBackgroundOperation(IBusyState state)
+        {
+            state.Description = "Direct payload progress";
+            await Task.Run(() =>
+            {
+                for (var i = 0; i < 5; i++)
+                {
+                    Thread.Sleep(1000);
+                    state.Description = $"Operation progress {i + 1} seconds passed";
+                }
+            });
+            state.Description = "Direct payload progress ends";
+        }
 
         #endregion
     }

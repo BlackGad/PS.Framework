@@ -6,7 +6,7 @@
         <Grid Margin="{TemplateBinding Padding}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
-                <ColumnDefinition Width="400" />
+                <ColumnDefinition Width="450" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />

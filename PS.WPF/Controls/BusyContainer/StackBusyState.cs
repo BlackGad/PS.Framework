@@ -70,7 +70,7 @@ namespace PS.WPF.Controls.BusyContainer
         {
             if (SynchronizationContext != null)
             {
-                SynchronizationContext.Post(o => action(), null);
+                SynchronizationContext.Send(o => action(), null);
             }
             else
             {
@@ -87,7 +87,7 @@ namespace PS.WPF.Controls.BusyContainer
 
                 Description = value;
 
-                SafeCall(() => OnPropertyChanged(nameof(Title)));
+                SafeCall(() => OnPropertyChanged(nameof(Description)));
             }
         }
 
@@ -150,14 +150,6 @@ namespace PS.WPF.Controls.BusyContainer
                     OnPropertyChanged(nameof(Description));
                     OnPropertyChanged(nameof(IsBusy));
                 });
-                if (SynchronizationContext != null)
-                {
-                    SynchronizationContext.Send(o => OnPropertyChanged(nameof(Description)), null);
-                }
-                else
-                {
-                    OnPropertyChanged(nameof(Title));
-                }
             }
         }
 
