@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using PS.Extensions;
 using PS.WPF.Extensions;
+using PS.WPF.Patterns.Command;
 using PS.WPF.Resources;
 
 namespace PS.WPF.Controls
@@ -34,20 +35,11 @@ namespace PS.WPF.Controls
         {
             #region Constants
 
-            private static readonly Uri Default =
-                new Uri("/PS.WPF;component/Controls/UICommandsControl.xaml", UriKind.RelativeOrAbsolute);
-
-            public static readonly ResourceDescriptor CommandButtonTemplate =
-                ResourceDescriptor.Create<System.Windows.DataTemplate>(description: "Default Command button data template",
-                                                                       resourceDictionary: Default);
-
-            public static readonly ResourceDescriptor ControlStyle =
-                ResourceDescriptor.Create<Style>(description: "Default UICommandsControl style",
-                                                 resourceDictionary: Default);
-
-            public static readonly ResourceDescriptor ControlTemplate =
-                ResourceDescriptor.Create<ControlTemplate>(description: "Default UICommandsControl control template",
-                                                           resourceDictionary: Default);
+            private static readonly Uri Default = new Uri("/PS.WPF;component/Controls/UICommandsControl.xaml", UriKind.RelativeOrAbsolute);
+            public static readonly ResourceDescriptor CommandButtonTemplate = ResourceDescriptor.Create<System.Windows.DataTemplate>(Default);
+            public static readonly ResourceDescriptor ControlStyle = ResourceDescriptor.Create<Style>(Default);
+            public static readonly ResourceDescriptor ControlTemplate = ResourceDescriptor.Create<ControlTemplate>(Default);
+            public static readonly ResourceDescriptor ItemContainerStyle = ResourceDescriptor.Create<Style>(Default);
 
             #endregion
         }

@@ -1,0 +1,160 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:markup="clr-namespace:PS.WPF.Markup"
+                    xmlns:theme="clr-namespace:PS.WPF.Theme"
+                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
+                    xmlns:controls="clr-namespace:PS.WPF.Controls.Ribbon"
+                    xmlns:components="clr-namespace:PS.WPF.Components">
+
+    <ControlTemplate x:Key="{x:Static controls:RibbonTabHeader+Resource.ControlTemplate}" TargetType="controls:RibbonTabHeader">
+        <Grid x:Name="Layout">
+            <components:StoreBrush.ContextualBackground>
+                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.Main}">
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.(controls:Ribbon.ContextualTabHeaderBackground)" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.(controls:Ribbon.TabHeaderBackground)" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                </PriorityBinding>
+            </components:StoreBrush.ContextualBackground>
+            <components:StoreBrush.Background>
+                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.Main}">
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.(controls:Ribbon.TabHeaderBackground)" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                </PriorityBinding>
+            </components:StoreBrush.Background>
+            <components:StoreBrush.Selected>
+                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.Main}">
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.(controls:Ribbon.SelectedTabHeaderBackground)" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                </PriorityBinding>
+            </components:StoreBrush.Selected>
+            <components:StoreBrush.BorderBrush>
+                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.MainBorder}">
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                </PriorityBinding>
+            </components:StoreBrush.BorderBrush>
+            <components:StoreBrush.Foreground>
+                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.MainForeground}">
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Foreground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.(controls:Ribbon.TabHeaderForeground)" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Foreground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                </PriorityBinding>
+            </components:StoreBrush.Foreground>
+            <components:StoreBrush.SelectedForeground>
+                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.MainForeground}">
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Foreground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.(controls:Ribbon.SelectedTabHeaderForeground)" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Foreground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                </PriorityBinding>
+            </components:StoreBrush.SelectedForeground>
+
+            <Border Name="PART_Background"
+                    Background="{Binding ElementName=Layout, Path=(components:StoreBrush.Background)}"
+                    SnapsToDevicePixels="True" />
+
+            <Border Name="PART_TabContextualBackground"
+                    Background="{Binding ElementName=Layout, Path=(components:StoreBrush.ContextualBackground)}"
+                    SnapsToDevicePixels="True"
+                    Visibility="Hidden" />
+
+            <Border Name="PART_TabSelectedBackground"
+                    Margin="1,2,1,0"
+                    Background="{Binding ElementName=Layout, Path=(components:StoreBrush.Selected)}"
+                    CornerRadius="2,2,0,0"
+                    SnapsToDevicePixels="True"
+                    Visibility="Hidden" />
+
+            <ContentPresenter x:Name="PART_ContentPresenter"
+                              Margin="{TemplateBinding Padding}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              ContentSource="Content"
+                              TextElement.Foreground="{Binding ElementName=Layout, Path=(components:StoreBrush.Foreground)}" />
+
+            <Border Name="PART_TabBorder"
+                    Margin="1,2,1,0"
+                    HorizontalAlignment="Stretch"
+                    BorderBrush="{Binding ElementName=Layout, Path=(components:StoreBrush.BorderBrush)}"
+                    BorderThickness="1,1,1,0"
+                    CornerRadius="2,2,0,0"
+                    Opacity="0.5"
+                    SnapsToDevicePixels="True"
+                    Visibility="Hidden" />
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="Layout" Property="Opacity" Value="{markup:Double 0.5}" />
+            </Trigger>
+
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsRibbonTabSelected}" Value="True" />
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Ribbon.IsMinimized}" Value="True" />
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Ribbon.IsDropDownOpen}" Value="True" />
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="PART_ContentPresenter" Property="TextElement.Foreground" Value="{Binding ElementName=Layout, Path=(components:StoreBrush.SelectedForeground)}" />
+                <Setter TargetName="PART_TabBorder" Property="Visibility" Value="Visible" />
+                <Setter TargetName="PART_TabSelectedBackground" Property="Visibility" Value="Visible" />
+            </MultiDataTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True" />
+                    <Condition Property="IsEnabled" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="PART_TabBorder" Property="Visibility" Value="Visible" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsKeyboardFocused" Value="True" />
+                    <Condition Property="IsEnabled" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="PART_TabBorder" Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.Warning}" />
+                <Setter TargetName="PART_TabBorder" Property="Opacity" Value="1" />
+                <Setter TargetName="PART_TabBorder" Property="Visibility" Value="Visible" />
+            </MultiTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsRibbonTabSelected}" Value="True" />
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Ribbon.IsMinimized}" Value="False" />
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="PART_ContentPresenter" Property="TextElement.Foreground" Value="{Binding ElementName=Layout, Path=(components:StoreBrush.SelectedForeground)}" />
+                <Setter TargetName="PART_TabBorder" Property="Visibility" Value="Visible" />
+                <Setter TargetName="PART_TabSelectedBackground" Property="Visibility" Value="Visible" />
+            </MultiDataTrigger>
+            <Trigger Property="IsContextualTab" Value="True">
+                <Setter TargetName="PART_TabContextualBackground" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsFirstInContextualGroup" Value="True">
+                <Setter TargetName="PART_TabBorder" Property="Margin" Value="2,2,1,0" />
+                <Setter TargetName="PART_TabContextualBackground" Property="CornerRadius" Value="2,0,0,0" />
+                <Setter TargetName="PART_TabSelectedBackground" Property="Margin" Value="2,2,1,0" />
+            </Trigger>
+            <Trigger Property="IsLastInContextualGroup" Value="True">
+                <Setter TargetName="PART_TabBorder" Property="Margin" Value="1,2,2,0" />
+                <Setter TargetName="PART_TabContextualBackground" Property="CornerRadius" Value="0,2,0,0" />
+                <Setter TargetName="PART_TabSelectedBackground" Property="Margin" Value="1,2,2,0" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsFirstInContextualGroup" Value="True" />
+                    <Condition Property="IsLastInContextualGroup" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="PART_TabBorder" Property="Margin" Value="2,2,2,0" />
+                <Setter TargetName="PART_TabContextualBackground" Property="CornerRadius" Value="2,2,0,0" />
+                <Setter TargetName="PART_TabSelectedBackground" Property="Margin" Value="2,2,2,0" />
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="{x:Static controls:RibbonTabHeader+Resource.ControlStyle}" TargetType="controls:RibbonTabHeader">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Foreground" Value="{x:Null}" />
+        <Setter Property="Padding" Value="15,5" />
+        <Setter Property="Template" Value="{StaticResource {x:Static controls:RibbonTabHeader+Resource.ControlTemplate}}" />
+    </Style>
+
+</ResourceDictionary>

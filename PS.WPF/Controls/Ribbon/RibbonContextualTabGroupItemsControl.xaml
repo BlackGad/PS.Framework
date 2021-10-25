@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:PS.WPF.Controls.Ribbon"
+                    xmlns:primitives="clr-namespace:PS.WPF.Controls.Ribbon.Primitives">
+
+    <ControlTemplate x:Key="{x:Static controls:RibbonContextualTabGroupItemsControl+Resource.ControlTemplate}" TargetType="controls:RibbonContextualTabGroupItemsControl">
+        <Border Background="{TemplateBinding Background}">
+            <ItemsPresenter />
+        </Border>
+    </ControlTemplate>
+
+    <Style x:Key="{x:Static controls:RibbonContextualTabGroupItemsControl+Resource.ControlStyle}" TargetType="controls:RibbonContextualTabGroupItemsControl">
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <primitives:RibbonContextualTabGroupsPanel />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template" Value="{StaticResource {x:Static controls:RibbonContextualTabGroupItemsControl+Resource.ControlTemplate}}" />
+    </Style>
+
+</ResourceDictionary>

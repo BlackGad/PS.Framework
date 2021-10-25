@@ -64,10 +64,19 @@ namespace PS.WPF.Extensions
             return type.IsInstanceOfType(traverse.LastOrDefault());
         }
 
-        public static bool IsVisualParentOf(this DependencyObject source, DependencyObject target)
+        public static bool HasVisualParent(this DependencyObject source, DependencyObject target)
         {
             var traverse = target.Traverse(e => e.GetVisualParent(), e => !e.AreEqual(source));
             return traverse.LastOrDefault().AreEqual(source);
+        }
+
+        public static DependencyObject TraverseVisualParentWhere(this DependencyObject source, Func<DependencyObject, bool> func)
+        {
+            var result = source.Traverse(e => e.GetVisualParent(), func).LastOrDefault();
+            if (result == null) return null;
+
+            if (func?.Invoke(result) == false) return result;
+            return null;
         }
 
         #endregion

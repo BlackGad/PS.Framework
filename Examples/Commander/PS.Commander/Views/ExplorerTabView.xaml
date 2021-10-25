@@ -10,6 +10,9 @@
             mc:Ignorable="d">
     <TextBlock Text="{Binding Title}" />
     <Button Margin="3"
+            Command="{Binding TestCommand}"
+            Content="Test" />
+    <Button Margin="3"
             Command="{Binding CloseCommand}"
             Content="X" />
 </StackPanel>

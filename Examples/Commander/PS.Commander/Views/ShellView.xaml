@@ -24,7 +24,7 @@
 
         <ContentControl Grid.Column="0"
                         ContentTemplateSelector="{mvvm:TemplateResolver}"
-                        Content="{Binding LeftArea}" />
+                        Content="{Binding Left}" />
         <GridSplitter Grid.Column="1"
                       Width="3"
                       HorizontalAlignment="Center"
@@ -32,6 +32,6 @@
                       ShowsPreview="False" />
         <ContentControl Grid.Column="2"
                         ContentTemplateSelector="{mvvm:TemplateResolver}"
-                        Content="{Binding RightArea}" />
+                        Content="{Binding Right}" />
     </Grid>
 </Grid>

@@ -15,7 +15,7 @@
     </Grid.RowDefinitions>
     <TextBlock MinWidth="150"
                HorizontalAlignment="Center"
-               Foreground="{x:Static ps:ThemeBrushes.Marker}"
+               Foreground="{x:Static ps:ThemeBrushes.MainForeground}"
                FontFamily="{x:Static ps:ThemeFonts.FontFamily}"
                FontSize="{x:Static ps:ThemeFonts.FontSize}"
                Text="{Binding Content}" />

@@ -1,0 +1,36 @@
+﻿<components:PageControl x:Class="PS.Shell.Module.Controls.Views.BusyContainer.BusyContainerStackView"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:busyContainer="clr-namespace:PS.Shell.Module.Controls.ViewModels.BusyContainer"
+                        xmlns:components="clr-namespace:PS.Shell.Infrastructure.Components;assembly=PS.Shell.Infrastructure"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:ps="http://schemas.ps.com/2019/xaml"
+                        d:DataContext="{d:DesignInstance busyContainer:BusyContainerStackViewModel}"
+                        mc:Ignorable="d">
+    <components:PageControl.Editor>
+        <ps:BusyContainer x:Name="Control"
+                          Behavior="Manual"
+                          IsBusy="{Binding Content.IsBusy}"
+                          State="{Binding Content}">
+            <Button Height="50" Content="Content" />
+        </ps:BusyContainer>
+    </components:PageControl.Editor>
+    <components:PageControl.Properties>
+        <StackPanel>
+            <ps:GroupExpander Header="Payload">
+                <StackPanel>
+                    <ps:KeyValueContentControl Header="First state">
+                        <ps:UICommandsControl ItemsSource="{Binding FirstStateCommands}" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="Second state">
+                        <ps:UICommandsControl ItemsSource="{Binding SecondStateCommands}" />
+                    </ps:KeyValueContentControl>
+                    <ps:KeyValueContentControl Header="Third state">
+                        <ps:UICommandsControl ItemsSource="{Binding ThirdStateCommands}" />
+                    </ps:KeyValueContentControl>
+                </StackPanel>
+            </ps:GroupExpander>
+        </StackPanel>
+    </components:PageControl.Properties>
+</components:PageControl>

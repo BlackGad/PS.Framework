@@ -75,7 +75,7 @@
     <ControlTemplate x:Key="{x:Static styles:ComboBox.ComboBoxItemTemplate}" TargetType="{x:Type ComboBoxItem}">
         <Grid Background="Transparent">
             <Border Name="PART_Selected"
-                    Background="{x:Static theme:ThemeBrushes.Highlight50}"
+                    Background="{x:Static theme:ThemeBrushes.Accent50}"
                     IsHitTestVisible="False"
                     Visibility="Collapsed" />
 
@@ -203,11 +203,11 @@
 
     <Style x:Key="{x:Static styles:ComboBox.ComboBoxStyle}" TargetType="ComboBox">
         <Setter Property="Background" Value="{x:Static theme:ThemeBrushes.Main}" />
-        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.Basic}" />
+        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.MainBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Focusable" Value="False" />
-        <Setter Property="Foreground" Value="{x:Static theme:ThemeBrushes.Marker}" />
+        <Setter Property="Foreground" Value="{x:Static theme:ThemeBrushes.MainForeground}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="ItemContainerStyle" Value="{StaticResource {x:Static styles:ComboBox.ComboBoxItemStyle}}" />
         <Setter Property="Margin" Value="2" />

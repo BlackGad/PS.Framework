@@ -8,6 +8,7 @@ namespace PS.WPF.ValueConverters
         #region Constants
 
         public static readonly RelayValueConverter DisplayName;
+        public static readonly RelayValueConverter EnumValues;
 
         #endregion
 
@@ -18,6 +19,16 @@ namespace PS.WPF.ValueConverters
             DisplayName = new RelayValueConverter((value, targetType, parameter, culture) =>
             {
                 if (value is Type type) return type.GetDisplayName();
+                return null;
+            });
+
+            EnumValues = new RelayValueConverter((value, targetType, parameter, culture) =>
+            {
+                if (value is Type type && type.IsEnum)
+                {
+                    return type.GetEnumValues();
+                }
+
                 return null;
             });
         }

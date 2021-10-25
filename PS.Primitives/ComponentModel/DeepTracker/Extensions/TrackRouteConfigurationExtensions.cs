@@ -76,7 +76,10 @@ namespace PS.ComponentModel.DeepTracker.Extensions
         {
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
 
-            var objectProperties = propertyExpression.ToLookup(p => typeof(TSource),
+            ILookup<Type, string> objectProperties;
+            if (propertyExpression.Any())
+            {
+                objectProperties = propertyExpression.ToLookup(p => typeof(TSource),
                                                                p =>
                                                                {
                                                                    var body = p.Body;
@@ -98,6 +101,12 @@ namespace PS.ComponentModel.DeepTracker.Extensions
 
                                                                    return propInfo.Name;
                                                                });
+            }
+            else
+            {
+                objectProperties = typeof(TSource).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                                                  .ToLookup(p => typeof(TSource), p => p.Name);
+            }
 
             configuration.Include(new IncludeObjectProperty(objectProperties));
             return configuration;

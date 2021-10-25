@@ -1,0 +1,25 @@
+<Colors>
+  <Color Name="Accent" Value="#FFA52A2A" />
+  <Color Name="AccentHigh" Transform="Accent:Tint:0.2" />
+  <Color Name="AccentLow" Transform="Accent:Shade:0.3" />
+  <Color Name="AccentDeep" Transform="Accent:Shade:0.5" />
+  <Color Name="AccentForeground" Value="#FFFFFFFF"/>
+  <Color Name="AccentBorder" Value="#FFFFFFFF"/>
+  <Color Name="AccentBorderHigh" Transform="AccentBorder:Tint:0.2" />
+  <Color Name="AccentBorderLow" Transform="AccentBorder:Shade:0.3"/>
+  <Color Name="AccentBorderDeep" Transform="AccentBorder:Shade:0.5"/>
+
+  <Color Name="Main" Value="#FFFFFFFF"/>
+  <Color Name="MainHigh" Transform="Accent:Tint:0.2"/>
+  <Color Name="MainLow" Transform="Main:Shade:0.3"/>
+  <Color Name="MainDeep" Transform="Main:Shade:0.5"/>
+  <Color Name="MainForeground" Value="#FF000000" />
+  <Color Name="MainBorder" Value="#FFA9A9A9"/>
+  <Color Name="MainBorderHigh" Transform="MainBorder:Tint:0.5" />
+  <Color Name="MainBorderLow" Transform="MainBorder:Shade:0.3" />
+  <Color Name="MainBorderDeep" Transform="MainBorder:Shade:0.5" />
+
+  <Color Name="Success" Value="#FF008000"/>
+  <Color Name="Failure" Value="#FFFF0000" />
+  <Color Name="Warning" Value="#FFFFA500" />
+</Colors>

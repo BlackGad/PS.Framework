@@ -28,7 +28,7 @@
                 <Border x:Name="Border"
                         Margin="2"
                         Background="{x:Static theme:ThemeBrushes.Main}"
-                        BorderBrush="{x:Static theme:ThemeBrushes.Basic}"
+                        BorderBrush="{x:Static theme:ThemeBrushes.MainBorder}"
                         BorderThickness="1"
                         CornerRadius="3"
                         SnapsToDevicePixels="True">
@@ -63,17 +63,17 @@
                     <VisualState x:Name="MouseOver">
                         <Storyboard>
                             <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).Color">
-                                <EasingColorKeyFrame KeyTime="0" Value="{x:Static theme:ThemeColors.Basic25}" />
+                                <EasingColorKeyFrame KeyTime="0" Value="{x:Static theme:ThemeColors.MainHigh}" />
                             </ColorAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualState>
                     <VisualState x:Name="Pressed">
                         <Storyboard>
                             <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).Color">
-                                <EasingColorKeyFrame KeyTime="0" Value="{x:Static theme:ThemeColors.Basic50}" />
+                                <EasingColorKeyFrame KeyTime="0" Value="{x:Static theme:ThemeColors.MainLow}" />
                             </ColorAnimationUsingKeyFrames>
                             <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Border.BorderBrush).Color">
-                                <EasingColorKeyFrame KeyTime="0" Value="{x:Static theme:ThemeColors.Strong}" />
+                                <EasingColorKeyFrame KeyTime="0" Value="{x:Static theme:ThemeColors.MainBorderLow}" />
                             </ColorAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualState>

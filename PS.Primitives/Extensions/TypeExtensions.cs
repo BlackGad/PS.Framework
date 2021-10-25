@@ -258,7 +258,7 @@ namespace PS.Extensions
                 TypeCode.UInt64,
             };
 
-            NumericTypeCodes = new HashSet<TypeCode>(IntegerTypeCodes.Union(IntegerTypeCodes));
+            NumericTypeCodes = new HashSet<TypeCode>(IntegerTypeCodes.Union(FloatingTypeCodes));
         }
 
         #endregion

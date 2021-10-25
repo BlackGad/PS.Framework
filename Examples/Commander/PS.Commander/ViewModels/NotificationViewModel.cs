@@ -3,6 +3,7 @@ using PS.MVVM.Patterns;
 using PS.Patterns.Aware;
 using PS.WPF;
 using PS.WPF.Commands;
+using PS.WPF.Patterns.Command;
 
 namespace PS.Commander.ViewModels
 {

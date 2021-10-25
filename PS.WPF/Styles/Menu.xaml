@@ -119,15 +119,13 @@
         <Border Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}">
-            <StackPanel ClipToBounds="True"
-                        IsItemsHost="True"
-                        Orientation="Horizontal" />
+            <ItemsPresenter ClipToBounds="True" />
         </Border>
     </ControlTemplate>
 
     <Style x:Key="{x:Static styles:Menu.MenuStyle}" TargetType="{x:Type Menu}">
         <Setter Property="Background" Value="{x:Static theme:ThemeBrushes.Main}" />
-        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.Basic}" />
+        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.MainBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -147,7 +145,7 @@
 
     <Style x:Key="{x:Static styles:Menu.ContextMenuStyle}" TargetType="{x:Type ContextMenu}">
         <Setter Property="Background" Value="{x:Static theme:ThemeBrushes.Main}" />
-        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.Basic}" />
+        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.MainBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -159,7 +157,7 @@
     </ControlTemplate>
 
     <Style x:Key="{x:Static styles:Menu.SeparatorStyle}" TargetType="{x:Type Separator}">
-        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.Basic}" />
+        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.MainBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Height" Value="1" />
         <Setter Property="Margin" Value="0,4,0,4" />
@@ -204,7 +202,7 @@
                 <Setter TargetName="SubmenuBorder" Property="Padding" Value="0,3,0,3" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{x:Static theme:ThemeBrushes.Basic50}" />
+                <Setter Property="Foreground" Value="{x:Static theme:ThemeBrushes.MainBorder50}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -221,7 +219,7 @@
                 <Setter TargetName="Border" Property="Background" Value="{x:Static theme:ThemeBrushes.Accent}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{x:Static theme:ThemeBrushes.Basic50}" />
+                <Setter Property="Foreground" Value="{x:Static theme:ThemeBrushes.MainBorder50}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -287,11 +285,22 @@
                            Margin="5,2,0,2"
                            VerticalAlignment="Center"
                            Text="{TemplateBinding InputGestureText}" />
+                <Path x:Name="SubMenuItems"
+                      Grid.Column="3"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Data="{StaticResource SubMenuGeometry}"
+                      Fill="{TemplateBinding Foreground}"
+                      Stretch="Uniform"
+                      Visibility="Collapsed" />
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="Icon" Value="{x:Null}">
                 <Setter TargetName="Icon" Property="Visibility" Value="Hidden" />
+            </Trigger>
+            <Trigger Property="HasItems" Value="True">
+                <Setter TargetName="SubMenuItems" Property="Visibility" Value="Visible" />
             </Trigger>
             <Trigger Property="IsChecked" Value="true">
                 <Setter TargetName="CheckedPath" Property="Visibility" Value="Visible" />
@@ -306,15 +315,15 @@
                 <Setter TargetName="CheckedPath" Property="Fill" Value="{x:Static theme:ThemeBrushes.Main}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{x:Static theme:ThemeBrushes.Basic50}" />
+                <Setter Property="Foreground" Value="{x:Static theme:ThemeBrushes.MainBorder50}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style x:Key="{x:Static styles:Menu.MenuItemStyle}" TargetType="{x:Type MenuItem}">
         <Setter Property="Background" Value="{x:Static theme:ThemeBrushes.Main}" />
-        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.Basic}" />
-        <Setter Property="Foreground" Value="{x:Static theme:ThemeBrushes.Marker}" />
+        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.MainBorder}" />
+        <Setter Property="Foreground" Value="{x:Static theme:ThemeBrushes.MainForeground}" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="VerticalContentAlignment" Value="Center" />

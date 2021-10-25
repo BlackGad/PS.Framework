@@ -1,0 +1,470 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:aware="clr-namespace:PS.Patterns.Aware;assembly=PS.Primitives"
+                    xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+                    xmlns:data="clr-namespace:PS.WPF.Data"
+                    xmlns:input="clr-namespace:System.Windows.Input;assembly=System"
+                    xmlns:markup="clr-namespace:PS.WPF.Markup"
+                    xmlns:resources="clr-namespace:PS.WPF.Resources"
+                    xmlns:theme="clr-namespace:PS.WPF.Theme"
+                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
+                    xmlns:controls="clr-namespace:PS.WPF.Controls.Ribbon.Controls"
+                    xmlns:ribbon="clr-namespace:PS.WPF.Controls.Ribbon">
+
+    <ResourceDictionary.MergedDictionaries>
+        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Ribbon/RibbonResizeThumbs.xaml" />
+        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Ribbon/Controls/RibbonMenuItem.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Geometry x:Key="ArrowGeometry">M 0,0 L 4,3.5 L 0,7 Z</Geometry>
+
+    <Style x:Key="&#246;" TargetType="{x:Type controls:RibbonToggleButton}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="CanAddToQuickAccessToolBarDirectly" Value="True" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Margin" Value="0,2" />
+        <Setter Property="MouseOverBackground" Value="Transparent" />
+        <Setter Property="PressedBackground" Value="Transparent" />
+        <Setter Property="SuppressCommandExecutionOnClick" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RibbonToggleButton}">
+                    <Grid Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" MinWidth="22" SharedSizeGroup="MenuItemIconColumnGroup" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ContentPresenter Grid.Column="1"
+                                          Margin="{TemplateBinding Padding}"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Center"
+                                          ContentSource="Content"
+                                          RecognizesAccessKey="True" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="&#244;" TargetType="{x:Type RibbonToggleButton}">
+        <Setter Property="ClickMode" Value="Press" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RibbonToggleButton}">
+                    <Grid SnapsToDevicePixels="True">
+                        <Border x:Name="OuterBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}" />
+                        <Path HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Data="{StaticResource ArrowGeometry}"
+                              Fill="{TemplateBinding Foreground}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
+        <Setter Property="ToolTipService.InitialShowDelay" Value="900" />
+        <Setter Property="ToolTipService.ShowDuration" Value="20000" />
+    </Style>
+
+    <Style x:Key="&#243;" TargetType="{x:Type RibbonButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RibbonButton}">
+                    <Grid Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                        <Grid.ColumnDefinitions>
+                            <!--  Icon or check mark column  -->
+                            <ColumnDefinition Width="Auto" MinWidth="22" SharedSizeGroup="MenuItemIconColumnGroup" />
+                            <!--  Header column  -->
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ContentPresenter Grid.Column="1"
+                                          Margin="{TemplateBinding Padding}"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Center"
+                                          ContentSource="Content"
+                                          RecognizesAccessKey="True" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ControlTemplate x:Key="{x:Static controls:RibbonApplicationSplitMenuItem+Resource.ControlTemplate}" TargetType="controls:RibbonApplicationSplitMenuItem">
+        <Border x:Name="Border"
+                BorderThickness="0"
+                SnapsToDevicePixels="True">
+            <Border.BorderBrush>
+                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.MainBorder}">
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                </PriorityBinding>
+            </Border.BorderBrush>
+            <Border.Background>
+                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.Main}">
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                </PriorityBinding>
+            </Border.Background>
+            <TextElement.Foreground>
+                <PriorityBinding>
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Foreground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Foreground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding ElementName="Border" Path="Background" Converter="{x:Static valueConverters:ColorConverters.ContrastForeground}" />
+                </PriorityBinding>
+            </TextElement.Foreground>
+            <Grid x:Name="Layout">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" MinWidth="24" SharedSizeGroup="MenuItemIconColumnGroup" />
+                    <ColumnDefinition Width="*" MinWidth="44" />
+                    <ColumnDefinition Width="1" />
+                    <ColumnDefinition Width="22" />
+                </Grid.ColumnDefinitions>
+                <Popup x:Name="PART_Popup"
+                       Grid.Column="0"
+                       AllowsTransparency="True"
+                       Focusable="False"
+                       IsOpen="{Binding Path=IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                       PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}"
+                       SnapsToDevicePixels="True">
+                    <Border x:Name="PopupBorder"
+                            Background="{Binding ElementName=Border, Path=Background}"
+                            BorderBrush="{Binding ElementName=Border, Path=BorderBrush}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <ScrollViewer x:Name="PART_SubMenuScrollViewer"
+                                          CanContentScroll="True"
+                                          HorizontalScrollBarVisibility="Disabled"
+                                          Style="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type FrameworkElement}, ResourceId=MenuScrollViewer}}">
+                                <ItemsPresenter x:Name="ItemsPresenter"
+                                                Grid.IsSharedSizeScope="True"
+                                                KeyboardNavigation.DirectionalNavigation="Cycle"
+                                                KeyboardNavigation.TabNavigation="Cycle"
+                                                RenderOptions.ClearTypeHint="Enabled" />
+                            </ScrollViewer>
+                            <Border x:Name="ResizeControl"
+                                    Grid.Row="1"
+                                    Background="Transparent"
+                                    BorderBrush="{Binding ElementName=Border, Path=BorderBrush}"
+                                    BorderThickness="0,1,0,0"
+                                    Visibility="Collapsed">
+                                <Thumb x:Name="PART_ResizeThumb" Style="{StaticResource {x:Static ribbon:RibbonResizeThumbs.ThumbBothRightTopStyle}}" />
+                            </Border>
+                        </Grid>
+                    </Border>
+                </Popup>
+                <Border x:Name="HighlightLeftBorder"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Visibility="Hidden" />
+                <Border x:Name="SelectedBorder"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="4"
+                        Opacity="0.3"
+                        Visibility="Hidden">
+                    <Border.Background>
+                        <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.Accent}">
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Accent" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <!--  ReSharper disable once Xaml.BindingWithContextNotResolved  -->
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Accent" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                        </PriorityBinding>
+                    </Border.Background>
+                </Border>
+                <Image x:Name="Image"
+                       Grid.Column="0"
+                       Width="32"
+                       Height="32"
+                       Margin="2,3"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       RenderOptions.BitmapScalingMode="NearestNeighbor"
+                       Source="{TemplateBinding ImageSource}" />
+                <controls:RibbonToggleButton x:Name="PART_HeaderButton"
+                                             Grid.Column="0"
+                                             Grid.ColumnSpan="2"
+                                             Padding="{TemplateBinding Padding}"
+                                             ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                             Command="{TemplateBinding Command}"
+                                             CommandParameter="{TemplateBinding CommandParameter}"
+                                             CommandTarget="{TemplateBinding CommandTarget}"
+                                             Content="{TemplateBinding Property=Header}"
+                                             ContentStringFormat="{TemplateBinding HeaderStringFormat}"
+                                             ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                             KeyTip="{TemplateBinding HeaderKeyTip}"
+                                             QuickAccessToolBarId="{TemplateBinding HeaderQuickAccessToolBarId}"
+                                             SmallImageSource="{TemplateBinding ImageSource}"
+                                             Style="{StaticResource &#246;}"
+                                             ToolTipDescription="{TemplateBinding ToolTipDescription}"
+                                             ToolTipFooterDescription="{TemplateBinding ToolTipFooterDescription}"
+                                             ToolTipFooterImageSource="{TemplateBinding ToolTipFooterImageSource}"
+                                             ToolTipFooterTitle="{TemplateBinding ToolTipFooterTitle}"
+                                             ToolTipImageSource="{TemplateBinding ToolTipImageSource}"
+                                             ToolTipTitle="{TemplateBinding ToolTipTitle}" />
+                <Rectangle x:Name="Separator"
+                           Grid.Column="2"
+                           Fill="{Binding ElementName=Border, Path=Background}" />
+                <Border x:Name="HighlightRightBorder"
+                        Grid.Column="3"
+                        Visibility="Hidden" />
+                <controls:RibbonToggleButton x:Name="PART_ArrowToggleButton"
+                                             Grid.Column="3"
+                                             Margin="0,2"
+                                             Background="Transparent"
+                                             BorderThickness="1,0,0,0"
+                                             Focusable="False"
+                                             IsChecked="{Binding Path=IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                             Style="{StaticResource &#244;}"
+                                             SuppressCommandExecutionOnClick="True"
+                                             ToolTipDescription="{TemplateBinding DropDownToolTipDescription}"
+                                             ToolTipFooterDescription="{TemplateBinding DropDownToolTipFooterDescription}"
+                                             ToolTipFooterImageSource="{TemplateBinding DropDownToolTipFooterImageSource}"
+                                             ToolTipFooterTitle="{TemplateBinding DropDownToolTipFooterTitle}"
+                                             ToolTipImageSource="{TemplateBinding DropDownToolTipImageSource}"
+                                             ToolTipTitle="{TemplateBinding DropDownToolTipTitle}" />
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="HasGallery" Value="True">
+                <Setter TargetName="PART_SubMenuScrollViewer" Property="HorizontalScrollBarVisibility" Value="Disabled" />
+                <Setter TargetName="PART_SubMenuScrollViewer" Property="VerticalScrollBarVisibility" Value="Disabled" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="CanUserResizeHorizontally" Value="true" />
+                    <Condition Property="CanUserResizeVertically" Value="true" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="ResizeControl" Property="Visibility" Value="Visible" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="CanUserResizeHorizontally" Value="false" />
+                    <Condition Property="CanUserResizeVertically" Value="true" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="PART_ResizeThumb" Property="Style" Value="{StaticResource {x:Static ribbon:RibbonResizeThumbs.ThumbVerticalStyle}}" />
+                <Setter TargetName="ResizeControl" Property="Visibility" Value="Visible" />
+            </MultiTrigger>
+            <Trigger Property="ImageSource" Value="{x:Null}">
+                <Setter TargetName="Image" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="HasItems" Value="False">
+                <Setter TargetName="HighlightLeftBorder" Property="Grid.ColumnSpan" Value="4" />
+                <Setter TargetName="PART_ArrowToggleButton" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="Separator" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="HeaderQuickAccessToolBarId" Value="{x:Null}">
+                <Setter TargetName="PART_HeaderButton" Property="CanAddToQuickAccessToolBarDirectly" Value="false" />
+            </Trigger>
+            <Trigger SourceName="PART_Popup" Property="Popup.IsOpen" Value="False">
+                <Setter TargetName="PART_Popup" Property="PopupAnimation" Value="None" />
+            </Trigger>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter TargetName="HighlightLeftBorder" Property="Background">
+                    <Setter.Value>
+                        <PriorityBinding>
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding ElementName="Border" Path="Background" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.1}" />
+                        </PriorityBinding>
+                    </Setter.Value>
+                </Setter>
+                <Setter TargetName="HighlightLeftBorder" Property="BorderBrush">
+                    <Setter.Value>
+                        <PriorityBinding>
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding ElementName="Border" Path="BorderBrush" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.1}" />
+                        </PriorityBinding>
+                    </Setter.Value>
+                </Setter>
+                <Setter TargetName="HighlightLeftBorder" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsHighlighted" Value="True" />
+                    <Condition SourceName="PART_ArrowToggleButton" Property="Visibility" Value="Visible" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="HighlightRightBorder" Property="Background">
+                    <Setter.Value>
+                        <PriorityBinding>
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding ElementName="Border" Path="Background" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.1}" />
+                        </PriorityBinding>
+                    </Setter.Value>
+                </Setter>
+                <Setter TargetName="HighlightRightBorder" Property="BorderBrush">
+                    <Setter.Value>
+                        <PriorityBinding>
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding ElementName="Border" Path="BorderBrush" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.1}" />
+                        </PriorityBinding>
+                    </Setter.Value>
+                </Setter>
+                <Setter TargetName="HighlightRightBorder" Property="Visibility" Value="Visible" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsHighlighted" Value="True" />
+                    <Condition Property="IsSubmenuOpen" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="HighlightRightBorder" Property="Background">
+                    <Setter.Value>
+                        <PriorityBinding>
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="PressedBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.PressedBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding ElementName="Border" Path="Background" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.3}" />
+                        </PriorityBinding>
+                    </Setter.Value>
+                </Setter>
+                <Setter TargetName="HighlightRightBorder" Property="BorderBrush">
+                    <Setter.Value>
+                        <PriorityBinding>
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="PressedBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.PressedBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding ElementName="Border" Path="BorderBrush" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.3}" />
+                        </PriorityBinding>
+                    </Setter.Value>
+                </Setter>
+                <Setter TargetName="HighlightRightBorder" Property="Visibility" Value="Visible" />
+            </MultiTrigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="SelectedBorder" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsPressed" Value="True" />
+                    <Condition SourceName="PART_HeaderButton" Property="IsEnabled" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="HighlightLeftBorder" Property="Background">
+                    <Setter.Value>
+                        <PriorityBinding>
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="PressedBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.PressedBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding ElementName="Border" Path="Background" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.3}" />
+                        </PriorityBinding>
+                    </Setter.Value>
+                </Setter>
+                <Setter TargetName="HighlightLeftBorder" Property="BorderBrush">
+                    <Setter.Value>
+                        <PriorityBinding>
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="PressedBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.PressedBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding ElementName="Border" Path="BorderBrush" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.3}" />
+                        </PriorityBinding>
+                    </Setter.Value>
+                </Setter>
+                <Setter TargetName="HighlightLeftBorder" Property="Visibility" Value="Visible" />
+            </MultiTrigger>
+            <Trigger SourceName="PART_HeaderButton" Property="IsEnabled" Value="False">
+                <Setter TargetName="Image" Property="Opacity" Value="0.5" />
+                <Setter TargetName="PART_HeaderButton" Property="Opacity" Value="0.5" />
+            </Trigger>
+            <Trigger Property="Level" Value="Top">
+                <Setter TargetName="PART_Popup" Property="Placement" Value="Relative" />
+            </Trigger>
+            <Trigger Property="Level" Value="Middle">
+                <Setter TargetName="PART_Popup" Property="Placement" Value="Custom" />
+                <Setter TargetName="PopupBorder" Property="BorderThickness" Value="1" />
+            </Trigger>
+            <Trigger Property="Level" Value="Sub">
+                <Setter TargetName="Image" Property="Height" Value="16" />
+                <Setter TargetName="Image" Property="Width" Value="16" />
+                <Setter TargetName="PART_Popup" Property="Placement" Value="Custom" />
+                <Setter TargetName="PART_Popup" Property="VerticalOffset" Value="-1" />
+                <Setter TargetName="PopupBorder" Property="BorderThickness" Value="1" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="{x:Static controls:RibbonApplicationSplitMenuItem+Resource.ControlStyle}" TargetType="controls:RibbonApplicationSplitMenuItem">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Foreground" Value="{x:Null}" />
+        <Setter Property="Padding" Value="3,2,3,2" />
+        <Setter Property="Template" Value="{StaticResource {x:Static controls:RibbonApplicationSplitMenuItem+Resource.ControlTemplate}}" />
+        <Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
+        <Setter Property="ToolTipService.InitialShowDelay" Value="900" />
+        <Setter Property="ToolTipService.IsEnabled" Value="false" />
+        <Setter Property="ToolTipService.ShowDuration" Value="20000" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IChildrenAware}}" Value="True">
+                <Setter Property="ItemsSource">
+                    <Setter.Value>
+                        <Binding Path="Children" Converter="{x:Static valueConverters:CollectionConverters.Sort}">
+                            <Binding.ConverterParameter>
+                                <data:ObjectCollection>
+                                    <componentModel:SortDescription PropertyName="Order" />
+                                </data:ObjectCollection>
+                            </Binding.ConverterParameter>
+                        </Binding>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type input:ICommand}}" Value="True">
+                <Setter Property="Command" Value="{Binding}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IIsSelectedAware}}" Value="True">
+                <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" />
+                <Setter Property="IsCheckable" Value="True" />
+                <Setter Property="IsChecked" Value="{Binding IsSelected}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ICommandAware}}" Value="True">
+                <Setter Property="Command" Value="{Binding Command}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IIsVisibleAware}}" Value="True">
+                <Setter Property="Visibility" Value="{Binding IsVisible, Converter={x:Static valueConverters:BooleanConverters.ToVisibility}}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ICommandParameterAware}}" Value="True">
+                <Setter Property="CommandParameter" Value="{Binding CommandParameter}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IIconAware}}" Value="True">
+                <Setter Property="ImageSource" Value="{Binding Icon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+                <Setter Property="QuickAccessToolBarImageSource" Value="{Binding Icon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+                <Setter Property="ToolTipImageSource" Value="{Binding Icon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ISmallIconAware}}" Value="True" />
+                    <Condition Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.Exist}, Path=SmallIcon}" Value="True" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="ImageSource" Value="{Binding SmallIcon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+                <Setter Property="QuickAccessToolBarImageSource" Value="{Binding SmallIcon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+                <Setter Property="ToolTipImageSource" Value="{Binding SmallIcon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ILargeIconAware}}" Value="True" />
+                    <Condition Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.Exist}, Path=LargeIcon}" Value="True" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="ImageSource" Value="{Binding LargeIcon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+                <Setter Property="QuickAccessToolBarImageSource" Value="{Binding LargeIcon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+                <Setter Property="ToolTipImageSource" Value="{Binding LargeIcon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ITitleAware}}" Value="True">
+                <Setter Property="Header" Value="{Binding Title}" />
+                <Setter Property="ToolTipTitle" Value="{Binding Title}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IDescriptionAware}}" Value="True">
+                <Setter Property="ToolTipDescription" Value="{Binding Description}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IToolTipAware}}" Value="True">
+                <Setter Property="ToolTipDescription" Value="{Binding ToolTipDescription}" />
+                <Setter Property="ToolTipImageSource" Value="{Binding ToolTipImage, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+                <Setter Property="ToolTipTitle" Value="{Binding ToolTipTitle}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IExtendedToolTipAware}}" Value="True">
+                <Setter Property="ToolTipFooterDescription" Value="{Binding ToolTipFooterDescription}" />
+                <Setter Property="ToolTipFooterImageSource" Value="{Binding ToolTipFooterImage, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+                <Setter Property="ToolTipFooterTitle" Value="{Binding ToolTipFooterTitle}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

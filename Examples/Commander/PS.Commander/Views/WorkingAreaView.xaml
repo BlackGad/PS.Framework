@@ -14,7 +14,7 @@
 
     <TabControl ContentTemplateSelector="{mvvm:TemplateResolver}"
                 ItemTemplateSelector="{mvvm:TemplateResolver Region={x:Static commander:ViewRegions.WorkingAreaTab}}"
-                ItemsSource="{Binding ExplorerViews}"
+                ItemsSource="{Binding ExplorerViewModels}"
                 SelectedItem="{Binding SelectedExplorerView, Mode=TwoWay}">
         <TabControl.Resources>
             <Style TargetType="{x:Type TabItem}">

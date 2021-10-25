@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using PS.Extensions;
+#if !NETFRAMEWORK
+using System.Runtime.InteropServices;
+#endif
 
 namespace PS.Threading
 {
@@ -34,8 +36,9 @@ namespace PS.Threading
                 Name = $"ThreadSynchronizationContext ApartmentState.{apartmentState}",
                 IsBackground = false
             };
-
+            #if !NETFRAMEWORK
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            #endif
             {
                 Thread.SetApartmentState(apartmentState);
             }

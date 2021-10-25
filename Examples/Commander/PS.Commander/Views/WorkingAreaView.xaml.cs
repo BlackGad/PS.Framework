@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using PS.Commander.Models.ExplorerService;
 using PS.Commander.ViewModels;
+using PS.Extensions;
 using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
 
@@ -56,15 +57,11 @@ namespace PS.Commander.Views
         {
             if (e.Source is TabItem tabItem)
             {
-                var sourceFilesViewModel = e.Data.GetData(typeof(ExplorerViewModel)) as ExplorerViewModel;
-                var targetFilesViewModel = ExtractFilesViewModel(tabItem);
+                var sourceExplorerViewModel = e.Data.GetData(typeof(ExplorerViewModel)) as ExplorerViewModel;
+                var targetExplorerViewModel = ExtractFilesViewModel(tabItem);
 
                 var relativePosition = (tabItem.ActualWidth - e.GetPosition(tabItem).X) / tabItem.ActualWidth;
-                var placeType = relativePosition < 0.5
-                    ? Place.Before
-                    : Place.After;
-
-                _explorerService.Place(sourceFilesViewModel?.Explorer, placeType, targetFilesViewModel?.Explorer);
+                MoveExplorerViewModel(sourceExplorerViewModel, relativePosition < 0.5, targetExplorerViewModel);
             }
         }
 
@@ -90,6 +87,33 @@ namespace PS.Commander.Views
                     _dragStartPoint = null;
                 }
             }
+        }
+
+        #endregion
+
+        #region Members
+
+        private void MoveExplorerViewModel(ExplorerViewModel source, bool beforeTarget, ExplorerViewModel target)
+        {
+            if (source.AreEqual(target)) return;
+
+            //Remove source item first
+            _explorerService.ExplorerViewModels.Remove(source);
+
+            //Determine target element index in flat collection
+            var targetFlatIndex = _explorerService.ExplorerViewModels.IndexOf(target);
+
+            //Offset index if we need place source item after target item
+            if (!beforeTarget)
+            {
+                targetFlatIndex++;
+            }
+
+            //Synchronize items area
+            source.Container = target.Container;
+
+            //Insert source item before or after target
+            _explorerService.ExplorerViewModels.SafeInsert(targetFlatIndex, source);
         }
 
         #endregion

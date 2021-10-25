@@ -1,15 +1,19 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:aware="clr-namespace:PS.Patterns.Aware;assembly=PS.Primitives"
+                    xmlns:command="clr-namespace:PS.WPF.Patterns.Command"
                     xmlns:controls="clr-namespace:PS.WPF.Controls"
-                    xmlns:presentation="clr-namespace:PS.WPF"
                     xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters">
 
-    <DataTemplate x:Key="{x:Static controls:UICommandsControl+Resource.CommandButtonTemplate}" DataType="presentation:IUICommand">
+    <Style x:Key="{x:Static controls:UICommandsControl+Resource.ItemContainerStyle}">
+        <Setter Property="FrameworkElement.Margin" Value="2" />
+    </Style>
+
+    <DataTemplate x:Key="{x:Static controls:UICommandsControl+Resource.CommandButtonTemplate}" DataType="command:IUICommand">
         <Button x:Name="Button"
                 MinWidth="75"
                 MinHeight="25"
-                Margin="5,0,0,0"
+                Padding="5,0"
                 Command="{Binding}"
                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=controls:UICommandsControl}}"
                 Content="{Binding Title}"
@@ -36,6 +40,7 @@
     <Style x:Key="{x:Static controls:UICommandsControl+Resource.ControlStyle}" TargetType="controls:UICommandsControl">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource {x:Static controls:UICommandsControl+Resource.ItemContainerStyle}}" />
         <Setter Property="ItemTemplate" Value="{StaticResource {x:Static controls:UICommandsControl+Resource.CommandButtonTemplate}}" />
         <Setter Property="ItemsPanel">
             <Setter.Value>

@@ -47,6 +47,8 @@ namespace PS.WPF.ValueConverters
             }
         }
 
+        public object Parameter { get; set; }
+
         #endregion
 
         #region IValueConverter Members
@@ -54,13 +56,13 @@ namespace PS.WPF.ValueConverters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (_convertFunc == null) throw new NotSupportedException();
-            return _convertFunc(value, targetType, parameter, culture);
+            return _convertFunc(value, targetType, parameter ?? Parameter, culture);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (_convertBackFunc == null) throw new NotSupportedException();
-            return _convertBackFunc(value, targetType, parameter, culture);
+            return _convertBackFunc(value, targetType, parameter ?? Parameter, culture);
         }
 
         #endregion
