@@ -2,7 +2,6 @@
 using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
 using PS.Patterns.Aware;
-using PS.Shell.Infrastructure.Models.ControlsService;
 using PS.WPF.Controls.BusyContainer;
 using PS.WPF.Patterns.Command;
 
@@ -10,8 +9,7 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
 {
     [DependencyRegisterAsSelf]
     public class BusyContainerAdvancedViewModel : BaseNotifyPropertyChanged,
-                                                  IViewModel,
-                                                  IControlViewModel
+                                                  IViewModel
     {
         private object _content;
         private bool _isBusy;
@@ -20,9 +18,6 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
 
         public BusyContainerAdvancedViewModel()
         {
-            Title = "BusyContainer - advanced";
-            Group = "Controls";
-
             ResetContentCommand = new RelayUICommand(() => Content = null, () => Content != null)
             {
                 Title = "Reset"
@@ -104,13 +99,6 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
         public IUICommand SetContentStateWithMutableDescriptionCommand { get; }
         public IUICommand SetContentStateWithMutableTitleCommand { get; }
         public IUICommand SetContentStateWithToStringOverrideCommand { get; }
-
-        #endregion
-
-        #region IControlViewModel Members
-
-        public string Title { get; }
-        public string Group { get; }
 
         #endregion
 

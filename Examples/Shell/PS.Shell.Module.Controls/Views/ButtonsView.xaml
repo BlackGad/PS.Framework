@@ -7,7 +7,6 @@
                         xmlns:ps="http://schemas.ps.com/2019/xaml"
                         xmlns:viewModels="clr-namespace:PS.Shell.Module.Controls.ViewModels"
                         d:DataContext="{d:DesignInstance viewModels:ButtonsViewModel}"
-                        Log="{Binding Log}"
                         mc:Ignorable="d">
     <components:PageControl.Resources>
         <ResourceDictionary>

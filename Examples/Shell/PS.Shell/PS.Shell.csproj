@@ -32,6 +32,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\PS.IoC.Autofac\PS.IoC.Autofac.csproj" />
     <ProjectReference Include="..\..\..\PS.IoC\PS.IoC.csproj" />
     <ProjectReference Include="..\..\..\PS.MVVM.WPF\PS.MVVM.WPF.csproj" />
@@ -48,12 +54,6 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.2.0" />
     <PackageReference Include="NLog" Version="4.7.10" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="NLog.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

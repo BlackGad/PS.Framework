@@ -1,23 +1,21 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using NLog;
 using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
-using PS.Shell.Infrastructure.Models.ControlsService;
 using PS.WPF.Patterns.Command;
 
 namespace PS.Shell.Module.Controls.ViewModels
 {
     [DependencyRegisterAsSelf]
     public class ButtonsViewModel : BaseNotifyPropertyChanged,
-                                    IViewModel,
-                                    IControlViewModel
+                                    IViewModel
     {
         #region Constructors
 
-        public ButtonsViewModel()
+        public ButtonsViewModel(ILogger logger)
         {
-            Title = "Buttons";
-            Group = "Controls";
-            Log = new ObservableCollection<string>();
+            Logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
             SplitMenuButtonCommands = new ObservableCollection<IUICommand>
             {
@@ -36,17 +34,10 @@ namespace PS.Shell.Module.Controls.ViewModels
         #region Properties
 
         public IUICommand ButtonAction { get; }
-        public ObservableCollection<string> Log { get; }
+        public ILogger Logger { get; }
         public IUICommand SplitButtonAction { get; }
         public ObservableCollection<IUICommand> SplitMenuButtonCommands { get; }
         public IUICommand ToggleButtonAction { get; }
-
-        #endregion
-
-        #region IControlViewModel Members
-
-        public string Title { get; }
-        public string Group { get; }
 
         #endregion
 
@@ -54,7 +45,7 @@ namespace PS.Shell.Module.Controls.ViewModels
 
         private IUICommand CreateUICommand(string name, bool canExecute = true)
         {
-            return new RelayUICommand(() => Log.Add($"Command '{name}' execute triggered"), () => canExecute)
+            return new RelayUICommand(() => Logger.Info($"Command '{name}' execute triggered"), () => canExecute)
             {
                 Title = name
             };
@@ -62,7 +53,7 @@ namespace PS.Shell.Module.Controls.ViewModels
 
         private IUICommand CreateUICommand<T>(string name, bool canExecute = true)
         {
-            return new RelayUICommand<T>(p => Log.Add($"Command '{name}' execute triggered with {p} param"), p => canExecute)
+            return new RelayUICommand<T>(p => Logger.Info($"Command '{name}' execute triggered with {p} param"), p => canExecute)
             {
                 Title = name
             };

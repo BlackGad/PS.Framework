@@ -3,14 +3,12 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:examplesService="clr-namespace:PS.Shell.Infrastructure.Models.ExamplesService;assembly=PS.Shell.Infrastructure"
       xmlns:m="http://schemas.ps.com/2019/xaml/markup"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:models="clr-namespace:PS.Shell.Infrastructure.ViewModels;assembly=PS.Shell.Infrastructure"
       xmlns:mvvm="http://schemas.ps.com/2019/xaml/mvvm"
       xmlns:ps="http://schemas.ps.com/2019/xaml"
       xmlns:viewModels="clr-namespace:PS.Shell.ViewModels"
-      xmlns:models1="clr-namespace:PS.Shell.Infrastructure.Models;assembly=PS.Shell.Infrastructure"
-      xmlns:controlsService="clr-namespace:PS.Shell.Infrastructure.Models.ControlsService;assembly=PS.Shell.Infrastructure"
       Margin="5"
       d:DataContext="{d:DesignInstance viewModels:ShellViewModel}"
       d:DesignHeight="450"
@@ -18,7 +16,6 @@
       Focusable="False"
       mc:Ignorable="d">
     <Grid.Resources>
-
         <Style x:Key="GroupContainerStyle" TargetType="{x:Type GroupItem}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -35,7 +32,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
         <DataTemplate x:Key="GroupHeaderTemplate" DataType="CollectionViewGroup">
             <TextBlock Name="Label"
                        FontFamily="{x:Static ps:ThemeFonts.FontFamilyLight}"
@@ -49,21 +45,26 @@
                 </DataTrigger>
             </DataTemplate.Triggers>
         </DataTemplate>
-
-        <DataTemplate x:Key="ItemTemplate" DataType="{x:Type controlsService:IControlViewModel}">
+        <DataTemplate x:Key="ItemTemplate" DataType="{x:Type examplesService:IExample}">
             <TextBlock Name="Label"
                        FontFamily="{x:Static ps:ThemeFonts.FontFamilyLight}"
                        FontSize="{x:Static ps:ThemeFonts.FontSizeL}"
                        Text="{Binding Title}" />
         </DataTemplate>
-
     </Grid.Resources>
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="250" />
+        <ColumnDefinition Width="Auto" />
         <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
-    <ListBox Grid.Column="0"
-             Margin="0,0,5,0"
+    <Grid.RowDefinitions>
+        <RowDefinition />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="250" />
+    </Grid.RowDefinitions>
+    <ListBox Grid.Row="0"
+             Grid.RowSpan="3"
+             Grid.Column="0"
              BorderBrush="{x:Static ps:ThemeBrushes.MainBorder}"
              BorderThickness="1"
              ItemTemplate="{StaticResource ItemTemplate}"
@@ -74,7 +75,7 @@
                         HidesIfEmpty="True" />
         </ItemsControl.GroupStyle>
         <ItemsControl.ItemsSource>
-            <Binding Path="ControlsService.Controls" Converter="{x:Static ps:CollectionConverters.GroupAndSort}">
+            <Binding Path="ExamplesService" Converter="{x:Static ps:CollectionConverters.GroupAndSort}">
                 <Binding.ConverterParameter>
                     <ps:ObjectCollection>
                         <PropertyGroupDescription PropertyName="Group" />
@@ -86,10 +87,35 @@
             </Binding>
         </ItemsControl.ItemsSource>
     </ListBox>
-    <Border Grid.Column="1"
+    <GridSplitter Grid.Row="0"
+                  Grid.RowSpan="3"
+                  Grid.Column="1"
+                  Width="3"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Stretch"
+                  Background="{x:Static ps:ThemeBrushes.Main}"
+                  BorderThickness="0"
+                  ShowsPreview="False" />
+    <ContentControl Grid.Row="0"
+                    Grid.Column="2"
+                    ContentTemplateSelector="{mvvm:TemplateResolver}"
+                    Content="{Binding Content.ViewModel}" />
+    <GridSplitter Grid.Row="1"
+                  Grid.Column="1"
+                  Grid.ColumnSpan="2"
+                  Height="3"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Center"
+                  Background="{x:Static ps:ThemeBrushes.Main}"
+                  BorderThickness="0"
+                  ShowsPreview="False" />
+    <Border Grid.Row="2"
+            Grid.Column="2"
             BorderBrush="{x:Static ps:ThemeBrushes.MainBorder}"
             BorderThickness="1">
-        <ContentControl ContentTemplateSelector="{mvvm:TemplateResolver}" Content="{Binding Content}" />
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Content.Log}" />
+        </ScrollViewer>
     </Border>
 
 </Grid>

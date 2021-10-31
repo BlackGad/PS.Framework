@@ -38,12 +38,11 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.2.0" />
+    <PackageReference Include="NLog" Version="4.7.10" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\BusyContainer\BusyContainerSimpleView - Copy.xaml.cs">
-      <DependentUpon>BusyContainerSimpleView.xaml.cs</DependentUpon>
-    </Compile>
+      <EmbeddedResource Include="@(Compile);@(Page)" />
   </ItemGroup>
 
 </Project>

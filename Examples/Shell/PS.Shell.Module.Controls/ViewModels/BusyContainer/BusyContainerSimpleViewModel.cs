@@ -1,23 +1,22 @@
-﻿using PS.IoC.Attributes;
+﻿using System;
+using NLog;
+using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
-using PS.Shell.Infrastructure.Models.ControlsService;
 
 namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
 {
     [DependencyRegisterAsSelf]
     public class BusyContainerSimpleViewModel : BaseNotifyPropertyChanged,
-                                                IViewModel,
-                                                IControlViewModel
+                                                IViewModel
     {
         private string _content;
         private bool _isBusy;
 
         #region Constructors
 
-        public BusyContainerSimpleViewModel()
+        public BusyContainerSimpleViewModel(ILogger logger)
         {
-            Title = "BusyContainer - simple";
-            Group = "Controls";
+            Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         #endregion
@@ -36,12 +35,7 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
             set { SetField(ref _isBusy, value); }
         }
 
-        #endregion
-
-        #region IControlViewModel Members
-
-        public string Title { get; }
-        public string Group { get; }
+        public ILogger Logger { get; }
 
         #endregion
     }

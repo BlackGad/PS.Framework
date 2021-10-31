@@ -4,7 +4,7 @@ using Autofac.Core.Registration;
 using PS.IoC.Extensions;
 using PS.MVVM.Extensions;
 using PS.MVVM.Services;
-using PS.Shell.Infrastructure.Models.ControlsService;
+using PS.Shell.Infrastructure.Models.ExamplesService;
 using PS.Shell.Module.Controls.ViewModels;
 using PS.Shell.Module.Controls.ViewModels.BusyContainer;
 using PS.Shell.Module.Controls.Views;
@@ -20,11 +20,13 @@ namespace PS.Shell.Module.Controls
         protected override void AttachToComponentRegistration(IComponentRegistryBuilder componentRegistry, IComponentRegistration registration)
         {
             registration.HandleActivation<IViewResolverService>(ViewResolverServiceActivation);
-            registration.HandleActivation<IControlsService>(ControlsServiceActivation);
+            registration.HandleActivation<IExamplesService>(ControlsServiceActivation);
         }
 
         protected override void Load(ContainerBuilder builder)
         {
+            var existingNames = ThisAssembly.GetManifestResourceNames();
+
             builder.RegisterAssemblyTypesWithAttributes(ThisAssembly);
         }
 
@@ -32,15 +34,15 @@ namespace PS.Shell.Module.Controls
 
         #region Members
 
-        private void ControlsServiceActivation(ILifetimeScope scope, IControlsService service)
+        private void ControlsServiceActivation(ILifetimeScope scope, IExamplesService service)
         {
-            service.Controls.Add(scope.Resolve<TextBoxViewModel>());
-            service.Controls.Add(scope.Resolve<DecimalTextBoxViewModel>());
-            service.Controls.Add(scope.Resolve<CancelableProcessCommandViewModel>());
-            service.Controls.Add(scope.Resolve<ButtonsViewModel>());
-            service.Controls.Add(scope.Resolve<BusyContainerSimpleViewModel>());
-            service.Controls.Add(scope.Resolve<BusyContainerAdvancedViewModel>());
-            service.Controls.Add(scope.Resolve<BusyContainerStackViewModel>());
+            service.Add<TextBoxViewModel>("Controls", "TextBox");
+            service.Add<DecimalTextBoxViewModel>("Controls", "DecimalTextBox");
+            service.Add<CancelableProcessCommandViewModel>("Commands", "CancelableProcessCommand");
+            service.Add<ButtonsViewModel>("Controls", "Buttons");
+            service.Add<BusyContainerSimpleViewModel>("Controls", "BusyContainer - simple");
+            service.Add<BusyContainerAdvancedViewModel>("Controls", "BusyContainer - advanced");
+            service.Add<BusyContainerStackViewModel>("Controls", "BusyContainer - stack");
         }
 
         private void ViewResolverServiceActivation(ILifetimeScope scope, IViewResolverService service)

@@ -31,32 +31,32 @@ namespace PS.Shell.Module.Controls.Views
 
         private void Button_OnClick(object sender, RoutedEventArgs e)
         {
-            ViewModel.Log.Add("Button Button click event");
+            ViewModel.Logger.Info("Button Button click event");
         }
 
         private void SplitButton_OnChecked(object sender, RoutedEventArgs e)
         {
-            ViewModel.Log.Add("Split Menu Button Button checked event");
+            ViewModel.Logger.Info("Split Menu Button Button checked event");
         }
 
         private void SplitButton_OnClick(object sender, RoutedEventArgs e)
         {
-            ViewModel.Log.Add("Split Menu Button click event");
+            ViewModel.Logger.Info("Split Menu Button click event");
         }
 
         private void SplitButton_OnUnchecked(object sender, RoutedEventArgs e)
         {
-            ViewModel.Log.Add("Split Menu Button Button unchecked event");
+            ViewModel.Logger.Info("Split Menu Button Button unchecked event");
         }
 
         private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
         {
-            ViewModel.Log.Add("Toggle Button Button checked event");
+            ViewModel.Logger.Info("Toggle Button Button checked event");
         }
 
         private void ToggleButton_OnUnchecked(object sender, RoutedEventArgs e)
         {
-            ViewModel.Log.Add("Toggle Button Button unchecked event");
+            ViewModel.Logger.Info("Toggle Button Button unchecked event");
         }
 
         #endregion

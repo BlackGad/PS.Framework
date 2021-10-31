@@ -11,6 +11,7 @@ using Autofac;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
+using PS.Extensions;
 using PS.IoC;
 using PS.MVVM.Services.WindowService;
 using PS.Shell.Infrastructure;
@@ -44,7 +45,7 @@ namespace PS.Shell
         public static string GetApplicationName()
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var title = assembly.GetCustomAttribute<AssemblyProductAttribute>().Product;
+            var title = assembly.GetCustomAttribute<AssemblyProductAttribute>()?.Product;
 
             return title;
         }

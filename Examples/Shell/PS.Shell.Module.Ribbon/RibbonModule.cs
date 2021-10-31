@@ -4,7 +4,7 @@ using Autofac.Core.Registration;
 using PS.IoC.Extensions;
 using PS.MVVM.Extensions;
 using PS.MVVM.Services;
-using PS.Shell.Infrastructure.Models.ControlsService;
+using PS.Shell.Infrastructure.Models.ExamplesService;
 using PS.Shell.Module.Ribbon.ViewModels;
 using PS.Shell.Module.Ribbon.Views;
 using PS.WPF.DataTemplate;
@@ -18,7 +18,7 @@ namespace PS.Shell.Module.Ribbon
         protected override void AttachToComponentRegistration(IComponentRegistryBuilder componentRegistry, IComponentRegistration registration)
         {
             registration.HandleActivation<IViewResolverService>(ViewResolverServiceActivation);
-            registration.HandleActivation<IControlsService>(ControlsServiceActivation);
+            registration.HandleActivation<IExamplesService>(ControlsServiceActivation);
         }
 
         protected override void Load(ContainerBuilder builder)
@@ -30,9 +30,9 @@ namespace PS.Shell.Module.Ribbon
 
         #region Members
 
-        private void ControlsServiceActivation(ILifetimeScope scope, IControlsService service)
+        private void ControlsServiceActivation(ILifetimeScope scope, IExamplesService service)
         {
-            service.Controls.Add(scope.Resolve<RibbonViewModel>());
+            service.Add<RibbonViewModel>("Ribbon", "XAML usage");
         }
 
         private void ViewResolverServiceActivation(ILifetimeScope scope, IViewResolverService service)

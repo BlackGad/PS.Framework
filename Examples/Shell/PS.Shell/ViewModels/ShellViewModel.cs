@@ -2,8 +2,7 @@
 using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
 using PS.Patterns.Aware;
-using PS.Shell.Infrastructure.Models;
-using PS.Shell.Infrastructure.Models.ControlsService;
+using PS.Shell.Infrastructure.Models.ExamplesService;
 
 namespace PS.Shell.ViewModels
 {
@@ -12,13 +11,13 @@ namespace PS.Shell.ViewModels
                                   ITitleAware,
                                   IViewModel
     {
-        private object _content;
+        private IExample _content;
 
         #region Constructors
 
-        public ShellViewModel(IControlsService controlsService)
+        public ShellViewModel(IExamplesService examplesService)
         {
-            ControlsService = controlsService ?? throw new ArgumentNullException(nameof(controlsService));
+            ExamplesService = examplesService ?? throw new ArgumentNullException(nameof(examplesService));
             Title = App.GetApplicationTitle();
         }
 
@@ -26,13 +25,13 @@ namespace PS.Shell.ViewModels
 
         #region Properties
 
-        public object Content
+        public IExample Content
         {
             get { return _content; }
             set { SetField(ref _content, value); }
         }
 
-        public IControlsService ControlsService { get; }
+        public IExamplesService ExamplesService { get; }
 
         #endregion
 
