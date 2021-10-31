@@ -5,7 +5,6 @@
     }
 
     public interface IView<out T> : IView
-        where T : IViewModel
     {
         #region Properties
 

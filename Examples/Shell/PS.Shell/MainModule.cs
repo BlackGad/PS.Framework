@@ -4,7 +4,9 @@ using Autofac.Core.Registration;
 using PS.IoC.Extensions;
 using PS.MVVM.Extensions;
 using PS.MVVM.Services;
+using PS.Shell.Infrastructure.Models.ExamplesService;
 using PS.Shell.Infrastructure.ViewModels;
+using PS.Shell.Models.PageService;
 using PS.Shell.ViewModels;
 using PS.Shell.Views;
 using PS.WPF.DataTemplate;
@@ -35,7 +37,11 @@ namespace PS.Shell
 
         private void ViewResolverServiceActivation(ILifetimeScope scope, IViewResolverService service)
         {
-            service.Associate<ShellViewModel>(
+            service.AssociateTemplate<IExample>(scope.Resolve<IDataTemplate<DesignView>>())
+                   .AssociateTemplate<ISourceFolder>(scope.Resolve<IDataTemplate<SourceFolderView>>())
+                   .AssociateTemplate<ISourceXaml>(scope.Resolve<IDataTemplate<SourceXamlView>>())
+                   .AssociateTemplate<ISourceCSharp>(scope.Resolve<IDataTemplate<SourceCSharpView>>())
+                   .Associate<ShellViewModel>(
                        template: scope.Resolve<IDataTemplate<ShellView>>(),
                        style: XamlResources.ShellWindowStyle)
                    .Associate<NotificationViewModel>(

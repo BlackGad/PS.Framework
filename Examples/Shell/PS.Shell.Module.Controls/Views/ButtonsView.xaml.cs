@@ -7,11 +7,11 @@ namespace PS.Shell.Module.Controls.Views
 {
     [DependencyRegisterAsSelf]
     [DependencyRegisterAsInterface(typeof(IView<ButtonsViewModel>))]
-    public partial class ButtonsViewView : IView<ButtonsViewModel>
+    public partial class ButtonsView : IView<ButtonsViewModel>
     {
         #region Constructors
 
-        public ButtonsViewView()
+        public ButtonsView()
         {
             InitializeComponent();
         }

@@ -25,8 +25,6 @@ namespace PS.Shell.Module.Controls
 
         protected override void Load(ContainerBuilder builder)
         {
-            var existingNames = ThisAssembly.GetManifestResourceNames();
-
             builder.RegisterAssemblyTypesWithAttributes(ThisAssembly);
         }
 
@@ -36,20 +34,43 @@ namespace PS.Shell.Module.Controls
 
         private void ControlsServiceActivation(ILifetimeScope scope, IExamplesService service)
         {
-            service.Add<TextBoxViewModel>("Controls", "TextBox");
-            service.Add<DecimalTextBoxViewModel>("Controls", "DecimalTextBox");
-            service.Add<CancelableProcessCommandViewModel>("Commands", "CancelableProcessCommand");
-            service.Add<ButtonsViewModel>("Controls", "Buttons");
-            service.Add<BusyContainerSimpleViewModel>("Controls", "BusyContainer - simple");
-            service.Add<BusyContainerAdvancedViewModel>("Controls", "BusyContainer - advanced");
-            service.Add<BusyContainerStackViewModel>("Controls", "BusyContainer - stack");
+            service.Add<TextBoxViewModel>("Controls", "TextBox")
+                   .Source<TextBoxViewModel>(@"ViewModels")
+                   .XamlPage<TextBoxView>(@"Views");
+
+            service.Add<DecimalTextBoxViewModel>("Controls", "DecimalTextBox")
+                   .Source<DecimalTextBoxViewModel>(@"ViewModels")
+                   .XamlPage<DecimalTextBoxView>(@"Views");
+
+            service.Add<CancelableProcessCommandViewModel>("Commands", "CancelableProcessCommand")
+                   .Source<CancelableProcessCommandViewModel>(@"ViewModels")
+                   .XamlPage<CancelableProcessCommandView>(@"Views");
+
+            service.Add<ButtonsViewModel>("Controls", "Buttons")
+                   .Source<ButtonsViewModel>(@"ViewModels")
+                   .XamlPage<ButtonsView>(@"Views");
+
+            service.Add<BusyContainerSimpleViewModel>("Controls", "BusyContainer - simple")
+                   .Source<BusyContainerSimpleViewModel>(@"ViewModels")
+                   .XamlPage<BusyContainerSimpleView>(@"Views");
+
+            service.Add<BusyContainerAdvancedViewModel>("Controls", "BusyContainer - advanced")
+                   .Source<BusyContainerAdvancedViewModel>(@"ViewModels")
+                   .Source<CustomState>()
+                   .Source<StateWithMutableDescription>()
+                   .Source<StateWithToStringOverride>()
+                   .XamlPage<BusyContainerAdvancedView>(@"Views");
+
+            service.Add<BusyContainerStackViewModel>("Controls", "BusyContainer - stack")
+                   .Source<BusyContainerStackViewModel>(@"ViewModels")
+                   .XamlPage<BusyContainerStackView>(@"Views");
         }
 
         private void ViewResolverServiceActivation(ILifetimeScope scope, IViewResolverService service)
         {
             service.AssociateTemplate<TextBoxViewModel>(scope.Resolve<IDataTemplate<TextBoxView>>())
                    .AssociateTemplate<DecimalTextBoxViewModel>(scope.Resolve<IDataTemplate<DecimalTextBoxView>>())
-                   .AssociateTemplate<ButtonsViewModel>(scope.Resolve<IDataTemplate<ButtonsViewView>>())
+                   .AssociateTemplate<ButtonsViewModel>(scope.Resolve<IDataTemplate<ButtonsView>>())
                    .AssociateTemplate<BusyContainerSimpleViewModel>(scope.Resolve<IDataTemplate<BusyContainerSimpleView>>())
                    .AssociateTemplate<BusyContainerAdvancedViewModel>(scope.Resolve<IDataTemplate<BusyContainerAdvancedView>>())
                    .AssociateTemplate<BusyContainerStackViewModel>(scope.Resolve<IDataTemplate<BusyContainerStackView>>())

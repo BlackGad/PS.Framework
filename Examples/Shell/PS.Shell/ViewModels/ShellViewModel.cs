@@ -11,7 +11,7 @@ namespace PS.Shell.ViewModels
                                   ITitleAware,
                                   IViewModel
     {
-        private IExample _content;
+        private object _content;
 
         #region Constructors
 
@@ -25,7 +25,7 @@ namespace PS.Shell.ViewModels
 
         #region Properties
 
-        public IExample Content
+        public object Content
         {
             get { return _content; }
             set { SetField(ref _content, value); }

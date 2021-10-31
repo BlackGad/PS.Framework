@@ -45,30 +45,33 @@
                 </DataTrigger>
             </DataTemplate.Triggers>
         </DataTemplate>
-        <DataTemplate x:Key="ItemTemplate" DataType="{x:Type examplesService:IExample}">
+        <HierarchicalDataTemplate x:Key="ItemTemplate" DataType="{x:Type examplesService:IExample}">
+            <HierarchicalDataTemplate.ItemsSource>
+                <Binding Path="Children" Converter="{x:Static ps:CollectionConverters.GroupAndSort}">
+                    <Binding.ConverterParameter>
+                        <ps:ObjectCollection>
+                            <componentModel:SortDescription PropertyName="Order" />
+                            <componentModel:SortDescription PropertyName="Title" />
+                        </ps:ObjectCollection>
+                    </Binding.ConverterParameter>
+                </Binding>
+            </HierarchicalDataTemplate.ItemsSource>
             <TextBlock Name="Label"
                        FontFamily="{x:Static ps:ThemeFonts.FontFamilyLight}"
                        FontSize="{x:Static ps:ThemeFonts.FontSizeL}"
                        Text="{Binding Title}" />
-        </DataTemplate>
+        </HierarchicalDataTemplate>
     </Grid.Resources>
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="250" />
         <ColumnDefinition Width="Auto" />
         <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
-    <Grid.RowDefinitions>
-        <RowDefinition />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="250" />
-    </Grid.RowDefinitions>
-    <ListBox Grid.Row="0"
-             Grid.RowSpan="3"
-             Grid.Column="0"
-             BorderBrush="{x:Static ps:ThemeBrushes.MainBorder}"
-             BorderThickness="1"
-             ItemTemplate="{StaticResource ItemTemplate}"
-             SelectedItem="{Binding Path=Content, Mode=TwoWay}">
+    <TreeView Grid.Column="0"
+              BorderBrush="{x:Static ps:ThemeBrushes.MainBorder}"
+              BorderThickness="1"
+              ItemTemplate="{StaticResource ItemTemplate}"
+              SelectedItemChanged="TreeView_OnSelectedItemChanged">
         <ItemsControl.GroupStyle>
             <GroupStyle ContainerStyle="{StaticResource GroupContainerStyle}"
                         HeaderTemplate="{StaticResource GroupHeaderTemplate}"
@@ -86,36 +89,15 @@
                 </Binding.ConverterParameter>
             </Binding>
         </ItemsControl.ItemsSource>
-    </ListBox>
-    <GridSplitter Grid.Row="0"
-                  Grid.RowSpan="3"
-                  Grid.Column="1"
+    </TreeView>
+    <GridSplitter Grid.Column="1"
                   Width="3"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Stretch"
                   Background="{x:Static ps:ThemeBrushes.Main}"
                   BorderThickness="0"
                   ShowsPreview="False" />
-    <ContentControl Grid.Row="0"
-                    Grid.Column="2"
+    <ContentControl Grid.Column="2"
                     ContentTemplateSelector="{mvvm:TemplateResolver}"
-                    Content="{Binding Content.ViewModel}" />
-    <GridSplitter Grid.Row="1"
-                  Grid.Column="1"
-                  Grid.ColumnSpan="2"
-                  Height="3"
-                  HorizontalAlignment="Stretch"
-                  VerticalAlignment="Center"
-                  Background="{x:Static ps:ThemeBrushes.Main}"
-                  BorderThickness="0"
-                  ShowsPreview="False" />
-    <Border Grid.Row="2"
-            Grid.Column="2"
-            BorderBrush="{x:Static ps:ThemeBrushes.MainBorder}"
-            BorderThickness="1">
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding Content.Log}" />
-        </ScrollViewer>
-    </Border>
-
+                    Content="{Binding Content}" />
 </Grid>

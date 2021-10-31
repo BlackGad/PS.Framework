@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
-using PS.Patterns.Aware;
 using PS.WPF.Controls.BusyContainer;
 using PS.WPF.Patterns.Command;
 
@@ -99,80 +98,6 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
         public IUICommand SetContentStateWithMutableDescriptionCommand { get; }
         public IUICommand SetContentStateWithMutableTitleCommand { get; }
         public IUICommand SetContentStateWithToStringOverrideCommand { get; }
-
-        #endregion
-
-        #region Nested type: CustomState
-
-        public class CustomState : BaseNotifyPropertyChanged,
-                                   IMutableTitleAware
-        {
-            private string _title;
-
-            #region Constructors
-
-            public CustomState()
-            {
-                Title = "Mutable title";
-            }
-
-            #endregion
-
-            #region IMutableTitleAware Members
-
-            public string Title
-            {
-                get { return _title; }
-                set { SetField(ref _title, value); }
-            }
-
-            #endregion
-        }
-
-        #endregion
-
-        #region Nested type: StateWithMutableDescription
-
-        public class StateWithMutableDescription : BaseNotifyPropertyChanged,
-                                                   IMutableDescriptionAware
-        {
-            private string _description;
-
-            #region Constructors
-
-            public StateWithMutableDescription()
-            {
-                Description = "Mutable description";
-            }
-
-            #endregion
-
-            #region IMutableDescriptionAware Members
-
-            public string Description
-            {
-                get { return _description; }
-                set { SetField(ref _description, value); }
-            }
-
-            #endregion
-        }
-
-        #endregion
-
-        #region Nested type: StateWithToStringOverride
-
-        public class StateWithToStringOverride
-        {
-            #region Override members
-
-            public override string ToString()
-            {
-                return "Custom state with immutable description";
-            }
-
-            #endregion
-        }
 
         #endregion
     }
