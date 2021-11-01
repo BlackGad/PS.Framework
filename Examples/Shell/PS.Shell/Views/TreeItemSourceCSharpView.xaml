@@ -1,0 +1,28 @@
+﻿<Grid x:Class="PS.Shell.Views.TreeItemSourceCSharpView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:examplesService="clr-namespace:PS.Shell.Infrastructure.Models.ExamplesService;assembly=PS.Shell.Infrastructure"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Margin="0,3"
+      d:DataContext="{d:DesignInstance examplesService:ISourceCSharp}"
+      Focusable="False"
+      mc:Ignorable="d">
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="16" />
+        <ColumnDefinition Width="3" />
+        <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <Path Grid.Column="0"
+          Width="11"
+          Height="11"
+          Margin="0,2,0,0"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          Data="m 48.0013,40.8762 0.6756,-5.1195 h 3.8425 l -0.6334,5.1195 z m -1.689,11.3472 1.0556,-7.6 h 3.8425 l -1.0979,7.6 h 3.8003 l 1.0556,-7.6 h 4.138 V 40.8762 H 55.644 l 0.6334,-5.1195 h 4.0113 v -3.7472 h -3.378 l 1.0557,-7.1778 h -3.758 l -1.0557,7.1778 h -3.8846 l 1.0556,-7.1778 H 46.6079 L 45.51,32.0095 h -4.138 v 3.7472 h 3.5469 l -0.6756,5.1195 h -4.0958 v 3.7472 h 3.4624 l -1.0978,7.6 z M 35.9637,46.3383 c -0.6738,0.2726 -1.4902,0.491 -2.449,0.6552 -0.9589,0.1642 -1.9441,0.2485 -2.9558,0.2528 -2.8721,-0.0301 -5.0977,-0.8469 -6.6768,-2.4505 -1.579,-1.6036 -2.3795,-3.8133 -2.4015,-6.6292 0.0598,-3.092 0.9325,-5.4 2.6179,-6.924 1.6855,-1.5241 3.8249,-2.2844 6.4182,-2.281 1.1621,0.0095 2.1948,0.1147 3.0983,0.3154 0.9034,0.2008 1.6722,0.4401 2.3065,0.7179 l 1.3512,-5.1632 c -0.5824,-0.3067 -1.4761,-0.5843 -2.6813,-0.8326 -1.2052,-0.2484 -2.6478,-0.3799 -4.328,-0.3945 -4.4138,0.029 -8.0715,1.3313 -10.973,3.9071 -2.9015,2.5757 -4.4057,6.2512 -4.5126,11.0263 0.0048,4.0531 1.252,7.3888 3.7416,10.007 2.4896,2.6182 6.1932,3.9728 11.1106,4.0638 1.7277,-0.0167 3.2232,-0.1522 4.4864,-0.4064 1.2632,-0.2542 2.1886,-0.5269 2.7763,-0.8181 z"
+          Fill="#FF398C34"
+          Stretch="Uniform" />
+    <TextBlock Grid.Column="2"
+               VerticalAlignment="Center"
+               Text="{Binding Title}" />
+</Grid>

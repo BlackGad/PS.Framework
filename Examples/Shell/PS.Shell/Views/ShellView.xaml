@@ -4,6 +4,7 @@
       xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:examplesService="clr-namespace:PS.Shell.Infrastructure.Models.ExamplesService;assembly=PS.Shell.Infrastructure"
+      xmlns:infrastructure="clr-namespace:PS.Shell.Infrastructure;assembly=PS.Shell.Infrastructure"
       xmlns:m="http://schemas.ps.com/2019/xaml/markup"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:mvvm="http://schemas.ps.com/2019/xaml/mvvm"
@@ -56,22 +57,21 @@
                     </Binding.ConverterParameter>
                 </Binding>
             </HierarchicalDataTemplate.ItemsSource>
-            <TextBlock Name="Label"
-                       FontFamily="{x:Static ps:ThemeFonts.FontFamilyLight}"
+            <TextBlock FontFamily="{x:Static ps:ThemeFonts.FontFamilyLight}"
                        FontSize="{x:Static ps:ThemeFonts.FontSizeL}"
                        Text="{Binding Title}" />
         </HierarchicalDataTemplate>
     </Grid.Resources>
     <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="250" />
+        <ColumnDefinition Width="300" />
         <ColumnDefinition Width="Auto" />
         <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
-    <TreeView Grid.Column="0"
-              BorderBrush="{x:Static ps:ThemeBrushes.MainBorder}"
-              BorderThickness="1"
-              ItemTemplate="{StaticResource ItemTemplate}"
-              SelectedItemChanged="TreeView_OnSelectedItemChanged">
+    <ps:TreeView Grid.Column="0"
+                 BorderBrush="{x:Static ps:ThemeBrushes.MainBorder}"
+                 BorderThickness="1"
+                 ItemTemplateSelector="{mvvm:TemplateResolver Region={x:Static infrastructure:Regions.ShellTreeItem}}"
+                 SelectedItemChanged="TreeView_OnSelectedItemChanged">
         <ItemsControl.GroupStyle>
             <GroupStyle ContainerStyle="{StaticResource GroupContainerStyle}"
                         HeaderTemplate="{StaticResource GroupHeaderTemplate}"
@@ -89,7 +89,7 @@
                 </Binding.ConverterParameter>
             </Binding>
         </ItemsControl.ItemsSource>
-    </TreeView>
+    </ps:TreeView>
     <GridSplitter Grid.Column="1"
                   Width="3"
                   HorizontalAlignment="Center"

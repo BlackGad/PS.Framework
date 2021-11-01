@@ -1,0 +1,38 @@
+﻿<Grid x:Class="PS.Shell.Views.TreeItemSourceFolderView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:examplesService="clr-namespace:PS.Shell.Infrastructure.Models.ExamplesService;assembly=PS.Shell.Infrastructure"
+      xmlns:m="http://schemas.ps.com/2019/xaml/markup"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ps="http://schemas.ps.com/2019/xaml"
+      xmlns:switch="http://schemas.ps.com/2019/xaml/switchvalueconverter"
+      xmlns:system="clr-namespace:System;assembly=System.Runtime"
+      Margin="0,3"
+      d:DataContext="{d:DesignInstance examplesService:ISourceFolder}"
+      Focusable="False"
+      mc:Ignorable="d">
+    <Grid.Resources>
+        <ps:SwitchValueConverter x:Key="GeometryConverter">
+            <switch:EqualTo Result="M464 128H272l-64-64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48z" Value="{m:Boolean False}" />
+            <switch:EqualTo Result="M572.694 292.093L500.27 416.248A63.997 63.997 0 0 1 444.989 448H45.025c-18.523 0-30.064-20.093-20.731-36.093l72.424-124.155A64 64 0 0 1 152 256h399.964c18.523 0 30.064 20.093 20.73 36.093zM152 224h328v-48c0-26.51-21.49-48-48-48H272l-64-64H48C21.49 64 0 85.49 0 112v278.046l69.077-118.418C86.214 242.25 117.989 224 152 224z" Value="{m:Boolean True}" />
+        </ps:SwitchValueConverter>
+    </Grid.Resources>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="16" />
+        <ColumnDefinition Width="3" />
+        <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <Path Grid.Column="0"
+          Width="12"
+          Height="12"
+          Margin="0,2,0,0"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          Data="{Binding RelativeSource={RelativeSource AncestorType=ps:TreeViewItem}, Path=IsExpanded, Converter={StaticResource GeometryConverter}}"
+          Fill="#FFDDB77E"
+          Stretch="Uniform" />
+    <TextBlock Grid.Column="2"
+               VerticalAlignment="Center"
+               Text="{Binding Title}" />
+</Grid>
