@@ -3,15 +3,18 @@
                     xmlns:aware="clr-namespace:PS.Patterns.Aware;assembly=PS.Primitives"
                     xmlns:infrastructure="clr-namespace:PS.Shell.Infrastructure"
                     xmlns:m="http://schemas.ps.com/2019/xaml/markup"
-                    xmlns:valueConverters="http://schemas.ps.com/2019/xaml">
-    <Style x:Key="{x:Static infrastructure:XamlResources.NotificationStyle}" TargetType="valueConverters:Window">
+                    xmlns:ps="http://schemas.ps.com/2019/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/PS.WPF;component/Controls/Window.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <Style x:Key="{x:Static infrastructure:XamlResources.NotificationStyle}" TargetType="ps:Window">
         <Setter Property="Commands">
             <Setter.Value>
-                <valueConverters:UICommandCollection>
-                    <valueConverters:CloseDialogCommand Title="OK"
-                                                        DialogResult="True"
-                                                        IsDefault="True" />
-                </valueConverters:UICommandCollection>
+                <ps:UICommandCollection>
+                    <ps:CloseDialogCommand Title="OK"
+                                           DialogResult="True"
+                                           IsDefault="True" />
+                </ps:UICommandCollection>
             </Setter.Value>
         </Setter>
         <Setter Property="IsResizable" Value="False" />
@@ -21,29 +24,29 @@
         <Setter Property="SizeToContent" Value="WidthAndHeight" />
         <Setter Property="Title" Value="Notification" />
         <Style.Triggers>
-            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ITitleAware}}" Value="{m:Boolean True}">
+            <DataTrigger Binding="{Binding Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ITitleAware}}" Value="{m:Boolean True}">
                 <Setter Property="Title" Value="{Binding Title}" />
             </DataTrigger>
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="{x:Static infrastructure:XamlResources.ConfirmationStyle}" BasedOn="{StaticResource {x:Static infrastructure:XamlResources.NotificationStyle}}" TargetType="valueConverters:Window">
+    <Style x:Key="{x:Static infrastructure:XamlResources.ConfirmationStyle}" BasedOn="{StaticResource {x:Static infrastructure:XamlResources.NotificationStyle}}" TargetType="ps:Window">
         <Setter Property="Commands">
             <Setter.Value>
-                <valueConverters:UICommandCollection>
-                    <valueConverters:CloseDialogCommand Title="OK"
-                                                        DialogResult="True"
-                                                        IsDefault="True" />
-                    <valueConverters:CloseDialogCommand Title="Cancel"
-                                                        DialogResult="False"
-                                                        IsCancel="True" />
-                </valueConverters:UICommandCollection>
+                <ps:UICommandCollection>
+                    <ps:CloseDialogCommand Title="OK"
+                                           DialogResult="True"
+                                           IsDefault="True" />
+                    <ps:CloseDialogCommand Title="Cancel"
+                                           DialogResult="False"
+                                           IsCancel="True" />
+                </ps:UICommandCollection>
             </Setter.Value>
         </Setter>
         <Setter Property="SizeToContent" Value="WidthAndHeight" />
         <Setter Property="Title" Value="Confirmation" />
         <Style.Triggers>
-            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ITitleAware}}" Value="{m:Boolean True}">
+            <DataTrigger Binding="{Binding Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ITitleAware}}" Value="{m:Boolean True}">
                 <Setter Property="Title" Value="{Binding Title}" />
             </DataTrigger>
         </Style.Triggers>

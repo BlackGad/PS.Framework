@@ -3,8 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:ps="http://schemas.ps.com/2019/xaml"
       xmlns:viewModels="clr-namespace:PS.Commander.ViewModels"
+      xmlns:theme="http://schemas.ps.com/2021/xaml/theme"
       Margin="5"
       d:DataContext="{d:DesignInstance viewModels:ConfirmationViewModel}"
       Focusable="False"
@@ -15,9 +15,9 @@
     </Grid.RowDefinitions>
     <TextBlock MinWidth="150"
                HorizontalAlignment="Center"
-               Foreground="{x:Static ps:ThemeBrushes.MainForeground}"
-               FontFamily="{x:Static ps:ThemeFonts.FontFamily}"
-               FontSize="{x:Static ps:ThemeFonts.FontSize}"
+               Foreground="{theme:Brush MainForeground}"
+               FontFamily="{theme:Font Normal}"
+               FontSize="{theme:FontSize M}"
                Text="{Binding Content}" />
     <StackPanel Grid.Row="1"
                 Margin="0,5,0,0"

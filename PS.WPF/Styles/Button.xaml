@@ -4,8 +4,9 @@
                     xmlns:markup="clr-namespace:PS.WPF.Markup"
                     xmlns:resources="clr-namespace:PS.WPF.Resources"
                     xmlns:styles="clr-namespace:PS.WPF.Styles"
-                    xmlns:theme="clr-namespace:PS.WPF.Theme"
-                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters">
+                    xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
+                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
+                    xmlns:theme1="clr-namespace:PS.WPF.Theme1">
 
     <ResourceDictionary.MergedDictionaries>
         <resources:SharedResourceDictionary Source="/PS.WPF;component/Styles/Common.xaml" />
@@ -62,21 +63,21 @@
     </ControlTemplate>
 
     <Style x:Key="{x:Static styles:Button.ButtonStyle}" TargetType="Button">
-        <Setter Property="Background" Value="{x:Static theme:ThemeBrushes.Accent}" />
-        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.MainBorder}" />
+        <Setter Property="Background" Value="{theme:Brush Accent}" />
+        <Setter Property="BorderBrush" Value="{theme:Brush MainBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="FontFamily" Value="{x:Static theme:ThemeFonts.FontFamilyStrong}" />
-        <Setter Property="Foreground" Value="{x:Static theme:ThemeBrushes.AccentForeground}" />
+        <Setter Property="FontFamily" Value="{theme:Font Strong}" />
+        <Setter Property="Foreground" Value="{theme:Brush AccentForeground}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Padding" Value="4,2" />
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="Template" Value="{StaticResource {x:Static styles:Button.ButtonTemplate}}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="components:StoreBrush.MouseOver" Value="{x:Static theme:ThemeBrushes.AccentForeground}" />
-        <Setter Property="components:StoreBrush.Pressed" Value="{x:Static theme:ThemeBrushes.AccentDeep}" />
-        <Setter Property="components:StoreBrush.PressedBorder" Value="{x:Static theme:ThemeBrushes.AccentBorderDeep}" />
+        <Setter Property="components:StoreBrush.MouseOver" Value="{theme:Brush AccentForeground}" />
+        <Setter Property="components:StoreBrush.Pressed" Value="{theme:Brush AccentDeep}" />
+        <Setter Property="components:StoreBrush.PressedBorder" Value="{theme:Brush AccentBorderDeep}" />
         <Setter Property="components:StoreGeometry.CornerRadius" Value="3" />
     </Style>
 

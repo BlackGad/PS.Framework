@@ -53,6 +53,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.2.0" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="5.0.0" />
     <PackageReference Include="AvalonEdit" Version="6.1.2.30" />
     <PackageReference Include="NLog" Version="4.7.10" />
   </ItemGroup>

@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:resources="clr-namespace:PS.WPF.Resources"
-                    xmlns:theme="clr-namespace:PS.WPF.Theme"
+                    xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
                     xmlns:styles="clr-namespace:PS.WPF.Styles">
 
     <ResourceDictionary.MergedDictionaries>
@@ -75,7 +75,7 @@
     <ControlTemplate x:Key="{x:Static styles:ComboBox.ComboBoxItemTemplate}" TargetType="{x:Type ComboBoxItem}">
         <Grid Background="Transparent">
             <Border Name="PART_Selected"
-                    Background="{x:Static theme:ThemeBrushes.Accent50}"
+                    Background="{theme:Brush Accent, Opacity=O50}"
                     IsHitTestVisible="False"
                     Visibility="Collapsed" />
 
@@ -85,7 +85,7 @@
                               ContentTemplate="{TemplateBinding ContentTemplate}" />
 
             <Border Name="PART_Highlight"
-                    Background="{x:Static theme:ThemeBrushes.Warning25}"
+                    Background="{theme:Brush Warning, Opacity=O25}"
                     IsHitTestVisible="False"
                     Visibility="Collapsed" />
 
@@ -202,12 +202,12 @@
     </ControlTemplate>
 
     <Style x:Key="{x:Static styles:ComboBox.ComboBoxStyle}" TargetType="ComboBox">
-        <Setter Property="Background" Value="{x:Static theme:ThemeBrushes.Main}" />
-        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.MainBorder}" />
+        <Setter Property="Background" Value="{theme:Brush Main}" />
+        <Setter Property="BorderBrush" Value="{theme:Brush MainBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Focusable" Value="False" />
-        <Setter Property="Foreground" Value="{x:Static theme:ThemeBrushes.MainForeground}" />
+        <Setter Property="Foreground" Value="{theme:Brush MainForeground}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="ItemContainerStyle" Value="{StaticResource {x:Static styles:ComboBox.ComboBoxItemStyle}}" />
         <Setter Property="Margin" Value="2" />

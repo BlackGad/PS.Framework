@@ -49,9 +49,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Theme\Palette.tt">
+    <None Update="Theming\Theme.tt">
+      <LastGenOutput>Theme.Generated.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Palette.Generated.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
@@ -69,10 +69,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Theme\Palette.Generated.cs">
+    <Compile Update="Theming\Theme.Generated.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Palette.tt</DependentUpon>
+      <DependentUpon>Theme.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

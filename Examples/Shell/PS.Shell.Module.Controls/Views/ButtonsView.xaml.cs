@@ -1,7 +1,9 @@
 ﻿using System.Windows;
+using System.Windows.Media;
 using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
 using PS.Shell.Module.Controls.ViewModels;
+using PS.WPF.Theming;
 
 namespace PS.Shell.Module.Controls.Views
 {
@@ -32,6 +34,7 @@ namespace PS.Shell.Module.Controls.Views
         private void Button_OnClick(object sender, RoutedEventArgs e)
         {
             ViewModel.Logger.Info("Button Button click event");
+            Theme.Current.Colors.Accent = Colors.RoyalBlue;
         }
 
         private void SplitButton_OnChecked(object sender, RoutedEventArgs e)

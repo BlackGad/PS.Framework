@@ -4,7 +4,7 @@
                     xmlns:primitives="clr-namespace:System.Windows.Controls.Ribbon.Primitives;assembly=System.Windows.Controls.Ribbon"
                     xmlns:resources="clr-namespace:PS.WPF.Resources"
                     xmlns:styles="clr-namespace:PS.WPF.Styles"
-                    xmlns:theme="clr-namespace:PS.WPF.Theme"
+                    xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
                     xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
                     xmlns:controls="clr-namespace:PS.WPF.Controls.Ribbon"
                     xmlns:components="clr-namespace:PS.WPF.Components">
@@ -35,7 +35,7 @@
                     Grid.ColumnSpan="3"
                     Panel.ZIndex="0">
                 <Border.Background>
-                    <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.Main}">
+                    <PriorityBinding>
                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="TabHeaderBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                     </PriorityBinding>
@@ -157,7 +157,7 @@
                                       ContentTemplate="{TemplateBinding TitleTemplate}"
                                       IsHitTestVisible="False">
                         <TextElement.Foreground>
-                            <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.MainForeground}">
+                            <PriorityBinding>
                                 <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="CaptionForeground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                                 <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Foreground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                             </PriorityBinding>
@@ -278,8 +278,6 @@
             <Style BasedOn="{StaticResource {x:Static styles:Menu.MenuItemStyle}}" TargetType="RibbonMenuItem" />
         </Style.Resources>
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="FontFamily" Value="{x:Static theme:ThemeFonts.FontFamily}" />
-        <Setter Property="FontSize" Value="{x:Static theme:ThemeFonts.FontSize}" />
         <Setter Property="Foreground" Value="{x:Null}" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="Template" Value="{StaticResource {x:Static controls:Ribbon+Resource.ControlTemplate}}" />

@@ -5,7 +5,7 @@
       xmlns:examplesService="clr-namespace:PS.Shell.Infrastructure.Models.ExamplesService;assembly=PS.Shell.Infrastructure"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:mvvm="http://schemas.ps.com/2019/xaml/mvvm"
-      xmlns:ps="http://schemas.ps.com/2019/xaml"
+      xmlns:theme="http://schemas.ps.com/2021/xaml/theme"
       d:DataContext="{d:DesignInstance examplesService:IExample}"
       Focusable="False"
       mc:Ignorable="d">
@@ -21,11 +21,11 @@
                   Height="3"
                   HorizontalAlignment="Stretch"
                   VerticalAlignment="Center"
-                  Background="{x:Static ps:ThemeBrushes.Main}"
+                  Background="{theme:Brush Main}"
                   BorderThickness="0"
                   ShowsPreview="False" />
     <Border Grid.Row="2"
-            BorderBrush="{x:Static ps:ThemeBrushes.MainBorder}"
+            BorderBrush="{theme:Brush MainBorder}"
             BorderThickness="1">
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding Log}" />

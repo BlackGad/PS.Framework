@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:PS.Shell.Infrastructure.Components"
-                    xmlns:ps="http://schemas.ps.com/2019/xaml">
+                    xmlns:theme="http://schemas.ps.com/2021/xaml/theme">
     <ControlTemplate x:Key="{x:Static controls:PageControl+Resource.ControlTemplate}" TargetType="controls:PageControl">
         <Grid Margin="{TemplateBinding Padding}">
             <Grid.ColumnDefinitions>
@@ -31,8 +31,8 @@
         </Grid>
     </ControlTemplate>
     <Style x:Key="{x:Static controls:PageControl+Resource.ControlStyle}" TargetType="controls:PageControl">
-        <Setter Property="Background" Value="{x:Static ps:ThemeBrushes.Main}" />
-        <Setter Property="BorderBrush" Value="{x:Static ps:ThemeBrushes.MainBorder}" />
+        <Setter Property="Background" Value="{theme:Brush Main}" />
+        <Setter Property="BorderBrush" Value="{theme:Brush MainBorder}" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Template" Value="{StaticResource {x:Static controls:PageControl+Resource.ControlTemplate}}" />
     </Style>

@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Media;
 using PS.WPF.Resources;
-using PS.WPF.Theme;
+using PS.WPF.Theming;
 
 namespace PS.WPF.ValueConverters
 {
@@ -35,7 +35,7 @@ namespace PS.WPF.ValueConverters
                         {
                             Drawing = new GeometryDrawing
                             {
-                                Brush = new SolidColorBrush(ThemeColors.MainForeground),
+                                Brush = new SolidColorBrush(Theme.Current.Colors.MainForeground),
                                 Geometry = geometry
                             }
                         };

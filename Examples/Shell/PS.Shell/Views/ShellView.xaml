@@ -10,6 +10,7 @@
       xmlns:mvvm="http://schemas.ps.com/2019/xaml/mvvm"
       xmlns:ps="http://schemas.ps.com/2019/xaml"
       xmlns:viewModels="clr-namespace:PS.Shell.ViewModels"
+      xmlns:theme="http://schemas.ps.com/2021/xaml/theme"
       Margin="5"
       d:DataContext="{d:DesignInstance viewModels:ShellViewModel}"
       d:DesignHeight="450"
@@ -35,8 +36,8 @@
         </Style>
         <DataTemplate x:Key="GroupHeaderTemplate" DataType="CollectionViewGroup">
             <TextBlock Name="Label"
-                       FontFamily="{x:Static ps:ThemeFonts.FontFamilyLight}"
-                       FontSize="{x:Static ps:ThemeFonts.FontSizeXL}"
+                       FontFamily="{theme:Font Light}"
+                       FontSize="{theme:FontSize XL}"
                        Text="{Binding Name}" />
             <DataTemplate.Triggers>
                 <DataTrigger Binding="{Binding Name, Converter={x:Static ps:StringConverters.IsEmpty}}" Value="{m:Boolean True}">
@@ -57,8 +58,8 @@
                     </Binding.ConverterParameter>
                 </Binding>
             </HierarchicalDataTemplate.ItemsSource>
-            <TextBlock FontFamily="{x:Static ps:ThemeFonts.FontFamilyLight}"
-                       FontSize="{x:Static ps:ThemeFonts.FontSizeL}"
+            <TextBlock FontFamily="{theme:Font Light}"
+                       FontSize="{theme:FontSize L}"
                        Text="{Binding Title}" />
         </HierarchicalDataTemplate>
     </Grid.Resources>
@@ -68,7 +69,7 @@
         <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
     <ps:TreeView Grid.Column="0"
-                 BorderBrush="{x:Static ps:ThemeBrushes.MainBorder}"
+                 BorderBrush="{theme:Brush MainBorder}"
                  BorderThickness="1"
                  ItemTemplateSelector="{mvvm:TemplateResolver Region={x:Static infrastructure:Regions.ShellTreeItem}}"
                  SelectedItemChanged="TreeView_OnSelectedItemChanged">
@@ -94,7 +95,7 @@
                   Width="3"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Stretch"
-                  Background="{x:Static ps:ThemeBrushes.Main}"
+                  Background="{theme:Brush Main}"
                   BorderThickness="0"
                   ShowsPreview="False" />
     <ContentControl Grid.Column="2"

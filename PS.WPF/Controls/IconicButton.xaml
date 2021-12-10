@@ -5,7 +5,7 @@
                     xmlns:markup="clr-namespace:PS.WPF.Markup"
                     xmlns:styles="clr-namespace:PS.WPF.Styles"
                     xmlns:switchValueConverter="clr-namespace:PS.WPF.ValueConverters.SwitchValueConverter"
-                    xmlns:theme="clr-namespace:PS.WPF.Theme">
+                    xmlns:theme="clr-namespace:PS.WPF.Theming.Markup">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/PS.WPF;component/Styles/Common.xaml" />
     </ResourceDictionary.MergedDictionaries>
@@ -116,7 +116,7 @@
     </ControlTemplate>
 
     <Style x:Key="{x:Static local:IconicButton+Resource.ControlStyle}" TargetType="local:IconicButton">
-        <Setter Property="Background" Value="{x:Static theme:ThemeBrushes.MainForeground}" />
+        <Setter Property="Background" Value="{theme:Brush MainForeground}" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />

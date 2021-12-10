@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:styles="clr-namespace:PS.WPF.Styles"
-                    xmlns:theme="clr-namespace:PS.WPF.Theme"
+                    xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
                     xmlns:local="clr-namespace:PS.WPF.Controls">
 
     <ResourceDictionary.MergedDictionaries>
@@ -94,12 +94,12 @@
     </ControlTemplate>
 
     <Style x:Key="{x:Static local:DecimalTextBox+Resource.ControlStyle}" TargetType="local:DecimalTextBox">
-        <Setter Property="Background" Value="{x:Static theme:ThemeBrushes.Main}" />
-        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.MainBorder}" />
+        <Setter Property="Background" Value="{theme:Brush Main}" />
+        <Setter Property="BorderBrush" Value="{theme:Brush MainBorder}" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="FontFamily" Value="{x:Static theme:ThemeFonts.FontFamily}" />
-        <Setter Property="FontSize" Value="{x:Static theme:ThemeFonts.FontSize}" />
-        <Setter Property="Foreground" Value="{x:Static theme:ThemeBrushes.MainForeground}" />
+        <Setter Property="FontFamily" Value="{theme:Font Normal}" />
+        <Setter Property="FontSize" Value="{theme:FontSize M}" />
+        <Setter Property="Foreground" Value="{theme:Brush MainForeground}" />
         <Setter Property="Margin" Value="2" />
         <Setter Property="MinHeight" Value="16" />
         <Setter Property="Padding" Value="2" />
