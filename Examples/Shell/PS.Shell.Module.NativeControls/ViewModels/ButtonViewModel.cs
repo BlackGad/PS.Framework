@@ -1,4 +1,6 @@
-﻿using PS.IoC.Attributes;
+﻿using System;
+using NLog;
+using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
 
 namespace PS.Shell.Module.NativeControls.ViewModels
@@ -7,14 +9,17 @@ namespace PS.Shell.Module.NativeControls.ViewModels
     public class ButtonViewModel : BaseNotifyPropertyChanged,
                                    IViewModel
     {
+        private readonly ILogger _logger;
         private string _content;
 
         private bool _isEnabled;
 
         #region Constructors
 
-        public ButtonViewModel()
+        public ButtonViewModel(ILogger logger)
         {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+
             Content = "Content";
             IsEnabled = true;
         }
@@ -26,13 +31,27 @@ namespace PS.Shell.Module.NativeControls.ViewModels
         public string Content
         {
             get { return _content; }
-            set { SetField(ref _content, value); }
+            set
+            {
+                var message = $"Content changed from '{_content}' to '{value}'";
+                if (SetField(ref _content, value))
+                {
+                    _logger.Info(message);
+                }
+            }
         }
 
         public bool IsEnabled
         {
             get { return _isEnabled; }
-            set { SetField(ref _isEnabled, value); }
+            set
+            {
+                var message = $"Is enabled changed from '{_isEnabled}' to '{value}'";
+                if (SetField(ref _isEnabled, value))
+                {
+                    _logger.Info(message);
+                }
+            }
         }
 
         #endregion
