@@ -5,9 +5,9 @@
                     xmlns:standard="clr-namespace:PS.WPF.Controls.Native">
 
     <ResourceDictionary.MergedDictionaries>
-        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Native/Button.xaml" />
+        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Native/CheckBox.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style x:Key="{x:Static controls:Button+Resource.ControlStyle}" BasedOn="{StaticResource {x:Static standard:Button.ButtonStyle}}" TargetType="controls:Button" />
+    <Style x:Key="{x:Static controls:CheckBox+Resource.ControlStyle}" BasedOn="{StaticResource {x:Static standard:CheckBox.CheckBoxStyle}}" TargetType="controls:CheckBox" />
 
 </ResourceDictionary>

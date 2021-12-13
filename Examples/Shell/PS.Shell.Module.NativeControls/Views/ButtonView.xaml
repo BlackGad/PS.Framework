@@ -20,7 +20,7 @@
             <ps:HeaderedContent Grid.Column="0"
                                 Header="Default"
                                 Orientation="Vertical">
-                <Button Content="{Binding Content}" />
+                <Button Content="{Binding Content}" IsEnabled="{Binding IsEnabled}" />
             </ps:HeaderedContent>
             <ps:HeaderedContent Grid.Column="2"
                                 Header="Styled"
@@ -32,10 +32,9 @@
                         </ResourceDictionary.MergedDictionaries>
                     </ResourceDictionary>
                 </ps:HeaderedContent.Resources>
-                <Button Content="{Binding Content}" />
+                <Button Content="{Binding Content}" IsEnabled="{Binding IsEnabled}" />
             </ps:HeaderedContent>
         </Grid>
-
     </components:PageControl.Editor>
     <components:PageControl.Properties>
         <StackPanel>
@@ -43,6 +42,9 @@
                 <StackPanel>
                     <ps:HeaderedContent Header="Content">
                         <ps:TextBox Value="{Binding Content}" />
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="Is Enabled">
+                        <ps:CheckBox IsChecked="{Binding IsEnabled}" />
                     </ps:HeaderedContent>
                 </StackPanel>
             </ps:GroupExpander>
