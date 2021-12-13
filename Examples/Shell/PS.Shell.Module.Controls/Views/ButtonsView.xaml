@@ -6,13 +6,14 @@
                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                         xmlns:ps="http://schemas.ps.com/2019/xaml"
                         xmlns:viewModels="clr-namespace:PS.Shell.Module.Controls.ViewModels"
+                        xmlns:resources="clr-namespace:PS.WPF.Resources;assembly=PS.WPF"
                         d:DataContext="{d:DesignInstance viewModels:ButtonsViewModel}"
                         mc:Ignorable="d">
     <components:PageControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/PS.WPF;component/Styles/Button.Apply.xaml" />
-                <ResourceDictionary Source="/PS.WPF;component/Styles/ToggleButton.Apply.xaml" />
+                <resources:SharedResourceDictionary Source="/PS.WPF;component/Styles/Button.Apply.xaml" />
+                <resources:SharedResourceDictionary Source="/PS.WPF;component/Styles/ToggleButton.Apply.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="MenuItem">
                 <Setter Property="HorizontalContentAlignment" Value="Left" />

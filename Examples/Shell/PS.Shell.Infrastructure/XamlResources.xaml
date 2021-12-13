@@ -3,10 +3,12 @@
                     xmlns:aware="clr-namespace:PS.Patterns.Aware;assembly=PS.Primitives"
                     xmlns:infrastructure="clr-namespace:PS.Shell.Infrastructure"
                     xmlns:m="http://schemas.ps.com/2019/xaml/markup"
-                    xmlns:ps="http://schemas.ps.com/2019/xaml">
+                    xmlns:ps="http://schemas.ps.com/2019/xaml"
+                    xmlns:resources="clr-namespace:PS.WPF.Resources;assembly=PS.WPF">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/PS.WPF;component/Controls/Window.xaml" />
+        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Window.xaml" />
     </ResourceDictionary.MergedDictionaries>
+
     <Style x:Key="{x:Static infrastructure:XamlResources.NotificationStyle}" TargetType="ps:Window">
         <Setter Property="Commands">
             <Setter.Value>

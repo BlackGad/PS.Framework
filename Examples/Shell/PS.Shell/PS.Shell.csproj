@@ -4,7 +4,6 @@
     <OutputType>WinExe</OutputType>
     <TargetFrameworks>net5.0-windows;net461;</TargetFrameworks>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <RootNamespace>PS.Shell</RootNamespace>
     <Authors>Volodymyr Shkolka</Authors>
     <Company>Volodymyr Shkolka</Company>
     <Product>PS Shell</Product>

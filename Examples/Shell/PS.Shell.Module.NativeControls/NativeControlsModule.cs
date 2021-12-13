@@ -5,10 +5,11 @@ using PS.IoC.Extensions;
 using PS.MVVM.Extensions;
 using PS.MVVM.Services;
 using PS.Shell.Infrastructure.Models.ExamplesService;
-using PS.Shell.Module.Controls.Views;
+using PS.Shell.Module.NativeControls.ViewModels;
+using PS.Shell.Module.NativeControls.Views;
 using PS.WPF.DataTemplate;
 
-namespace PS.Shell.Module.Controls
+namespace PS.Shell.Module.NativeControls
 {
     public class NativeControlsModule : Autofac.Module
     {

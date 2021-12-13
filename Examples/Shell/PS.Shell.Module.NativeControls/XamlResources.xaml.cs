@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PS.Shell.Module.Controls
+namespace PS.Shell.Module.NativeControls
 {
     public static class XamlResources
     {

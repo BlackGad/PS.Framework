@@ -5,9 +5,10 @@
                     xmlns:markup="clr-namespace:PS.WPF.Markup"
                     xmlns:switchValueConverter="clr-namespace:PS.WPF.ValueConverters.SwitchValueConverter"
                     xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
-                    xmlns:styles="clr-namespace:PS.WPF.Controls.Native">
+                    xmlns:styles="clr-namespace:PS.WPF.Controls.Native"
+                    xmlns:resources="clr-namespace:PS.WPF.Resources">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/PS.WPF;component/Controls/Native/Common.xaml" />
+        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Native/Common.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <switchValueConverter:SwitchValueConverter x:Key="ContentVisibilityConverter" ConvertDefault="{markup:Visibility Visible}">

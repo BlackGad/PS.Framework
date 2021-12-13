@@ -1,7 +1,8 @@
 ﻿using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
+using PS.Shell.Module.NativeControls.ViewModels;
 
-namespace PS.Shell.Module.Controls.Views
+namespace PS.Shell.Module.NativeControls.Views
 {
     [DependencyRegisterAsSelf]
     [DependencyRegisterAsInterface(typeof(IView<ButtonViewModel>))]
@@ -21,7 +22,6 @@ namespace PS.Shell.Module.Controls.Views
         public ButtonViewModel ViewModel
         {
             get { return DataContext as ButtonViewModel; }
-            set { DataContext = value; }
         }
 
         #endregion

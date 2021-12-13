@@ -1,7 +1,7 @@
 ﻿using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
 
-namespace PS.Shell.Module.Controls.Views
+namespace PS.Shell.Module.NativeControls.ViewModels
 {
     [DependencyRegisterAsSelf]
     public class ButtonViewModel : BaseNotifyPropertyChanged,

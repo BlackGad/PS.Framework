@@ -7,10 +7,11 @@
                     xmlns:switchValueConverter="clr-namespace:PS.WPF.ValueConverters.SwitchValueConverter"
                     xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
                     xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
-                    xmlns:styles="clr-namespace:PS.WPF.Controls.Native">
+                    xmlns:styles="clr-namespace:PS.WPF.Controls.Native"
+                    xmlns:resources="clr-namespace:PS.WPF.Resources">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/PS.WPF;component/Controls/Native/Common.xaml" />
-        <ResourceDictionary Source="/PS.WPF;component/Controls/IconicButton.xaml" />
+        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Native/Common.xaml" />
+        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/IconicButton.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <switchValueConverter:SwitchValueConverter x:Key="CommandsVisibilityConverter" ConvertDefault="{m:Visibility Visible}">
