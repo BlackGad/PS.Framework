@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:PS.WPF.Styles">
+                    xmlns:local="clr-namespace:PS.WPF.Controls.Standard">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/PS.WPF;component/Styles/Menu.xaml" />
+        <ResourceDictionary Source="/PS.WPF;component/Controls/Standard/Menu.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Style BasedOn="{StaticResource {x:Static local:Menu.SeparatorStyle}}" TargetType="{x:Type Separator}" />

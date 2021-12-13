@@ -4,14 +4,14 @@
                     xmlns:controls="clr-namespace:PS.WPF.Controls"
                     xmlns:markup="clr-namespace:PS.WPF.Markup"
                     xmlns:resources="clr-namespace:PS.WPF.Resources"
-                    xmlns:styles="clr-namespace:PS.WPF.Styles"
                     xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
-                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters">
+                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
+                    xmlns:styles="clr-namespace:PS.WPF.Controls.Standard">
 
     <ResourceDictionary.MergedDictionaries>
-        <resources:SharedResourceDictionary Source="/PS.WPF;component/Styles/Button.xaml" />
-        <resources:SharedResourceDictionary Source="/PS.WPF;component/Styles/ToggleButton.xaml" />
-        <resources:SharedResourceDictionary Source="/PS.WPF;component/Styles/Menu.xaml" />
+        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Standard/Button.xaml" />
+        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Standard/ToggleButton.xaml" />
+        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Standard/Menu.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <controls:SplitMenuButtonCornerRadiusConverter x:Key="CornerRadiusConverter" />

@@ -59,7 +59,7 @@
     <Page Update="Styles\ToggleButton.Apply.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
-    <Page Update="Styles\ToggleButton.xaml">
+    <Page Update="Controls\Standard\ToggleButton.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
   </ItemGroup>

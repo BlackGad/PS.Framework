@@ -3,23 +3,21 @@
                     xmlns:components="clr-namespace:PS.WPF.Components"
                     xmlns:markup="clr-namespace:PS.WPF.Markup"
                     xmlns:resources="clr-namespace:PS.WPF.Resources"
-                    xmlns:styles="clr-namespace:PS.WPF.Styles"
                     xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
                     xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
-                    xmlns:theme1="clr-namespace:PS.WPF.Theme1">
+                    xmlns:styles="clr-namespace:PS.WPF.Controls.Standard">
 
     <ResourceDictionary.MergedDictionaries>
-        <resources:SharedResourceDictionary Source="/PS.WPF;component/Styles/Common.xaml" />
+        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Standard/Common.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <ControlTemplate x:Key="{x:Static styles:Button.ButtonTemplate}" TargetType="Button">
+    <ControlTemplate x:Key="{x:Static styles:ToggleButton.ToggleButtonTemplate}" TargetType="ToggleButton">
         <Border Name="PART_Border"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}"
                 CornerRadius="{TemplateBinding components:StoreGeometry.CornerRadius}"
-                SnapsToDevicePixels="True"
-                TextElement.Foreground="{TemplateBinding Foreground}">
+                SnapsToDevicePixels="True">
             <Grid>
                 <Border Name="PART_MouseOverBorder"
                         Background="{TemplateBinding components:StoreBrush.MouseOver}"
@@ -27,27 +25,29 @@
                         CornerRadius="{TemplateBinding components:StoreGeometry.CornerRadius}"
                         Opacity="0.1"
                         Visibility="Hidden" />
+                <ContentPresenter Name="PART_ContentPresenter"
+                                  Margin="{TemplateBinding Padding}"
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  TextElement.Foreground="{TemplateBinding Foreground}" />
                 <Rectangle Name="PART_FocusRectangle"
                            Margin="1"
                            Opacity="0.5"
                            Stroke="{Binding ElementName=PART_Border, Path=(TextElement.Foreground)}"
                            StrokeDashArray="4 2"
                            StrokeThickness="1"
-                           Visibility="Hidden" />
-                <ContentPresenter Name="PART_ContentPresenter"
-                                  Margin="{TemplateBinding Padding}"
-                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                  Content="{TemplateBinding Content}"
-                                  ContentTemplate="{TemplateBinding ContentTemplate}" />
+                           Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsKeyboardFocused, Converter={x:Static valueConverters:BooleanConverters.ToVisibility}}" />
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="PART_MouseOverBorder" Property="Visibility" Value="Visible" />
             </Trigger>
-            <Trigger Property="IsKeyboardFocused" Value="True">
-                <Setter TargetName="PART_FocusRectangle" Property="Visibility" Value="Visible" />
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="PART_Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.Selected)}" />
+                <Setter TargetName="PART_Border" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.SelectedBorder)}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter TargetName="PART_Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.Pressed)}" />
@@ -55,22 +55,20 @@
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="PART_Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground}" />
-                <Setter TargetName="PART_Border" Property="TextElement.Foreground" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}" />
+                <Setter TargetName="PART_ContentPresenter" Property="TextElement.Foreground" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}" />
                 <Setter TargetName="PART_ContentPresenter" Property="Opacity" Value="0.5" />
             </Trigger>
         </ControlTemplate.Triggers>
-
     </ControlTemplate>
 
-    <Style x:Key="{x:Static styles:Button.ButtonStyle}" TargetType="Button">
-        
+    <Style x:Key="{x:Static styles:ToggleButton.ToggleButtonStyle}" TargetType="ToggleButton">
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Padding" Value="4,2" />
         <Setter Property="SnapsToDevicePixels" Value="true" />
-        <Setter Property="Template" Value="{StaticResource {x:Static styles:Button.ButtonTemplate}}" />
+        <Setter Property="Template" Value="{StaticResource {x:Static styles:ToggleButton.ToggleButtonTemplate}}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="components:StoreGeometry.CornerRadius" Value="3" />
         <Style.Triggers>
@@ -83,6 +81,8 @@
                 <Setter Property="components:StoreBrush.MouseOver" Value="{theme:Brush AccentForeground}" />
                 <Setter Property="components:StoreBrush.Pressed" Value="{theme:Brush AccentDeep}" />
                 <Setter Property="components:StoreBrush.PressedBorder" Value="{theme:Brush AccentBorderDeep}" />
+                <Setter Property="components:StoreBrush.Selected" Value="{theme:Brush AccentLow}" />
+                <Setter Property="components:StoreBrush.SelectedBorder" Value="{theme:Brush AccentBorderLow}" />
             </DataTrigger>
         </Style.Triggers>
     </Style>

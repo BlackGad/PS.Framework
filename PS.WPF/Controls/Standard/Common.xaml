@@ -3,7 +3,7 @@
                     xmlns:system="clr-namespace:System;assembly=mscorlib"
                     xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
                     xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
-                    xmlns:styles="clr-namespace:PS.WPF.Styles">
+                    xmlns:styles="clr-namespace:PS.WPF.Controls.Standard">
 
     <Style x:Key="{x:Static styles:Common.FocusRectangleStyle}" TargetType="Rectangle">
         <Setter Property="SnapsToDevicePixels" Value="True" />

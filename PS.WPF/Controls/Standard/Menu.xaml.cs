@@ -3,13 +3,13 @@ using System.Windows;
 using System.Windows.Controls;
 using PS.WPF.Resources;
 
-namespace PS.WPF.Styles
+namespace PS.WPF.Controls.Standard
 {
     public static class Menu
     {
         #region Constants
 
-        public static readonly Uri DictionaryLocation = new Uri("/PS.WPF;component/Styles/Menu.xaml", UriKind.RelativeOrAbsolute);
+        public static readonly Uri DictionaryLocation = new Uri("/PS.WPF;component/Controls/Standard/Menu.xaml", UriKind.RelativeOrAbsolute);
 
         public static readonly ResourceDescriptor ContextMenuStyle =
             ResourceDescriptor.Create<Style>(

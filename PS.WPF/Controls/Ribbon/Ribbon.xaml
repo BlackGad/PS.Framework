@@ -3,15 +3,15 @@
                     xmlns:markup="clr-namespace:PS.WPF.Markup"
                     xmlns:primitives="clr-namespace:System.Windows.Controls.Ribbon.Primitives;assembly=System.Windows.Controls.Ribbon"
                     xmlns:resources="clr-namespace:PS.WPF.Resources"
-                    xmlns:styles="clr-namespace:PS.WPF.Styles"
                     xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
                     xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
                     xmlns:controls="clr-namespace:PS.WPF.Controls.Ribbon"
-                    xmlns:components="clr-namespace:PS.WPF.Components">
+                    xmlns:components="clr-namespace:PS.WPF.Components"
+                    xmlns:styles="clr-namespace:PS.WPF.Controls.Standard">
 
     <ResourceDictionary.MergedDictionaries>
         <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Ribbon/RibbonContextMenu.xaml" />
-        <resources:SharedResourceDictionary Source="/PS.WPF;component/Styles/Menu.xaml" />
+        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Standard/Menu.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <ControlTemplate x:Key="{x:Static controls:Ribbon+Resource.ControlTemplate}" TargetType="controls:Ribbon">

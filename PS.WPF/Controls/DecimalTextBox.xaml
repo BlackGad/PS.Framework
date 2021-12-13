@@ -2,11 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:PS.WPF.Controls"
                     xmlns:markup="clr-namespace:PS.WPF.Markup"
-                    xmlns:styles="clr-namespace:PS.WPF.Styles"
-                    xmlns:theme="clr-namespace:PS.WPF.Theming.Markup">
+                    xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
+                    xmlns:styles="clr-namespace:PS.WPF.Controls.Standard">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/PS.WPF;component/Styles/Common.xaml" />
+        <ResourceDictionary Source="/PS.WPF;component/Controls/Standard/Common.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <ControlTemplate x:Key="{x:Static local:DecimalTextBox+Resource.ControlTemplate}" TargetType="local:DecimalTextBox">

@@ -2,13 +2,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:PS.WPF.Controls.BusyContainer"
                     xmlns:resources="clr-namespace:PS.WPF.Resources"
-                    xmlns:styles="clr-namespace:PS.WPF.Styles"
                     xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
                     xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
-                    xmlns:markup="clr-namespace:PS.WPF.Markup">
+                    xmlns:markup="clr-namespace:PS.WPF.Markup"
+                    xmlns:styles="clr-namespace:PS.WPF.Controls.Standard">
 
     <ResourceDictionary.MergedDictionaries>
-        <resources:SharedResourceDictionary Source="/PS.WPF;component/Styles/Common.xaml" />
+        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Standard/Common.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <CombinedGeometry x:Key="{x:Static controls:BusyContainer+Resource.ArcGeometry}" GeometryCombineMode="Exclude">

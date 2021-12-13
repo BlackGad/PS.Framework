@@ -3,13 +3,13 @@ using System.Windows;
 using System.Windows.Controls;
 using PS.WPF.Resources;
 
-namespace PS.WPF.Styles
+namespace PS.WPF.Controls.Standard
 {
     public static class CheckBox
     {
         #region Constants
 
-        public static readonly Uri DictionaryLocation = new Uri("/PS.WPF;component/Styles/CheckBox.xaml", UriKind.RelativeOrAbsolute);
+        public static readonly Uri DictionaryLocation = new Uri("/PS.WPF;component/Controls/Standard/CheckBox.xaml", UriKind.RelativeOrAbsolute);
 
         public static readonly ResourceDescriptor CheckBoxStyle =
             ResourceDescriptor.Create<Style>(

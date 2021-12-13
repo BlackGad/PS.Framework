@@ -4,12 +4,12 @@
                     xmlns:components="clr-namespace:PS.WPF.Components"
                     xmlns:controls="clr-namespace:PS.WPF.Controls"
                     xmlns:m="clr-namespace:PS.WPF.Markup"
-                    xmlns:styles="clr-namespace:PS.WPF.Styles"
                     xmlns:switchValueConverter="clr-namespace:PS.WPF.ValueConverters.SwitchValueConverter"
                     xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
-                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters">
+                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
+                    xmlns:styles="clr-namespace:PS.WPF.Controls.Standard">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/PS.WPF;component/Styles/Common.xaml" />
+        <ResourceDictionary Source="/PS.WPF;component/Controls/Standard/Common.xaml" />
         <ResourceDictionary Source="/PS.WPF;component/Controls/IconicButton.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
