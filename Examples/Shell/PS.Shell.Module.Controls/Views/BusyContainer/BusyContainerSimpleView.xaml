@@ -19,20 +19,20 @@
         <StackPanel>
             <ps:GroupExpander Header="Behavior">
                 <StackPanel>
-                    <ps:KeyValueContentControl Header="Busy behavior">
+                    <ps:HeaderedContent Header="Busy behavior">
                         <ComboBox VerticalAlignment="Center"
                                   ItemsSource="{Binding Source={x:Type ps:BusyBehavior}, Converter={x:Static ps:TypeConverters.EnumValues}}"
                                   SelectedItem="{Binding ElementName=Control, Path=Behavior, Mode=TwoWay}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="Is busy">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="Is busy">
                         <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsBusy, Mode=TwoWay}" />
-                    </ps:KeyValueContentControl>
+                    </ps:HeaderedContent>
                 </StackPanel>
             </ps:GroupExpander>
             <ps:GroupExpander Header="Payload">
-                <ps:KeyValueContentControl Header="String">
+                <ps:HeaderedContent Header="String">
                     <ps:TextBox IsSideButtonVisible="True" Value="{Binding Content, Mode=TwoWay}" />
-                </ps:KeyValueContentControl>
+                </ps:HeaderedContent>
             </ps:GroupExpander>
         </StackPanel>
     </components:PageControl.Properties>

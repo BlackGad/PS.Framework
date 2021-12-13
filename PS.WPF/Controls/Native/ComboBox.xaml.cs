@@ -3,13 +3,13 @@ using System.Windows;
 using System.Windows.Controls;
 using PS.WPF.Resources;
 
-namespace PS.WPF.Controls.Standard
+namespace PS.WPF.Controls.Native
 {
     public static class ComboBox
     {
         #region Constants
 
-        public static readonly Uri DictionaryLocation = new Uri("/PS.WPF;component/Controls/Standard/ComboBox.xaml", UriKind.RelativeOrAbsolute);
+        public static readonly Uri DictionaryLocation = new Uri("/PS.WPF;component/Controls/Native/ComboBox.xaml", UriKind.RelativeOrAbsolute);
 
         public static readonly ResourceDescriptor ComboBoxItemStyle =
             ResourceDescriptor.Create<Style>(description: "ComboBoxItem style",

@@ -81,6 +81,7 @@ namespace PS.Shell
             builder.RegisterModule<MainModule>();
             builder.RegisterModule<DiagramModule>();
             builder.RegisterModule<ControlsModule>();
+            builder.RegisterModule<NativeControlsModule>();
             builder.RegisterModule<RibbonModule>();
 
             logger.Debug("Modules registered");

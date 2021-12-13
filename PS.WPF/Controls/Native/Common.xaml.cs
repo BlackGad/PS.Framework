@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using PS.WPF.Resources;
 
-namespace PS.WPF.Controls.Standard
+namespace PS.WPF.Controls.Native
 {
     public static class Common
     {
@@ -119,7 +119,7 @@ namespace PS.WPF.Controls.Standard
 
         static Common()
         {
-            DictionaryLocation = new Uri("/PS.WPF;component/Controls/Standard/Common.xaml", UriKind.RelativeOrAbsolute);
+            DictionaryLocation = new Uri("/PS.WPF;component/Controls/Native/Common.xaml", UriKind.RelativeOrAbsolute);
         }
 
         #endregion

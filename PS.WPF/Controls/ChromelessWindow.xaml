@@ -7,9 +7,9 @@
                     xmlns:switchValueConverter="clr-namespace:PS.WPF.ValueConverters.SwitchValueConverter"
                     xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
                     xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
-                    xmlns:styles="clr-namespace:PS.WPF.Controls.Standard">
+                    xmlns:styles="clr-namespace:PS.WPF.Controls.Native">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/PS.WPF;component/Controls/Standard/Common.xaml" />
+        <ResourceDictionary Source="/PS.WPF;component/Controls/Native/Common.xaml" />
         <ResourceDictionary Source="/PS.WPF;component/Controls/IconicButton.xaml" />
     </ResourceDictionary.MergedDictionaries>
 

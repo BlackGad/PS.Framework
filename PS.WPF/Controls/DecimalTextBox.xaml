@@ -3,10 +3,10 @@
                     xmlns:local="clr-namespace:PS.WPF.Controls"
                     xmlns:markup="clr-namespace:PS.WPF.Markup"
                     xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
-                    xmlns:styles="clr-namespace:PS.WPF.Controls.Standard">
+                    xmlns:styles="clr-namespace:PS.WPF.Controls.Native">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/PS.WPF;component/Controls/Standard/Common.xaml" />
+        <ResourceDictionary Source="/PS.WPF;component/Controls/Native/Common.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <ControlTemplate x:Key="{x:Static local:DecimalTextBox+Resource.ControlTemplate}" TargetType="local:DecimalTextBox">

@@ -116,16 +116,16 @@
         <StackPanel>
             <ps:GroupExpander Header="Generic">
                 <StackPanel>
-                    <ps:KeyValueContentControl Header="Value">
+                    <ps:HeaderedContent Header="Value">
                         <TextBox x:Name="ValueControl"
                                  VerticalAlignment="Center"
                                  Text="Content" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="IsEnabled">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="IsEnabled">
                         <CheckBox x:Name="IsEnabledControl"
                                   VerticalAlignment="Center"
                                   IsChecked="True" />
-                    </ps:KeyValueContentControl>
+                    </ps:HeaderedContent>
                 </StackPanel>
             </ps:GroupExpander>
         </StackPanel>

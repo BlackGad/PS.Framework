@@ -34,7 +34,7 @@ namespace PS.Shell.Infrastructure.Components
 
         public PageControl()
         {
-            KeyValueContentControl.SetKeyColumnWidth(this, 150);
+            HeaderedContent.SetHeaderColumnWidth(this, 150);
         }
 
         #endregion

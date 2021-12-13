@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
                     xmlns:markup="clr-namespace:PS.WPF.Markup"
-                    xmlns:styles="clr-namespace:PS.WPF.Controls.Standard">
+                    xmlns:styles="clr-namespace:PS.WPF.Controls.Native">
 
     <Geometry x:Key="SubMenuGeometry">M 0 0 L 0 7 L 4 3.5 Z</Geometry>
     <Geometry x:Key="UpArrowGeometry">M 0,4 L 3.5,0 L 7,4 Z</Geometry>

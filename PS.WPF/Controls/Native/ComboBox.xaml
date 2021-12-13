@@ -3,10 +3,10 @@
                     xmlns:resources="clr-namespace:PS.WPF.Resources"
                     xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
                     xmlns:markup="clr-namespace:PS.WPF.Markup"
-                    xmlns:styles="clr-namespace:PS.WPF.Controls.Standard">
+                    xmlns:styles="clr-namespace:PS.WPF.Controls.Native">
 
     <ResourceDictionary.MergedDictionaries>
-        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Standard/Common.xaml" />
+        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Native/Common.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
