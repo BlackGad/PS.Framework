@@ -13,6 +13,7 @@ namespace PS.WPF.Theming.Markup
         public Font(ThemeFont type)
         {
             Type = type;
+            Mode = BindingMode.OneWay;
             Source = Theme.Current;
         }
 

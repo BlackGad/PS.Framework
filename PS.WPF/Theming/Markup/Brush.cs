@@ -14,6 +14,7 @@ namespace PS.WPF.Theming.Markup
         public Brush(ThemeColor type)
         {
             Type = type;
+            Mode = BindingMode.OneWay;
             Source = Theme.Current;
         }
 

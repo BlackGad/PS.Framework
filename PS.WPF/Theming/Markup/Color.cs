@@ -26,6 +26,7 @@ namespace PS.WPF.Theming.Markup
         public Color(ThemeColor type)
         {
             Type = type;
+            Mode = BindingMode.OneWay;
             Source = Theme.Current;
         }
 

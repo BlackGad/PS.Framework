@@ -13,6 +13,7 @@ namespace PS.WPF.Theming.Markup
         public FontSize(ThemeFontSize type)
         {
             Type = type;
+            Mode = BindingMode.OneWay;
             Source = Theme.Current;
         }
 
