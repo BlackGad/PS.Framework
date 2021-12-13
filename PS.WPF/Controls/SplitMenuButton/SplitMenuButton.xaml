@@ -26,13 +26,18 @@
         <Style.Resources>
             <Style BasedOn="{StaticResource {x:Static styles:Menu.MenuItemStyle}}" TargetType="MenuItem" />
         </Style.Resources>
-        <Setter Property="Background" Value="{theme:Brush Main}" />
-        <Setter Property="BorderBrush" Value="{theme:Brush MainBorder}" />
-        <Setter Property="Foreground" Value="{theme:Brush MainForeground}" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Template" Value="{StaticResource {x:Static styles:Menu.SubmenuTemplate}}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Style.Triggers>
+            <!--  WPF Engine cannot resolve Bindings in straight forward Setters. So Bypass this with triggers  -->
+            <DataTrigger Binding="{Binding Source={markup:Boolean True}}" Value="{markup:Boolean True}">
+                <Setter Property="Background" Value="{theme:Brush Main}" />
+                <Setter Property="BorderBrush" Value="{theme:Brush MainBorder}" />
+                <Setter Property="Foreground" Value="{theme:Brush MainForeground}" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <ControlTemplate x:Key="{x:Static controls:SplitMenuButton+Resource.ControlTemplate}" TargetType="controls:SplitMenuButton">

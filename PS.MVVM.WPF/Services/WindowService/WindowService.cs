@@ -96,18 +96,19 @@ namespace PS.MVVM.Services.WindowService
                 window.Owner = Application.Current.MainWindow;
             }
 
+            window.DataContext = viewModel;
+            window.Content = viewModel;
+
             var viewModelType = viewModel.GetType();
 
             var styleAssociation = GetAssociation(typeof(StyleResolver), viewModelType, region);
             if (styleAssociation?.Payload is Style payloadStyle)
             {
-                window.ClearValue(FrameworkElement.StyleProperty);
                 window.Style = payloadStyle;
             }
 
             if (styleAssociation?.Payload is ResourceDescriptor payloadStyleResourceDescriptor)
             {
-                window.ClearValue(FrameworkElement.StyleProperty);
                 window.Style = payloadStyleResourceDescriptor.GetResource<Style>();
             }
 
@@ -122,8 +123,7 @@ namespace PS.MVVM.Services.WindowService
                 window.ContentTemplate = payloadTemplateResourceDescriptor.GetResource<DataTemplate>();
             }
 
-            window.DataContext = viewModel;
-            window.Content = viewModel;
+            
 
             return window;
         }

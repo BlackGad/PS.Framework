@@ -1,13 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:cases="clr-namespace:PS.WPF.ValueConverters.SwitchValueConverter.Cases"
+                    xmlns:components="clr-namespace:PS.WPF.Components"
                     xmlns:controls="clr-namespace:PS.WPF.Controls"
                     xmlns:m="clr-namespace:PS.WPF.Markup"
-                    xmlns:components="clr-namespace:PS.WPF.Components"
+                    xmlns:styles="clr-namespace:PS.WPF.Styles"
                     xmlns:switchValueConverter="clr-namespace:PS.WPF.ValueConverters.SwitchValueConverter"
                     xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
-                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
-                    xmlns:styles="clr-namespace:PS.WPF.Styles">
+                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/PS.WPF;component/Styles/Common.xaml" />
         <ResourceDictionary Source="/PS.WPF;component/Controls/IconicButton.xaml" />
@@ -210,12 +210,8 @@
     </ControlTemplate>
 
     <Style x:Key="{x:Static controls:ChromelessWindow+Resource.ControlStyle}" TargetType="controls:ChromelessWindow">
-        <Setter Property="Background" Value="{theme:Brush Main}" />
-        <Setter Property="BorderBrush" Value="{theme:Brush MainBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="CommandButtonsHorizontalAlignment" Value="Center" />
-        <Setter Property="FontSize" Value="{theme:FontSize M}" />
-        <Setter Property="HeaderBackground" Value="{theme:Brush Accent}" />
         <Setter Property="HeaderTemplate" Value="{StaticResource {x:Static controls:ChromelessWindow+Resource.HeaderTemplate}}" />
         <Setter Property="MinHeight" Value="28" />
         <Setter Property="MinWidth" Value="100" />
@@ -223,5 +219,14 @@
         <Setter Property="Template" Value="{StaticResource {x:Static controls:ChromelessWindow+Resource.ControlTemplate}}" />
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="WindowIconVisibility" Value="Collapsed" />
+        <Style.Triggers>
+            <!--  WPF Engine cannot resolve Bindings in straight forward Setters. So Bypass this with triggers  -->
+            <DataTrigger Binding="{Binding Source={m:Boolean True}}" Value="{m:Boolean True}">
+                <Setter Property="Background" Value="{theme:Brush Main}" />
+                <Setter Property="BorderBrush" Value="{theme:Brush MainBorder}" />
+                <Setter Property="FontSize" Value="{theme:FontSize M}" />
+                <Setter Property="HeaderBackground" Value="{theme:Brush Accent}" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

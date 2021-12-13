@@ -3,7 +3,8 @@
                     xmlns:components="clr-namespace:PS.WPF.Components"
                     xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
                     xmlns:treeView="clr-namespace:PS.WPF.Controls.TreeView"
-                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters">
+                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
+                    xmlns:markup="clr-namespace:PS.WPF.Markup">
 
     <ControlTemplate x:Key="{x:Static treeView:TreeViewItem+Resource.ExpandCollapseToggleTemplate}" TargetType="{x:Type ToggleButton}">
         <Border Background="Transparent">
@@ -46,8 +47,13 @@
         <Setter Property="Padding" Value="3" />
         <Setter Property="Template" Value="{StaticResource {x:Static treeView:TreeViewItem+Resource.ExpandCollapseToggleTemplate}}" />
         <Setter Property="Width" Value="16" />
-        <Setter Property="components:StoreBrush.MouseOver" Value="{theme:Brush Accent}" />
-        <Setter Property="components:StoreBrush.Selected" Value="{theme:Brush MainForeground}" />
+        <Style.Triggers>
+            <!--  WPF Engine cannot resolve Bindings in straight forward Setters. So Bypass this with triggers  -->
+            <DataTrigger Binding="{Binding Source={markup:Boolean True}}" Value="{markup:Boolean True}">
+                <Setter Property="components:StoreBrush.MouseOver" Value="{theme:Brush Accent}" />
+                <Setter Property="components:StoreBrush.Selected" Value="{theme:Brush MainForeground}" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <ControlTemplate x:Key="{x:Static treeView:TreeViewItem+Resource.ControlTemplate}" TargetType="{x:Type treeView:TreeViewItem}">

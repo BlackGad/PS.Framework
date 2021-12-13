@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:PS.WPF.Controls"
                     xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
-                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters">
+                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
+                    xmlns:markup="clr-namespace:PS.WPF.Markup">
 
 
     <ControlTemplate x:Key="{x:Static controls:GroupExpander+Resource.ToggleButtonTemplate}" TargetType="ToggleButton">
@@ -62,13 +63,18 @@
     </ControlTemplate>
 
     <Style x:Key="{x:Static controls:GroupExpander+Resource.ControlStyle}" TargetType="controls:GroupExpander">
-        <Setter Property="Background" Value="{theme:Brush Main}" />
-        <Setter Property="BorderBrush" Value="{theme:Brush MainBorderHigh}" />
         <Setter Property="HeaderPadding" Value="2" />
         <Setter Property="IsExpanded" Value="True" />
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="ShowIndent" Value="True" />
         <Setter Property="Template" Value="{StaticResource {x:Static controls:GroupExpander+Resource.ControlTemplate}}" />
+        <Style.Triggers>
+            <!--  WPF Engine cannot resolve Bindings in straight forward Setters. So Bypass this with triggers  -->
+            <DataTrigger Binding="{Binding Source={markup:Boolean True}}" Value="{markup:Boolean True}">
+                <Setter Property="Background" Value="{theme:Brush Main}" />
+                <Setter Property="BorderBrush" Value="{theme:Brush MainBorderHigh}" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

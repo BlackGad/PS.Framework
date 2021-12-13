@@ -4,7 +4,8 @@
                     xmlns:resources="clr-namespace:PS.WPF.Resources"
                     xmlns:styles="clr-namespace:PS.WPF.Styles"
                     xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
-                    xmlns:theme="clr-namespace:PS.WPF.Theming.Markup">
+                    xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
+                    xmlns:markup="clr-namespace:PS.WPF.Markup">
 
     <ResourceDictionary.MergedDictionaries>
         <resources:SharedResourceDictionary Source="/PS.WPF;component/Styles/Common.xaml" />
@@ -167,17 +168,22 @@
     </ControlTemplate>
 
     <Style x:Key="{x:Static controls:BusyContainer+Resource.ControlStyle}" TargetType="controls:BusyContainer">
-        <Setter Property="Background" Value="{theme:Brush Main}" />
         <Setter Property="Behavior" Value="Auto" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Focusable" Value="False" />
-        <Setter Property="Foreground" Value="{theme:Brush Accent}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="MinHeight" Value="80" />
         <Setter Property="MinWidth" Value="80" />
         <Setter Property="Template" Value="{StaticResource {x:Static controls:BusyContainer+Resource.ControlTemplate}}" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Style.Triggers>
+            <!--  WPF Engine cannot resolve Bindings in straight forward Setters. So Bypass this with triggers  -->
+            <DataTrigger Binding="{Binding Source={markup:Boolean True}}" Value="{markup:Boolean True}">
+                <Setter Property="Background" Value="{theme:Brush Main}" />
+                <Setter Property="Foreground" Value="{theme:Brush Accent}" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

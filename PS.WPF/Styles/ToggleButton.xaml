@@ -62,24 +62,29 @@
     </ControlTemplate>
 
     <Style x:Key="{x:Static styles:ToggleButton.ToggleButtonStyle}" TargetType="ToggleButton">
-        <Setter Property="Background" Value="{theme:Brush Accent}" />
-        <Setter Property="BorderBrush" Value="{theme:Brush MainBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="FontFamily" Value="{theme:Font Strong}" />
-        <Setter Property="Foreground" Value="{theme:Brush AccentForeground}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Padding" Value="4,2" />
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="Template" Value="{StaticResource {x:Static styles:ToggleButton.ToggleButtonTemplate}}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="components:StoreBrush.MouseOver" Value="{theme:Brush AccentForeground}" />
-        <Setter Property="components:StoreBrush.Pressed" Value="{theme:Brush AccentDeep}" />
-        <Setter Property="components:StoreBrush.PressedBorder" Value="{theme:Brush AccentBorderDeep}" />
-        <Setter Property="components:StoreBrush.Selected" Value="{theme:Brush AccentLow}" />
-        <Setter Property="components:StoreBrush.SelectedBorder" Value="{theme:Brush AccentBorderLow}" />
         <Setter Property="components:StoreGeometry.CornerRadius" Value="3" />
+        <Style.Triggers>
+            <!--  WPF Engine cannot resolve Bindings in straight forward Setters. So Bypass this with triggers  -->
+            <DataTrigger Binding="{Binding Source={markup:Boolean True}}" Value="{markup:Boolean True}">
+                <Setter Property="Background" Value="{theme:Brush Accent}" />
+                <Setter Property="BorderBrush" Value="{theme:Brush MainBorder}" />
+                <Setter Property="FontFamily" Value="{theme:Font Strong}" />
+                <Setter Property="Foreground" Value="{theme:Brush AccentForeground}" />
+                <Setter Property="components:StoreBrush.MouseOver" Value="{theme:Brush AccentForeground}" />
+                <Setter Property="components:StoreBrush.Pressed" Value="{theme:Brush AccentDeep}" />
+                <Setter Property="components:StoreBrush.PressedBorder" Value="{theme:Brush AccentBorderDeep}" />
+                <Setter Property="components:StoreBrush.Selected" Value="{theme:Brush AccentLow}" />
+                <Setter Property="components:StoreBrush.SelectedBorder" Value="{theme:Brush AccentBorderLow}" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

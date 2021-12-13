@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:styles="clr-namespace:PS.WPF.Styles"
-                    xmlns:theme="clr-namespace:PS.WPF.Theming.Markup">
+                    xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
+                    xmlns:markup="clr-namespace:PS.WPF.Markup">
 
     <Geometry x:Key="SubMenuGeometry">M 0 0 L 0 7 L 4 3.5 Z</Geometry>
     <Geometry x:Key="UpArrowGeometry">M 0,4 L 3.5,0 L 7,4 Z</Geometry>
@@ -124,12 +125,17 @@
     </ControlTemplate>
 
     <Style x:Key="{x:Static styles:Menu.MenuStyle}" TargetType="{x:Type Menu}">
-        <Setter Property="Background" Value="{theme:Brush Main}" />
-        <Setter Property="BorderBrush" Value="{theme:Brush MainBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Template" Value="{StaticResource {x:Static styles:Menu.MenuTemplate}}" />
+        <Style.Triggers>
+            <!--  WPF Engine cannot resolve Bindings in straight forward Setters. So Bypass this with triggers  -->
+            <DataTrigger Binding="{Binding Source={markup:Boolean True}}" Value="{markup:Boolean True}">
+                <Setter Property="Background" Value="{theme:Brush Main}" />
+                <Setter Property="BorderBrush" Value="{theme:Brush MainBorder}" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <ControlTemplate x:Key="{x:Static styles:Menu.ContextMenuTemplate}" TargetType="{x:Type MenuBase}">
@@ -144,12 +150,17 @@
     </ControlTemplate>
 
     <Style x:Key="{x:Static styles:Menu.ContextMenuStyle}" TargetType="{x:Type ContextMenu}">
-        <Setter Property="Background" Value="{theme:Brush Main}" />
-        <Setter Property="BorderBrush" Value="{theme:Brush MainBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Template" Value="{StaticResource {x:Static styles:Menu.ContextMenuTemplate}}" />
+        <Style.Triggers>
+            <!--  WPF Engine cannot resolve Bindings in straight forward Setters. So Bypass this with triggers  -->
+            <DataTrigger Binding="{Binding Source={markup:Boolean True}}" Value="{markup:Boolean True}">
+                <Setter Property="Background" Value="{theme:Brush Main}" />
+                <Setter Property="BorderBrush" Value="{theme:Brush MainBorder}" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <ControlTemplate x:Key="{x:Static styles:Menu.SeparatorTemplate}" TargetType="{x:Type Separator}">
@@ -157,11 +168,16 @@
     </ControlTemplate>
 
     <Style x:Key="{x:Static styles:Menu.SeparatorStyle}" TargetType="{x:Type Separator}">
-        <Setter Property="BorderBrush" Value="{theme:Brush MainBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Height" Value="1" />
         <Setter Property="Margin" Value="0,4,0,4" />
         <Setter Property="Template" Value="{StaticResource {x:Static styles:Menu.SeparatorTemplate}}" />
+        <Style.Triggers>
+            <!--  WPF Engine cannot resolve Bindings in straight forward Setters. So Bypass this with triggers  -->
+            <DataTrigger Binding="{Binding Source={markup:Boolean True}}" Value="{markup:Boolean True}">
+                <Setter Property="BorderBrush" Value="{theme:Brush MainBorder}" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <ControlTemplate x:Key="{x:Static styles:Menu.TopLevelHeaderTemplate}" TargetType="{x:Type MenuItem}">
@@ -321,13 +337,17 @@
     </ControlTemplate>
 
     <Style x:Key="{x:Static styles:Menu.MenuItemStyle}" TargetType="{x:Type MenuItem}">
-        <Setter Property="Background" Value="{theme:Brush Main}" />
-        <Setter Property="BorderBrush" Value="{theme:Brush MainBorder}" />
-        <Setter Property="Foreground" Value="{theme:Brush MainForeground}" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Style.Triggers>
+            <!--  WPF Engine cannot resolve Bindings in straight forward Setters. So Bypass this with triggers  -->
+            <DataTrigger Binding="{Binding Source={markup:Boolean True}}" Value="{markup:Boolean True}">
+                <Setter Property="Background" Value="{theme:Brush Main}" />
+                <Setter Property="BorderBrush" Value="{theme:Brush MainBorder}" />
+                <Setter Property="Foreground" Value="{theme:Brush MainForeground}" />
+            </DataTrigger>
+
             <Trigger Property="Role" Value="TopLevelHeader">
                 <Setter Property="Grid.IsSharedSizeScope" Value="true" />
                 <Setter Property="Template" Value="{StaticResource {x:Static styles:Menu.TopLevelHeaderTemplate}}" />
