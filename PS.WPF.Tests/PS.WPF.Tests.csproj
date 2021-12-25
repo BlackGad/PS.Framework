@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFrameworks>net5.0-windows;net461;</TargetFrameworks>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <RootNamespace>PS.WPF.Tests</RootNamespace>
     <Authors>Volodymyr Shkolka</Authors>
     <Company>Volodymyr Shkolka</Company>
     <Product>PS Framework</Product>
@@ -12,8 +11,6 @@
     <RepositoryUrl>https://github.com/BlackGad/PS.Framework</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
     <PackageTags>Framework Primitives WPF Tests</PackageTags>
-    <NeutralLanguage>en</NeutralLanguage>
-    <Version>1.0.4</Version>
     <Description>Unit test for common development primitives foo WPF</Description>
     <UseWPF>true</UseWPF>
   </PropertyGroup>

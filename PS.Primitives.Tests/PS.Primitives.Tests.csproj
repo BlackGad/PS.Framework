@@ -12,8 +12,6 @@
     <RepositoryUrl>https://github.com/BlackGad/PS.Framework</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
     <PackageTags>Framework Primitives WPF Tests</PackageTags>
-    <NeutralLanguage>en</NeutralLanguage>
-    <Version>1.0.4</Version>
     <Description>Unit test for common development primitives and useful tools</Description>
     <UseWPF>true</UseWPF>
   </PropertyGroup>

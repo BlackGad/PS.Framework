@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFrameworks>net5.0-windows;net461;</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <RootNamespace>PS.Windows.Interop</RootNamespace>
     <Authors>Volodymyr Shkolka</Authors>
     <Company>Volodymyr Shkolka</Company>
     <Product>PS Framework</Product>
@@ -12,9 +11,7 @@
     <RepositoryUrl>https://github.com/BlackGad/PS.Framework</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
     <PackageTags>Windows Interop User32 Kernel32</PackageTags>
-    <NeutralLanguage>en</NeutralLanguage>
     <Description>Windows interop</Description>
-    <Version>1.0.4</Version>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   

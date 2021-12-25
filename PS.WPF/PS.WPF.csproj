@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFrameworks>net5.0-windows;net461;</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <RootNamespace>PS.WPF</RootNamespace>
     <Authors>Volodymyr Shkolka</Authors>
     <Company>Volodymyr Shkolka</Company>
     <Product>PS Framework</Product>
@@ -12,8 +11,6 @@
     <RepositoryUrl>https://github.com/BlackGad/PS.Framework</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
     <PackageTags>Framework Primitives Standard WPF</PackageTags>
-    <NeutralLanguage>en</NeutralLanguage>
-    <Version>1.0.4</Version>
     <Description>Common development primitives foo WPF</Description>
     <UseWPF>true</UseWPF>
   </PropertyGroup>

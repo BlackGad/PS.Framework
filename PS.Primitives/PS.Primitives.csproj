@@ -12,9 +12,7 @@
     <RepositoryUrl>https://github.com/BlackGad/PS.Framework</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
     <PackageTags>Framework MVVM IoC Primitives Standard WPF</PackageTags>
-    <NeutralLanguage>en</NeutralLanguage>
     <Description>Common development primitives and useful tools</Description>
-    <Version>1.0.4</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net461'">
