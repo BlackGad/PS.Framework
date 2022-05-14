@@ -5,6 +5,7 @@
 		<RootNamespace>PS.IoC</RootNamespace>
 		<PackageTags>Framework IoC Standard Autofac</PackageTags>
 		<Description>Autofac IoC adaptation</Description>
+		<Version>1.0.0</Version>
 	</PropertyGroup>
 
 	<Import Project="..\.Shared\Build.targets" />

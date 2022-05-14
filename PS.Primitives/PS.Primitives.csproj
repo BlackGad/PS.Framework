@@ -5,6 +5,7 @@
 		<RootNamespace>PS</RootNamespace>
 		<PackageTags>Framework MVVM IoC Primitives Standard WPF</PackageTags>
 		<Description>Common development primitives and useful tools</Description>
+		<Version>1.0.0</Version>
 	</PropertyGroup>
 
 	<Import Project="..\.Shared\Build.targets" />

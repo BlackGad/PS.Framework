@@ -5,6 +5,7 @@
 		<RootNamespace>PS</RootNamespace>
 		<Description>Unit test for common development primitives and useful tools</Description>
 		<UseWPF>true</UseWPF>
+		<Version>1.0.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -5,6 +5,7 @@
 		<PackageTags>Framework Primitives WPF Tests</PackageTags>
 		<Description>Unit test for common development primitives foo WPF</Description>
 		<UseWPF>true</UseWPF>
+		<Version>1.0.0</Version>
 	</PropertyGroup>
 
 	<!-- .NET 4.6.1 references, compilation flags and build options -->
