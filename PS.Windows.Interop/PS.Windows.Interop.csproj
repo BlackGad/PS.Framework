@@ -5,6 +5,7 @@
 		<PackageTags>Windows Interop User32 Kernel32</PackageTags>
 		<Description>Windows interop</Description>
 		<UseWPF>true</UseWPF>
+		<Version>1.0.0</Version>
 	</PropertyGroup>
 
 	<Import Project="..\.Shared\Build.targets" />

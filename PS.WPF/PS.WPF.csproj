@@ -5,6 +5,7 @@
 		<PackageTags>Framework Primitives Standard WPF</PackageTags>
 		<Description>Common development primitives foo WPF</Description>
 		<UseWPF>true</UseWPF>
+		<Version>1.0.0</Version>
 	</PropertyGroup>
 
 	<Import Project="..\.Shared\Build.targets" />
