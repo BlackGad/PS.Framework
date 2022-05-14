@@ -1,4 +1,5 @@
-﻿using PS.IoC.Attributes;
+﻿using System.Windows;
+using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
 using PS.Shell.ViewModels;
 
@@ -25,5 +26,10 @@ namespace PS.Shell.Views
         }
 
         #endregion
+
+        private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            ViewModel.Content = e.NewValue;
+        }
     }
 }

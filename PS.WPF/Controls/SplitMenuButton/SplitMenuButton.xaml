@@ -4,14 +4,14 @@
                     xmlns:controls="clr-namespace:PS.WPF.Controls"
                     xmlns:markup="clr-namespace:PS.WPF.Markup"
                     xmlns:resources="clr-namespace:PS.WPF.Resources"
-                    xmlns:styles="clr-namespace:PS.WPF.Styles"
-                    xmlns:theme="clr-namespace:PS.WPF.Theme"
-                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters">
+                    xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
+                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
+                    xmlns:styles="clr-namespace:PS.WPF.Controls.Native">
 
     <ResourceDictionary.MergedDictionaries>
-        <resources:SharedResourceDictionary Source="/PS.WPF;component/Styles/Button.xaml" />
-        <resources:SharedResourceDictionary Source="/PS.WPF;component/Styles/ToggleButton.xaml" />
-        <resources:SharedResourceDictionary Source="/PS.WPF;component/Styles/Menu.xaml" />
+        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Native/Button.xaml" />
+        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Native/ToggleButton.xaml" />
+        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Native/Menu.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <controls:SplitMenuButtonCornerRadiusConverter x:Key="CornerRadiusConverter" />
@@ -26,13 +26,18 @@
         <Style.Resources>
             <Style BasedOn="{StaticResource {x:Static styles:Menu.MenuItemStyle}}" TargetType="MenuItem" />
         </Style.Resources>
-        <Setter Property="Background" Value="{x:Static theme:ThemeBrushes.Main}" />
-        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.MainBorder}" />
-        <Setter Property="Foreground" Value="{x:Static theme:ThemeBrushes.MainForeground}" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Template" Value="{StaticResource {x:Static styles:Menu.SubmenuTemplate}}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Style.Triggers>
+            <!--  WPF Engine cannot resolve Bindings in straight forward Setters. So Bypass this with triggers  -->
+            <DataTrigger Binding="{Binding Source={markup:Boolean True}}" Value="{markup:Boolean True}">
+                <Setter Property="Background" Value="{theme:Brush Main}" />
+                <Setter Property="BorderBrush" Value="{theme:Brush MainBorder}" />
+                <Setter Property="Foreground" Value="{theme:Brush MainForeground}" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <ControlTemplate x:Key="{x:Static controls:SplitMenuButton+Resource.ControlTemplate}" TargetType="controls:SplitMenuButton">
@@ -111,7 +116,7 @@
                        SnapsToDevicePixels="True"
                        StaysOpen="False"
                        VerticalOffset="-1">
-                    <Border Background="{x:Static theme:ThemeBrushes.Main}"
+                    <Border Background="{theme:Brush Main}"
                             BorderBrush="{Binding ElementName=PART_Border, Path=BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
                         <ScrollViewer x:Name="PART_SubMenuScrollViewer"
@@ -146,13 +151,13 @@
     </ControlTemplate>
 
     <Style x:Key="{x:Static controls:SplitMenuButton+Resource.ControlStyle}" TargetType="controls:SplitMenuButton">
-        <Setter Property="Background" Value="{x:Static theme:ThemeBrushes.Accent}" />
-        <Setter Property="BorderBrush" Value="{x:Static theme:ThemeBrushes.MainBorder}" />
+        <Setter Property="Background" Value="{theme:Brush Accent}" />
+        <Setter Property="BorderBrush" Value="{theme:Brush MainBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Focusable" Value="False" />
-        <Setter Property="FontFamily" Value="{x:Static theme:ThemeFonts.FontFamilyStrong}" />
-        <Setter Property="Foreground" Value="{x:Static theme:ThemeBrushes.AccentForeground}" />
+        <Setter Property="FontFamily" Value="{theme:Font Strong}" />
+        <Setter Property="Foreground" Value="{theme:Brush AccentForeground}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="MenuItemContainerStyle" Value="{StaticResource {x:Static controls:SplitMenuButton+Resource.MenuItemStyle}}" />
         <Setter Property="MenuItemsPanel" Value="{StaticResource {x:Static controls:SplitMenuButton+Resource.ItemsPanelTemplate}}" />
@@ -161,11 +166,11 @@
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="Template" Value="{StaticResource {x:Static controls:SplitMenuButton+Resource.ControlTemplate}}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="components:StoreBrush.MouseOver" Value="{x:Static theme:ThemeBrushes.AccentForeground}" />
-        <Setter Property="components:StoreBrush.Pressed" Value="{x:Static theme:ThemeBrushes.AccentDeep}" />
-        <Setter Property="components:StoreBrush.PressedBorder" Value="{x:Static theme:ThemeBrushes.AccentBorderDeep}" />
-        <Setter Property="components:StoreBrush.Selected" Value="{x:Static theme:ThemeBrushes.AccentLow}" />
-        <Setter Property="components:StoreBrush.SelectedBorder" Value="{x:Static theme:ThemeBrushes.AccentBorderLow}" />
+        <Setter Property="components:StoreBrush.MouseOver" Value="{theme:Brush AccentForeground}" />
+        <Setter Property="components:StoreBrush.Pressed" Value="{theme:Brush AccentDeep}" />
+        <Setter Property="components:StoreBrush.PressedBorder" Value="{theme:Brush AccentBorderDeep}" />
+        <Setter Property="components:StoreBrush.Selected" Value="{theme:Brush AccentLow}" />
+        <Setter Property="components:StoreBrush.SelectedBorder" Value="{theme:Brush AccentBorderLow}" />
         <Setter Property="components:StoreGeometry.CornerRadius" Value="3" />
     </Style>
 

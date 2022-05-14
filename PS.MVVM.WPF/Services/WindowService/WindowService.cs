@@ -90,14 +90,14 @@ namespace PS.MVVM.Services.WindowService
         private Window CreateWindow<TViewModel>(TViewModel viewModel, string region)
         {
             var window = CreateWindow();
-            window.DataContext = viewModel;
-            window.Content = viewModel;
-
             if (window == null) throw new InvalidOperationException("Window not provided");
             if (!Equals(window, Application.Current.MainWindow) && window.Owner == null)
             {
                 window.Owner = Application.Current.MainWindow;
             }
+
+            window.DataContext = viewModel;
+            window.Content = viewModel;
 
             var viewModelType = viewModel.GetType();
 
@@ -122,6 +122,8 @@ namespace PS.MVVM.Services.WindowService
             {
                 window.ContentTemplate = payloadTemplateResourceDescriptor.GetResource<DataTemplate>();
             }
+
+            
 
             return window;
         }

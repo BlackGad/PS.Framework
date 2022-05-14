@@ -6,7 +6,7 @@ using PS.WPF.Resources;
 
 namespace PS.WPF.Controls
 {
-    public class IconicButton : Button
+    public class IconicButton : System.Windows.Controls.Button
     {
         #region Property definitions
 

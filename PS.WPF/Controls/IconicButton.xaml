@@ -3,11 +3,12 @@
                     xmlns:cases="clr-namespace:PS.WPF.ValueConverters.SwitchValueConverter.Cases"
                     xmlns:local="clr-namespace:PS.WPF.Controls"
                     xmlns:markup="clr-namespace:PS.WPF.Markup"
-                    xmlns:styles="clr-namespace:PS.WPF.Styles"
                     xmlns:switchValueConverter="clr-namespace:PS.WPF.ValueConverters.SwitchValueConverter"
-                    xmlns:theme="clr-namespace:PS.WPF.Theme">
+                    xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
+                    xmlns:styles="clr-namespace:PS.WPF.Controls.Native"
+                    xmlns:resources="clr-namespace:PS.WPF.Resources">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/PS.WPF;component/Styles/Common.xaml" />
+        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Native/Common.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <switchValueConverter:SwitchValueConverter x:Key="ContentVisibilityConverter" ConvertDefault="{markup:Visibility Visible}">
@@ -116,7 +117,6 @@
     </ControlTemplate>
 
     <Style x:Key="{x:Static local:IconicButton+Resource.ControlStyle}" TargetType="local:IconicButton">
-        <Setter Property="Background" Value="{x:Static theme:ThemeBrushes.MainForeground}" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -127,7 +127,12 @@
         <Setter Property="Stretch" Value="Uniform" />
         <Setter Property="Template" Value="{StaticResource {x:Static local:IconicButton+Resource.ControlTemplate}}" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
-
+        <Style.Triggers>
+            <!--  WPF Engine cannot resolve Bindings in straight forward Setters. So Bypass this with triggers  -->
+            <DataTrigger Binding="{Binding Source={markup:Boolean True}}" Value="{markup:Boolean True}">
+                <Setter Property="Background" Value="{theme:Brush MainForeground}" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

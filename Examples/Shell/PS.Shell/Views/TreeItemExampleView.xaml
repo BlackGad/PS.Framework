@@ -1,0 +1,12 @@
+﻿<Grid x:Class="PS.Shell.Views.TreeItemExampleView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:examplesService="clr-namespace:PS.Shell.Infrastructure.Models.ExamplesService;assembly=PS.Shell.Infrastructure"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Margin="0,3"
+      d:DataContext="{d:DesignInstance examplesService:IExample}"
+      Focusable="False"
+      mc:Ignorable="d">
+    <TextBlock VerticalAlignment="Center" Text="{Binding Title}" />
+</Grid>

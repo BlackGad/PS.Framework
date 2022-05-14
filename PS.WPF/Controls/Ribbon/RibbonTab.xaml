@@ -4,7 +4,7 @@
                     xmlns:controls="clr-namespace:PS.WPF.Controls.Ribbon"
                     xmlns:markup="clr-namespace:PS.WPF.Markup"
                     xmlns:resources="clr-namespace:PS.WPF.Resources"
-                    xmlns:theme="clr-namespace:PS.WPF.Theme"
+                    xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
                     xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters">
 
     <ResourceDictionary.MergedDictionaries>
@@ -22,14 +22,14 @@
               ClipToBounds="True"
               Visibility="{TemplateBinding IsSelected, Converter={x:Static valueConverters:BooleanConverters.ToVisibility}}">
             <components:StoreBrush.Background>
-                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.Main}">
+                <PriorityBinding>
                     <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                     <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.(controls:Ribbon.SelectedTabHeaderBackground)" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                     <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.Background>
             <components:StoreBrush.BorderBrush>
-                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.MainBorder}">
+                <PriorityBinding>
                     <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                     <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>

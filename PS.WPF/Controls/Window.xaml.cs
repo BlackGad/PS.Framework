@@ -10,17 +10,17 @@ namespace PS.WPF.Controls
     {
         #region Property definitions
 
-        public static readonly DependencyProperty CommandsProperty =
-            DependencyProperty.Register("Commands",
-                                        typeof(UICommandCollection),
-                                        typeof(Window),
-                                        new FrameworkPropertyMetadata(default(UICommandCollection), null, OnCoerceCommands));
-
         public static readonly DependencyProperty CommandButtonsHorizontalAlignmentProperty =
             DependencyProperty.Register("CommandButtonsHorizontalAlignment",
                                         typeof(HorizontalAlignment),
                                         typeof(Window),
                                         new FrameworkPropertyMetadata(default(HorizontalAlignment)));
+
+        public static readonly DependencyProperty CommandsProperty =
+            DependencyProperty.Register("Commands",
+                                        typeof(UICommandCollection),
+                                        typeof(Window),
+                                        new FrameworkPropertyMetadata(default(UICommandCollection), null, OnCoerceCommands));
 
         public static readonly DependencyProperty IsResizableProperty =
             DependencyProperty.Register("IsResizable",

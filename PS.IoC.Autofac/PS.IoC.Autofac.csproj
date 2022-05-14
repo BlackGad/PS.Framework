@@ -1,40 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461;net5.0</TargetFrameworks>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <RootNamespace>PS.IoC</RootNamespace>
-    <Authors>Volodymyr Shkolka</Authors>
-    <Company>Volodymyr Shkolka</Company>
-    <Product>PS Framework</Product>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageProjectUrl>https://github.com/BlackGad/PS.Framework</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/BlackGad/PS.Framework</RepositoryUrl>
-    <RepositoryType>github</RepositoryType>
-    <PackageTags>Framework IoC Standard</PackageTags>
-    <NeutralLanguage>en</NeutralLanguage>
-    <Version>1.0.4</Version>
-    <Description>Autofac IoC adaptation</Description>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;net461;net6.0</TargetFrameworks>
+		<RootNamespace>PS.IoC</RootNamespace>
+		<PackageTags>Framework IoC Standard Autofac</PackageTags>
+		<Description>Autofac IoC adaptation</Description>
+	</PropertyGroup>
 
-  <!-- General references -->
-  <ItemGroup>
-    <ProjectReference Include="..\PS.IoC\PS.IoC.csproj" />
-  </ItemGroup>
+	<Import Project="..\.Shared\Build.targets" />
 
-  <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.2.0" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <None Include="..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\PS.IoC\PS.IoC.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Autofac" Version="6.3.0" />
+	</ItemGroup>
 
 </Project>

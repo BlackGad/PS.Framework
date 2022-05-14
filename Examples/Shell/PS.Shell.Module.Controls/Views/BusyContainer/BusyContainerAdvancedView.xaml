@@ -20,19 +20,19 @@
         <StackPanel>
             <ps:GroupExpander Header="Behavior">
                 <StackPanel>
-                    <ps:KeyValueContentControl Header="Busy behavior">
+                    <ps:HeaderedContent Header="Busy behavior">
                         <ComboBox VerticalAlignment="Center"
                                   ItemsSource="{Binding Source={x:Type ps:BusyBehavior}, Converter={x:Static ps:TypeConverters.EnumValues}}"
                                   SelectedItem="{Binding ElementName=Control, Path=Behavior, Mode=TwoWay}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="Is busy">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="Is busy">
                         <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsBusy, Mode=TwoWay}" />
-                    </ps:KeyValueContentControl>
+                    </ps:HeaderedContent>
                 </StackPanel>
             </ps:GroupExpander>
             <ps:GroupExpander Header="Payload">
                 <StackPanel>
-                    <ps:KeyValueContentControl Header="Control">
+                    <ps:HeaderedContent Header="Control">
                         <ps:UICommandsControl ItemsSource="{Binding ContentControlCommands}">
                             <ps:UICommandsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -40,8 +40,8 @@
                                 </ItemsPanelTemplate>
                             </ps:UICommandsControl.ItemsPanel>
                         </ps:UICommandsControl>
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="Title">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="Title">
                         <ps:TextBox IsSideButtonVisible="True">
                             <ps:TextBox.Style>
                                 <Style TargetType="ps:TextBox">
@@ -58,8 +58,8 @@
                                 </Style>
                             </ps:TextBox.Style>
                         </ps:TextBox>
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="Description">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="Description">
                         <ps:TextBox IsSideButtonVisible="True">
                             <ps:TextBox.Style>
                                 <Style TargetType="ps:TextBox">
@@ -77,7 +77,7 @@
                                 </Style>
                             </ps:TextBox.Style>
                         </ps:TextBox>
-                    </ps:KeyValueContentControl>
+                    </ps:HeaderedContent>
                 </StackPanel>
             </ps:GroupExpander>
         </StackPanel>

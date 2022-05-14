@@ -78,11 +78,13 @@ namespace PS.Extensions
             };
         }
 
+        #if !NET60
         public static IEnumerable<T> DistinctBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> keySelector)
         {
             var lookup = source.Enumerate().ToLookup(keySelector, arg => arg);
             return lookup.Select(g => g.First());
         }
+        #endif
 
         public static IEnumerable<T> ExceptBy<T>(this ICollection<T> collection, Func<T, bool> predicate)
         {
@@ -173,6 +175,7 @@ namespace PS.Extensions
             }
         }
 
+        #if !NET60
         /// <summary>
         ///     Returns the minimal element of the given sequence, based on
         ///     the given projection.
@@ -244,6 +247,7 @@ namespace PS.Extensions
                 return min;
             }
         }
+        #endif
 
         /// <summary>
         ///     Inserts item to list. If index less than 0 inserts as first item.

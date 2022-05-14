@@ -6,7 +6,7 @@
                     xmlns:input="clr-namespace:System.Windows.Input;assembly=System"
                     xmlns:markup="clr-namespace:PS.WPF.Markup"
                     xmlns:resources="clr-namespace:PS.WPF.Resources"
-                    xmlns:theme="clr-namespace:PS.WPF.Theme"
+                    xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
                     xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
                     xmlns:controls="clr-namespace:PS.WPF.Controls.Ribbon.Controls"
                     xmlns:ribbon="clr-namespace:PS.WPF.Controls.Ribbon"
@@ -25,13 +25,13 @@
               SnapsToDevicePixels="True"
               TextElement.Foreground="{Binding RelativeSource={RelativeSource Self}, Path=(components:StoreBrush.Foreground)}">
             <components:StoreBrush.Background>
-                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.Main}">
+                <PriorityBinding>
                     <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                     <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.Background>
             <components:StoreBrush.BorderBrush>
-                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.MainBorder}">
+                <PriorityBinding>
                     <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                     <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
@@ -58,7 +58,7 @@
                 </PriorityBinding>
             </components:StoreBrush.MouseOverBorder>
             <components:StoreBrush.Accent>
-                <PriorityBinding FallbackValue="{x:Static theme:ThemeBrushes.Accent}">
+                <PriorityBinding>
                     <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Accent" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                     <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.(ribbon:Ribbon.Accent)" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>

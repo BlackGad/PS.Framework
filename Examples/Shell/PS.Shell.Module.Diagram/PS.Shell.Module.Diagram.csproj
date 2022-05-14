@@ -1,9 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0-windows;net461;</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows;net461;</TargetFrameworks>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <RootNamespace>PS.Shell.Module.Diagram</RootNamespace>
     <Authors>Volodymyr Shkolka</Authors>
     <Company>Volodymyr Shkolka</Company>
     <Product>PS Shell</Product>
@@ -12,8 +11,6 @@
     <RepositoryUrl>https://github.com/BlackGad/PS.Framework</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
     <PackageTags>Shell Module Diagram WPF</PackageTags>
-    <NeutralLanguage>en</NeutralLanguage>
-    <Version>1.0.4</Version>
     <Description>Shell diagram module project</Description>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
@@ -36,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.2.0" />
+    <PackageReference Include="Autofac" Version="6.3.0" />
   </ItemGroup>
 
 </Project>

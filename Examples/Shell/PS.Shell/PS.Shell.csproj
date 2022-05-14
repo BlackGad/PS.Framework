@@ -2,9 +2,8 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFrameworks>net5.0-windows;net461;</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows;net461;</TargetFrameworks>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <RootNamespace>PS.Shell</RootNamespace>
     <Authors>Volodymyr Shkolka</Authors>
     <Company>Volodymyr Shkolka</Company>
     <Product>PS Shell</Product>
@@ -13,8 +12,6 @@
     <RepositoryUrl>https://github.com/BlackGad/PS.Framework</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
     <PackageTags>Shell WPF</PackageTags>
-    <NeutralLanguage>en</NeutralLanguage>
-    <Version>1.0.4</Version>
     <Description>Shell project</Description>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
@@ -32,6 +29,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\PS.IoC.Autofac\PS.IoC.Autofac.csproj" />
     <ProjectReference Include="..\..\..\PS.IoC\PS.IoC.csproj" />
     <ProjectReference Include="..\..\..\PS.MVVM.WPF\PS.MVVM.WPF.csproj" />
@@ -42,18 +45,16 @@
     <ProjectReference Include="..\PS.Shell.Infrastructure\PS.Shell.Infrastructure.csproj" />
     <ProjectReference Include="..\PS.Shell.Module.Controls\PS.Shell.Module.Controls.csproj" />
     <ProjectReference Include="..\PS.Shell.Module.Diagram\PS.Shell.Module.Diagram.csproj" />
+    <ProjectReference Include="..\PS.Shell.Module.NativeControls\PS.Shell.Module.NativeControls.csproj" />
     <ProjectReference Include="..\PS.Shell.Module.Ribbon\PS.Shell.Module.Ribbon.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.2.0" />
-    <PackageReference Include="NLog" Version="4.7.10" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="NLog.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <PackageReference Include="Autofac" Version="6.3.0" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="6.0.0" />
+    <PackageReference Include="AvalonEdit" Version="6.1.3.50" />
+    <PackageReference Include="NLog" Version="4.7.15" />
+    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="6.0.0" />
   </ItemGroup>
 
 </Project>

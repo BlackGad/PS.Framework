@@ -20,15 +20,15 @@
         <StackPanel>
             <ps:GroupExpander Header="Payload">
                 <StackPanel>
-                    <ps:KeyValueContentControl Header="First state">
+                    <ps:HeaderedContent Header="First state">
                         <ps:UICommandsControl ItemsSource="{Binding FirstStateCommands}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="Second state">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="Second state">
                         <ps:UICommandsControl ItemsSource="{Binding SecondStateCommands}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="Third state">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="Third state">
                         <ps:UICommandsControl ItemsSource="{Binding ThirdStateCommands}" />
-                    </ps:KeyValueContentControl>
+                    </ps:HeaderedContent>
                 </StackPanel>
             </ps:GroupExpander>
         </StackPanel>

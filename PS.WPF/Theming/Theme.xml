@@ -1,0 +1,52 @@
+<Theme>
+    <Definition>
+        <AdditionalColorOpacity Name="O75" Value="0.75" Postfix="75"/>
+        <AdditionalColorOpacity Name="O50" Value="0.5" Postfix="50"/>
+        <AdditionalColorOpacity Name="O25" Value="0.25" Postfix="25"/>
+
+        <Color Name="Accent" Value="#FFA52A2A" />
+        <Color Name="AccentHigh" Transform="Accent:Tint:0.2" />
+        <Color Name="AccentLow" Transform="Accent:Shade:0.3" />
+        <Color Name="AccentDeep" Transform="Accent:Shade:0.5" />
+        <Color Name="AccentForeground" Value="#FFFFFFFF" />
+        <Color Name="AccentBorder" Value="#FFFFFFFF" />
+        <Color Name="AccentBorderHigh" Transform="AccentBorder:Tint:0.2" />
+        <Color Name="AccentBorderLow" Transform="AccentBorder:Shade:0.3" />
+        <Color Name="AccentBorderDeep" Transform="AccentBorder:Shade:0.5" />
+
+        <Color Name="Main" Value="#FFFFFFFF" />
+        <Color Name="MainHigh" Transform="Accent:Tint:0.2" />
+        <Color Name="MainLow" Transform="Main:Shade:0.3" />
+        <Color Name="MainDeep" Transform="Main:Shade:0.5" />
+        <Color Name="MainForeground" Value="#FF000000" />
+        <Color Name="MainBorder" Value="#FFA9A9A9" />
+        <Color Name="MainBorderHigh" Transform="MainBorder:Tint:0.5" />
+        <Color Name="MainBorderLow" Transform="MainBorder:Shade:0.3" />
+        <Color Name="MainBorderDeep" Transform="MainBorder:Shade:0.5" />
+
+        <Color Name="Success" Value="#FF008000" />
+        <Color Name="Failure" Value="#FFFF0000" />
+        <Color Name="Warning" Value="#FFFFA500" />
+
+        <Font Name="Normal" Value="Segoe UI"/>
+        <Font Name="Light" Value="Segoe UI Light"/>
+        <Font Name="Strong" Value="Segoe UI Semibold"/>
+        <Font Name="ExtraStrong" Value="Segoe UI Black"/>
+
+        <FontSize Name="XS" Value="10" />
+        <FontSize Name="S" Value="11" />
+        <FontSize Name="M" Value="12" />
+        <FontSize Name="L" Value="14" />
+        <FontSize Name="XL" Value="16" />
+        <FontSize Name="XXL" Value="20" />
+        <FontSize Name="XXXL" Value="24" />
+        <FontSize Name="XXXXL" Value="36" />
+    </Definition>
+
+    <Presets>
+        <Preset Name="Light">
+            <Color Name="Accent" Value="#FFA52A2A" />
+        </Preset>
+    </Presets>
+    
+</Theme>

@@ -22,18 +22,18 @@
         <StackPanel>
             <ps:GroupExpander Header="Generic">
                 <StackPanel>
-                    <ps:KeyValueContentControl Header="Title">
+                    <ps:HeaderedContent Header="Title">
                         <TextBox VerticalAlignment="Center" Text="{Binding Path=Command.Title, UpdateSourceTrigger=PropertyChanged}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="Description">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="Description">
                         <TextBox VerticalAlignment="Center" Text="{Binding Path=Command.Description, UpdateSourceTrigger=PropertyChanged}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="CanExecute">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="CanExecute">
                         <CheckBox VerticalAlignment="Center" IsChecked="{Binding Path=CanExecute}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="Process">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="Process">
                         <Button Click="Execute_OnClick" Content="Click" />
-                    </ps:KeyValueContentControl>
+                    </ps:HeaderedContent>
                 </StackPanel>
             </ps:GroupExpander>
         </StackPanel>

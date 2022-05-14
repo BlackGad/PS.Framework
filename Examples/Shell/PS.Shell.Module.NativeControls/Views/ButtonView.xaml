@@ -1,0 +1,53 @@
+﻿<components:PageControl x:Class="PS.Shell.Module.NativeControls.Views.ButtonView"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:components="clr-namespace:PS.Shell.Infrastructure.Components;assembly=PS.Shell.Infrastructure"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:ps="http://schemas.ps.com/2019/xaml"
+                        xmlns:resources="clr-namespace:PS.WPF.Resources;assembly=PS.WPF"
+                        xmlns:viewModels="clr-namespace:PS.Shell.Module.NativeControls.ViewModels"
+                        d:DataContext="{d:DesignInstance viewModels:ButtonViewModel}"
+                        Focusable="False"
+                        mc:Ignorable="d">
+    <components:PageControl.Editor>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <ps:HeaderedContent Grid.Column="0"
+                                Header="Default"
+                                Orientation="Vertical">
+                <Button Content="{Binding Content}" IsEnabled="{Binding IsEnabled}" />
+            </ps:HeaderedContent>
+            <ps:HeaderedContent Grid.Column="2"
+                                Header="Styled"
+                                Orientation="Vertical">
+                <ps:HeaderedContent.Resources>
+                    <ResourceDictionary>
+                        <ResourceDictionary.MergedDictionaries>
+                            <resources:SharedResourceDictionary Source="/PS.WPF;component/Styles/Button.Apply.xaml" />
+                        </ResourceDictionary.MergedDictionaries>
+                    </ResourceDictionary>
+                </ps:HeaderedContent.Resources>
+                <Button Content="{Binding Content}" IsEnabled="{Binding IsEnabled}" />
+            </ps:HeaderedContent>
+        </Grid>
+    </components:PageControl.Editor>
+    <components:PageControl.Properties>
+        <StackPanel>
+            <ps:GroupExpander Header="Generic">
+                <StackPanel>
+                    <ps:HeaderedContent Header="Content">
+                        <ps:TextBox Value="{Binding Content}" />
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="Is Enabled">
+                        <ps:CheckBox IsChecked="{Binding IsEnabled}" />
+                    </ps:HeaderedContent>
+                </StackPanel>
+            </ps:GroupExpander>
+        </StackPanel>
+    </components:PageControl.Properties>
+</components:PageControl>

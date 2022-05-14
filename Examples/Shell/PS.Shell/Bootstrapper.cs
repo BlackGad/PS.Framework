@@ -5,6 +5,7 @@ using PS.MVVM.Services;
 using PS.MVVM.Services.CommandService;
 using PS.Shell.Module.Controls;
 using PS.Shell.Module.Diagram;
+using PS.Shell.Module.NativeControls;
 using PS.Shell.Module.Ribbon;
 
 namespace PS.Shell
@@ -81,6 +82,7 @@ namespace PS.Shell
             builder.RegisterModule<MainModule>();
             builder.RegisterModule<DiagramModule>();
             builder.RegisterModule<ControlsModule>();
+            builder.RegisterModule<NativeControlsModule>();
             builder.RegisterModule<RibbonModule>();
 
             logger.Debug("Modules registered");

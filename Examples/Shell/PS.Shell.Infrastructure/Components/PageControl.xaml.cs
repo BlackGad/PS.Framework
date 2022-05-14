@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using PS.WPF.Controls;
@@ -16,12 +15,6 @@ namespace PS.Shell.Infrastructure.Components
                                         typeof(object),
                                         typeof(PageControl),
                                         new FrameworkPropertyMetadata(default(object)));
-
-        public static readonly DependencyProperty LogProperty =
-            DependencyProperty.Register(nameof(Log),
-                                        typeof(ObservableCollection<string>),
-                                        typeof(PageControl),
-                                        new FrameworkPropertyMetadata(default(ObservableCollection<string>)));
 
         public static readonly DependencyProperty PropertiesProperty =
             DependencyProperty.Register(nameof(Properties),
@@ -41,8 +34,7 @@ namespace PS.Shell.Infrastructure.Components
 
         public PageControl()
         {
-            Log = new ObservableCollection<string>();
-            KeyValueContentControl.SetKeyColumnWidth(this, 150);
+            HeaderedContent.SetHeaderColumnWidth(this, 150);
         }
 
         #endregion
@@ -53,12 +45,6 @@ namespace PS.Shell.Infrastructure.Components
         {
             get { return GetValue(EditorProperty); }
             set { SetValue(EditorProperty, value); }
-        }
-
-        public ObservableCollection<string> Log
-        {
-            get { return (ObservableCollection<string>)GetValue(LogProperty); }
-            set { SetValue(LogProperty, value); }
         }
 
         public object Properties

@@ -7,7 +7,6 @@
                         xmlns:ps="http://schemas.ps.com/2019/xaml"
                         xmlns:viewModels="clr-namespace:PS.Shell.Module.Controls.ViewModels"
                         d:DataContext="{d:DesignInstance viewModels:TextBoxViewModel}"
-                        Log="{Binding Log}"
                         mc:Ignorable="d">
     <components:PageControl.Editor>
         <ps:TextBox x:Name="Control"
@@ -18,52 +17,52 @@
         <StackPanel>
             <ps:GroupExpander Header="Generic">
                 <StackPanel>
-                    <ps:KeyValueContentControl Header="Value">
+                    <ps:HeaderedContent Header="Value">
                         <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="DisplayText">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="DisplayText">
                         <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=DisplayText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="EditableText">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="EditableText">
                         <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=EditableText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="Watermark">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="Watermark">
                         <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=Watermark, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="FormatString">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="FormatString">
                         <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=FormatString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="InputReplacementPattern">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="InputReplacementPattern">
                         <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=InputReplacementPattern, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="InputMatchPattern">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="InputMatchPattern">
                         <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=InputMatchPattern, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="IsReadOnly">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="IsReadOnly">
                         <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=IsReadOnly}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="IsSideButtonVisible">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="IsSideButtonVisible">
                         <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=IsSideButtonVisible}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="RealTimeValueChange">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="RealTimeValueChange">
                         <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=RealTimeValueChange}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="IsDisplayTextSelectable">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="IsDisplayTextSelectable">
                         <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=IsDisplayTextSelectable}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="UseWatermarkWhenValueEmpty">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="UseWatermarkWhenValueEmpty">
                         <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=UseWatermarkWhenValueEmpty}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="HandleArrowsAsTabs">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="HandleArrowsAsTabs">
                         <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=HandleArrowsAsTabs}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="IsEditMode" IsEnabled="False">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="IsEditMode" IsEnabled="False">
                         <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=IsEditMode, Mode=OneWay}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="IsWatermarkAvailable" IsEnabled="False">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="IsWatermarkAvailable" IsEnabled="False">
                         <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=IsWatermarkAvailable, Mode=OneWay}" />
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="ManualEditMode">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="ManualEditMode">
                         <StackPanel Orientation="Horizontal">
                             <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=ManualEditMode}" />
                             <StackPanel IsEnabled="{Binding ElementName=Control, Path=ManualEditMode}" Orientation="Horizontal">
@@ -81,10 +80,10 @@
                                         Content="Cancel edit" />
                             </StackPanel>
                         </StackPanel>
-                    </ps:KeyValueContentControl>
-                    <ps:KeyValueContentControl Header="RequireConfirmationOnFocusLost">
+                    </ps:HeaderedContent>
+                    <ps:HeaderedContent Header="RequireConfirmationOnFocusLost">
                         <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=RequireConfirmationOnFocusLost}" />
-                    </ps:KeyValueContentControl>
+                    </ps:HeaderedContent>
                 </StackPanel>
             </ps:GroupExpander>
         </StackPanel>

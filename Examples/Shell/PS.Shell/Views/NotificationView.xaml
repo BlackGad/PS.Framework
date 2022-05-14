@@ -4,7 +4,7 @@
                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                 xmlns:infrastructureViewModels="clr-namespace:PS.Shell.Infrastructure.ViewModels;assembly=PS.Shell.Infrastructure"
                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                xmlns:ps="http://schemas.ps.com/2019/xaml"
+                xmlns:theme="http://schemas.ps.com/2021/xaml/theme"
                 d:DataContext="{d:DesignInstance infrastructureViewModels:NotificationViewModel}"
                 d:DesignHeight="450"
                 d:DesignWidth="800"
@@ -12,10 +12,10 @@
                 mc:Ignorable="d">
     <FlowDocumentScrollViewer MinWidth="150"
                               HorizontalAlignment="Center"
-                              Foreground="{x:Static ps:ThemeBrushes.MainForeground}"
+                              Foreground="{theme:Brush MainForeground}"
                               Document="{Binding FlowDocument}"
-                              FontFamily="{x:Static ps:ThemeFonts.FontFamily}"
-                              FontSize="{x:Static ps:ThemeFonts.FontSize}"
+                              FontFamily="{theme:Font Normal}"
+                              FontSize="{theme:FontSize M}"
                               HorizontalScrollBarVisibility="Disabled"
                               VerticalScrollBarVisibility="Auto" />
 </ContentControl>

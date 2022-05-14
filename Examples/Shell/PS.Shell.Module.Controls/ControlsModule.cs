@@ -4,7 +4,7 @@ using Autofac.Core.Registration;
 using PS.IoC.Extensions;
 using PS.MVVM.Extensions;
 using PS.MVVM.Services;
-using PS.Shell.Infrastructure.Models.ControlsService;
+using PS.Shell.Infrastructure.Models.ExamplesService;
 using PS.Shell.Module.Controls.ViewModels;
 using PS.Shell.Module.Controls.ViewModels.BusyContainer;
 using PS.Shell.Module.Controls.Views;
@@ -20,7 +20,7 @@ namespace PS.Shell.Module.Controls
         protected override void AttachToComponentRegistration(IComponentRegistryBuilder componentRegistry, IComponentRegistration registration)
         {
             registration.HandleActivation<IViewResolverService>(ViewResolverServiceActivation);
-            registration.HandleActivation<IControlsService>(ControlsServiceActivation);
+            registration.HandleActivation<IExamplesService>(ControlsServiceActivation);
         }
 
         protected override void Load(ContainerBuilder builder)
@@ -32,22 +32,45 @@ namespace PS.Shell.Module.Controls
 
         #region Members
 
-        private void ControlsServiceActivation(ILifetimeScope scope, IControlsService service)
+        private void ControlsServiceActivation(ILifetimeScope scope, IExamplesService service)
         {
-            service.Controls.Add(scope.Resolve<TextBoxViewModel>());
-            service.Controls.Add(scope.Resolve<DecimalTextBoxViewModel>());
-            service.Controls.Add(scope.Resolve<CancelableProcessCommandViewModel>());
-            service.Controls.Add(scope.Resolve<ButtonsViewModel>());
-            service.Controls.Add(scope.Resolve<BusyContainerSimpleViewModel>());
-            service.Controls.Add(scope.Resolve<BusyContainerAdvancedViewModel>());
-            service.Controls.Add(scope.Resolve<BusyContainerStackViewModel>());
+            service.Add<TextBoxViewModel>("Controls", "TextBox")
+                   .Source<TextBoxViewModel>(@"ViewModels")
+                   .XamlPage<TextBoxView>(@"Views");
+
+            service.Add<DecimalTextBoxViewModel>("Controls", "DecimalTextBox")
+                   .Source<DecimalTextBoxViewModel>(@"ViewModels")
+                   .XamlPage<DecimalTextBoxView>(@"Views");
+
+            service.Add<CancelableProcessCommandViewModel>("Commands", "CancelableProcessCommand")
+                   .Source<CancelableProcessCommandViewModel>(@"ViewModels")
+                   .XamlPage<CancelableProcessCommandView>(@"Views");
+
+            service.Add<ButtonsViewModel>("Controls", "Buttons")
+                   .Source<ButtonsViewModel>(@"ViewModels")
+                   .XamlPage<ButtonsView>(@"Views");
+
+            service.Add<BusyContainerSimpleViewModel>("Controls", "BusyContainer - simple")
+                   .Source<BusyContainerSimpleViewModel>(@"ViewModels")
+                   .XamlPage<BusyContainerSimpleView>(@"Views");
+
+            service.Add<BusyContainerAdvancedViewModel>("Controls", "BusyContainer - advanced")
+                   .Source<BusyContainerAdvancedViewModel>(@"ViewModels")
+                   .Source<CustomState>()
+                   .Source<StateWithMutableDescription>()
+                   .Source<StateWithToStringOverride>()
+                   .XamlPage<BusyContainerAdvancedView>(@"Views");
+
+            service.Add<BusyContainerStackViewModel>("Controls", "BusyContainer - stack")
+                   .Source<BusyContainerStackViewModel>(@"ViewModels")
+                   .XamlPage<BusyContainerStackView>(@"Views");
         }
 
         private void ViewResolverServiceActivation(ILifetimeScope scope, IViewResolverService service)
         {
             service.AssociateTemplate<TextBoxViewModel>(scope.Resolve<IDataTemplate<TextBoxView>>())
                    .AssociateTemplate<DecimalTextBoxViewModel>(scope.Resolve<IDataTemplate<DecimalTextBoxView>>())
-                   .AssociateTemplate<ButtonsViewModel>(scope.Resolve<IDataTemplate<ButtonsViewView>>())
+                   .AssociateTemplate<ButtonsViewModel>(scope.Resolve<IDataTemplate<ButtonsView>>())
                    .AssociateTemplate<BusyContainerSimpleViewModel>(scope.Resolve<IDataTemplate<BusyContainerSimpleView>>())
                    .AssociateTemplate<BusyContainerAdvancedViewModel>(scope.Resolve<IDataTemplate<BusyContainerAdvancedView>>())
                    .AssociateTemplate<BusyContainerStackViewModel>(scope.Resolve<IDataTemplate<BusyContainerStackView>>())

@@ -3,17 +3,16 @@
                     xmlns:aware="clr-namespace:PS.Patterns.Aware;assembly=PS.Primitives"
                     xmlns:m="http://schemas.ps.com/2019/xaml/markup"
                     xmlns:ps="http://schemas.ps.com/2019/xaml"
-                    xmlns:shell="clr-namespace:PS.Shell">
+                    xmlns:shell="clr-namespace:PS.Shell"
+                    xmlns:resources="clr-namespace:PS.WPF.Resources;assembly=PS.WPF">
+    <ResourceDictionary.MergedDictionaries>
+        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/ChromelessWindow.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="{x:Static shell:XamlResources.ShellWindowStyle}" TargetType="ps:ChromelessWindow">
-        <Setter Property="BorderBrush" Value="{x:Static ps:ThemeBrushes.MainBorder}" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="HeaderBackground" Value="{x:Static ps:ThemeBrushes.Accent}" />
-        <Setter Property="LinkHeaderAndContentAreas" Value="False" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
         <Setter Property="TextOptions.TextRenderingMode" Value="Aliased" />
-        <Setter Property="WindowIconVisibility" Value="Collapsed" />
         <Style.Triggers>
             <DataTrigger Binding="{Binding Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ITitleAware}}" Value="{m:Boolean True}">
                 <Setter Property="Title" Value="{Binding Title}" />

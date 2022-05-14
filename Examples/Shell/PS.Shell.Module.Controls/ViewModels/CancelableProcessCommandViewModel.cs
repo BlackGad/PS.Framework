@@ -5,7 +5,6 @@ using System.Windows.Threading;
 using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
 using PS.Shell.Infrastructure;
-using PS.Shell.Infrastructure.Models.ControlsService;
 using PS.WPF.Commands;
 using PS.WPF.Extensions;
 
@@ -13,7 +12,6 @@ namespace PS.Shell.Module.Controls.ViewModels
 {
     [DependencyRegisterAsSelf]
     public class CancelableProcessCommandViewModel : BaseNotifyPropertyChanged,
-                                                     IControlViewModel,
                                                      IViewModel
     {
         private readonly Dispatcher _dispatcher;
@@ -27,9 +25,6 @@ namespace PS.Shell.Module.Controls.ViewModels
 
         public CancelableProcessCommandViewModel()
         {
-            Title = "CancelableProcessCommand";
-            Group = "Commands";
-
             _dispatcher = Application.Current.Dispatcher;
 
             ProgressVisibility = Visibility.Hidden;
@@ -69,13 +64,6 @@ namespace PS.Shell.Module.Controls.ViewModels
             get { return _progressVisibility; }
             set { _dispatcher.SafeCall(() => SetField(ref _progressVisibility, value)); }
         }
-
-        #endregion
-
-        #region IControlViewModel Members
-
-        public string Group { get; }
-        public string Title { get; }
 
         #endregion
 

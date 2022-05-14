@@ -1,38 +1,26 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using NLog;
 using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
-using PS.Shell.Infrastructure.Models.ControlsService;
 
 namespace PS.Shell.Module.Controls.ViewModels
 {
     [DependencyRegisterAsSelf]
     public class DecimalTextBoxViewModel : BaseNotifyPropertyChanged,
-                                           IControlViewModel,
                                            IViewModel
     {
         #region Constructors
 
-        public DecimalTextBoxViewModel()
+        public DecimalTextBoxViewModel(ILogger logger)
         {
-            Title = "DecimalTextBox";
-            Group = "Controls";
-
-            Log = new ObservableCollection<string>();
+            Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         #endregion
 
         #region Properties
 
-        public ObservableCollection<string> Log { get; }
-
-        #endregion
-
-        #region IControlViewModel Members
-
-        public string Group { get; }
-
-        public string Title { get; }
+        public ILogger Logger { get; }
 
         #endregion
     }

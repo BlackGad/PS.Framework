@@ -8,6 +8,7 @@
                         xmlns:resources="clr-namespace:PS.WPF.Resources;assembly=PS.WPF"
                         xmlns:ribbon="clr-namespace:PS.Shell.Module.Ribbon"
                         xmlns:viewModels="clr-namespace:PS.Shell.Module.Ribbon.ViewModels"
+                        xmlns:theme="http://schemas.ps.com/2021/xaml/theme"
                         d:DataContext="{d:DesignInstance viewModels:RibbonViewModel}"
                         mc:Ignorable="d">
     <components:PageControl.Resources>
@@ -19,7 +20,7 @@
     </components:PageControl.Resources>
 
     <components:PageControl.Editor>
-        <Grid Background="{x:Static ps:ThemeBrushes.AccentHigh}">
+        <Grid Background="{theme:Brush AccentHigh}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />

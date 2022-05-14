@@ -1,0 +1,7 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:PS.WPF.Controls.TreeView">
+
+    <Style x:Key="{x:Static controls:TreeView+Resource.ControlStyle}" BasedOn="{StaticResource {x:Type TreeView}}" TargetType="controls:TreeView" />
+
+</ResourceDictionary>

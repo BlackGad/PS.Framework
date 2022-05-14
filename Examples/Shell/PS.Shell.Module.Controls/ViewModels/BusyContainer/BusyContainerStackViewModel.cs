@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using NLog;
 using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
-using PS.Shell.Infrastructure.Models.ControlsService;
 using PS.WPF.Controls.BusyContainer;
 using PS.WPF.Patterns.Command;
 
@@ -11,8 +12,7 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
 {
     [DependencyRegisterAsSelf]
     public class BusyContainerStackViewModel : BaseNotifyPropertyChanged,
-                                               IViewModel,
-                                               IControlViewModel
+                                               IViewModel
     {
         private IBusyState _firstState;
         private IBusyState _secondState;
@@ -20,10 +20,9 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
 
         #region Constructors
 
-        public BusyContainerStackViewModel()
+        public BusyContainerStackViewModel(ILogger logger)
         {
-            Title = "BusyContainer - stack";
-            Group = "Controls";
+            Logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
             Content = new StackBusyState();
 
@@ -106,6 +105,7 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
         }
 
         public IList<IUICommand> FirstStateCommands { get; }
+        public ILogger Logger { get; }
 
         public IBusyState SecondState
         {
@@ -140,13 +140,6 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
         }
 
         public IList<IUICommand> ThirdStateCommands { get; }
-
-        #endregion
-
-        #region IControlViewModel Members
-
-        public string Title { get; }
-        public string Group { get; }
 
         #endregion
 
