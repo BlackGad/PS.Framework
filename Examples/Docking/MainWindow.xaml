@@ -1,0 +1,28 @@
+﻿<Window x:Class="Docking.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ps="http://schemas.ps.com/2019/xaml"
+        Title="MainWindow"
+        Width="800"
+        Height="450"
+        mc:Ignorable="d">
+    <ps:DockingManager>
+        <ps:DockingArea >
+            <Grid MinWidth="100"
+                  MinHeight="100"
+                  Background="RoyalBlue" />
+        </ps:DockingArea>
+        <ps:DockingArea>
+            <Grid MinWidth="100"
+                  MinHeight="100"
+                  Background="Green" />
+        </ps:DockingArea>
+        <ps:DockingArea ps:DockingManager.Host="123">
+            <Grid MinWidth="100"
+                  MinHeight="100"
+                  Background="Red" />
+        </ps:DockingArea>
+    </ps:DockingManager>
+</Window>

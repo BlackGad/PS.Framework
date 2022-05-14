@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:PS.WPF.Docking.Controls">
+
+    <ControlTemplate x:Key="{x:Static controls:DockingManager+Resource.ControlTemplate}" TargetType="controls:DockingManager">
+        <controls:DockingHost ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}" x:Name="PART_Host"/>
+    </ControlTemplate>
+
+    <Style x:Key="{x:Static controls:DockingManager+Resource.ControlStyle}" TargetType="controls:DockingManager">
+        <Setter Property="Template" Value="{StaticResource {x:Static controls:DockingManager+Resource.ControlTemplate}}" />
+    </Style>
+
+</ResourceDictionary>

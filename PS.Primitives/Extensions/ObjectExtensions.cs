@@ -72,16 +72,6 @@ namespace PS.Extensions
             return currentItem;
         }
 
-        public static int GetHash(this object instance)
-        {
-            return instance?.GetHashCode() ?? 0;
-        }
-
-        public static int MergeHash(this int hash, int addHash)
-        {
-            return (hash * 397) ^ addHash;
-        }
-
         public static object UnwrapValue(this object value)
         {
             if (value is WeakReference weak) return weak.Target;

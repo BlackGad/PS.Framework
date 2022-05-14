@@ -86,6 +86,12 @@ namespace PS.Extensions
             return result;
         }
 
+        public static string GetShortAssemblyQualifiedName(this Type type)
+        {
+            if (type == null) throw new ArgumentNullException(nameof(type));
+            return type.FullName + ", " + type.Assembly.GetName().Name;
+        }
+
         /// <summary>
         ///     Gets source type. Skips Nullable wrapper.
         /// </summary>

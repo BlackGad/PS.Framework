@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:PS.WPF.Docking.Controls">
+
+    <ControlTemplate x:Key="{x:Static controls:DockingHost+Resource.ControlTemplate}" TargetType="controls:DockingHost">
+        <Grid Background="{TemplateBinding Background}">
+            <ItemsPresenter />
+        </Grid>
+    </ControlTemplate>
+
+    <Style x:Key="{x:Static controls:DockingHost+Resource.ControlStyle}" TargetType="controls:DockingHost">
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <!--<controls:DockingAreaPanel />-->
+                    <StackPanel />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template" Value="{StaticResource {x:Static controls:DockingHost+Resource.ControlTemplate}}" />
+    </Style>
+
+</ResourceDictionary>
