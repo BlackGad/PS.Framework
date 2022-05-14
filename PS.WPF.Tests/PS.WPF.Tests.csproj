@@ -1,45 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net5.0-windows;net461;</TargetFrameworks>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Authors>Volodymyr Shkolka</Authors>
-    <Company>Volodymyr Shkolka</Company>
-    <Product>PS Framework</Product>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageProjectUrl>https://github.com/BlackGad/PS.Framework</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/BlackGad/PS.Framework</RepositoryUrl>
-    <RepositoryType>github</RepositoryType>
-    <PackageTags>Framework Primitives WPF Tests</PackageTags>
-    <Description>Unit test for common development primitives foo WPF</Description>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net6.0-windows;net461;</TargetFrameworks>
+		<PackageTags>Framework Primitives WPF Tests</PackageTags>
+		<Description>Unit test for common development primitives foo WPF</Description>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
 
-  <!-- .NET 4.6.1 references, compilation flags and build options -->
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461'">
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
+	<!-- .NET 4.6.1 references, compilation flags and build options -->
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net461'">
+		<Reference Include="PresentationCore" />
+		<Reference Include="PresentationFramework" />
+		<Reference Include="System.Xaml" />
+		<Reference Include="WindowsBase" />
+	</ItemGroup>
 
-  <!-- General references -->
-  <ItemGroup>
-    <ProjectReference Include="..\PS.Primitives\PS.Primitives.csproj" />
-    <ProjectReference Include="..\PS.WPF\PS.WPF.csproj" />
-  </ItemGroup>
+	<!-- General references -->
+	<ItemGroup>
+		<ProjectReference Include="..\PS.Primitives\PS.Primitives.csproj" />
+		<ProjectReference Include="..\PS.WPF\PS.WPF.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
-    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
-    <PackageReference Include="NUnit" Version="3.13.2" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
+		<PackageReference Include="NETStandard.Library" Version="2.0.3" />
+		<PackageReference Include="NUnit" Version="3.13.3" />
+	</ItemGroup>
 
 </Project>
