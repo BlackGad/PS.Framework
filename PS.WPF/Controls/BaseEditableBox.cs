@@ -305,6 +305,7 @@ namespace PS.WPF.Controls
                     break;
                 case Key.Enter:
                     EndEdit(EndEditReason.ReturnPressed);
+                    e.Handled = true;
                     break;
                 case Key.Up:
                     if (HandleArrowsAsTabs)

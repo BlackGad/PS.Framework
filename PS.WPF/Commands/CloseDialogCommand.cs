@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
 using PS.Extensions;
 using PS.Patterns.Aware;
 using PS.WPF.Extensions;
@@ -163,12 +164,34 @@ namespace PS.WPF.Commands
             }
         }
 
+        public bool RespectWindowValidationErrors
+        {
+            get { return _respectWindowValidationErrors; }
+            set
+            {
+                if (_respectWindowValidationErrors.AreEqual(value)) return;
+                _respectWindowValidationErrors = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _respectWindowValidationErrors;
+
         public bool CanExecute(object parameter)
         {
             var element = parameter as FrameworkElement;
             if (element == null) return false;
             var window = Window.GetWindow(element);
             if (window == null) return false;
+
+            if (RespectWindowValidationErrors)
+            {
+                if (Validation.GetHasError(window)) return false;
+                if (window is Controls.Window psWindow)
+                {
+                    return psWindow.ValidationErrors == null;
+                }
+            }
 
             return true;
         }

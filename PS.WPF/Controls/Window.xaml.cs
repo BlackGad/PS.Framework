@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using PS.Extensions;
+using PS.WPF.Extensions;
 using PS.WPF.Patterns.Command;
 using PS.WPF.Resources;
 
@@ -9,6 +13,12 @@ namespace PS.WPF.Controls
     public class Window : System.Windows.Window
     {
         #region Property definitions
+
+        private static readonly DependencyPropertyKey ValidationErrorsPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(ValidationErrors),
+                                                typeof(IReadOnlyList<ValidationError>),
+                                                typeof(Window),
+                                                new FrameworkPropertyMetadata(OnValidationErrorsChanged));
 
         public static readonly DependencyProperty CommandButtonsHorizontalAlignmentProperty =
             DependencyProperty.Register("CommandButtonsHorizontalAlignment",
@@ -28,6 +38,8 @@ namespace PS.WPF.Controls
                                         typeof(Window),
                                         new FrameworkPropertyMetadata(true, OnResizableChanged));
 
+        public static readonly DependencyProperty ValidationErrorsProperty = ValidationErrorsPropertyKey.DependencyProperty;
+
         #endregion
 
         #region Static members
@@ -46,6 +58,16 @@ namespace PS.WPF.Controls
             }
         }
 
+        private static void OnValidationErrorsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var owner = (Window)d;
+
+            foreach (var command in owner.Commands.Enumerate())
+            {
+                command.RaiseCanExecuteChanged();
+            }
+        }
+
         #endregion
 
         #region Constructors
@@ -59,6 +81,8 @@ namespace PS.WPF.Controls
         public Window()
         {
             CoerceValue(CommandsProperty);
+
+            Validation.AddErrorHandler(this, ErrorHandler);
         }
 
         #endregion
@@ -83,6 +107,12 @@ namespace PS.WPF.Controls
             set { SetValue(IsResizableProperty, value); }
         }
 
+        public IReadOnlyList<ValidationError> ValidationErrors
+        {
+            get { return (IReadOnlyList<ValidationError>)GetValue(ValidationErrorsProperty); }
+            private set { SetValue(ValidationErrorsPropertyKey, value); }
+        }
+
         #endregion
 
         #region Override members
@@ -98,6 +128,44 @@ namespace PS.WPF.Controls
                 //We need to make a duplicate.
                 SetCurrentValue(CommandsProperty, new UICommandCollection(Commands));
             }
+        }
+
+        #endregion
+
+        #region Event handlers
+
+        private void ErrorHandler(object sender, ValidationErrorEventArgs e)
+        {
+            if (e.Action == ValidationErrorEventAction.Added)
+            {
+                var list = ValidationErrors.Enumerate().ToList();
+                if (list.All(existing => existing.AreDiffers(e.Error)))
+                {
+                    list.Add(e.Error);
+                    ValidationErrors = list;
+                }
+            }
+            else
+            {
+                var list = ValidationErrors.Enumerate().ToList();
+                var errorsToRemove = list.Where(existing => existing.AreEqual(e.Error)).ToList();
+                if (errorsToRemove.Any())
+                {
+                    foreach (var error in errorsToRemove)
+                    {
+                        list.Remove(error);
+                    }
+
+                    ValidationErrors = list.Any() ? list : null;
+                }
+            }
+
+            foreach (var command in Commands.Enumerate())
+            {
+                command.RaiseCanExecuteChanged();
+            }
+
+            Dispatcher.Postpone(() => Validation.GetHasError(this));
         }
 
         #endregion
