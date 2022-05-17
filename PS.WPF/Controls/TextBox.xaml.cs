@@ -118,7 +118,7 @@ namespace PS.WPF.Controls
         {
             var owner = (TextBox)d;
             owner.RaiseEditableTextChangedEvent();
-            if (owner.RealTimeValueChange)
+            if (owner.RealTimeValueChange && owner.IsEditMode)
             {
                 owner.Value = owner.EditableText;
             }
