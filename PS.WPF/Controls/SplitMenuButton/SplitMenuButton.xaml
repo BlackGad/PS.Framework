@@ -5,7 +5,6 @@
                     xmlns:markup="clr-namespace:PS.WPF.Markup"
                     xmlns:resources="clr-namespace:PS.WPF.Resources"
                     xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
-                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
                     xmlns:styles="clr-namespace:PS.WPF.Controls.Native">
 
     <ResourceDictionary.MergedDictionaries>
