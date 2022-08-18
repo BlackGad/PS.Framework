@@ -8,8 +8,6 @@ namespace PS.WPF.Controls.Ribbon
 {
     public class RibbonTabHeader : System.Windows.Controls.Ribbon.RibbonTabHeader
     {
-        #region Property definitions
-
         public static readonly DependencyProperty IsFirstInContextualGroupProperty =
             DependencyProperty.Register(nameof(IsFirstInContextualGroup),
                                         typeof(bool),
@@ -22,10 +20,6 @@ namespace PS.WPF.Controls.Ribbon
                                         typeof(RibbonTabHeader),
                                         new FrameworkPropertyMetadata(default(bool)));
 
-        #endregion
-
-        #region Static members
-
         private static object OnCoerceContextMenu(DependencyObject sender, object value, CoerceValueCallback originCallback)
         {
             var menu = originCallback?.Invoke(sender, value) ?? value;
@@ -37,10 +31,6 @@ namespace PS.WPF.Controls.Ribbon
 
             return menu;
         }
-
-        #endregion
-
-        #region Constructors
 
         static RibbonTabHeader()
         {
@@ -55,10 +45,6 @@ namespace PS.WPF.Controls.Ribbon
             Unloaded += OnUnloaded;
         }
 
-        #endregion
-
-        #region Properties
-
         public bool IsFirstInContextualGroup
         {
             get { return (bool)GetValue(IsFirstInContextualGroupProperty); }
@@ -70,10 +56,6 @@ namespace PS.WPF.Controls.Ribbon
             get { return (bool)GetValue(IsLastInContextualGroupProperty); }
             set { SetValue(IsLastInContextualGroupProperty, value); }
         }
-
-        #endregion
-
-        #region Event handlers
 
         private void OnLayoutUpdated(object sender, EventArgs e)
         {
@@ -106,14 +88,10 @@ namespace PS.WPF.Controls.Ribbon
             LayoutUpdated -= OnLayoutUpdated;
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/Ribbon/RibbonTabHeader.xaml", UriKind.RelativeOrAbsolute);
 
@@ -124,8 +102,6 @@ namespace PS.WPF.Controls.Ribbon
             public static readonly ResourceDescriptor ControlTemplate =
                 ResourceDescriptor.Create<ControlTemplate>(description: "Default RibbonTabHeader control template",
                                                            resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

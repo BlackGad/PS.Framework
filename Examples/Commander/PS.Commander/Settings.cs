@@ -6,14 +6,8 @@ namespace PS.Commander
 {
     public static class Settings
     {
-        #region Constants
-
         private static readonly IReadOnlyDictionary<string, object> Defaults;
         public static readonly string SettingsFolder = nameof(SettingsFolder);
-
-        #endregion
-
-        #region Static members
 
         public static T Get<T>(string settingName)
         {
@@ -35,18 +29,14 @@ namespace PS.Commander
             if (underlyingType.IsEnum)
             {
                 return string.IsNullOrWhiteSpace(value)
-                    ? default(T)
+                    ? default
                     : (T)Enum.Parse(underlyingType, value);
             }
 
             return string.IsNullOrWhiteSpace(value)
-                ? default(T)
+                ? default
                 : (T)Convert.ChangeType(value, underlyingType);
         }
-
-        #endregion
-
-        #region Constructors
 
         static Settings()
         {
@@ -55,7 +45,5 @@ namespace PS.Commander
                 { SettingsFolder, @"%APPDATA%\PS.Commander\" }
             };
         }
-
-        #endregion
     }
 }

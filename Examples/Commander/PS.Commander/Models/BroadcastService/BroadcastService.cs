@@ -13,22 +13,14 @@ namespace PS.Commander.Models.BroadcastService
     {
         private readonly Dispatcher _dispatcher;
 
-        #region Constructors
-
         public BroadcastService()
         {
             _dispatcher = Application.Current.Dispatcher;
         }
 
-        #endregion
-
-        #region Override members
-
         protected override void CallDelegate<T>(Delegate @delegate, T args)
         {
             _dispatcher.Postpone(() => @delegate.DynamicInvoke(args));
         }
-
-        #endregion
     }
 }

@@ -1,29 +1,19 @@
-﻿
-using PS.IoC.Attributes;
+﻿using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
 using PS.Shell.Infrastructure.Models.ExamplesService;
 
-namespace PS.Shell.Views
+namespace PS.Shell.Views;
+
+[DependencyRegisterAsSelf]
+public partial class TreeItemExampleView : IView<IExample>
 {
-    [DependencyRegisterAsSelf]
-    public partial class TreeItemExampleView : IView<IExample>
+    public TreeItemExampleView()
     {
-        #region Constructors
+        InitializeComponent();
+    }
 
-        public TreeItemExampleView()
-        {
-            InitializeComponent();
-        }
-
-        #endregion
-
-        #region Properties
-
-        public IExample ViewModel
-        {
-            get { return DataContext as IExample; }
-        }
-
-        #endregion
+    public IExample ViewModel
+    {
+        get { return DataContext as IExample; }
     }
 }

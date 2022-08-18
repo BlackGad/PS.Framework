@@ -7,8 +7,6 @@ namespace PS.Extensions
 {
     public static class AssemblyExtensions
     {
-        #region Static members
-
         public static string LoadString(this Assembly assembly, string resourceName)
         {
             if (assembly == null) throw new ArgumentNullException(nameof(assembly));
@@ -51,7 +49,5 @@ namespace PS.Extensions
             if (string.IsNullOrWhiteSpace(resourceNamespace)) throw new ArgumentNullException(nameof(resourceNamespace));
             return resourceNamespace.Replace("/", ".").Replace("\\", ".");
         }
-
-        #endregion
     }
 }

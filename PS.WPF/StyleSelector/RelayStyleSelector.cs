@@ -7,22 +7,14 @@ namespace PS.WPF.StyleSelector
     {
         private readonly Func<object, DependencyObject, Style> _selectTemplateFunc;
 
-        #region Constructors
-
         public RelayStyleSelector(Func<object, DependencyObject, Style> selectTemplateFunc)
         {
             _selectTemplateFunc = selectTemplateFunc ?? throw new ArgumentNullException(nameof(selectTemplateFunc));
         }
 
-        #endregion
-
-        #region Override members
-
         public override Style SelectStyle(object item, DependencyObject container)
         {
             return _selectTemplateFunc(item, container);
         }
-
-        #endregion
     }
 }

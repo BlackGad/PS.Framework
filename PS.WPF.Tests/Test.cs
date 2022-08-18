@@ -7,14 +7,10 @@ namespace PS.WPF.Tests
     [RequiresThread(ApartmentState.STA)]
     public class Test
     {
-        #region Static members
-
         [Test]
         public static void TestMethod()
         {
             Assert.Inconclusive();
         }
-
-        #endregion
     }
 }

@@ -4,8 +4,6 @@ namespace PS.WPF.Components
 {
     public static class StoreGeometry
     {
-        #region Property definitions
-
         public static readonly DependencyProperty CornerRadiusProperty =
             DependencyProperty.RegisterAttached("CornerRadius",
                                                 typeof(CornerRadius),
@@ -23,10 +21,6 @@ namespace PS.WPF.Components
                                                 typeof(double),
                                                 typeof(StoreGeometry),
                                                 new PropertyMetadata(default(double)));
-
-        #endregion
-
-        #region Static members
 
         public static CornerRadius GetCornerRadius(DependencyObject element)
         {
@@ -57,7 +51,5 @@ namespace PS.WPF.Components
         {
             element.SetValue(WidthProperty, value);
         }
-
-        #endregion
     }
 }

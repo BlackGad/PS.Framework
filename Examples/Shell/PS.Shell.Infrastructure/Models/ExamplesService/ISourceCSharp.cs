@@ -2,10 +2,6 @@
 {
     public interface ISourceCSharp : ISource
     {
-        #region Properties
-
         string Code { get; }
-
-        #endregion
     }
 }

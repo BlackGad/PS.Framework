@@ -9,7 +9,8 @@
         <Setter Property="FrameworkElement.Margin" Value="2" />
     </Style>
 
-    <DataTemplate x:Key="{x:Static controls:UICommandsControl+Resource.CommandButtonTemplate}" DataType="command:IUICommand">
+    <DataTemplate x:Key="{x:Static controls:UICommandsControl+Resource.CommandButtonTemplate}"
+                  DataType="command:IUICommand">
         <Button x:Name="Button"
                 MinWidth="75"
                 MinHeight="25"
@@ -19,16 +20,21 @@
                 Content="{Binding Title}"
                 ToolTip="{Binding Description}" />
         <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IIsDefaultAware}}" Value="True">
+            <DataTrigger
+                Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IIsDefaultAware}}"
+                Value="True">
                 <Setter TargetName="Button" Property="IsDefault" Value="{Binding IsDefault}" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IIsCancelAware}}" Value="True">
+            <DataTrigger
+                Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IIsCancelAware}}"
+                Value="True">
                 <Setter TargetName="Button" Property="IsCancel" Value="{Binding IsCancel}" />
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
 
-    <ControlTemplate x:Key="{x:Static controls:UICommandsControl+Resource.ControlTemplate}" TargetType="controls:UICommandsControl">
+    <ControlTemplate x:Key="{x:Static controls:UICommandsControl+Resource.ControlTemplate}"
+                     TargetType="controls:UICommandsControl">
         <Grid Background="{TemplateBinding Background}">
             <ItemsPresenter MinHeight="20"
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -40,8 +46,10 @@
     <Style x:Key="{x:Static controls:UICommandsControl+Resource.ControlStyle}" TargetType="controls:UICommandsControl">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="ItemContainerStyle" Value="{StaticResource {x:Static controls:UICommandsControl+Resource.ItemContainerStyle}}" />
-        <Setter Property="ItemTemplate" Value="{StaticResource {x:Static controls:UICommandsControl+Resource.CommandButtonTemplate}}" />
+        <Setter Property="ItemContainerStyle"
+                Value="{StaticResource {x:Static controls:UICommandsControl+Resource.ItemContainerStyle}}" />
+        <Setter Property="ItemTemplate"
+                Value="{StaticResource {x:Static controls:UICommandsControl+Resource.CommandButtonTemplate}}" />
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
@@ -49,7 +57,8 @@
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Template" Value="{StaticResource {x:Static controls:UICommandsControl+Resource.ControlTemplate}}" />
+        <Setter Property="Template"
+                Value="{StaticResource {x:Static controls:UICommandsControl+Resource.ControlTemplate}}" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
     </Style>
 

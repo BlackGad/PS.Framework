@@ -40,7 +40,8 @@
                        FontSize="{theme:FontSize XL}"
                        Text="{Binding Name}" />
             <DataTemplate.Triggers>
-                <DataTrigger Binding="{Binding Name, Converter={x:Static ps:StringConverters.IsEmpty}}" Value="{m:Boolean True}">
+                <DataTrigger Binding="{Binding Name, Converter={x:Static ps:StringConverters.IsEmpty}}"
+                             Value="{m:Boolean True}">
                     <Setter TargetName="Label" Property="FontStyle" Value="Italic" />
                     <Setter TargetName="Label" Property="Opacity" Value="0.5" />
                     <Setter TargetName="Label" Property="Text" Value="Not in group" />

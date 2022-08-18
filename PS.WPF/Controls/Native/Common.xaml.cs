@@ -7,8 +7,6 @@ namespace PS.WPF.Controls.Native
 {
     public static class Common
     {
-        #region Constants
-
         public static readonly Uri DictionaryLocation;
 
         public static readonly ResourceDescriptor FlatDataGridCellStyle =
@@ -113,15 +111,9 @@ namespace PS.WPF.Controls.Native
                 resourceDictionary: DictionaryLocation
             );
 
-        #endregion
-
-        #region Constructors
-
         static Common()
         {
             DictionaryLocation = new Uri("/PS.WPF;component/Controls/Native/Common.xaml", UriKind.RelativeOrAbsolute);
         }
-
-        #endregion
     }
 }

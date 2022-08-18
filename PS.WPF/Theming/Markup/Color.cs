@@ -7,8 +7,6 @@ namespace PS.WPF.Theming.Markup
 {
     public class Color : Binding
     {
-        #region Static members
-
         internal static string GetOpacityPostfix(ThemeColorOpacity opacity)
         {
             var type = typeof(ThemeColorOpacity);
@@ -16,12 +14,8 @@ namespace PS.WPF.Theming.Markup
             return fieldInfo?.GetCustomAttribute<PostfixAttribute>()?.Value;
         }
 
-        #endregion
-
         private ThemeColorOpacity _opacity;
         private ThemeColor _type;
-
-        #region Constructors
 
         public Color(ThemeColor type)
         {
@@ -29,10 +23,6 @@ namespace PS.WPF.Theming.Markup
             Mode = BindingMode.OneWay;
             Source = Theme.Current;
         }
-
-        #endregion
-
-        #region Properties
 
         [ConstructorArgument("opacity")]
         public ThemeColorOpacity Opacity
@@ -56,10 +46,6 @@ namespace PS.WPF.Theming.Markup
             }
         }
 
-        #endregion
-
-        #region Members
-
         private string GeneratePath(ThemeColor color, ThemeColorOpacity opacity)
         {
             var result = nameof(Theme.Colors) + "." + color;
@@ -70,7 +56,5 @@ namespace PS.WPF.Theming.Markup
 
             return result;
         }
-
-        #endregion
     }
 }

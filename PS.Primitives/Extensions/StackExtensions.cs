@@ -5,8 +5,6 @@ namespace PS.Extensions
 {
     public static class StackExtensions
     {
-        #region Static members
-
         public static bool TryPeek<T>(this Stack<T> stack, out T value)
         {
             value = default;
@@ -30,7 +28,5 @@ namespace PS.Extensions
 
             return false;
         }
-
-        #endregion
     }
 }

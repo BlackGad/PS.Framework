@@ -5,129 +5,118 @@ using PS.MVVM.Components;
 using PS.WPF.Extensions;
 using PS.WPF.Resources;
 
-namespace PS.MVVM.Services.WindowService
-{
-    public abstract class WindowService : IWindowService
-    {
-        #region IWindowService Members
+namespace PS.MVVM.Services.WindowService;
 
-        TViewModel IWindowService.Show<TViewModel>(TViewModel viewModel, string region)
+public abstract class WindowService : IWindowService
+{
+    TViewModel IWindowService.Show<TViewModel>(TViewModel viewModel, string region)
+    {
+        viewModel = (TViewModel)(viewModel as object ?? Resolve(typeof(TViewModel)));
+        var window = CreateWindow(viewModel, region);
+
+        OnPreviewWindowShow(window, viewModel, region);
+
+        void OnWindowOnClosed(object sender, EventArgs args)
+        {
+            window.Closed -= OnWindowOnClosed;
+            OnWindowClose(window, viewModel, region);
+        }
+
+        window.Closed += OnWindowOnClosed;
+
+        window.Show();
+
+        return viewModel;
+    }
+
+    Task<TViewModel> IWindowService.ShowModalAsync<TViewModel>(TViewModel viewModel, string region)
+    {
+        var result = new TaskCompletionSource<TViewModel>();
+
+        try
         {
             viewModel = (TViewModel)(viewModel as object ?? Resolve(typeof(TViewModel)));
             var window = CreateWindow(viewModel, region);
-
-            OnPreviewWindowShow(window, viewModel, region);
-
-            void OnWindowOnClosed(object sender, EventArgs args)
+            window.Dispatcher.Postpone(() =>
             {
-                window.Closed -= OnWindowOnClosed;
-                OnWindowClose(window, viewModel, region);
-            }
+                OnPreviewWindowShow(window, viewModel, region);
 
-            window.Closed += OnWindowOnClosed;
-
-            window.Show();
-
-            return viewModel;
-        }
-
-        Task<TViewModel> IWindowService.ShowModalAsync<TViewModel>(TViewModel viewModel, string region)
-        {
-            var result = new TaskCompletionSource<TViewModel>();
-
-            try
-            {
-                viewModel = (TViewModel)(viewModel as object ?? Resolve(typeof(TViewModel)));
-                var window = CreateWindow(viewModel, region);
-                window.Dispatcher.Postpone(() =>
+                void OnWindowOnClosed(object sender, EventArgs args)
                 {
-                    OnPreviewWindowShow(window, viewModel, region);
+                    window.Closed -= OnWindowOnClosed;
+                    OnWindowClose(window, viewModel, region);
+                }
 
-                    void OnWindowOnClosed(object sender, EventArgs args)
-                    {
-                        window.Closed -= OnWindowOnClosed;
-                        OnWindowClose(window, viewModel, region);
-                    }
+                window.Closed += OnWindowOnClosed;
 
-                    window.Closed += OnWindowOnClosed;
-
-                    var dialogResult = window.ShowDialog();
-                    result.TrySetResult(dialogResult == true ? viewModel : default);
-                });
-            }
-            catch (Exception e)
-            {
-                result.TrySetException(e);
-            }
-
-            return result.Task;
+                var dialogResult = window.ShowDialog();
+                result.TrySetResult(dialogResult == true ? viewModel : default);
+            });
         }
-
-        #endregion
-
-        #region Members
-
-        protected virtual Window CreateWindow()
+        catch (Exception e)
         {
-            return new Window();
+            result.TrySetException(e);
         }
 
-        protected abstract IViewAssociation GetAssociation(Type consumerServiceType, Type viewModelType, string key);
+        return result.Task;
+    }
 
-        protected virtual void OnPreviewWindowShow<TViewModel>(Window window, TViewModel viewModel, string region)
+    protected virtual Window CreateWindow()
+    {
+        return new Window();
+    }
+
+    protected abstract IViewAssociation GetAssociation(Type consumerServiceType, Type viewModelType, string key);
+
+    protected virtual void OnPreviewWindowShow<TViewModel>(Window window, TViewModel viewModel, string region)
+    {
+    }
+
+    protected virtual void OnWindowClose<TViewModel>(Window window, TViewModel viewModel, string region)
+    {
+    }
+
+    protected virtual object Resolve(Type type)
+    {
+        return Activator.CreateInstance(type);
+    }
+
+    private Window CreateWindow<TViewModel>(TViewModel viewModel, string region)
+    {
+        var window = CreateWindow();
+        if (window == null) throw new InvalidOperationException("Window not provided");
+        if (!Equals(window, Application.Current.MainWindow) && window.Owner == null)
         {
+            window.Owner = Application.Current.MainWindow;
         }
 
-        protected virtual void OnWindowClose<TViewModel>(Window window, TViewModel viewModel, string region)
+        window.DataContext = viewModel;
+        window.Content = viewModel;
+
+        var viewModelType = viewModel.GetType();
+
+        var styleAssociation = GetAssociation(typeof(StyleResolver), viewModelType, region);
+        if (styleAssociation?.Payload is Style payloadStyle)
         {
+            window.Style = payloadStyle;
         }
 
-        protected virtual object Resolve(Type type)
+        if (styleAssociation?.Payload is ResourceDescriptor payloadStyleResourceDescriptor)
         {
-            return Activator.CreateInstance(type);
+            window.Style = payloadStyleResourceDescriptor.GetResource<Style>();
         }
 
-        private Window CreateWindow<TViewModel>(TViewModel viewModel, string region)
+        var templateAssociation = GetAssociation(typeof(TemplateResolver), viewModelType, region);
+        if (templateAssociation?.Payload is DataTemplate template)
         {
-            var window = CreateWindow();
-            if (window == null) throw new InvalidOperationException("Window not provided");
-            if (!Equals(window, Application.Current.MainWindow) && window.Owner == null)
-            {
-                window.Owner = Application.Current.MainWindow;
-            }
-
-            window.DataContext = viewModel;
-            window.Content = viewModel;
-
-            var viewModelType = viewModel.GetType();
-
-            var styleAssociation = GetAssociation(typeof(StyleResolver), viewModelType, region);
-            if (styleAssociation?.Payload is Style payloadStyle)
-            {
-                window.Style = payloadStyle;
-            }
-
-            if (styleAssociation?.Payload is ResourceDescriptor payloadStyleResourceDescriptor)
-            {
-                window.Style = payloadStyleResourceDescriptor.GetResource<Style>();
-            }
-
-            var templateAssociation = GetAssociation(typeof(TemplateResolver), viewModelType, region);
-            if (templateAssociation?.Payload is DataTemplate template)
-            {
-                window.ContentTemplate = template;
-            }
-
-            if (templateAssociation?.Payload is ResourceDescriptor payloadTemplateResourceDescriptor)
-            {
-                window.ContentTemplate = payloadTemplateResourceDescriptor.GetResource<DataTemplate>();
-            }
-
-            
-
-            return window;
+            window.ContentTemplate = template;
         }
 
-        #endregion
+        if (templateAssociation?.Payload is ResourceDescriptor payloadTemplateResourceDescriptor)
+        {
+            window.ContentTemplate = payloadTemplateResourceDescriptor.GetResource<DataTemplate>();
+        }
+
+        return window;
     }
 }

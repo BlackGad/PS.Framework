@@ -11,8 +11,7 @@ namespace PS.Windows.Interop
         uint BindToHandler([In] IntPtr pbc,
                            [In] ref Guid rbhid,
                            [In] ref Guid riid,
-                           [Out] [MarshalAs(UnmanagedType.Interface)]
-                           out IntPtr ppvOut);
+                           [Out][MarshalAs(UnmanagedType.Interface)] out IntPtr ppvOut);
 
         uint GetParent([MarshalAs(UnmanagedType.Interface)] out IShellItem ppsi);
 
@@ -20,8 +19,7 @@ namespace PS.Windows.Interop
 
         uint GetAttributes([In] uint sfgaoMask, out uint gaoAttributes);
 
-        uint Compare([In] [MarshalAs(UnmanagedType.Interface)]
-                     IShellItem psi,
+        uint Compare([In][MarshalAs(UnmanagedType.Interface)] IShellItem psi,
                      [In] uint hint,
                      out int piOrder);
     }

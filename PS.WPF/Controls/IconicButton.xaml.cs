@@ -8,8 +8,6 @@ namespace PS.WPF.Controls
 {
     public class IconicButton : System.Windows.Controls.Button
     {
-        #region Property definitions
-
         public static readonly DependencyProperty GeometryProperty =
             DependencyProperty.Register("Geometry",
                                         typeof(Geometry),
@@ -40,19 +38,11 @@ namespace PS.WPF.Controls
                                         typeof(IconicButton),
                                         new FrameworkPropertyMetadata(default(Stretch)));
 
-        #endregion
-
-        #region Constructors
-
         static IconicButton()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(IconicButton), new FrameworkPropertyMetadata(typeof(IconicButton)));
             ResourceHelper.SetDefaultStyle(typeof(IconicButton), Resource.ControlStyle);
         }
-
-        #endregion
-
-        #region Properties
 
         public Geometry Geometry
         {
@@ -84,14 +74,10 @@ namespace PS.WPF.Controls
             set { SetValue(StretchProperty, value); }
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/IconicButton.xaml", UriKind.RelativeOrAbsolute);
 
@@ -102,8 +88,6 @@ namespace PS.WPF.Controls
             public static readonly ResourceDescriptor ControlTemplate =
                 ResourceDescriptor.Create<ControlTemplate>(description: "Default IconicButton control template",
                                                            resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Windows;
 using System.Windows.Threading;
@@ -18,12 +19,10 @@ using PS.WPF;
 namespace PS.Commander
 {
     /// <summary>
-    ///     Interaction logic for App.xaml
+    /// Interaction logic for App.xaml
     /// </summary>
     public partial class App
     {
-        #region Static members
-
         public static string GetApplicationName()
         {
             var assembly = Assembly.GetExecutingAssembly();
@@ -95,12 +94,8 @@ namespace PS.Commander
             }
         }
 
-        #endregion
-
         private readonly Logger _logger;
         private IContainer _container;
-
-        #region Constructors
 
         static App()
         {
@@ -134,10 +129,6 @@ namespace PS.Commander
                 FatalShutdown(e, "IoC container can not be created");
             }
         }
-
-        #endregion
-
-        #region Override members
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -181,10 +172,6 @@ namespace PS.Commander
             }
         }
 
-        #endregion
-
-        #region Event handlers
-
         private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             var exception = e.ExceptionObject as Exception;
@@ -227,10 +214,6 @@ namespace PS.Commander
             }
         }
 
-        #endregion
-
-        #region Members
-
         private void DumpApplicationInformation()
         {
             var currentAssembly = Assembly.GetEntryAssembly();
@@ -239,7 +222,7 @@ namespace PS.Commander
                 var version = currentAssembly.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version;
                 var informationalVersion = currentAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
                 var framework = currentAssembly.GetCustomAttribute<TargetFrameworkAttribute>()?.FrameworkName;
-                var architecture = System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture;
+                var architecture = RuntimeInformation.ProcessArchitecture;
                 var buildMode = Runtime.IsDebugBuild ? "Debug" : "Release";
                 var debuggingPanelState = "Disabled";
                 if (Runtime.IsDebugMode)
@@ -311,7 +294,5 @@ namespace PS.Commander
                 throw new ApplicationException("Shell initialization failed", exception);
             }
         }
-
-        #endregion
     }
 }

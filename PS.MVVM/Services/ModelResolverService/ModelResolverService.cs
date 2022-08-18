@@ -6,16 +6,10 @@ namespace PS.MVVM.Services
     public class ModelResolverService : IModelResolverService,
                                         IDisposable
     {
-        #region Constants
-
         private static readonly object Null;
-
-        #endregion
 
         private readonly ObjectsStorage<object, ObservableModelCollection> _collectionStorage;
         private readonly ObjectsStorage<object, ObservableModelObject> _objectStorage;
-
-        #region Constructors
 
         static ModelResolverService()
         {
@@ -28,19 +22,11 @@ namespace PS.MVVM.Services
             _objectStorage = new ObjectsStorage<object, ObservableModelObject>();
         }
 
-        #endregion
-
-        #region IDisposable Members
-
         public void Dispose()
         {
             _collectionStorage.Clear();
             _objectStorage.Clear();
         }
-
-        #endregion
-
-        #region IModelResolverService Members
 
         public IObservableModelCollection Collection(object region)
         {
@@ -51,7 +37,5 @@ namespace PS.MVVM.Services
         {
             return _objectStorage[region ?? Null];
         }
-
-        #endregion
     }
 }

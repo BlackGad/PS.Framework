@@ -7,17 +7,11 @@ namespace PS.WPF.ValueConverters
 {
     public static class StringConverters
     {
-        #region Constants
-
         public static readonly RelayValueConverter DisplayName;
         public static readonly RelayValueConverter EmptyWatermark;
         public static readonly RelayMultiValueConverter FirstNotEmpty;
         public static readonly RelayValueConverter IsEmpty;
         public static readonly RelayValueConverter UnsetIfEmpty;
-
-        #endregion
-
-        #region Constructors
 
         static StringConverters()
         {
@@ -62,7 +56,5 @@ namespace PS.WPF.ValueConverters
                 return result;
             });
         }
-
-        #endregion
     }
 }

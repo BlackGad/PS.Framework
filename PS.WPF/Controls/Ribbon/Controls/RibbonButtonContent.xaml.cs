@@ -9,8 +9,6 @@ namespace PS.WPF.Controls.Ribbon.Controls
 {
     public class RibbonButtonContent : Control
     {
-        #region Property definitions
-
         public static readonly DependencyProperty HasTwoLinesProperty =
             DependencyProperty.Register(nameof(HasTwoLines),
                                         typeof(bool),
@@ -65,19 +63,11 @@ namespace PS.WPF.Controls.Ribbon.Controls
                                         typeof(RibbonButtonContent),
                                         new FrameworkPropertyMetadata(default(ImageSource)));
 
-        #endregion
-
-        #region Constructors
-
         static RibbonButtonContent()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonButtonContent), new FrameworkPropertyMetadata(typeof(RibbonButtonContent)));
             ResourceHelper.SetDefaultStyle(typeof(RibbonButtonContent), Resource.ControlStyle);
         }
-
-        #endregion
-
-        #region Properties
 
         public bool HasTwoLines
         {
@@ -133,14 +123,10 @@ namespace PS.WPF.Controls.Ribbon.Controls
             set { SetValue(SmallImageSourceProperty, value); }
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/Ribbon/Controls/RibbonButtonContent.xaml", UriKind.RelativeOrAbsolute);
 
@@ -151,8 +137,6 @@ namespace PS.WPF.Controls.Ribbon.Controls
             public static readonly ResourceDescriptor ControlTemplate =
                 ResourceDescriptor.Create<ControlTemplate>(description: "Default RibbonButtonContent control template",
                                                            resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

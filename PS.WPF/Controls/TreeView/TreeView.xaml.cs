@@ -10,8 +10,6 @@ namespace PS.WPF.Controls.TreeView
 {
     public class TreeView : System.Windows.Controls.TreeView
     {
-        #region Constructors
-
         static TreeView()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TreeView), new FrameworkPropertyMetadata(typeof(TreeView)));
@@ -22,10 +20,6 @@ namespace PS.WPF.Controls.TreeView
         {
             AddHandler(PreviewMouseRightButtonDownEvent, new MouseButtonEventHandler(OnPreviewMouseRightButtonDown));
         }
-
-        #endregion
-
-        #region Override members
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
@@ -39,10 +33,6 @@ namespace PS.WPF.Controls.TreeView
             return new TreeViewItem();
         }
 
-        #endregion
-
-        #region Event handlers
-
         private void OnPreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             var hierarchy = e.OriginalSource.Traverse(o => o is Visual visual ? VisualTreeHelper.GetParent(visual) : null).ToList();
@@ -54,18 +44,12 @@ namespace PS.WPF.Controls.TreeView
             e.Handled = true;
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default = new Uri("/PS.WPF;component/Controls/TreeView/TreeView.xaml", UriKind.RelativeOrAbsolute);
             public static readonly ResourceDescriptor ControlStyle = ResourceDescriptor.Create<Style>(Default);
-
-            #endregion
         }
 
         #endregion

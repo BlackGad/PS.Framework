@@ -46,16 +46,22 @@
                 <Setter TargetName="PART_MouseOverBorder" Property="Visibility" Value="Visible" />
             </Trigger>
             <Trigger Property="IsChecked" Value="True">
-                <Setter TargetName="PART_Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.Selected)}" />
-                <Setter TargetName="PART_Border" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.SelectedBorder)}" />
+                <Setter TargetName="PART_Border" Property="Background"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.Selected)}" />
+                <Setter TargetName="PART_Border" Property="BorderBrush"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.SelectedBorder)}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter TargetName="PART_Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.Pressed)}" />
-                <Setter TargetName="PART_Border" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.PressedBorder)}" />
+                <Setter TargetName="PART_Border" Property="Background"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.Pressed)}" />
+                <Setter TargetName="PART_Border" Property="BorderBrush"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.PressedBorder)}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="PART_Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground}" />
-                <Setter TargetName="PART_ContentPresenter" Property="TextElement.Foreground" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}" />
+                <Setter TargetName="PART_Border" Property="Background"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground}" />
+                <Setter TargetName="PART_ContentPresenter" Property="TextElement.Foreground"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}" />
                 <Setter TargetName="PART_ContentPresenter" Property="Opacity" Value="0.5" />
             </Trigger>
         </ControlTemplate.Triggers>

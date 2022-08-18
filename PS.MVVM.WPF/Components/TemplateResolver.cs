@@ -4,58 +4,49 @@ using PS.WPF.DataTemplateSelector;
 using PS.WPF.Resources;
 using DataTemplateSelector = System.Windows.Controls.DataTemplateSelector;
 
-namespace PS.MVVM.Components
+namespace PS.MVVM.Components;
+
+public class TemplateResolver : BaseViewResolver
 {
-    public class TemplateResolver : BaseViewResolver
+    public DataTemplate Default { get; set; }
+
+    public override object ProvideValue(IServiceProvider serviceProvider)
     {
-        #region Properties
+        var result = base.ProvideValue(serviceProvider);
+        if (result != null) return result;
 
-        public DataTemplate Default { get; set; }
+        var message = $"Invalid target property type. {nameof(DataTemplateSelector)} expected";
+        throw new ArgumentException(message);
+    }
 
-        #endregion
-
-        #region Override members
-
-        public override object ProvideValue(IServiceProvider serviceProvider)
+    protected override object CreateResult(Type propertyType, object targetObject)
+    {
+        if (typeof(DataTemplateSelector).IsAssignableFrom(propertyType))
         {
-            var result = base.ProvideValue(serviceProvider);
-            if (result != null) return result;
-
-            var message = $"Invalid target property type. {nameof(DataTemplateSelector)} expected";
-            throw new ArgumentException(message);
-        }
-
-        protected override object CreateResult(Type propertyType, object targetObject)
-        {
-            if (typeof(DataTemplateSelector).IsAssignableFrom(propertyType))
+            return new RelayTemplateSelector((item, container) =>
             {
-                return new RelayTemplateSelector((item, container) =>
+                if (item == null) return Default;
+
+                var viewModelType = item as Type;
+                viewModelType = viewModelType ?? item.GetType();
+
+                var viewRegistryService = GetService(targetObject, ServiceProperty);
+                if (viewRegistryService == null)
                 {
-                    if (item == null) return Default;
+                    var message = FormatServiceErrorMessage(ServiceProperty);
+                    throw new ArgumentException(message);
+                }
 
-                    var viewModelType = item as Type;
-                    viewModelType = viewModelType ?? item.GetType();
+                var association = viewRegistryService.Find(typeof(TemplateResolver), viewModelType, Region);
+                if (association == null) return Default;
 
-                    var viewRegistryService = GetService(targetObject, ServiceProperty);
-                    if (viewRegistryService == null)
-                    {
-                        var message = FormatServiceErrorMessage(ServiceProperty);
-                        throw new ArgumentException(message);
-                    }
+                if (association.Payload is DataTemplate dataTemplate) return dataTemplate;
+                if (association.Payload is ResourceDescriptor descriptor) return descriptor.GetResource<DataTemplate>();
 
-                    var association = viewRegistryService.Find(typeof(TemplateResolver), viewModelType, Region);
-                    if (association == null) return Default;
-
-                    if (association.Payload is DataTemplate dataTemplate) return dataTemplate;
-                    if (association.Payload is ResourceDescriptor descriptor) return descriptor.GetResource<DataTemplate>();
-
-                    return Default;
-                });
-            }
-
-            return null;
+                return Default;
+            });
         }
 
-        #endregion
+        return null;
     }
 }

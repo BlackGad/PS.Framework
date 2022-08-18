@@ -11,25 +11,15 @@ namespace PS.WPF.ValueConverters
     [ContentProperty(nameof(ConvertSequence))]
     public class CascadeValueConverter : IValueConverter
     {
-        #region Constructors
-
         public CascadeValueConverter()
         {
             ConvertBackSequence = new ObservableCollection<IValueConverter>();
             ConvertSequence = new ObservableCollection<IValueConverter>();
         }
 
-        #endregion
-
-        #region Properties
-
         public ObservableCollection<IValueConverter> ConvertBackSequence { get; set; }
 
         public ObservableCollection<IValueConverter> ConvertSequence { get; set; }
-
-        #endregion
-
-        #region IValueConverter Members
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -56,7 +46,5 @@ namespace PS.WPF.ValueConverters
 
             return result;
         }
-
-        #endregion
     }
 }

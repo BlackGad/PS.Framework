@@ -36,8 +36,10 @@
                     Panel.ZIndex="0">
                 <Border.Background>
                     <PriorityBinding>
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="TabHeaderBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="TabHeaderBackground"
+                                 Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background"
+                                 Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                     </PriorityBinding>
                 </Border.Background>
             </Border>
@@ -158,25 +160,32 @@
                                       IsHitTestVisible="False">
                         <TextElement.Foreground>
                             <PriorityBinding>
-                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="CaptionForeground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Foreground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="CaptionForeground"
+                                         Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Foreground"
+                                         Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                             </PriorityBinding>
                         </TextElement.Foreground>
                         <TextElement.FontWeight>
                             <PriorityBinding FallbackValue="{x:Static SystemFonts.CaptionFontWeight}">
-                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="FontWeight" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="FontWeight"
+                                         Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                             </PriorityBinding>
                         </TextElement.FontWeight>
                         <TextElement.FontSize>
                             <PriorityBinding FallbackValue="{x:Static SystemFonts.CaptionFontSize}">
-                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="CaptionFontSize" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="FontSize" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="CaptionFontSize"
+                                         Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="FontSize"
+                                         Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                             </PriorityBinding>
                         </TextElement.FontSize>
                         <TextElement.FontFamily>
                             <PriorityBinding FallbackValue="{x:Static SystemFonts.CaptionFontFamily}">
-                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="FontFamily" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="CaptionFontFamily" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="FontFamily"
+                                         Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="CaptionFontFamily"
+                                         Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                             </PriorityBinding>
                         </TextElement.FontFamily>
                     </ContentPresenter>
@@ -237,14 +246,19 @@
                 <Setter Property="Visibility" Value="Collapsed" />
             </MultiTrigger>
             <Trigger Property="ShowQuickAccessToolBarOnTop" Value="false">
-                <Setter TargetName="QatBottomHostContentPresenter" Property="Content" Value="{Binding Path=QuickAccessToolBar, RelativeSource={RelativeSource TemplatedParent}}" />
+                <Setter TargetName="QatBottomHostContentPresenter" Property="Content"
+                        Value="{Binding Path=QuickAccessToolBar, RelativeSource={RelativeSource TemplatedParent}}" />
                 <Setter TargetName="QatTopHost" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="QatTopHostContentPresenter" Property="Content" Value="{x:Null}" />
             </Trigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=QuickAccessToolBar.HasItems}" Value="False" />
-                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=QuickAccessToolBar.CustomizeMenuButton}" Value="{x:Null}" />
+                    <Condition
+                        Binding="{Binding RelativeSource={RelativeSource Self}, Path=QuickAccessToolBar.HasItems}"
+                        Value="False" />
+                    <Condition
+                        Binding="{Binding RelativeSource={RelativeSource Self}, Path=QuickAccessToolBar.CustomizeMenuButton}"
+                        Value="{x:Null}" />
                 </MultiDataTrigger.Conditions>
                 <Setter TargetName="QatBottomHost" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="QatTopHost" Property="Visibility" Value="Collapsed" />
@@ -253,7 +267,8 @@
                 <Setter TargetName="Border" Property="BorderThickness" Value="1,0,1,1" />
                 <Setter TargetName="mainItemsPresenterHost" Property="Content" Value="{x:Null}" />
                 <Setter TargetName="mainItemsPresenterHost" Property="Visibility" Value="Collapsed" />
-                <Setter TargetName="popupItemsPresenterHost" Property="Content" Value="{Binding ElementName=groupsBorder}" />
+                <Setter TargetName="popupItemsPresenterHost" Property="Content"
+                        Value="{Binding ElementName=groupsBorder}" />
             </Trigger>
             <Trigger Property="WindowIconVisibility" Value="Collapsed">
                 <Setter TargetName="QatTopHostLeftBorder" Property="Visibility" Value="Collapsed" />
@@ -274,7 +289,8 @@
 
     <Style x:Key="{x:Static controls:Ribbon+Resource.ControlStyle}" TargetType="controls:Ribbon">
         <Style.Resources>
-            <Style BasedOn="{StaticResource {x:Static controls:RibbonContextMenu.ControlStyle}}" TargetType="RibbonContextMenu" />
+            <Style BasedOn="{StaticResource {x:Static controls:RibbonContextMenu.ControlStyle}}"
+                   TargetType="RibbonContextMenu" />
             <Style BasedOn="{StaticResource {x:Static styles:Menu.MenuItemStyle}}" TargetType="RibbonMenuItem" />
         </Style.Resources>
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />

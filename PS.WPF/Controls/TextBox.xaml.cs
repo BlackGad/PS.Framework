@@ -18,40 +18,6 @@ namespace PS.WPF.Controls
                            IValueProvider
 
     {
-        #region Property definitions
-
-        public static readonly DependencyProperty SideButtonCommandProperty =
-            DependencyProperty.Register(nameof(SideButtonCommand),
-                                        typeof(IUICommand),
-                                        typeof(TextBox),
-                                        new FrameworkPropertyMetadata(default(IUICommand)));
-
-        public static readonly DependencyProperty SideButtonStyleProperty =
-            DependencyProperty.Register(nameof(SideButtonStyle),
-                                        typeof(Style),
-                                        typeof(TextBox),
-                                        new FrameworkPropertyMetadata(default(Style)));
-
-        public static readonly DependencyProperty TextWrappingProperty =
-            DependencyProperty.Register(nameof(TextWrapping),
-                                        typeof(TextWrapping),
-                                        typeof(TextBox),
-                                        new FrameworkPropertyMetadata(default(TextWrapping)));
-
-        public static readonly RoutedEvent EditableTextChangedEvent =
-            EventManager.RegisterRoutedEvent("EditableTextChanged",
-                                             RoutingStrategy.Bubble,
-                                             typeof(RoutedEventHandler),
-                                             typeof(TextBox));
-
-        public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value",
-                                        typeof(string),
-                                        typeof(TextBox),
-                                        new FrameworkPropertyMetadata(default(string),
-                                                                      FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
-                                                                      OnValueChanged));
-
         public static readonly DependencyProperty EditableTextProperty =
             DependencyProperty.Register("EditableText",
                                         typeof(string),
@@ -94,11 +60,29 @@ namespace PS.WPF.Controls
                                         typeof(TextBox),
                                         new FrameworkPropertyMetadata(default(object)));
 
+        public static readonly DependencyProperty SideButtonCommandProperty =
+            DependencyProperty.Register(nameof(SideButtonCommand),
+                                        typeof(IUICommand),
+                                        typeof(TextBox),
+                                        new FrameworkPropertyMetadata(default(IUICommand)));
+
         public static readonly DependencyProperty SideButtonGeometryProperty =
             DependencyProperty.Register(nameof(SideButtonGeometry),
                                         typeof(Geometry),
                                         typeof(TextBox),
                                         new FrameworkPropertyMetadata(default(Geometry)));
+
+        public static readonly DependencyProperty SideButtonStyleProperty =
+            DependencyProperty.Register(nameof(SideButtonStyle),
+                                        typeof(Style),
+                                        typeof(TextBox),
+                                        new FrameworkPropertyMetadata(default(Style)));
+
+        public static readonly DependencyProperty TextWrappingProperty =
+            DependencyProperty.Register(nameof(TextWrapping),
+                                        typeof(TextWrapping),
+                                        typeof(TextBox),
+                                        new FrameworkPropertyMetadata(default(TextWrapping)));
 
         public static readonly DependencyProperty UseWatermarkWhenValueEmptyProperty =
             DependencyProperty.Register(nameof(UseWatermarkWhenValueEmpty),
@@ -106,13 +90,19 @@ namespace PS.WPF.Controls
                                         typeof(TextBox),
                                         new FrameworkPropertyMetadata(default(bool)));
 
-        #endregion
+        public static readonly DependencyProperty ValueProperty =
+            DependencyProperty.Register("Value",
+                                        typeof(string),
+                                        typeof(TextBox),
+                                        new FrameworkPropertyMetadata(default(string),
+                                                                      FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                                                                      OnValueChanged));
 
-        #region Constants
-
-        #endregion
-
-        #region Static members
+        public static readonly RoutedEvent EditableTextChangedEvent =
+            EventManager.RegisterRoutedEvent("EditableTextChanged",
+                                             RoutingStrategy.Bubble,
+                                             typeof(RoutedEventHandler),
+                                             typeof(TextBox));
 
         private static void OnEditableTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -151,13 +141,9 @@ namespace PS.WPF.Controls
             owner.NotifyValueChanged();
         }
 
-        #endregion
-
         private string _lastValue;
 
         private System.Windows.Controls.TextBox _textBox;
-
-        #region Constructors
 
         static TextBox()
         {
@@ -174,10 +160,6 @@ namespace PS.WPF.Controls
                                 EndEdit();
                             }));
         }
-
-        #endregion
-
-        #region Properties
 
         public string EditableText
         {
@@ -251,19 +233,11 @@ namespace PS.WPF.Controls
             set { SetValue(UseWatermarkWhenValueEmptyProperty, value); }
         }
 
-        #endregion
-
-        #region Events
-
         public event RoutedEventHandler EditableTextChanged
         {
             add { AddHandler(EditableTextChangedEvent, value); }
             remove { RemoveHandler(EditableTextChangedEvent, value); }
         }
-
-        #endregion
-
-        #region Override members
 
         protected override void OnBeginEdit()
         {
@@ -332,10 +306,6 @@ namespace PS.WPF.Controls
             return !string.IsNullOrEmpty(Value);
         }
 
-        #endregion
-
-        #region IValueProvider Members
-
         void IValueProvider.SetValue(string value)
         {
             Value = value;
@@ -347,23 +317,15 @@ namespace PS.WPF.Controls
             set { SetValue(ValueProperty, value); }
         }
 
-        #endregion
-
-        #region Members
-
         protected virtual void RaiseEditableTextChangedEvent()
         {
             RaiseEvent(new RoutedEventArgs(EditableTextChangedEvent, this));
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/TextBox.xaml", UriKind.RelativeOrAbsolute);
 
@@ -378,8 +340,6 @@ namespace PS.WPF.Controls
             public static readonly ResourceDescriptor SideButtonStyle =
                 ResourceDescriptor.Create<Style>(description: "Default TextBox side button style",
                                                  resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

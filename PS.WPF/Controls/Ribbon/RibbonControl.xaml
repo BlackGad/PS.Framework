@@ -2,23 +2,35 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:PS.WPF.Controls.Ribbon">
 
-    <ControlTemplate x:Key="{x:Static controls:RibbonControl+Resource.ControlTemplate}" TargetType="controls:RibbonControl">
+    <ControlTemplate x:Key="{x:Static controls:RibbonControl+Resource.ControlTemplate}"
+                     TargetType="controls:RibbonControl">
         <RibbonContentPresenter x:Name="PART_ContentPresenter" />
     </ControlTemplate>
 
     <Style x:Key="{x:Static controls:RibbonControl+Resource.ControlStyle}" TargetType="controls:RibbonControl">
         <Setter Property="Template" Value="{StaticResource {x:Static controls:RibbonControl+Resource.ControlTemplate}}" />
         <Style.Triggers>
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.MinWidth.RibbonControlLengthUnitType}" Value="Pixel">
-                <Setter Property="MinWidth" Value="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.MinWidth.Value}" />
+            <DataTrigger
+                Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.MinWidth.RibbonControlLengthUnitType}"
+                Value="Pixel">
+                <Setter Property="MinWidth"
+                        Value="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.MinWidth.Value}" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.MaxWidth.RibbonControlLengthUnitType}" Value="Pixel">
-                <Setter Property="MaxWidth" Value="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.MaxWidth.Value}" />
+            <DataTrigger
+                Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.MaxWidth.RibbonControlLengthUnitType}"
+                Value="Pixel">
+                <Setter Property="MaxWidth"
+                        Value="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.MaxWidth.Value}" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.Width.RibbonControlLengthUnitType}" Value="Pixel">
-                <Setter Property="Width" Value="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.Width.Value}" />
+            <DataTrigger
+                Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.Width.RibbonControlLengthUnitType}"
+                Value="Pixel">
+                <Setter Property="Width"
+                        Value="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.Width.Value}" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.Width.RibbonControlLengthUnitType}" Value="Auto">
+            <DataTrigger
+                Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.Width.RibbonControlLengthUnitType}"
+                Value="Auto">
                 <Setter Property="Width" Value="Auto" />
             </DataTrigger>
         </Style.Triggers>

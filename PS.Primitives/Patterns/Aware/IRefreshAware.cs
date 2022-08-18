@@ -2,10 +2,6 @@
 {
     public interface IRefreshAware
     {
-        #region Members
-
         void Refresh();
-
-        #endregion
     }
 }

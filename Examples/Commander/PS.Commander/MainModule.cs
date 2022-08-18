@@ -16,8 +16,6 @@ namespace PS.Commander
 {
     public class MainModule : Module
     {
-        #region Override members
-
         protected override void AttachToComponentRegistration(IComponentRegistryBuilder componentRegistry, IComponentRegistration registration)
         {
             registration.HandleActivation<IViewResolverService>(ViewResolverServiceActivation);
@@ -28,10 +26,6 @@ namespace PS.Commander
         {
             builder.RegisterAssemblyTypesWithAttributes(ThisAssembly);
         }
-
-        #endregion
-
-        #region Members
 
         private void FilesServiceActivation(ILifetimeScope scope, ExplorerService service)
         {
@@ -59,7 +53,5 @@ namespace PS.Commander
             service.Region(ViewRegions.WorkingAreaTab)
                    .AssociateTemplate<ExplorerViewModel>(scope.Resolve<IDataTemplate<ExplorerTabView>>());
         }
-
-        #endregion
     }
 }

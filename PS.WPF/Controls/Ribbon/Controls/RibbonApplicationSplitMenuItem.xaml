@@ -94,27 +94,35 @@
         </Setter>
     </Style>
 
-    <ControlTemplate x:Key="{x:Static controls:RibbonApplicationSplitMenuItem+Resource.ControlTemplate}" TargetType="controls:RibbonApplicationSplitMenuItem">
+    <ControlTemplate x:Key="{x:Static controls:RibbonApplicationSplitMenuItem+Resource.ControlTemplate}"
+                     TargetType="controls:RibbonApplicationSplitMenuItem">
         <Border x:Name="Border"
                 BorderThickness="0"
                 SnapsToDevicePixels="True">
             <Border.BorderBrush>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </Border.BorderBrush>
             <Border.Background>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </Border.Background>
             <TextElement.Foreground>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Foreground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Foreground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding ElementName="Border" Path="Background" Converter="{x:Static valueConverters:ColorConverters.ContrastForeground}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Foreground"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Foreground"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding ElementName="Border" Path="Background"
+                             Converter="{x:Static valueConverters:ColorConverters.ContrastForeground}" />
                 </PriorityBinding>
             </TextElement.Foreground>
             <Grid x:Name="Layout">
@@ -155,7 +163,8 @@
                                     BorderBrush="{Binding ElementName=Border, Path=BorderBrush}"
                                     BorderThickness="0,1,0,0"
                                     Visibility="Collapsed">
-                                <Thumb x:Name="PART_ResizeThumb" Style="{StaticResource {x:Static ribbon:RibbonResizeThumbs.ThumbBothRightTopStyle}}" />
+                                <Thumb x:Name="PART_ResizeThumb"
+                                       Style="{StaticResource {x:Static ribbon:RibbonResizeThumbs.ThumbBothRightTopStyle}}" />
                             </Border>
                         </Grid>
                     </Border>
@@ -171,9 +180,11 @@
                         Visibility="Hidden">
                     <Border.Background>
                         <PriorityBinding>
-                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Accent" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Accent"
+                                     Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                             <!--  ReSharper disable once Xaml.BindingWithContextNotResolved  -->
-                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Accent" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Accent"
+                                     Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                         </PriorityBinding>
                     </Border.Background>
                 </Border>
@@ -247,7 +258,8 @@
                     <Condition Property="CanUserResizeHorizontally" Value="false" />
                     <Condition Property="CanUserResizeVertically" Value="true" />
                 </MultiTrigger.Conditions>
-                <Setter TargetName="PART_ResizeThumb" Property="Style" Value="{StaticResource {x:Static ribbon:RibbonResizeThumbs.ThumbVerticalStyle}}" />
+                <Setter TargetName="PART_ResizeThumb" Property="Style"
+                        Value="{StaticResource {x:Static ribbon:RibbonResizeThumbs.ThumbVerticalStyle}}" />
                 <Setter TargetName="ResizeControl" Property="Visibility" Value="Visible" />
             </MultiTrigger>
             <Trigger Property="ImageSource" Value="{x:Null}">
@@ -268,18 +280,28 @@
                 <Setter TargetName="HighlightLeftBorder" Property="Background">
                     <Setter.Value>
                         <PriorityBinding>
-                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                            <Binding ElementName="Border" Path="Background" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.1}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBackground"
+                                     Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                     Path="Ribbon.MouseOverBackground"
+                                     Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding ElementName="Border" Path="Background"
+                                     Converter="{x:Static valueConverters:ColorConverters.Shade}"
+                                     ConverterParameter="{markup:Double 0.1}" />
                         </PriorityBinding>
                     </Setter.Value>
                 </Setter>
                 <Setter TargetName="HighlightLeftBorder" Property="BorderBrush">
                     <Setter.Value>
                         <PriorityBinding>
-                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                            <Binding ElementName="Border" Path="BorderBrush" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.1}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBorderBrush"
+                                     Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                     Path="Ribbon.MouseOverBorderBrush"
+                                     Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding ElementName="Border" Path="BorderBrush"
+                                     Converter="{x:Static valueConverters:ColorConverters.Shade}"
+                                     ConverterParameter="{markup:Double 0.1}" />
                         </PriorityBinding>
                     </Setter.Value>
                 </Setter>
@@ -293,18 +315,28 @@
                 <Setter TargetName="HighlightRightBorder" Property="Background">
                     <Setter.Value>
                         <PriorityBinding>
-                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                            <Binding ElementName="Border" Path="Background" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.1}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBackground"
+                                     Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                     Path="Ribbon.MouseOverBackground"
+                                     Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding ElementName="Border" Path="Background"
+                                     Converter="{x:Static valueConverters:ColorConverters.Shade}"
+                                     ConverterParameter="{markup:Double 0.1}" />
                         </PriorityBinding>
                     </Setter.Value>
                 </Setter>
                 <Setter TargetName="HighlightRightBorder" Property="BorderBrush">
                     <Setter.Value>
                         <PriorityBinding>
-                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                            <Binding ElementName="Border" Path="BorderBrush" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.1}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBorderBrush"
+                                     Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                     Path="Ribbon.MouseOverBorderBrush"
+                                     Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding ElementName="Border" Path="BorderBrush"
+                                     Converter="{x:Static valueConverters:ColorConverters.Shade}"
+                                     ConverterParameter="{markup:Double 0.1}" />
                         </PriorityBinding>
                     </Setter.Value>
                 </Setter>
@@ -318,18 +350,26 @@
                 <Setter TargetName="HighlightRightBorder" Property="Background">
                     <Setter.Value>
                         <PriorityBinding>
-                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="PressedBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.PressedBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                            <Binding ElementName="Border" Path="Background" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.3}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="PressedBackground"
+                                     Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.PressedBackground"
+                                     Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding ElementName="Border" Path="Background"
+                                     Converter="{x:Static valueConverters:ColorConverters.Shade}"
+                                     ConverterParameter="{markup:Double 0.3}" />
                         </PriorityBinding>
                     </Setter.Value>
                 </Setter>
                 <Setter TargetName="HighlightRightBorder" Property="BorderBrush">
                     <Setter.Value>
                         <PriorityBinding>
-                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="PressedBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.PressedBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                            <Binding ElementName="Border" Path="BorderBrush" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.3}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="PressedBorderBrush"
+                                     Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.PressedBorderBrush"
+                                     Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding ElementName="Border" Path="BorderBrush"
+                                     Converter="{x:Static valueConverters:ColorConverters.Shade}"
+                                     ConverterParameter="{markup:Double 0.3}" />
                         </PriorityBinding>
                     </Setter.Value>
                 </Setter>
@@ -346,18 +386,26 @@
                 <Setter TargetName="HighlightLeftBorder" Property="Background">
                     <Setter.Value>
                         <PriorityBinding>
-                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="PressedBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.PressedBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                            <Binding ElementName="Border" Path="Background" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.3}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="PressedBackground"
+                                     Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.PressedBackground"
+                                     Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding ElementName="Border" Path="Background"
+                                     Converter="{x:Static valueConverters:ColorConverters.Shade}"
+                                     ConverterParameter="{markup:Double 0.3}" />
                         </PriorityBinding>
                     </Setter.Value>
                 </Setter>
                 <Setter TargetName="HighlightLeftBorder" Property="BorderBrush">
                     <Setter.Value>
                         <PriorityBinding>
-                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="PressedBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.PressedBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                            <Binding ElementName="Border" Path="BorderBrush" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.3}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="PressedBorderBrush"
+                                     Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.PressedBorderBrush"
+                                     Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding ElementName="Border" Path="BorderBrush"
+                                     Converter="{x:Static valueConverters:ColorConverters.Shade}"
+                                     ConverterParameter="{markup:Double 0.3}" />
                         </PriorityBinding>
                     </Setter.Value>
                 </Setter>
@@ -384,17 +432,21 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="{x:Static controls:RibbonApplicationSplitMenuItem+Resource.ControlStyle}" TargetType="controls:RibbonApplicationSplitMenuItem">
+    <Style x:Key="{x:Static controls:RibbonApplicationSplitMenuItem+Resource.ControlStyle}"
+           TargetType="controls:RibbonApplicationSplitMenuItem">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Foreground" Value="{x:Null}" />
         <Setter Property="Padding" Value="3,2,3,2" />
-        <Setter Property="Template" Value="{StaticResource {x:Static controls:RibbonApplicationSplitMenuItem+Resource.ControlTemplate}}" />
+        <Setter Property="Template"
+                Value="{StaticResource {x:Static controls:RibbonApplicationSplitMenuItem+Resource.ControlTemplate}}" />
         <Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
         <Setter Property="ToolTipService.InitialShowDelay" Value="900" />
         <Setter Property="ToolTipService.IsEnabled" Value="false" />
         <Setter Property="ToolTipService.ShowDuration" Value="20000" />
         <Style.Triggers>
-            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IChildrenAware}}" Value="True">
+            <DataTrigger
+                Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IChildrenAware}}"
+                Value="True">
                 <Setter Property="ItemsSource">
                     <Setter.Value>
                         <Binding Path="Children" Converter="{x:Static valueConverters:CollectionConverters.Sort}">
@@ -407,61 +459,102 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type input:ICommand}}" Value="True">
+            <DataTrigger
+                Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type input:ICommand}}"
+                Value="True">
                 <Setter Property="Command" Value="{Binding}" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IIsSelectedAware}}" Value="True">
-                <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" />
+            <DataTrigger
+                Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IIsSelectedAware}}"
+                Value="True">
+                <Setter Property="CommandParameter"
+                        Value="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" />
                 <Setter Property="IsCheckable" Value="True" />
                 <Setter Property="IsChecked" Value="{Binding IsSelected}" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ICommandAware}}" Value="True">
+            <DataTrigger
+                Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ICommandAware}}"
+                Value="True">
                 <Setter Property="Command" Value="{Binding Command}" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IIsVisibleAware}}" Value="True">
-                <Setter Property="Visibility" Value="{Binding IsVisible, Converter={x:Static valueConverters:BooleanConverters.ToVisibility}}" />
+            <DataTrigger
+                Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IIsVisibleAware}}"
+                Value="True">
+                <Setter Property="Visibility"
+                        Value="{Binding IsVisible, Converter={x:Static valueConverters:BooleanConverters.ToVisibility}}" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ICommandParameterAware}}" Value="True">
+            <DataTrigger
+                Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ICommandParameterAware}}"
+                Value="True">
                 <Setter Property="CommandParameter" Value="{Binding CommandParameter}" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IIconAware}}" Value="True">
-                <Setter Property="ImageSource" Value="{Binding Icon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
-                <Setter Property="QuickAccessToolBarImageSource" Value="{Binding Icon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
-                <Setter Property="ToolTipImageSource" Value="{Binding Icon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+            <DataTrigger
+                Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IIconAware}}"
+                Value="True">
+                <Setter Property="ImageSource"
+                        Value="{Binding Icon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+                <Setter Property="QuickAccessToolBarImageSource"
+                        Value="{Binding Icon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+                <Setter Property="ToolTipImageSource"
+                        Value="{Binding Icon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
             </DataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ISmallIconAware}}" Value="True" />
-                    <Condition Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.Exist}, Path=SmallIcon}" Value="True" />
+                    <Condition
+                        Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ISmallIconAware}}"
+                        Value="True" />
+                    <Condition
+                        Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.Exist}, Path=SmallIcon}"
+                        Value="True" />
                 </MultiDataTrigger.Conditions>
-                <Setter Property="ImageSource" Value="{Binding SmallIcon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
-                <Setter Property="QuickAccessToolBarImageSource" Value="{Binding SmallIcon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
-                <Setter Property="ToolTipImageSource" Value="{Binding SmallIcon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+                <Setter Property="ImageSource"
+                        Value="{Binding SmallIcon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+                <Setter Property="QuickAccessToolBarImageSource"
+                        Value="{Binding SmallIcon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+                <Setter Property="ToolTipImageSource"
+                        Value="{Binding SmallIcon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
             </MultiDataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ILargeIconAware}}" Value="True" />
-                    <Condition Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.Exist}, Path=LargeIcon}" Value="True" />
+                    <Condition
+                        Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ILargeIconAware}}"
+                        Value="True" />
+                    <Condition
+                        Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.Exist}, Path=LargeIcon}"
+                        Value="True" />
                 </MultiDataTrigger.Conditions>
-                <Setter Property="ImageSource" Value="{Binding LargeIcon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
-                <Setter Property="QuickAccessToolBarImageSource" Value="{Binding LargeIcon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
-                <Setter Property="ToolTipImageSource" Value="{Binding LargeIcon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+                <Setter Property="ImageSource"
+                        Value="{Binding LargeIcon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+                <Setter Property="QuickAccessToolBarImageSource"
+                        Value="{Binding LargeIcon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+                <Setter Property="ToolTipImageSource"
+                        Value="{Binding LargeIcon, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
             </MultiDataTrigger>
-            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ITitleAware}}" Value="True">
+            <DataTrigger
+                Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ITitleAware}}"
+                Value="True">
                 <Setter Property="Header" Value="{Binding Title}" />
                 <Setter Property="ToolTipTitle" Value="{Binding Title}" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IDescriptionAware}}" Value="True">
+            <DataTrigger
+                Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IDescriptionAware}}"
+                Value="True">
                 <Setter Property="ToolTipDescription" Value="{Binding Description}" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IToolTipAware}}" Value="True">
+            <DataTrigger
+                Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IToolTipAware}}"
+                Value="True">
                 <Setter Property="ToolTipDescription" Value="{Binding ToolTipDescription}" />
-                <Setter Property="ToolTipImageSource" Value="{Binding ToolTipImage, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+                <Setter Property="ToolTipImageSource"
+                        Value="{Binding ToolTipImage, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
                 <Setter Property="ToolTipTitle" Value="{Binding ToolTipTitle}" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IExtendedToolTipAware}}" Value="True">
+            <DataTrigger
+                Binding="{Binding Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IExtendedToolTipAware}}"
+                Value="True">
                 <Setter Property="ToolTipFooterDescription" Value="{Binding ToolTipFooterDescription}" />
-                <Setter Property="ToolTipFooterImageSource" Value="{Binding ToolTipFooterImage, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
+                <Setter Property="ToolTipFooterImageSource"
+                        Value="{Binding ToolTipFooterImage, Converter={x:Static valueConverters:ImageConverters.Generic}}" />
                 <Setter Property="ToolTipFooterTitle" Value="{Binding ToolTipFooterTitle}" />
             </DataTrigger>
         </Style.Triggers>

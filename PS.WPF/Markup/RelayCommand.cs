@@ -12,16 +12,11 @@ namespace PS.WPF.Markup
     [MarkupExtensionReturnType(typeof(ICommand))]
     public class RelayCommand : MarkupExtension
     {
-        #region Properties
-
         public string ElementName { get; set; }
 
         public string MethodName { get; set; }
+
         public Type ParameterType { get; set; }
-
-        #endregion
-
-        #region Override members
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
@@ -56,10 +51,6 @@ namespace PS.WPF.Markup
             return null;
         }
 
-        #endregion
-
-        #region Members
-
         private bool IsMethodAbleToProcessCommand(MethodInfo m, object argument)
         {
             var parameters = m.GetParameters();
@@ -74,7 +65,5 @@ namespace PS.WPF.Markup
 
             return parameterType == argumentType;
         }
-
-        #endregion
     }
 }

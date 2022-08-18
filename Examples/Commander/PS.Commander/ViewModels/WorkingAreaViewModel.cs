@@ -12,10 +12,8 @@ namespace PS.Commander.ViewModels
     public class WorkingAreaViewModel : BaseNotifyPropertyChanged,
                                         IViewModel
     {
-        private ExplorerViewModel _selectedExplorerView;
         private readonly CollectionViewSource _viewSource;
-
-        #region Constructors
+        private ExplorerViewModel _selectedExplorerView;
 
         public WorkingAreaViewModel(string containerName,
                                     ExplorerService explorerService)
@@ -31,16 +29,12 @@ namespace PS.Commander.ViewModels
 
             _viewSource.Filter += (sender, args) =>
             {
-                args.Accepted = args.Item is ExplorerViewModel explorerViewModel && 
+                args.Accepted = args.Item is ExplorerViewModel explorerViewModel &&
                                 explorerViewModel.Container.AreEqual(containerName);
             };
 
             ExplorerViewModels = _viewSource.View;
         }
-
-        #endregion
-
-        #region Properties
 
         public ICollectionView ExplorerViewModels { get; }
 
@@ -49,7 +43,5 @@ namespace PS.Commander.ViewModels
             get { return _selectedExplorerView; }
             set { SetField(ref _selectedExplorerView, value); }
         }
-
-        #endregion
     }
 }

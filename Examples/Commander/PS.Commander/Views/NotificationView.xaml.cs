@@ -8,22 +8,14 @@ namespace PS.Commander.Views
     [DependencyRegisterAsInterface(typeof(IView<NotificationViewModel>))]
     public partial class NotificationView : IView<NotificationViewModel>
     {
-        #region Constructors
-
         public NotificationView()
         {
             InitializeComponent();
         }
 
-        #endregion
-
-        #region IView<NotificationViewModel> Members
-
         public NotificationViewModel ViewModel
         {
             get { return DataContext as NotificationViewModel; }
         }
-
-        #endregion
     }
 }

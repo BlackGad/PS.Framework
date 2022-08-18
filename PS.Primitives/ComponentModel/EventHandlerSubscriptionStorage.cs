@@ -11,8 +11,6 @@ namespace PS.ComponentModel
                                                    IRiseEventAware<object>,
                                                    IInvokeEventHandlerAware
     {
-        #region Static members
-
         private static Type CheckDelegateSignature(Delegate handler)
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
@@ -23,13 +21,9 @@ namespace PS.ComponentModel
             return parameters[1].ParameterType;
         }
 
-        #endregion
-
         private readonly Action<IInvokeEventHandlerAware, Delegate> _subscriptionAddedAction;
         private readonly Action<IInvokeEventHandlerAware, Delegate> _subscriptionRemovedAction;
         private readonly ObjectsStorage<Type, List<Delegate>> _subscriptions;
-
-        #region Constructors
 
         public EventHandlerSubscriptionStorage(Action<IInvokeEventHandlerAware, Delegate> subscriptionAddedAction = null,
                                                Action<IInvokeEventHandlerAware, Delegate> subscriptionRemovedAction = null)
@@ -38,10 +32,6 @@ namespace PS.ComponentModel
             _subscriptionRemovedAction = subscriptionRemovedAction;
             _subscriptions = new ObjectsStorage<Type, List<Delegate>>();
         }
-
-        #endregion
-
-        #region IInvokeEventHandlerAware Members
 
         public void InvokeEventHandler(Delegate @delegate, object sender, object args)
         {
@@ -62,10 +52,6 @@ namespace PS.ComponentModel
             }
         }
 
-        #endregion
-
-        #region IRiseEventAware<object> Members
-
         public void Raise(object sender, object args)
         {
             if (args == null) throw new ArgumentNullException(nameof(args));
@@ -80,10 +66,6 @@ namespace PS.ComponentModel
                 InvokeEventHandler(handler, sender, args);
             }
         }
-
-        #endregion
-
-        #region ISubscriptionAware Members
 
         public void Subscribe<T>(EventHandler<T> handler)
         {
@@ -102,7 +84,5 @@ namespace PS.ComponentModel
             _subscriptions[parameterType].Remove(handler);
             _subscriptionRemovedAction?.Invoke(this, handler);
         }
-
-        #endregion
     }
 }

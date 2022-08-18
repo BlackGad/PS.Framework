@@ -2,13 +2,7 @@
 {
     public static class SystemParameters
     {
-        #region Static members
-
         public static double WindowCaptionHeightWithResizeFrame { get; }
-
-        #endregion
-
-        #region Constructors
 
         static SystemParameters()
         {
@@ -16,7 +10,5 @@
                                                  System.Windows.SystemParameters.ResizeFrameHorizontalBorderHeight +
                                                  System.Windows.SystemParameters.FixedFrameHorizontalBorderHeight;
         }
-
-        #endregion
     }
 }

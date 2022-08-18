@@ -11,8 +11,6 @@ namespace PS.WPF.ValueConverters
 
         private IMultiValueConverter _instance;
 
-        #region Constructors
-
         public RelayMultiValueConverter(Func<object[], Type, object, CultureInfo, object> convertFunc = null,
                                         Func<object, Type[], object, CultureInfo, object[]> convertBackFunc = null)
         {
@@ -23,10 +21,6 @@ namespace PS.WPF.ValueConverters
         public RelayMultiValueConverter()
         {
         }
-
-        #endregion
-
-        #region Properties
 
         public IMultiValueConverter Instance
         {
@@ -48,10 +42,6 @@ namespace PS.WPF.ValueConverters
             }
         }
 
-        #endregion
-
-        #region IMultiValueConverter Members
-
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             if (_convertFunc == null) throw new NotSupportedException();
@@ -63,7 +53,5 @@ namespace PS.WPF.ValueConverters
             if (_convertBackFunc == null) throw new NotSupportedException();
             return _convertBackFunc(value, targetTypes, parameter, culture);
         }
-
-        #endregion
     }
 }

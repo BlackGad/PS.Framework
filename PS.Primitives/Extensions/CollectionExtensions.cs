@@ -8,8 +8,6 @@ namespace PS.Extensions
 {
     public static class CollectionExtensions
     {
-        #region Static members
-
         public static void AddRange(this IList list, IEnumerable items)
         {
             if (list == null) return;
@@ -21,13 +19,13 @@ namespace PS.Extensions
         }
 
         /// <summary>
-        ///     Compares two enumeration and returns detailed comparison result.
+        /// Compares two enumeration and returns detailed comparison result.
         /// </summary>
         /// <param name="first">First enumeration to compare.</param>
         /// <param name="second">Second enumeration to compare.</param>
         /// <returns> Returns CollectionCompareResult instance with detailed comparison report.</returns>
         /// <permission>
-        ///     Everyone can access this method.
+        /// Everyone can access this method.
         /// </permission>
         public static CollectionCompareResult<TFirst, TSecond> Compare<TFirst, TSecond>(this IEnumerable<TFirst> first, IEnumerable<TSecond> second)
         {
@@ -35,14 +33,14 @@ namespace PS.Extensions
         }
 
         /// <summary>
-        ///     Compares two enumeration and returns detailed comparison result.
+        /// Compares two enumeration and returns detailed comparison result.
         /// </summary>
         /// <param name="first">First enumeration to compare.</param>
         /// <param name="second">Second enumeration to compare.</param>
         /// <param name="hasher">Hash function to use</param>
         /// <returns> Returns CollectionCompareResult instance with detailed comparison report.</returns>
         /// <permission>
-        ///     Everyone can access this method.
+        /// Everyone can access this method.
         /// </permission>
         public static CollectionCompareResult<TItem, TItem> Compare<TItem>(this IEnumerable<TItem> first, IEnumerable<TItem> second, Func<TItem, int> hasher)
         {
@@ -50,7 +48,7 @@ namespace PS.Extensions
         }
 
         /// <summary>
-        ///     Compares two enumeration and returns detailed comparison result.
+        /// Compares two enumeration and returns detailed comparison result.
         /// </summary>
         /// <param name="first">First enumeration to compare.</param>
         /// <param name="second">Second enumeration to compare.</param>
@@ -58,7 +56,7 @@ namespace PS.Extensions
         /// <param name="secondHasher">Hash function to use for <paramref name="second" /> collection</param>
         /// <returns> Returns CollectionCompareResult instance with detailed comparison report.</returns>
         /// <permission>
-        ///     Everyone can access this method.
+        /// Everyone can access this method.
         /// </permission>
         public static CollectionCompareResult<TFirst, TSecond> Compare<TFirst, TSecond>(this IEnumerable<TFirst> first,
                                                                                         IEnumerable<TSecond> second,
@@ -104,14 +102,14 @@ namespace PS.Extensions
         }
 
         /// <summary>
-        ///     Returns the maximal element of the given sequence, based on
-        ///     the given projection.
+        /// Returns the maximal element of the given sequence, based on
+        /// the given projection.
         /// </summary>
         /// <remarks>
-        ///     If more than one element has the maximal projected value, the first
-        ///     one encountered will be returned. This overload uses the default comparer
-        ///     for the projected type. This operator uses immediate execution, but
-        ///     only buffers a single result (the current maximal element).
+        /// If more than one element has the maximal projected value, the first
+        /// one encountered will be returned. This overload uses the default comparer
+        /// for the projected type. This operator uses immediate execution, but
+        /// only buffers a single result (the current maximal element).
         /// </remarks>
         /// <typeparam name="TSource">Type of the source sequence</typeparam>
         /// <typeparam name="TKey">Type of the projected element</typeparam>
@@ -127,14 +125,14 @@ namespace PS.Extensions
         }
 
         /// <summary>
-        ///     Returns the maximal element of the given sequence, based on
-        ///     the given projection and the specified comparer for projected values.
+        /// Returns the maximal element of the given sequence, based on
+        /// the given projection and the specified comparer for projected values.
         /// </summary>
         /// <remarks>
-        ///     If more than one element has the maximal projected value, the first
-        ///     one encountered will be returned. This overload uses the default comparer
-        ///     for the projected type. This operator uses immediate execution, but
-        ///     only buffers a single result (the current maximal element).
+        /// If more than one element has the maximal projected value, the first
+        /// one encountered will be returned. This overload uses the default comparer
+        /// for the projected type. This operator uses immediate execution, but
+        /// only buffers a single result (the current maximal element).
         /// </remarks>
         /// <typeparam name="TSource">Type of the source sequence</typeparam>
         /// <typeparam name="TKey">Type of the projected element</typeparam>
@@ -143,8 +141,8 @@ namespace PS.Extensions
         /// <param name="comparer">Comparer to use to compare projected values</param>
         /// <returns>The maximal element, according to the projection.</returns>
         /// <exception cref="ArgumentNullException">
-        ///     <paramref name="source" />, <paramref name="selector" />
-        ///     or <paramref name="comparer" /> is null
+        /// <paramref name="source" />, <paramref name="selector" />
+        /// or <paramref name="comparer" /> is null
         /// </exception>
         /// <exception cref="InvalidOperationException"><paramref name="source" /> is empty</exception>
         public static TSource MaxBy<TSource, TKey>(this IEnumerable<TSource> source,
@@ -175,83 +173,9 @@ namespace PS.Extensions
             }
         }
 
-        #if !NET60
         /// <summary>
-        ///     Returns the minimal element of the given sequence, based on
-        ///     the given projection.
-        /// </summary>
-        /// <remarks>
-        ///     If more than one element has the minimal projected value, the first
-        ///     one encountered will be returned. This overload uses the default comparer
-        ///     for the projected type. This operator uses immediate execution, but
-        ///     only buffers a single result (the current minimal element).
-        /// </remarks>
-        /// <typeparam name="TSource">Type of the source sequence</typeparam>
-        /// <typeparam name="TKey">Type of the projected element</typeparam>
-        /// <param name="source">Source sequence</param>
-        /// <param name="selector">Selector to use to pick the results to compare</param>
-        /// <returns>The minimal element, according to the projection.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="source" /> or <paramref name="selector" /> is null</exception>
-        /// <exception cref="InvalidOperationException"><paramref name="source" /> is empty</exception>
-        public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source,
-                                                   Func<TSource, TKey> selector)
-        {
-            return source.MinBy(selector, Comparer<TKey>.Default);
-        }
-
-        /// <summary>
-        ///     Returns the minimal element of the given sequence, based on
-        ///     the given projection and the specified comparer for projected values.
-        /// </summary>
-        /// <remarks>
-        ///     If more than one element has the minimal projected value, the first
-        ///     one encountered will be returned. This overload uses the default comparer
-        ///     for the projected type. This operator uses immediate execution, but
-        ///     only buffers a single result (the current minimal element).
-        /// </remarks>
-        /// <typeparam name="TSource">Type of the source sequence</typeparam>
-        /// <typeparam name="TKey">Type of the projected element</typeparam>
-        /// <param name="source">Source sequence</param>
-        /// <param name="selector">Selector to use to pick the results to compare</param>
-        /// <param name="comparer">Comparer to use to compare projected values</param>
-        /// <returns>The minimal element, according to the projection.</returns>
-        /// <exception cref="ArgumentNullException">
-        ///     <paramref name="source" />, <paramref name="selector" />
-        ///     or <paramref name="comparer" /> is null
-        /// </exception>
-        /// <exception cref="InvalidOperationException"><paramref name="source" /> is empty</exception>
-        public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source,
-                                                   Func<TSource, TKey> selector,
-                                                   IComparer<TKey> comparer)
-        {
-            if (source == null) throw new ArgumentNullException(nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
-            if (comparer == null) throw new ArgumentNullException(nameof(comparer));
-
-            using (var sourceIterator = source.GetEnumerator())
-            {
-                if (!sourceIterator.MoveNext()) throw new InvalidOperationException("Sequence was empty");
-                var min = sourceIterator.Current;
-                var minKey = selector(min);
-                while (sourceIterator.MoveNext())
-                {
-                    var candidate = sourceIterator.Current;
-                    var candidateProjected = selector(candidate);
-                    if (comparer.Compare(candidateProjected, minKey) < 0)
-                    {
-                        min = candidate;
-                        minKey = candidateProjected;
-                    }
-                }
-
-                return min;
-            }
-        }
-        #endif
-
-        /// <summary>
-        ///     Inserts item to list. If index less than 0 inserts as first item.
-        ///     If item bigger than actual collection size adds item to the tail.
+        /// Inserts item to list. If index less than 0 inserts as first item.
+        /// If item bigger than actual collection size adds item to the tail.
         /// </summary>
         /// <typeparam name="T">Item type</typeparam>
         /// <param name="collection">Source collection</param>
@@ -274,8 +198,8 @@ namespace PS.Extensions
         }
 
         /// <summary>
-        ///     Inserts item to list. If index less than 0 inserts as first item.
-        ///     If item bigger than actual collection size adds item to the tail.
+        /// Inserts item to list. If index less than 0 inserts as first item.
+        /// If item bigger than actual collection size adds item to the tail.
         /// </summary>
         /// <param name="collection">Source collection</param>
         /// <param name="index">Item position</param>
@@ -307,6 +231,78 @@ namespace PS.Extensions
             }
         }
 
-        #endregion
+        #if !NET60
+        /// <summary>
+        /// Returns the minimal element of the given sequence, based on
+        /// the given projection.
+        /// </summary>
+        /// <remarks>
+        /// If more than one element has the minimal projected value, the first
+        /// one encountered will be returned. This overload uses the default comparer
+        /// for the projected type. This operator uses immediate execution, but
+        /// only buffers a single result (the current minimal element).
+        /// </remarks>
+        /// <typeparam name="TSource">Type of the source sequence</typeparam>
+        /// <typeparam name="TKey">Type of the projected element</typeparam>
+        /// <param name="source">Source sequence</param>
+        /// <param name="selector">Selector to use to pick the results to compare</param>
+        /// <returns>The minimal element, according to the projection.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source" /> or <paramref name="selector" /> is null</exception>
+        /// <exception cref="InvalidOperationException"><paramref name="source" /> is empty</exception>
+        public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source,
+                                                   Func<TSource, TKey> selector)
+        {
+            return source.MinBy(selector, Comparer<TKey>.Default);
+        }
+
+        /// <summary>
+        /// Returns the minimal element of the given sequence, based on
+        /// the given projection and the specified comparer for projected values.
+        /// </summary>
+        /// <remarks>
+        /// If more than one element has the minimal projected value, the first
+        /// one encountered will be returned. This overload uses the default comparer
+        /// for the projected type. This operator uses immediate execution, but
+        /// only buffers a single result (the current minimal element).
+        /// </remarks>
+        /// <typeparam name="TSource">Type of the source sequence</typeparam>
+        /// <typeparam name="TKey">Type of the projected element</typeparam>
+        /// <param name="source">Source sequence</param>
+        /// <param name="selector">Selector to use to pick the results to compare</param>
+        /// <param name="comparer">Comparer to use to compare projected values</param>
+        /// <returns>The minimal element, according to the projection.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="source" />, <paramref name="selector" />
+        /// or <paramref name="comparer" /> is null
+        /// </exception>
+        /// <exception cref="InvalidOperationException"><paramref name="source" /> is empty</exception>
+        public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source,
+                                                   Func<TSource, TKey> selector,
+                                                   IComparer<TKey> comparer)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (comparer == null) throw new ArgumentNullException(nameof(comparer));
+
+            using (var sourceIterator = source.GetEnumerator())
+            {
+                if (!sourceIterator.MoveNext()) throw new InvalidOperationException("Sequence was empty");
+                var min = sourceIterator.Current;
+                var minKey = selector(min);
+                while (sourceIterator.MoveNext())
+                {
+                    var candidate = sourceIterator.Current;
+                    var candidateProjected = selector(candidate);
+                    if (comparer.Compare(candidateProjected, minKey) < 0)
+                    {
+                        min = candidate;
+                        minKey = candidateProjected;
+                    }
+                }
+
+                return min;
+            }
+        }
+        #endif
     }
 }

@@ -12,27 +12,17 @@ namespace PS
     {
         protected List<ValidationResult> CurrentValidationResults;
 
-        #region Constructors
-
         protected BaseNotifyDataErrorInfo()
         {
             CurrentValidationResults = new List<ValidationResult>();
             Validate();
         }
 
-        #endregion
-
-        #region Override members
-
         protected override void OnPropertyChanged(string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
             Validate();
         }
-
-        #endregion
-
-        #region INotifyDataErrorInfo Members
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
@@ -50,10 +40,6 @@ namespace PS
 
             return errorMessages;
         }
-
-        #endregion
-
-        #region Members
 
         protected virtual IEnumerable<ValidationResult> CustomValidation()
         {
@@ -83,7 +69,5 @@ namespace PS
                 OnErrorsChanged(new DataErrorsChangedEventArgs(validationChangedPropertyName));
             }
         }
-
-        #endregion
     }
 }

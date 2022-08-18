@@ -11,10 +11,8 @@ namespace PS.Extensions
     {
         public static class CollectionDuckingExtensions
         {
-            #region Static members
-
             /// <summary>
-            ///     Ducking Add item to collection.
+            /// Ducking Add item to collection.
             /// </summary>
             /// <param name="enumeration">Source object.</param>
             /// <param name="item">Item object.</param>
@@ -33,7 +31,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Ducking object check for collection Add ability.
+            /// Ducking object check for collection Add ability.
             /// </summary>
             /// <param name="enumeration">Source object.</param>
             /// <returns>True if able. False otherwise.</returns>
@@ -45,7 +43,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Ducking object check for collection Add ability.
+            /// Ducking object check for collection Add ability.
             /// </summary>
             /// <param name="enumerationType">Source object type.</param>
             /// <returns>True if able. False otherwise.</returns>
@@ -57,7 +55,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Ducking object check for collection Clear ability.
+            /// Ducking object check for collection Clear ability.
             /// </summary>
             /// <param name="enumerationType">Source object type.</param>
             /// <returns>True if able. False otherwise.</returns>
@@ -69,7 +67,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Ducking object check for collection Clear ability.
+            /// Ducking object check for collection Clear ability.
             /// </summary>
             /// <param name="enumeration">Source object.</param>
             /// <returns>True if able. False otherwise.</returns>
@@ -81,7 +79,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Ducking object check for collection Insert ability.
+            /// Ducking object check for collection Insert ability.
             /// </summary>
             /// <param name="enumerationType">Source object type.</param>
             /// <returns>True if able. False otherwise.</returns>
@@ -93,7 +91,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Ducking object check for collection Insert ability.
+            /// Ducking object check for collection Insert ability.
             /// </summary>
             /// <param name="enumeration">Source object.</param>
             /// <returns>True if able. False otherwise.</returns>
@@ -105,7 +103,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Ducking object check for collection Remove ability.
+            /// Ducking object check for collection Remove ability.
             /// </summary>
             /// <param name="enumerationType">Source object type.</param>
             /// <returns>True if able. False otherwise.</returns>
@@ -117,7 +115,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Ducking object check for collection Remove ability.
+            /// Ducking object check for collection Remove ability.
             /// </summary>
             /// <param name="enumeration">Source object.</param>
             /// <returns>True if able. False otherwise.</returns>
@@ -129,7 +127,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Ducking object check for collection RemoveAt ability.
+            /// Ducking object check for collection RemoveAt ability.
             /// </summary>
             /// <param name="enumerationType">Source object type.</param>
             /// <returns>True if able. False otherwise.</returns>
@@ -141,7 +139,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Ducking object check for collection RemoveAt ability.
+            /// Ducking object check for collection RemoveAt ability.
             /// </summary>
             /// <param name="enumeration">Source object.</param>
             /// <returns>True if able. False otherwise.</returns>
@@ -153,7 +151,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Ducking object check for collection Replace ability.
+            /// Ducking object check for collection Replace ability.
             /// </summary>
             /// <param name="enumeration">Source object.</param>
             /// <returns>True if able. False otherwise.</returns>
@@ -166,7 +164,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Ducking object check for collection Replace ability.
+            /// Ducking object check for collection Replace ability.
             /// </summary>
             /// <param name="enumerationType">Source object.</param>
             /// <returns>True if able. False otherwise.</returns>
@@ -181,7 +179,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Ducking Clear collection.
+            /// Ducking Clear collection.
             /// </summary>
             /// <param name="enumeration">Source object.</param>
             /// <returns>True if cleared. False otherwise.</returns>
@@ -199,7 +197,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Ducking get by index item method.
+            /// Ducking get by index item method.
             /// </summary>
             /// <param name="enumeration">Source object.</param>
             /// <param name="index">Item position.</param>
@@ -218,7 +216,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Ducking get index for item method.
+            /// Ducking get index for item method.
             /// </summary>
             /// <param name="enumeration">Source object.</param>
             /// <param name="value">Item object.</param>
@@ -235,7 +233,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Returns item index in collection using item's Runtime hash code.
+            /// Returns item index in collection using item's Runtime hash code.
             /// </summary>
             /// <param name="sourceEnumeration">Source <c>object</c>.</param>
             /// <param name="value">Item <c>object</c>.</param>
@@ -257,7 +255,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Ducking Insert item into collection.
+            /// Ducking Insert item into collection.
             /// </summary>
             /// <param name="enumeration">Source object.</param>
             /// <param name="index">Item index.</param>
@@ -277,7 +275,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Ducking object check for collection IsFixedSize
+            /// Ducking object check for collection IsFixedSize
             /// </summary>
             /// <param name="enumeration">Source object.</param>
             /// <returns>Value of IsFixedSize property if found. False otherwise.</returns>
@@ -300,7 +298,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Ducking object check for collection IsReadOnly
+            /// Ducking object check for collection IsReadOnly
             /// </summary>
             /// <param name="enumeration">Source object.</param>
             /// <returns>Value of IsReadOnly property if found. True otherwise.</returns>
@@ -327,7 +325,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Ducking Remove item from collection.
+            /// Ducking Remove item from collection.
             /// </summary>
             /// <param name="enumeration">Source object.</param>
             /// <param name="item">Item object.</param>
@@ -346,7 +344,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Ducking RemoveAt item by index from collection.
+            /// Ducking RemoveAt item by index from collection.
             /// </summary>
             /// <param name="enumeration">Source object.</param>
             /// <param name="index">Item index.</param>
@@ -360,7 +358,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Ducking Replace item in collection.
+            /// Ducking Replace item in collection.
             /// </summary>
             /// <param name="enumeration">Source object.</param>
             /// <param name="index">Replace item position.</param>
@@ -379,7 +377,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Gets array of base collection interfaces.
+            /// Gets array of base collection interfaces.
             /// </summary>
             /// <param name="enumeration">Source object.</param>
             /// <returns>Array of base collection interfaces.</returns>
@@ -391,7 +389,7 @@ namespace PS.Extensions
             }
 
             /// <summary>
-            ///     Gets array of base collection interfaces.
+            /// Gets array of base collection interfaces.
             /// </summary>
             /// <param name="enumerationType">Source object type.</param>
             /// <returns>Array of base collection interfaces.</returns>
@@ -450,8 +448,6 @@ namespace PS.Extensions
                                             .ToArray();
                 return methodInfos;
             }
-
-            #endregion
         }
     }
 }

@@ -11,25 +11,15 @@ namespace PS.Shell.Module.Controls.Views
     [DependencyRegisterAsInterface(typeof(IView<ButtonsViewModel>))]
     public partial class ButtonsView : IView<ButtonsViewModel>
     {
-        #region Constructors
-
         public ButtonsView()
         {
             InitializeComponent();
         }
 
-        #endregion
-
-        #region IView<ButtonsViewModel> Members
-
         public ButtonsViewModel ViewModel
         {
             get { return DataContext as ButtonsViewModel; }
         }
-
-        #endregion
-
-        #region Event handlers
 
         private void Button_OnClick(object sender, RoutedEventArgs e)
         {
@@ -61,7 +51,5 @@ namespace PS.Shell.Module.Controls.Views
         {
             ViewModel.Logger.Info("Toggle Button Button unchecked event");
         }
-
-        #endregion
     }
 }

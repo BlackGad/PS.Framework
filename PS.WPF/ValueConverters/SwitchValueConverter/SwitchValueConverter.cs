@@ -12,28 +12,19 @@ namespace PS.WPF.ValueConverters.SwitchValueConverter
     [ContentProperty(nameof(ConvertCases))]
     public class SwitchValueConverter : IValueConverter
     {
-        #region Constructors
-
         public SwitchValueConverter()
         {
             ConvertBackCases = new ObservableCollection<SwitchCase>();
             ConvertCases = new ObservableCollection<SwitchCase>();
         }
 
-        #endregion
-
-        #region Properties
-
         public ObservableCollection<SwitchCase> ConvertBackCases { get; set; }
+
         public object ConvertBackDefault { get; set; }
 
         public ObservableCollection<SwitchCase> ConvertCases { get; set; }
 
         public object ConvertDefault { get; set; }
-
-        #endregion
-
-        #region IValueConverter Members
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -58,7 +49,5 @@ namespace PS.WPF.ValueConverters.SwitchValueConverter
 
             return ConvertBackDefault;
         }
-
-        #endregion
     }
 }

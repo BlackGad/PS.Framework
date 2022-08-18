@@ -15,8 +15,6 @@ namespace PS.WPF.Controls.BusyContainer
         private readonly Stack<IBusyState> _stack;
         private readonly HashSet<IBusyState> _states;
 
-        #region Constructors
-
         public StackBusyState()
         {
             _locker = new object();
@@ -24,28 +22,13 @@ namespace PS.WPF.Controls.BusyContainer
             _states = new HashSet<IBusyState>();
         }
 
-        #endregion
-
-        #region Properties
-
         public bool IsBusy { get; private set; }
+
         public SynchronizationContext SynchronizationContext { get; set; }
-
-        #endregion
-
-        #region IDescriptionAware Members
 
         public string Description { get; private set; }
 
-        #endregion
-
-        #region ITitleAware Members
-
         public string Title { get; private set; }
-
-        #endregion
-
-        #region Members
 
         public IBusyState Push(string title = null, string description = null)
         {
@@ -153,8 +136,6 @@ namespace PS.WPF.Controls.BusyContainer
             }
         }
 
-        #endregion
-
         #region Nested type: InternalBusyState
 
         class InternalBusyState : BaseNotifyPropertyChanged,
@@ -167,8 +148,6 @@ namespace PS.WPF.Controls.BusyContainer
             private string _description;
             private string _title;
 
-            #region Constructors
-
             public InternalBusyState(Action<InternalBusyState, string> titleChanged,
                                      Action<InternalBusyState, string> descriptionChanged,
                                      Action<InternalBusyState> disposed)
@@ -177,10 +156,6 @@ namespace PS.WPF.Controls.BusyContainer
                 _descriptionChanged = descriptionChanged ?? throw new ArgumentNullException(nameof(descriptionChanged));
                 _disposed = disposed ?? throw new ArgumentNullException(nameof(disposed));
             }
-
-            #endregion
-
-            #region IBusyState Members
 
             public void Dispose()
             {
@@ -210,8 +185,6 @@ namespace PS.WPF.Controls.BusyContainer
                     }
                 }
             }
-
-            #endregion
         }
 
         #endregion

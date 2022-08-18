@@ -6,8 +6,6 @@ namespace PS.WPF.Markup
 {
     public static class PasswordAttachedProperties
     {
-        #region Property definitions
-
         public static readonly DependencyProperty BindingProperty =
             DependencyProperty.RegisterAttached("Binding",
                                                 typeof(string),
@@ -21,10 +19,6 @@ namespace PS.WPF.Markup
                                                 typeof(RoutedEventHandler),
                                                 typeof(PasswordAttachedProperties),
                                                 new PropertyMetadata(default(RoutedEventHandler)));
-
-        #endregion
-
-        #region Static members
 
         public static string GetBinding(DependencyObject dp)
         {
@@ -63,15 +57,9 @@ namespace PS.WPF.Markup
             }
         }
 
-        #endregion
-
-        #region Constructors
-
         static PasswordAttachedProperties()
         {
             SelectMethod = typeof(PasswordBox).GetMethod("Select", BindingFlags.Instance | BindingFlags.NonPublic);
         }
-
-        #endregion
     }
 }

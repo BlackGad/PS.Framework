@@ -16,13 +16,7 @@ namespace PS.ComponentModel.DeepTracker
     public class DeepTracker : IDisposable,
                                IFluentActivationAware<DeepTracker>
     {
-        #region Constants
-
         public static readonly object NotValidValue = new object();
-
-        #endregion
-
-        #region Static members
 
         public static ITrackRouteConfiguration Setup(object source, params object[] routeParts)
         {
@@ -34,8 +28,6 @@ namespace PS.ComponentModel.DeepTracker
             return new TrackRouteConfiguration(source, route);
         }
 
-        #endregion
-
         private readonly Registry<WeakReference> _attachmentObjectRegistry;
         private readonly Registry<Tuple<WeakReference, object[]>> _collectionChangedRegistry;
         private readonly DynamicSubscription<INotifyCollectionChanged, NotifyCollectionChangedEventHandler> _collectionChangedSubscriptions;
@@ -44,8 +36,6 @@ namespace PS.ComponentModel.DeepTracker
         private readonly Registry<Tuple<PropertyReference, object>> _propertyChangedRegistry;
         private readonly DynamicSubscription<PropertyReference, EventHandler> _propertyChangedSubscriptions;
         private readonly WeakReference _sourceReference;
-
-        #region Constructors
 
         internal DeepTracker(TrackRouteConfiguration configuration, object source)
         {
@@ -65,18 +55,10 @@ namespace PS.ComponentModel.DeepTracker
                 (changed, handler) => changed.CollectionChanged -= handler);
         }
 
-        #endregion
-
-        #region IDisposable Members
-
         public void Dispose()
         {
             Deactivate();
         }
-
-        #endregion
-
-        #region IFluentActivationAware<DeepTracker> Members
 
         public DeepTracker Activate()
         {
@@ -120,10 +102,6 @@ namespace PS.ComponentModel.DeepTracker
         }
 
         public bool IsActive { get; private set; }
-
-        #endregion
-
-        #region Members
 
         public object GetObject(Route route)
         {
@@ -390,8 +368,6 @@ namespace PS.ComponentModel.DeepTracker
             }
         }
 
-        #endregion
-
         #region Nested type: Registry
 
         private class Registry<TPayload>
@@ -399,17 +375,11 @@ namespace PS.ComponentModel.DeepTracker
             private readonly Dictionary<int, HashSet<int>> _hierarchy;
             private readonly Dictionary<int, KeyValuePair<Route, TPayload>> _registry;
 
-            #region Constructors
-
             public Registry()
             {
                 _registry = new Dictionary<int, KeyValuePair<Route, TPayload>>();
                 _hierarchy = new Dictionary<int, HashSet<int>>();
             }
-
-            #endregion
-
-            #region Members
 
             public void Add(Route route, TPayload payload)
             {
@@ -462,7 +432,7 @@ namespace PS.ComponentModel.DeepTracker
             {
                 if (route == null)
                 {
-                    payload = default(TPayload);
+                    payload = default;
                     return false;
                 }
 
@@ -473,7 +443,7 @@ namespace PS.ComponentModel.DeepTracker
                     return true;
                 }
 
-                payload = default(TPayload);
+                payload = default;
                 return false;
             }
 
@@ -494,8 +464,6 @@ namespace PS.ComponentModel.DeepTracker
 
                 return result;
             }
-
-            #endregion
         }
 
         #endregion

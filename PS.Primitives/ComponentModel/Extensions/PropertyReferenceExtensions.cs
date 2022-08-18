@@ -9,13 +9,7 @@ namespace PS.ComponentModel.Extensions
 {
     public static class PropertyReferenceExtensions
     {
-        #region Constants
-
         private static readonly ObjectsStorage<Type, IReadOnlyList<PropertyDescriptor>> CachedTypeProperties;
-
-        #endregion
-
-        #region Static members
 
         public static IReadOnlyList<PropertyDescriptor> GetPropertyDescriptors(this Type type)
         {
@@ -31,10 +25,6 @@ namespace PS.ComponentModel.Extensions
             return type.GetPropertyDescriptors().Select(p => new PropertyReference(source, p)).ToList();
         }
 
-        #endregion
-
-        #region Constructors
-
         static PropertyReferenceExtensions()
         {
             CachedTypeProperties = new ObjectsStorage<Type, IReadOnlyList<PropertyDescriptor>>(type =>
@@ -49,7 +39,5 @@ namespace PS.ComponentModel.Extensions
                 }
             });
         }
-
-        #endregion
     }
 }

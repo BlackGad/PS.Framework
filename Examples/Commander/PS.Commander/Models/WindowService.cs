@@ -14,18 +14,12 @@ namespace PS.Commander.Models
         private readonly ILifetimeScope _scope;
         private readonly IViewResolverService _viewResolverService;
 
-        #region Constructors
-
         public WindowService(IViewResolverService viewResolverService,
                              ILifetimeScope scope)
         {
             _viewResolverService = viewResolverService;
             _scope = scope;
         }
-
-        #endregion
-
-        #region Override members
 
         protected override Window CreateWindow()
         {
@@ -44,7 +38,5 @@ namespace PS.Commander.Models
         {
             return _scope.Resolve(type);
         }
-
-        #endregion
     }
 }

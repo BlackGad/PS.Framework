@@ -3,7 +3,7 @@
 namespace PS.Windows.Interop
 {
     /// <summary>
-    ///     https://docs.microsoft.com/en-us/windows/win32/api/shobjidl_core/ne-shobjidl_core-sigdn
+    /// https://docs.microsoft.com/en-us/windows/win32/api/shobjidl_core/ne-shobjidl_core-sigdn
     /// </summary>
     public enum SIGDN : uint
     {

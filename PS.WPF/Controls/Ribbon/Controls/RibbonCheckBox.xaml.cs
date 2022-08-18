@@ -9,15 +9,11 @@ namespace PS.WPF.Controls.Ribbon.Controls
 {
     public class RibbonCheckBox : System.Windows.Controls.Ribbon.RibbonCheckBox
     {
-        #region Constructors
-
         static RibbonCheckBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonCheckBox), new FrameworkPropertyMetadata(typeof(RibbonCheckBox)));
             ResourceHelper.SetDefaultStyle(typeof(RibbonCheckBox), Resource.ControlStyle);
         }
-
-        #endregion
 
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
@@ -33,8 +29,6 @@ namespace PS.WPF.Controls.Ribbon.Controls
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/Ribbon/Controls/RibbonCheckBox.xaml", UriKind.RelativeOrAbsolute);
 
@@ -45,8 +39,6 @@ namespace PS.WPF.Controls.Ribbon.Controls
             public static readonly ResourceDescriptor ControlTemplate =
                 ResourceDescriptor.Create<ControlTemplate>(description: "Default RibbonCheckBox control template",
                                                            resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

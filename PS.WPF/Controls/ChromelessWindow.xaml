@@ -14,7 +14,8 @@
         <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/IconicButton.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <switchValueConverter:SwitchValueConverter x:Key="CommandsVisibilityConverter" ConvertDefault="{m:Visibility Visible}">
+    <switchValueConverter:SwitchValueConverter x:Key="CommandsVisibilityConverter"
+                                               ConvertDefault="{m:Visibility Visible}">
         <cases:EqualTo Result="{m:Visibility Collapsed}" Value="{m:Int32 0}" />
     </switchValueConverter:SwitchValueConverter>
 
@@ -33,7 +34,9 @@
     <Geometry x:Key="{x:Static controls:ChromelessWindow+Resource.ButtonMinimizeGeometry}">M0,8 H14</Geometry>
     <Geometry x:Key="{x:Static controls:ChromelessWindow+Resource.ButtonRestoreGeometry}">M0,14 V2 H12 V14 Z M2,2 V0 H14 V12 H12</Geometry>
 
-    <Style x:Key="{x:Static controls:ChromelessWindow+Resource.CommandButtonStyle}" BasedOn="{StaticResource {x:Static controls:IconicButton+Resource.ControlStyle}}" TargetType="controls:IconicButton">
+    <Style x:Key="{x:Static controls:ChromelessWindow+Resource.CommandButtonStyle}"
+           BasedOn="{StaticResource {x:Static controls:IconicButton+Resource.ControlStyle}}"
+           TargetType="controls:IconicButton">
         <Setter Property="Background" Value="{theme:Brush MainBorder}" />
         <Setter Property="BorderBrush" Value="{theme:Brush Main}" />
         <Setter Property="BorderThickness" Value="1" />
@@ -88,33 +91,45 @@
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
     </Style>
 
-    <Style x:Key="{x:Static controls:ChromelessWindow+Resource.CommandMaximizeRestoreButtonStyle}" BasedOn="{StaticResource {x:Static controls:ChromelessWindow+Resource.CommandButtonStyle}}" TargetType="controls:IconicButton">
-        <Setter Property="Geometry" Value="{StaticResource {x:Static controls:ChromelessWindow+Resource.ButtonMaximizeGeometry}}" />
+    <Style x:Key="{x:Static controls:ChromelessWindow+Resource.CommandMaximizeRestoreButtonStyle}"
+           BasedOn="{StaticResource {x:Static controls:ChromelessWindow+Resource.CommandButtonStyle}}"
+           TargetType="controls:IconicButton">
+        <Setter Property="Geometry"
+                Value="{StaticResource {x:Static controls:ChromelessWindow+Resource.ButtonMaximizeGeometry}}" />
         <Style.Triggers>
             <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=WindowState}">
                 <DataTrigger.Value>
                     <WindowState>Maximized</WindowState>
                 </DataTrigger.Value>
-                <Setter Property="Geometry" Value="{StaticResource {x:Static controls:ChromelessWindow+Resource.ButtonRestoreGeometry}}" />
+                <Setter Property="Geometry"
+                        Value="{StaticResource {x:Static controls:ChromelessWindow+Resource.ButtonRestoreGeometry}}" />
             </DataTrigger>
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="{x:Static controls:ChromelessWindow+Resource.CommandMinimizeButtonStyle}" BasedOn="{StaticResource {x:Static controls:ChromelessWindow+Resource.CommandButtonStyle}}" TargetType="controls:IconicButton">
-        <Setter Property="Geometry" Value="{StaticResource {x:Static controls:ChromelessWindow+Resource.ButtonMinimizeGeometry}}" />
+    <Style x:Key="{x:Static controls:ChromelessWindow+Resource.CommandMinimizeButtonStyle}"
+           BasedOn="{StaticResource {x:Static controls:ChromelessWindow+Resource.CommandButtonStyle}}"
+           TargetType="controls:IconicButton">
+        <Setter Property="Geometry"
+                Value="{StaticResource {x:Static controls:ChromelessWindow+Resource.ButtonMinimizeGeometry}}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
     </Style>
 
-    <Style x:Key="{x:Static controls:ChromelessWindow+Resource.CommandCloseButtonStyle}" BasedOn="{StaticResource {x:Static controls:ChromelessWindow+Resource.CommandButtonStyle}}" TargetType="controls:IconicButton">
+    <Style x:Key="{x:Static controls:ChromelessWindow+Resource.CommandCloseButtonStyle}"
+           BasedOn="{StaticResource {x:Static controls:ChromelessWindow+Resource.CommandButtonStyle}}"
+           TargetType="controls:IconicButton">
         <Setter Property="Background" Value="{theme:Brush Failure}" />
-        <Setter Property="Geometry" Value="{StaticResource {x:Static controls:ChromelessWindow+Resource.ButtonCloseGeometry}}" />
+        <Setter Property="Geometry"
+                Value="{StaticResource {x:Static controls:ChromelessWindow+Resource.ButtonCloseGeometry}}" />
     </Style>
 
-    <ControlTemplate x:Key="{x:Static controls:ChromelessWindow+Resource.ControlTemplate}" TargetType="controls:ChromelessWindow">
+    <ControlTemplate x:Key="{x:Static controls:ChromelessWindow+Resource.ControlTemplate}"
+                     TargetType="controls:ChromelessWindow">
         <Border Background="{TemplateBinding Background}" UseLayoutRounding="True">
             <Grid x:Name="PART_WindowContent">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="{Binding Source={x:Static components:SystemParameters.WindowCaptionHeightWithResizeFrame}, Converter={x:Static valueConverters:NumericConverters.ToGridLength}}" />
+                    <RowDefinition
+                        Height="{Binding Source={x:Static components:SystemParameters.WindowCaptionHeightWithResizeFrame}, Converter={x:Static valueConverters:NumericConverters.ToGridLength}}" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
@@ -194,7 +209,8 @@
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="WindowState" Value="Maximized">
-                <Setter TargetName="PART_WindowContent" Property="Margin" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=MaximizedContentMargin}" />
+                <Setter TargetName="PART_WindowContent" Property="Margin"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=MaximizedContentMargin}" />
             </Trigger>
 
             <Trigger Property="IsResizable" Value="False">
@@ -213,11 +229,13 @@
     <Style x:Key="{x:Static controls:ChromelessWindow+Resource.ControlStyle}" TargetType="controls:ChromelessWindow">
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="CommandButtonsHorizontalAlignment" Value="Center" />
-        <Setter Property="HeaderTemplate" Value="{StaticResource {x:Static controls:ChromelessWindow+Resource.HeaderTemplate}}" />
+        <Setter Property="HeaderTemplate"
+                Value="{StaticResource {x:Static controls:ChromelessWindow+Resource.HeaderTemplate}}" />
         <Setter Property="MinHeight" Value="28" />
         <Setter Property="MinWidth" Value="100" />
         <Setter Property="Padding" Value="5" />
-        <Setter Property="Template" Value="{StaticResource {x:Static controls:ChromelessWindow+Resource.ControlTemplate}}" />
+        <Setter Property="Template"
+                Value="{StaticResource {x:Static controls:ChromelessWindow+Resource.ControlTemplate}}" />
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="WindowIconVisibility" Value="Collapsed" />
         <Style.Triggers>

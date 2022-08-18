@@ -5,8 +5,6 @@ namespace PS.Windows.Interop.Extensions
 {
     public static class ProcessExtensions
     {
-        #region Static members
-
         public static void BringMainWindowToFront(this Process process)
         {
             if (process == null) return;
@@ -17,7 +15,5 @@ namespace PS.Windows.Interop.Extensions
             // bring it to the foreground
             User32.SetForegroundWindow(windowRef);
         }
-
-        #endregion
     }
 }

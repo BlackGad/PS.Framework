@@ -8,17 +8,11 @@ namespace PS.WPF.Controls.Ribbon.Primitives
 {
     public class RibbonContextualTabGroupsPanel : System.Windows.Controls.Ribbon.Primitives.RibbonContextualTabGroupsPanel
     {
-        #region Property definitions
-
         public static readonly DependencyProperty DesiredExtraPaddingProperty =
             DependencyProperty.RegisterAttached("DesiredExtraPadding",
                                                 typeof(double),
                                                 typeof(RibbonContextualTabGroupsPanel),
                                                 new PropertyMetadata(default(double)));
-
-        #endregion
-
-        #region Static members
 
         public static double GetDesiredExtraPadding(DependencyObject element)
         {
@@ -29,10 +23,6 @@ namespace PS.WPF.Controls.Ribbon.Primitives
         {
             element.SetValue(DesiredExtraPaddingProperty, value);
         }
-
-        #endregion
-
-        #region Override members
 
         /// <summary>
         /// To fix infinity measure loop we must override MeasureOverride
@@ -139,7 +129,5 @@ namespace PS.WPF.Controls.Ribbon.Primitives
             var renderSize = RenderSize;
             drawingContext.DrawRectangle(background, null, new Rect(0.0, 0.0, renderSize.Width, renderSize.Height));
         }
-
-        #endregion
     }
 }

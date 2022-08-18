@@ -9,23 +9,15 @@ namespace PS.Commander.Views
     [DependencyRegisterAsInterface(typeof(IView<ShellViewModel>))]
     public partial class ShellView : IView<ShellViewModel>
     {
-        #region Constructors
-
         public ShellView()
         {
             InitializeComponent();
         }
 
-        #endregion
-
-        #region IView<ShellViewModel> Members
-
         public ShellViewModel ViewModel
         {
             get { return DataContext as ShellViewModel; }
         }
-
-        #endregion
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {

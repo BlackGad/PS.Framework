@@ -7,8 +7,6 @@ namespace PS.WPF.ValueConverters
 {
     public static class BooleanConverters
     {
-        #region Constants
-
         public const string Maybe = nameof(Maybe);
         public const string No = nameof(No);
         public const string Yes = nameof(Yes);
@@ -22,10 +20,6 @@ namespace PS.WPF.ValueConverters
         public static readonly RelayValueConverter ToVisibilityInverted;
 
         public static readonly RelayValueConverter ToYesNo;
-
-        #endregion
-
-        #region Constructors
 
         static BooleanConverters()
         {
@@ -128,7 +122,5 @@ namespace PS.WPF.ValueConverters
             MultiAnd = new RelayMultiValueConverter((values, type, parameter, culture) => values.Enumerate<bool>().All(value => value));
             MultiOr = new RelayMultiValueConverter((values, type, parameter, culture) => values.Enumerate<bool>().Any(value => value));
         }
-
-        #endregion
     }
 }

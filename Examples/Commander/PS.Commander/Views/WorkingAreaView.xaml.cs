@@ -14,8 +14,6 @@ namespace PS.Commander.Views
     [DependencyRegisterAsInterface(typeof(IView<WorkingAreaViewModel>))]
     public partial class WorkingAreaView : IView<WorkingAreaViewModel>
     {
-        #region Static members
-
         private static ExplorerViewModel ExtractFilesViewModel(TabItem tabItem)
         {
             if (tabItem.DataContext is ExplorerViewModel filesViewModel)
@@ -26,13 +24,9 @@ namespace PS.Commander.Views
             return null;
         }
 
-        #endregion
-
         private readonly ExplorerService _explorerService;
 
         private Point? _dragStartPoint;
-
-        #region Constructors
 
         public WorkingAreaView(ExplorerService explorerService)
         {
@@ -40,18 +34,10 @@ namespace PS.Commander.Views
             InitializeComponent();
         }
 
-        #endregion
-
-        #region IView<WorkingAreaViewModel> Members
-
         public WorkingAreaViewModel ViewModel
         {
             get { return DataContext as WorkingAreaViewModel; }
         }
-
-        #endregion
-
-        #region Event handlers
 
         private void TabItem_Drop(object sender, DragEventArgs e)
         {
@@ -89,10 +75,6 @@ namespace PS.Commander.Views
             }
         }
 
-        #endregion
-
-        #region Members
-
         private void MoveExplorerViewModel(ExplorerViewModel source, bool beforeTarget, ExplorerViewModel target)
         {
             if (source.AreEqual(target)) return;
@@ -115,7 +97,5 @@ namespace PS.Commander.Views
             //Insert source item before or after target
             _explorerService.ExplorerViewModels.SafeInsert(targetFlatIndex, source);
         }
-
-        #endregion
     }
 }

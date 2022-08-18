@@ -8,22 +8,14 @@ namespace PS.Shell.Module.NativeControls.Views
     [DependencyRegisterAsInterface(typeof(IView<ButtonViewModel>))]
     public partial class ButtonView : IView<ButtonViewModel>
     {
-        #region Constructors
-
         public ButtonView()
         {
             InitializeComponent();
         }
 
-        #endregion
-
-        #region IView<ButtonViewModel> Members
-
         public ButtonViewModel ViewModel
         {
             get { return DataContext as ButtonViewModel; }
         }
-
-        #endregion
     }
 }

@@ -11,8 +11,6 @@ namespace PS.Commander.ViewModels
                                   ITitleAware,
                                   IViewModel
     {
-        #region Constructors
-
         public ShellViewModel(ILifetimeScope scope)
         {
             if (scope == null) throw new ArgumentNullException(nameof(scope));
@@ -23,19 +21,10 @@ namespace PS.Commander.ViewModels
             Right = scope.Resolve<WorkingAreaViewModel>(TypedParameter.From(nameof(Right)));
         }
 
-        #endregion
-
-        #region Properties
-
         public WorkingAreaViewModel Left { get; }
+
         public WorkingAreaViewModel Right { get; }
 
-        #endregion
-
-        #region ITitleAware Members
-
         public string Title { get; }
-
-        #endregion
     }
 }

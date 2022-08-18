@@ -7,8 +7,6 @@ namespace PS.ComponentModel.DeepTracker.Filters
 {
     public class ExcludeByAttribute : IExcludeTrackRoute
     {
-        #region IExcludeTrackRoute Members
-
         public bool Exclude(PropertyReference propertyReference, Lazy<object> value, Route route)
         {
             if (propertyReference.TryGetDescriptor(out var descriptor))
@@ -19,7 +17,5 @@ namespace PS.ComponentModel.DeepTracker.Filters
 
             return false;
         }
-
-        #endregion
     }
 }

@@ -7,8 +7,6 @@ namespace PS.WPF.Controls.Native
 {
     public static class ComboBox
     {
-        #region Constants
-
         public static readonly Uri DictionaryLocation = new Uri("/PS.WPF;component/Controls/Native/ComboBox.xaml", UriKind.RelativeOrAbsolute);
 
         public static readonly ResourceDescriptor ComboBoxItemStyle =
@@ -26,7 +24,5 @@ namespace PS.WPF.Controls.Native
         public static readonly ResourceDescriptor ComboBoxTemplate =
             ResourceDescriptor.Create<ControlTemplate>(description: "ComboBox template",
                                                        resourceDictionary: DictionaryLocation);
-
-        #endregion
     }
 }

@@ -4,15 +4,9 @@ namespace PS.ComponentModel.Navigation
 {
     public class RouteFormatting : IFormatProvider
     {
-        #region Constants
-
         public const string EscapeSymbol = "@";
 
         public static readonly RouteFormatting Default = new RouteFormatting();
-
-        #endregion
-
-        #region Constructors
 
         public RouteFormatting()
         {
@@ -25,21 +19,11 @@ namespace PS.ComponentModel.Navigation
             Separator = separator;
         }
 
-        #endregion
-
-        #region Properties
-
         public string Separator { get; set; }
-
-        #endregion
-
-        #region IFormatProvider Members
 
         object IFormatProvider.GetFormat(Type formatType)
         {
             return formatType == typeof(Route);
         }
-
-        #endregion
     }
 }

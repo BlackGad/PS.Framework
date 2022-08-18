@@ -8,8 +8,6 @@ namespace PS.Shell.Infrastructure.Components
 {
     public class PageControl : Control
     {
-        #region Property definitions
-
         public static readonly DependencyProperty EditorProperty =
             DependencyProperty.Register(nameof(Editor),
                                         typeof(object),
@@ -22,10 +20,6 @@ namespace PS.Shell.Infrastructure.Components
                                         typeof(PageControl),
                                         new FrameworkPropertyMetadata(default(object)));
 
-        #endregion
-
-        #region Constructors
-
         static PageControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(PageControl), new FrameworkPropertyMetadata(typeof(PageControl)));
@@ -36,10 +30,6 @@ namespace PS.Shell.Infrastructure.Components
         {
             HeaderedContent.SetHeaderColumnWidth(this, 150);
         }
-
-        #endregion
-
-        #region Properties
 
         public object Editor
         {
@@ -53,19 +43,13 @@ namespace PS.Shell.Infrastructure.Components
             set { SetValue(PropertiesProperty, value); }
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default = new Uri("/PS.Shell.Infrastructure;component/Components/PageControl.xaml", UriKind.RelativeOrAbsolute);
             public static readonly ResourceDescriptor ControlStyle = ResourceDescriptor.Create<Style>(Default);
             public static readonly ResourceDescriptor ControlTemplate = ResourceDescriptor.Create<ControlTemplate>(Default);
-
-            #endregion
         }
 
         #endregion

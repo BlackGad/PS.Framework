@@ -2,11 +2,8 @@
 {
     public interface IPagedDataAware
     {
-        #region Properties
-
         int? Skip { get; }
-        int? Take { get; }
 
-        #endregion
+        int? Take { get; }
     }
 }

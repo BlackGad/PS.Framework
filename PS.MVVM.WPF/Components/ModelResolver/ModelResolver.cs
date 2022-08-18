@@ -9,148 +9,117 @@ using System.Xaml;
 using PS.Extensions;
 using PS.MVVM.Services;
 
-namespace PS.MVVM.Components.ModelResolver
+namespace PS.MVVM.Components.ModelResolver;
+
+public abstract class ModelResolver : BaseResolver<IModelResolverService>,
+                                      INotifyPropertyChanged
 {
-    public abstract class ModelResolver : BaseResolver<IModelResolverService>,
-                                          INotifyPropertyChanged
+    public static readonly DependencyProperty ServiceProperty =
+        DependencyProperty.RegisterAttached("Service",
+                                            typeof(IModelResolverService),
+                                            typeof(ModelResolver),
+                                            new PropertyMetadata(default(IModelResolverService)));
+
+    private static readonly MethodInfo CreateBindingExpressionMethod;
+
+    public static IModelResolverService GetService(DependencyObject element)
     {
-        #region Property definitions
+        return (IModelResolverService)element.GetValue(ServiceProperty);
+    }
 
-        public static readonly DependencyProperty ServiceProperty =
-            DependencyProperty.RegisterAttached("Service",
-                                                typeof(IModelResolverService),
-                                                typeof(ModelResolver),
-                                                new PropertyMetadata(default(IModelResolverService)));
+    public static void SetService(DependencyObject element, IModelResolverService value)
+    {
+        element.SetValue(ServiceProperty, value);
+    }
 
-        #endregion
+    private object _model;
 
-        #region Constants
+    static ModelResolver()
+    {
+        CreateBindingExpressionMethod = typeof(BindingExpression).GetMethod("CreateBindingExpression", BindingFlags.NonPublic | BindingFlags.Static);
+    }
 
-        private static readonly MethodInfo CreateBindingExpressionMethod;
+    public IValueConverter Converter { get; set; }
 
-        #endregion
+    public object ConverterParameter { get; set; }
 
-        #region Static members
-
-        public static IModelResolverService GetService(DependencyObject element)
+    public object Model
+    {
+        get { return _model; }
+        set
         {
-            return (IModelResolverService)element.GetValue(ServiceProperty);
+            if (_model.AreEqual(value)) return;
+            _model = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public object Region { get; set; }
+
+    public sealed override object ProvideValue(IServiceProvider serviceProvider)
+    {
+        var rootObjectProvider = (IRootObjectProvider)serviceProvider.GetService(typeof(IRootObjectProvider));
+        var provideValueTarget = (IProvideValueTarget)serviceProvider.GetService(typeof(IProvideValueTarget));
+
+        var targetObject = provideValueTarget.TargetObject;
+        var targetProperty = provideValueTarget.TargetProperty;
+
+        var rootFrameworkElement = rootObjectProvider.RootObject as FrameworkElement;
+        if (rootFrameworkElement == null) return null;
+
+        var connectWithBinding = targetObject is DependencyObject && targetProperty is DependencyProperty;
+        if (!connectWithBinding && !(targetProperty is PropertyInfo))
+        {
+            throw new NotSupportedException("Target property must be PropertyInfo or DependencyProperty");
         }
 
-        public static void SetService(DependencyObject element, IModelResolverService value)
+        void ElementOnLoaded(object sender, RoutedEventArgs args)
         {
-            element.SetValue(ServiceProperty, value);
-        }
+            rootFrameworkElement.Loaded -= ElementOnLoaded;
 
-        #endregion
-
-        private object _model;
-
-        #region Constructors
-
-        static ModelResolver()
-        {
-            CreateBindingExpressionMethod = typeof(BindingExpression).GetMethod("CreateBindingExpression", BindingFlags.NonPublic | BindingFlags.Static);
-        }
-
-        #endregion
-
-        #region Properties
-
-        public IValueConverter Converter { get; set; }
-        public object ConverterParameter { get; set; }
-
-        public object Model
-        {
-            get { return _model; }
-            set
+            var modelResolverService = GetService(targetObject, ServiceProperty);
+            if (modelResolverService == null)
             {
-                if (_model.AreEqual(value)) return;
-                _model = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public object Region { get; set; }
-
-        #endregion
-
-        #region Override members
-
-        public sealed override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            var rootObjectProvider = (IRootObjectProvider)serviceProvider.GetService(typeof(IRootObjectProvider));
-            var provideValueTarget = (IProvideValueTarget)serviceProvider.GetService(typeof(IProvideValueTarget));
-
-            var targetObject = provideValueTarget.TargetObject;
-            var targetProperty = provideValueTarget.TargetProperty;
-
-            var rootFrameworkElement = rootObjectProvider.RootObject as FrameworkElement;
-            if (rootFrameworkElement == null) return null;
-
-            var connectWithBinding = targetObject is DependencyObject && targetProperty is DependencyProperty;
-            if (!connectWithBinding && !(targetProperty is PropertyInfo))
-            {
-                throw new NotSupportedException("Target property must be PropertyInfo or DependencyProperty");
+                var message = FormatServiceErrorMessage(ServiceProperty);
+                throw new ArgumentException(message);
             }
 
-            void ElementOnLoaded(object sender, RoutedEventArgs args)
-            {
-                rootFrameworkElement.Loaded -= ElementOnLoaded;
-
-                var modelResolverService = GetService(targetObject, ServiceProperty);
-                if (modelResolverService == null)
-                {
-                    var message = FormatServiceErrorMessage(ServiceProperty);
-                    throw new ArgumentException(message);
-                }
-
-                var observableModel = ProvideObservableModel(modelResolverService);
-                if (connectWithBinding)
-                {
-                    Model = observableModel;
-                    return;
-                }
-
-                if (targetProperty is PropertyInfo propertyInfo)
-                {
-                    if (observableModel is IObservableModelCollection) propertyInfo.SetValue(targetObject, observableModel);
-                    if (observableModel is IObservableModelObject observableModelObject)
-                    {
-                        observableModelObject.ValueChanged += (o, eventArgs) => propertyInfo.SetValue(targetObject, eventArgs.NewValue);
-                    }
-                }
-            }
-
-            rootFrameworkElement.Loaded += ElementOnLoaded;
-
+            var observableModel = ProvideObservableModel(modelResolverService);
             if (connectWithBinding)
             {
-                var binding = ProvideBinding(((DependencyProperty)targetProperty).ReadOnly);
-                return CreateBindingExpressionMethod.Invoke(null, new[] { targetObject, targetProperty, binding, null });
+                Model = observableModel;
+                return;
             }
 
-            return null;
+            if (targetProperty is PropertyInfo propertyInfo)
+            {
+                if (observableModel is IObservableModelCollection) propertyInfo.SetValue(targetObject, observableModel);
+                if (observableModel is IObservableModelObject observableModelObject)
+                {
+                    observableModelObject.ValueChanged += (o, eventArgs) => propertyInfo.SetValue(targetObject, eventArgs.NewValue);
+                }
+            }
         }
 
-        #endregion
+        rootFrameworkElement.Loaded += ElementOnLoaded;
 
-        #region INotifyPropertyChanged Members
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
-
-        #region Members
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        if (connectWithBinding)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            var binding = ProvideBinding(((DependencyProperty)targetProperty).ReadOnly);
+            return CreateBindingExpressionMethod.Invoke(null, new[] { targetObject, targetProperty, binding, null });
         }
 
-        protected abstract Binding ProvideBinding(bool isReadOnly);
-        protected abstract object ProvideObservableModel(IModelResolverService modelResolverService);
-
-        #endregion
+        return null;
     }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    protected abstract Binding ProvideBinding(bool isReadOnly);
+
+    protected abstract object ProvideObservableModel(IModelResolverService modelResolverService);
 }

@@ -6,8 +6,6 @@ namespace PS.Extensions
 {
     public static class ReflectionExtensions
     {
-        #region Static members
-
         public static object InternalFieldGet(this object obj, string name)
         {
             if (obj == null) throw new ArgumentNullException(nameof(obj));
@@ -65,7 +63,7 @@ namespace PS.Extensions
         }
 
         /// <summary>
-        ///     Calls internal method from different assembly using reflection.
+        /// Calls internal method from different assembly using reflection.
         /// </summary>
         /// <param name="obj">Object instance.</param>
         /// <param name="methodName">Internal method name.</param>
@@ -78,7 +76,7 @@ namespace PS.Extensions
         }
 
         /// <summary>
-        ///     Calls internal method from different assembly using reflection.
+        /// Calls internal method from different assembly using reflection.
         /// </summary>
         /// <param name="obj">Object instance.</param>
         /// <param name="type">Required reflection type.</param>
@@ -155,7 +153,5 @@ namespace PS.Extensions
                 throw e.InnerException;
             }
         }
-
-        #endregion
     }
 }

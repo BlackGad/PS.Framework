@@ -9,27 +9,18 @@ namespace PS.Shell.Module.Ribbon.Views
     [DependencyRegisterAsInterface(typeof(IView<RibbonViewModel>))]
     public partial class RibbonView : IView<RibbonViewModel>
     {
-        #region Constructors
-
         public RibbonView()
         {
             InitializeComponent();
         }
-
-        #endregion
-
-        #region IView<RibbonViewModel> Members
 
         public RibbonViewModel ViewModel
         {
             get { return DataContext as RibbonViewModel; }
         }
 
-        #endregion
-
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            
         }
     }
 }

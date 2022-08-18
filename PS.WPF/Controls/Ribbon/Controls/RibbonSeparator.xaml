@@ -6,21 +6,26 @@
                     xmlns:controls="clr-namespace:PS.WPF.Controls.Ribbon.Controls"
                     xmlns:components="clr-namespace:PS.WPF.Components">
 
-    <ControlTemplate x:Key="{x:Static controls:RibbonSeparator+Resource.ControlTemplate}" TargetType="controls:RibbonSeparator">
+    <ControlTemplate x:Key="{x:Static controls:RibbonSeparator+Resource.ControlTemplate}"
+                     TargetType="controls:RibbonSeparator">
         <StackPanel x:Name="Layout"
                     Background="Transparent"
                     Orientation="Vertical"
                     SnapsToDevicePixels="True">
             <components:StoreBrush.Background>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.Background>
             <components:StoreBrush.BorderBrush>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.BorderBrush>
             <TextBlock x:Name="PART_Label"
@@ -39,7 +44,9 @@
                   Y2="0" />
         </StackPanel>
         <ControlTemplate.Triggers>
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Label, Converter={x:Static valueConverters:StringConverters.IsEmpty}}" Value="{markup:Boolean True}">
+            <DataTrigger
+                Binding="{Binding RelativeSource={RelativeSource Self}, Path=Label, Converter={x:Static valueConverters:StringConverters.IsEmpty}}"
+                Value="{markup:Boolean True}">
                 <Setter TargetName="PART_Label" Property="Visibility" Value="Collapsed" />
             </DataTrigger>
         </ControlTemplate.Triggers>
@@ -49,7 +56,8 @@
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Focusable" Value="false" />
         <Setter Property="Padding" Value="2" />
-        <Setter Property="Template" Value="{StaticResource {x:Static controls:RibbonSeparator+Resource.ControlTemplate}}" />
+        <Setter Property="Template"
+                Value="{StaticResource {x:Static controls:RibbonSeparator+Resource.ControlTemplate}}" />
         <Style.Triggers>
             <!--  WPF Engine cannot resolve Bindings in straight forward Setters. So Bypass this with triggers  -->
             <DataTrigger Binding="{Binding Source={markup:Boolean True}}" Value="{markup:Boolean True}">

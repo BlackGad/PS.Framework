@@ -12,8 +12,6 @@ namespace PS.MVVM.Services.CommandService.Commands
         private ICommand _command;
         private bool _isSelected;
 
-        #region ICommandAware Members
-
         public ICommand Command
         {
             get { return _command ?? new RelayCommand(() => { }, () => false); }
@@ -25,10 +23,6 @@ namespace PS.MVVM.Services.CommandService.Commands
             }
         }
 
-        #endregion
-
-        #region IIsSelectedAware Members
-
         public bool IsSelected
         {
             get { return _isSelected; }
@@ -39,7 +33,5 @@ namespace PS.MVVM.Services.CommandService.Commands
                 OnPropertyChanged();
             }
         }
-
-        #endregion
     }
 }

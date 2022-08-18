@@ -23,17 +23,11 @@ namespace PS.Commander.Models.ExplorerService
     [DependencyAutoActivate]
     public class ExplorerService : IDisposable
     {
-        #region Constants
-
         private static readonly JsonSerializerSettings JsonSerializerSettings;
-
-        #endregion
 
         private readonly ILogger _logger;
         private readonly ILifetimeScope _scope;
         private readonly DeepTracker _tracker;
-
-        #region Constructors
 
         static ExplorerService()
         {
@@ -65,24 +59,12 @@ namespace PS.Commander.Models.ExplorerService
                                   .Activate();
         }
 
-        #endregion
-
-        #region Properties
-
         public ObservableCollection<ExplorerViewModel> ExplorerViewModels { get; }
-
-        #endregion
-
-        #region IDisposable Members
 
         public void Dispose()
         {
             _tracker.Dispose();
         }
-
-        #endregion
-
-        #region Event handlers
 
         private void OnChangedEvent(object sender, ChangedEventArgs e)
         {
@@ -90,10 +72,6 @@ namespace PS.Commander.Models.ExplorerService
             //_saveTrigger.Trigger();
             Save();
         }
-
-        #endregion
-
-        #region Members
 
         public void Load()
         {
@@ -153,7 +131,5 @@ namespace PS.Commander.Models.ExplorerService
             sourceFolder = Environment.ExpandEnvironmentVariables(sourceFolder);
             return new FileInfo(Path.Combine(sourceFolder, "explorers.json"));
         }
-
-        #endregion
     }
 }

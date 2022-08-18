@@ -8,8 +8,6 @@ namespace PS.Extensions
 {
     public static class ObjectExtensions
     {
-        #region Static members
-
         public static object ConvertNumericValueTo(this object value, Type targetType)
         {
             if (value == null) return null;
@@ -167,7 +165,5 @@ namespace PS.Extensions
 
             return splitParts.Where(p => !string.IsNullOrEmpty(p)).ToArray();
         }
-
-        #endregion
     }
 }

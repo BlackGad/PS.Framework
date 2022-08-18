@@ -14,10 +14,6 @@ namespace PS.WPF.Patterns.Command
                                   IVisibilityAware,
                                   INotifyPropertyChanged
     {
-        #region Members
-
         void RaiseCanExecuteChanged();
-
-        #endregion
     }
 }

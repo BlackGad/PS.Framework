@@ -2,10 +2,6 @@
 {
     public interface IOrderAware
     {
-        #region Properties
-
         int Order { get; }
-
-        #endregion
     }
 }

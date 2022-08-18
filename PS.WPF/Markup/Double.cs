@@ -6,8 +6,6 @@ namespace PS.WPF.Markup
     [MarkupExtensionReturnType(typeof(double))]
     public class Double : BaseFloatingMarkupExtension<double>
     {
-        #region Constructors
-
         public Double()
         {
         }
@@ -16,10 +14,6 @@ namespace PS.WPF.Markup
             : base(value)
         {
         }
-
-        #endregion
-
-        #region Override members
 
         protected override double GetPreset(PresetMode preset)
         {
@@ -46,7 +40,5 @@ namespace PS.WPF.Markup
                 }
             }
         }
-
-        #endregion
     }
 }

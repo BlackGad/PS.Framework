@@ -7,8 +7,6 @@ namespace PS.MVVM.Services.CommandService.Extensions
 {
     public static class CommandServiceExtensions
     {
-        #region Static members
-
         public static T Find<T>(this ICommandService service, object identifier)
         {
             if (service == null) throw new ArgumentNullException(nameof(service));
@@ -26,7 +24,5 @@ namespace PS.MVVM.Services.CommandService.Extensions
             if (service == null) throw new ArgumentNullException(nameof(service));
             return service.Find(null).Enumerate<T>();
         }
-
-        #endregion
     }
 }

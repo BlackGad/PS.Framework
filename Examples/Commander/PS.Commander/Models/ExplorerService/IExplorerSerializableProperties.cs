@@ -2,11 +2,8 @@
 {
     public interface IExplorerSerializableProperties
     {
-        #region Properties
-
         string Container { get; }
-        string Origin { get; }
 
-        #endregion
+        string Origin { get; }
     }
 }

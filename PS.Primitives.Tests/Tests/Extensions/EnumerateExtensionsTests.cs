@@ -8,8 +8,6 @@ namespace PS.Tests.Extensions
     [TestFixture]
     public class EnumerateExtensionsTests
     {
-        #region Members
-
         [Test]
         public void Enumerate_NotNull_Success()
         {
@@ -26,7 +24,5 @@ namespace PS.Tests.Extensions
             var result = source.Enumerate();
             Assert.IsInstanceOf<IEnumerable<object>>(result);
         }
-
-        #endregion
     }
 }

@@ -11,8 +11,6 @@ namespace PS.WPF.Controls.TreeView
 {
     public class TreeViewItem : System.Windows.Controls.TreeViewItem
     {
-        #region Property definitions
-
         public static readonly DependencyProperty AbsoluteHierarchicalItemsOffsetProperty =
             DependencyProperty.Register(nameof(AbsoluteHierarchicalItemsOffset),
                                         typeof(double),
@@ -43,11 +41,7 @@ namespace PS.WPF.Controls.TreeView
                                         typeof(TreeViewItem),
                                         new FrameworkPropertyMetadata(default(Visibility)));
 
-        #endregion
-
         private bool _freezeExpandChange;
-
-        #region Constructors
 
         static TreeViewItem()
         {
@@ -63,10 +57,6 @@ namespace PS.WPF.Controls.TreeView
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TreeViewItem), new FrameworkPropertyMetadata(typeof(TreeViewItem)));
             ResourceHelper.SetDefaultStyle(typeof(TreeViewItem), Resource.ControlStyle);
         }
-
-        #endregion
-
-        #region Properties
 
         public double AbsoluteHierarchicalItemsOffset
         {
@@ -97,10 +87,6 @@ namespace PS.WPF.Controls.TreeView
             get { return (Visibility)GetValue(ToggleButtonVisibilityProperty); }
             set { SetValue(ToggleButtonVisibilityProperty, value); }
         }
-
-        #endregion
-
-        #region Override members
 
         protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
         {
@@ -158,22 +144,16 @@ namespace PS.WPF.Controls.TreeView
             }
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default = new Uri("/PS.WPF;component/Controls/TreeView/TreeViewItem.xaml", UriKind.RelativeOrAbsolute);
             public static readonly ResourceDescriptor ControlStyle = ResourceDescriptor.Create<Style>(Default);
             public static readonly ResourceDescriptor ControlTemplate = ResourceDescriptor.Create<ControlTemplate>(Default);
 
             public static readonly ResourceDescriptor ExpandCollapseToggleStyle = ResourceDescriptor.Create<ControlTemplate>(Default);
             public static readonly ResourceDescriptor ExpandCollapseToggleTemplate = ResourceDescriptor.Create<ControlTemplate>(Default);
-
-            #endregion
         }
 
         #endregion

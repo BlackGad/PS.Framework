@@ -2,10 +2,6 @@
 {
     public interface ILoadedAware
     {
-        #region Members
-
         void Loaded();
-
-        #endregion
     }
 }

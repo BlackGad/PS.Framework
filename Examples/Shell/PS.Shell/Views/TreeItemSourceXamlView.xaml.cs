@@ -1,29 +1,19 @@
-﻿
-using PS.IoC.Attributes;
+﻿using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
 using PS.Shell.Infrastructure.Models.ExamplesService;
 
-namespace PS.Shell.Views
+namespace PS.Shell.Views;
+
+[DependencyRegisterAsSelf]
+public partial class TreeItemSourceXamlView : IView<ISourceXaml>
 {
-    [DependencyRegisterAsSelf]
-    public partial class TreeItemSourceXamlView : IView<ISourceXaml>
+    public TreeItemSourceXamlView()
     {
-        #region Constructors
+        InitializeComponent();
+    }
 
-        public TreeItemSourceXamlView()
-        {
-            InitializeComponent();
-        }
-
-        #endregion
-
-        #region Properties
-
-        public ISourceXaml ViewModel
-        {
-            get { return DataContext as ISourceXaml; }
-        }
-
-        #endregion
+    public ISourceXaml ViewModel
+    {
+        get { return DataContext as ISourceXaml; }
     }
 }

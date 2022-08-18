@@ -6,8 +6,6 @@ namespace PS.WPF.Extensions
 {
     public static class DispatcherExtensions
     {
-        #region Static members
-
         public static void Postpone(this Dispatcher dispatcher, DispatcherPriority priority, Action action)
         {
             if (dispatcher == null) throw new ArgumentNullException(nameof(dispatcher));
@@ -45,7 +43,5 @@ namespace PS.WPF.Extensions
 
             return func();
         }
-
-        #endregion
     }
 }

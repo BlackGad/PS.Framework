@@ -9,19 +9,11 @@ namespace PS.Shell.Module.Controls.ViewModels
     public class DecimalTextBoxViewModel : BaseNotifyPropertyChanged,
                                            IViewModel
     {
-        #region Constructors
-
         public DecimalTextBoxViewModel(ILogger logger)
         {
             Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        #endregion
-
-        #region Properties
-
         public ILogger Logger { get; }
-
-        #endregion
     }
 }

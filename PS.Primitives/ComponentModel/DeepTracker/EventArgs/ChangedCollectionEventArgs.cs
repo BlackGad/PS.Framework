@@ -6,8 +6,6 @@ namespace PS.ComponentModel.DeepTracker
 {
     public class ChangedCollectionEventArgs : ChangedEventArgs
     {
-        #region Constructors
-
         public ChangedCollectionEventArgs(Route route, object collection, NotifyCollectionChangedEventArgs eventArgs)
             : base(route)
         {
@@ -15,13 +13,8 @@ namespace PS.ComponentModel.DeepTracker
             EventArgs = eventArgs ?? throw new ArgumentNullException(nameof(eventArgs));
         }
 
-        #endregion
-
-        #region Properties
-
         public object Collection { get; }
-        public NotifyCollectionChangedEventArgs EventArgs { get; }
 
-        #endregion
+        public NotifyCollectionChangedEventArgs EventArgs { get; }
     }
 }

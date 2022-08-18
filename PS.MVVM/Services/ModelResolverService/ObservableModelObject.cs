@@ -14,13 +14,7 @@ namespace PS.MVVM.Services
         private ObjectsStorage<object, object> _metadata;
         private object _value;
 
-        #region INotifyPropertyChanged Members
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
-
-        #region IObservableModelObject Members
 
         public event EventHandler<PropertyChangedEventArgs> ValueChanged;
 
@@ -56,15 +50,9 @@ namespace PS.MVVM.Services
             set { Set(value, null); }
         }
 
-        #endregion
-
-        #region Members
-
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
-
-        #endregion
     }
 }

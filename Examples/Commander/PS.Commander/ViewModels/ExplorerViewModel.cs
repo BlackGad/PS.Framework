@@ -9,7 +9,6 @@ using PS.Extensions;
 using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
 using PS.Patterns.Aware;
-using PS.WPF;
 using PS.WPF.Patterns.Command;
 
 namespace PS.Commander.ViewModels
@@ -21,8 +20,6 @@ namespace PS.Commander.ViewModels
                                      ITitleAware,
                                      IExplorerSerializableProperties
     {
-        #region Static members
-
         public static string GetDefaultPath()
         {
             return DriveInfo.GetDrives()
@@ -30,15 +27,11 @@ namespace PS.Commander.ViewModels
                             .RootDirectory.FullName;
         }
 
-        #endregion
-
         private readonly ILifetimeScope _scope;
         private string _container;
         private IReadOnlyList<FileSystemItemViewModel> _items;
         private string _origin;
         private string _title;
-
-        #region Constructors
 
         public ExplorerViewModel(ILifetimeScope scope)
         {
@@ -47,10 +40,6 @@ namespace PS.Commander.ViewModels
             CloseCommand = new RelayUICommand(Close);
             TestCommand = new RelayUICommand(Test);
         }
-
-        #endregion
-
-        #region Properties
 
         public IUICommand CloseCommand { get; }
 
@@ -61,10 +50,6 @@ namespace PS.Commander.ViewModels
         }
 
         public IUICommand TestCommand { get; }
-
-        #endregion
-
-        #region IExplorerSerializableProperties Members
 
         [JsonProperty]
         public string Container
@@ -86,19 +71,11 @@ namespace PS.Commander.ViewModels
             }
         }
 
-        #endregion
-
-        #region ITitleAware Members
-
         public string Title
         {
             get { return _title; }
             set { SetField(ref _title, value); }
         }
-
-        #endregion
-
-        #region Members
 
         public void ResetOrigin()
         {
@@ -123,7 +100,5 @@ namespace PS.Commander.ViewModels
         {
             Container = Container.AreEqual("Left") ? "Right" : "Left";
         }
-
-        #endregion
     }
 }

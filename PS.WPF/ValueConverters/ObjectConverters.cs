@@ -7,18 +7,12 @@ namespace PS.WPF.ValueConverters
 {
     public static class ObjectConverters
     {
-        #region Constants
-
         public static readonly RelayValueConverter AssignableFrom;
         public static readonly RelayValueConverter Exist;
         public static readonly RelayValueConverter Format;
         public static readonly RelayValueConverter ParameterIfNull;
         public static readonly RelayValueConverter Type;
         public static readonly RelayValueConverter UnsetIfNull;
-
-        #endregion
-
-        #region Static members
 
         private static object FormatValue(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -37,10 +31,6 @@ namespace PS.WPF.ValueConverters
 
             return value;
         }
-
-        #endregion
-
-        #region Constructors
 
         static ObjectConverters()
         {
@@ -66,7 +56,5 @@ namespace PS.WPF.ValueConverters
 
             Format = new RelayValueConverter(FormatValue);
         }
-
-        #endregion
     }
 }

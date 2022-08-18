@@ -3,7 +3,7 @@
 namespace PS.Windows.Interop
 {
     /// <summary>
-    ///     https://docs.microsoft.com/en-us/windows/win32/api/shobjidl_core/ne-shobjidl_core-_fileopendialogoptions
+    /// https://docs.microsoft.com/en-us/windows/win32/api/shobjidl_core/ne-shobjidl_core-_fileopendialogoptions
     /// </summary>
     [Flags]
     public enum FileOpenDialogOptions : uint

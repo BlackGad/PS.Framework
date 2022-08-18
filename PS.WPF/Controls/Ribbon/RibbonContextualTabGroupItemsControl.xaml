@@ -3,13 +3,15 @@
                     xmlns:controls="clr-namespace:PS.WPF.Controls.Ribbon"
                     xmlns:primitives="clr-namespace:PS.WPF.Controls.Ribbon.Primitives">
 
-    <ControlTemplate x:Key="{x:Static controls:RibbonContextualTabGroupItemsControl+Resource.ControlTemplate}" TargetType="controls:RibbonContextualTabGroupItemsControl">
+    <ControlTemplate x:Key="{x:Static controls:RibbonContextualTabGroupItemsControl+Resource.ControlTemplate}"
+                     TargetType="controls:RibbonContextualTabGroupItemsControl">
         <Border Background="{TemplateBinding Background}">
             <ItemsPresenter />
         </Border>
     </ControlTemplate>
 
-    <Style x:Key="{x:Static controls:RibbonContextualTabGroupItemsControl+Resource.ControlStyle}" TargetType="controls:RibbonContextualTabGroupItemsControl">
+    <Style x:Key="{x:Static controls:RibbonContextualTabGroupItemsControl+Resource.ControlStyle}"
+           TargetType="controls:RibbonContextualTabGroupItemsControl">
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
@@ -17,7 +19,8 @@
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Template" Value="{StaticResource {x:Static controls:RibbonContextualTabGroupItemsControl+Resource.ControlTemplate}}" />
+        <Setter Property="Template"
+                Value="{StaticResource {x:Static controls:RibbonContextualTabGroupItemsControl+Resource.ControlTemplate}}" />
     </Style>
 
 </ResourceDictionary>

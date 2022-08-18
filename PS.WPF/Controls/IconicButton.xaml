@@ -11,7 +11,8 @@
         <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Native/Common.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <switchValueConverter:SwitchValueConverter x:Key="ContentVisibilityConverter" ConvertDefault="{markup:Visibility Visible}">
+    <switchValueConverter:SwitchValueConverter x:Key="ContentVisibilityConverter"
+                                               ConvertDefault="{markup:Visibility Visible}">
         <cases:EqualTo Result="{markup:Visibility Collapsed}" Value="{x:Null}" />
     </switchValueConverter:SwitchValueConverter>
 

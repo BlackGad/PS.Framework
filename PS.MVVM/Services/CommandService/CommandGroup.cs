@@ -12,16 +12,10 @@ namespace PS.MVVM.Services.CommandService
         private object _layout;
         private object _smallIcon;
 
-        #region Constructors
-
         public CommandGroup()
         {
             Commands = new ObservableCollection<CommandServiceCommand>();
         }
-
-        #endregion
-
-        #region Properties
 
         public ObservableCollection<CommandServiceCommand> Commands { get; }
 
@@ -36,10 +30,6 @@ namespace PS.MVVM.Services.CommandService
             }
         }
 
-        #endregion
-
-        #region ILargeIconAware Members
-
         public object LargeIcon
         {
             get { return _largeIcon; }
@@ -51,10 +41,6 @@ namespace PS.MVVM.Services.CommandService
             }
         }
 
-        #endregion
-
-        #region ISmallIconAware Members
-
         public object SmallIcon
         {
             get { return _smallIcon; }
@@ -65,7 +51,5 @@ namespace PS.MVVM.Services.CommandService
                 OnPropertyChanged();
             }
         }
-
-        #endregion
     }
 }

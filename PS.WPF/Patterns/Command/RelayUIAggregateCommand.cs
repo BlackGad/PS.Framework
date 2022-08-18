@@ -11,14 +11,10 @@ namespace PS.WPF.Patterns.Command
 {
     public class RelayUIAggregateCommand : RelayUIAggregateCommand<object>
     {
-        #region Constructors
-
         public RelayUIAggregateCommand(Action executeAction = null, Func<bool> canExecutePredicate = null)
             : base(o => executeAction?.Invoke(), o => canExecutePredicate?.Invoke() ?? true)
         {
         }
-
-        #endregion
     }
 
     public class RelayUIAggregateCommand<T> : RelayUICommand<T>,
@@ -26,8 +22,6 @@ namespace PS.WPF.Patterns.Command
     {
         private IList _commands;
         private DeepTracker _commandsTracker;
-
-        #region Constructors
 
         public RelayUIAggregateCommand(Action<T> executeAction = null, Func<T, bool> canExecutePredicate = null)
             : base(executeAction, canExecutePredicate)
@@ -38,10 +32,6 @@ namespace PS.WPF.Patterns.Command
                                           .Create()
                                           .Activate();
         }
-
-        #endregion
-
-        #region Override members
 
         public override bool CanExecute(T parameter)
         {
@@ -62,10 +52,6 @@ namespace PS.WPF.Patterns.Command
             }
         }
 
-        #endregion
-
-        #region IUICompositeCommand Members
-
         public IList Children
         {
             get { return _commands; }
@@ -75,10 +61,6 @@ namespace PS.WPF.Patterns.Command
                 OnPropertyChangedAuto();
             }
         }
-
-        #endregion
-
-        #region Event handlers
 
         private void CommandAttachmentEvent(object sender, ObjectAttachmentEventArgs e)
         {
@@ -93,7 +75,5 @@ namespace PS.WPF.Patterns.Command
         {
             RaiseCanExecuteChanged();
         }
-
-        #endregion
     }
 }

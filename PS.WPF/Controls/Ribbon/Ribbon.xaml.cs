@@ -12,8 +12,6 @@ namespace PS.WPF.Controls.Ribbon
 {
     public class Ribbon : System.Windows.Controls.Ribbon.Ribbon
     {
-        #region Property definitions
-
         public static readonly DependencyProperty AccentProperty =
             DependencyProperty.Register(nameof(Accent),
                                         typeof(Brush),
@@ -128,10 +126,6 @@ namespace PS.WPF.Controls.Ribbon
                                         typeof(Ribbon),
                                         new FrameworkPropertyMetadata(default(System.Windows.Controls.DataTemplateSelector)));
 
-        #endregion
-
-        #region Static members
-
         private static object OnCoerceContextMenu(DependencyObject sender, object value, CoerceValueCallback originCallback)
         {
             var menu = originCallback?.Invoke(sender, value) ?? value;
@@ -143,10 +137,6 @@ namespace PS.WPF.Controls.Ribbon
 
             return menu;
         }
-
-        #endregion
-
-        #region Constructors
 
         static Ribbon()
         {
@@ -160,10 +150,6 @@ namespace PS.WPF.Controls.Ribbon
         {
             CoerceValue(QuickAccessToolBarProperty);
         }
-
-        #endregion
-
-        #region Properties
 
         public Brush Accent
         {
@@ -279,10 +265,6 @@ namespace PS.WPF.Controls.Ribbon
             set { SetValue(TitleTemplateSelectorProperty, value); }
         }
 
-        #endregion
-
-        #region Override members
-
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -314,10 +296,6 @@ namespace PS.WPF.Controls.Ribbon
             return new RibbonTab();
         }
 
-        #endregion
-
-        #region Members
-
         public void ValidateContextMenu(ContextMenu contextMenu)
         {
             if (!SuppressQuickAccessItems) return;
@@ -337,14 +315,10 @@ namespace PS.WPF.Controls.Ribbon
             itemsToRemove.ForEach(i => contextMenu.Items.Remove(i));
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/Ribbon/Ribbon.xaml", UriKind.RelativeOrAbsolute);
 
@@ -355,8 +329,6 @@ namespace PS.WPF.Controls.Ribbon
             public static readonly ResourceDescriptor ControlTemplate =
                 ResourceDescriptor.Create<ControlTemplate>(description: "Default Ribbon control template",
                                                            resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

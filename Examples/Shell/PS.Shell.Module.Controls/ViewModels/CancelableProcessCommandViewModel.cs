@@ -21,8 +21,6 @@ namespace PS.Shell.Module.Controls.ViewModels
 
         private Visibility _progressVisibility;
 
-        #region Constructors
-
         public CancelableProcessCommandViewModel()
         {
             _dispatcher = Application.Current.Dispatcher;
@@ -34,10 +32,6 @@ namespace PS.Shell.Module.Controls.ViewModels
                 Description = "Description"
             };
         }
-
-        #endregion
-
-        #region Properties
 
         public bool CanExecute
         {
@@ -64,10 +58,6 @@ namespace PS.Shell.Module.Controls.ViewModels
             get { return _progressVisibility; }
             set { _dispatcher.SafeCall(() => SetField(ref _progressVisibility, value)); }
         }
-
-        #endregion
-
-        #region Members
 
         private bool CanExecutePredicate()
         {
@@ -97,7 +87,5 @@ namespace PS.Shell.Module.Controls.ViewModels
                 ProgressVisibility = Visibility.Hidden;
             }
         }
-
-        #endregion
     }
 }

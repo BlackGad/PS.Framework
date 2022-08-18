@@ -7,13 +7,7 @@ namespace PS.Windows.Interop
 {
     public static class Kernel32
     {
-        #region Constants
-
         public const UInt32 StdOutputHandle = 0xFFFFFFF5;
-
-        #endregion
-
-        #region Static members
 
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -52,7 +46,5 @@ namespace PS.Windows.Interop
                                             uint numBytesToWrite,
                                             out uint lpNumberOfBytesWritten,
                                             IntPtr lpOverlapped);
-
-        #endregion
     }
 }

@@ -8,15 +8,11 @@ namespace PS.WPF.Patterns.Command
 {
     public class RelayUICommand : RelayUICommand<object>
     {
-        #region Constructors
-
         public RelayUICommand(Action executeAction = null, Func<bool> canExecutePredicate = null)
             :
             base(o => executeAction?.Invoke(), o => canExecutePredicate?.Invoke() ?? true)
         {
         }
-
-        #endregion
     }
 
     public class RelayUICommand<T> : RelayCommand<T>,
@@ -30,18 +26,12 @@ namespace PS.WPF.Patterns.Command
         private int _order;
         private string _title;
 
-        #region Constructors
-
         public RelayUICommand(Action<T> executeAction = null, Func<T, bool> canExecutePredicate = null)
             :
             base(executeAction, canExecutePredicate)
         {
             IsVisible = true;
         }
-
-        #endregion
-
-        #region IUICommand Members
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -126,10 +116,6 @@ namespace PS.WPF.Patterns.Command
             }
         }
 
-        #endregion
-
-        #region Members
-
         protected void OnPropertyChanged(string propertyName)
         {
             if (propertyName == null) throw new ArgumentNullException(nameof(propertyName));
@@ -140,7 +126,5 @@ namespace PS.WPF.Patterns.Command
         {
             OnPropertyChanged(propertyName);
         }
-
-        #endregion
     }
 }

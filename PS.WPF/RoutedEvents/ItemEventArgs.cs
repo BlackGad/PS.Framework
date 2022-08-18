@@ -4,8 +4,6 @@ namespace PS.WPF.RoutedEvents
 {
     public class ItemEventArgs<T> : RoutedEventArgs
     {
-        #region Constructors
-
         public ItemEventArgs(RoutedEvent routedEvent, T item)
             : base(routedEvent)
         {
@@ -23,19 +21,11 @@ namespace PS.WPF.RoutedEvents
             Item = item;
         }
 
-        #endregion
-
-        #region Properties
-
         public T Item { get; }
-
-        #endregion
     }
 
     public class ItemEventArgs : ItemEventArgs<object>
     {
-        #region Constructors
-
         public ItemEventArgs(RoutedEvent routedEvent, object item)
             : base(routedEvent, item)
         {
@@ -50,7 +40,5 @@ namespace PS.WPF.RoutedEvents
             : base(item)
         {
         }
-
-        #endregion
     }
 }

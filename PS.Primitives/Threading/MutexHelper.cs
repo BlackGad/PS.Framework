@@ -8,17 +8,11 @@ namespace PS.Threading
 {
     public class MutexHelper
     {
-        #region Constants
-
         private const int MaxDegreeOfParallelism = 10;
         private static readonly IAsyncQueue<object, IDisposable> MutexProcessorQueue;
 
-        #endregion
-
-        #region Static members
-
         /// <summary>
-        ///     Global mutex implementation.
+        /// Global mutex implementation.
         /// </summary>
         /// <param name="mutexId">Mutex name.</param>
         /// <param name="timeout">Time to acquire.</param>
@@ -108,18 +102,12 @@ namespace PS.Threading
             return null;
         }
 
-        #endregion
-
-        #region Constructors
-
         static MutexHelper()
         {
             MutexProcessorQueue = AsyncQueue.Setup<object, IDisposable>(ProcessHandler)
                                             .Create()
                                             .Activate();
         }
-
-        #endregion
 
         #region Nested type: RequestAcquire
 
@@ -128,17 +116,11 @@ namespace PS.Threading
             private readonly string _id;
             private readonly TimeSpan? _timeout;
 
-            #region Constructors
-
             public RequestAcquire(string id, TimeSpan? timeout)
             {
                 _id = id ?? throw new ArgumentNullException(nameof(id));
                 _timeout = timeout;
             }
-
-            #endregion
-
-            #region Members
 
             public RequestRelease Execute()
             {
@@ -167,8 +149,6 @@ namespace PS.Threading
                     return null;
                 }
             }
-
-            #endregion
         }
 
         #endregion
@@ -179,24 +159,16 @@ namespace PS.Threading
         {
             private readonly Mutex _mutex;
 
-            #region Constructors
-
             public RequestRelease(Mutex mutex)
             {
                 _mutex = mutex ?? throw new ArgumentNullException(nameof(mutex));
             }
-
-            #endregion
-
-            #region Members
 
             public void Execute()
             {
                 _mutex.ReleaseMutex();
                 _mutex.Dispose();
             }
-
-            #endregion
         }
 
         #endregion

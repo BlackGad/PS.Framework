@@ -1,29 +1,19 @@
-﻿
-using PS.IoC.Attributes;
+﻿using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
 using PS.Shell.Infrastructure.Models.ExamplesService;
 
-namespace PS.Shell.Views
+namespace PS.Shell.Views;
+
+[DependencyRegisterAsSelf]
+public partial class TreeItemSourceFolderView : IView<ISourceFolder>
 {
-    [DependencyRegisterAsSelf]
-    public partial class TreeItemSourceFolderView : IView<ISourceFolder>
+    public TreeItemSourceFolderView()
     {
-        #region Constructors
+        InitializeComponent();
+    }
 
-        public TreeItemSourceFolderView()
-        {
-            InitializeComponent();
-        }
-
-        #endregion
-
-        #region Properties
-
-        public ISourceFolder ViewModel
-        {
-            get { return DataContext as ISourceFolder; }
-        }
-
-        #endregion
+    public ISourceFolder ViewModel
+    {
+        get { return DataContext as ISourceFolder; }
     }
 }

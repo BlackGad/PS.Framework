@@ -2,10 +2,6 @@
 {
     public interface IDescriptionAware
     {
-        #region Properties
-
         string Description { get; }
-
-        #endregion
     }
 }

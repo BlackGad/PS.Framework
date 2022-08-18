@@ -10,8 +10,6 @@ namespace PS.Commander.Models
     internal class IoCDataTemplate<TView> : ViewHierarchicalDataTemplate,
                                             IDataTemplate<TView>
     {
-        #region Constructors
-
         public IoCDataTemplate(ILifetimeScope scope,
                                BindingBase hierarchyBinding = null,
                                PropertyPath hierarchyBindingPropertyPath = null,
@@ -43,7 +41,5 @@ namespace PS.Commander.Models
                 ItemsSource = binding;
             }
         }
-
-        #endregion
     }
 }

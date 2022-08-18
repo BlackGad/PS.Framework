@@ -2,13 +2,7 @@
 {
     public abstract class Theme
     {
-        #region Static members
-
         public static ThemeCurrent Current { get; }
-
-        #endregion
-
-        #region Constructors
 
         static Theme()
         {
@@ -23,15 +17,12 @@
             FontSizes = new ThemeFontSizes();
         }
 
-        #endregion
-
-        #region Properties
-
         public ThemeBrushes Brushes { get; }
-        public ThemeColors Colors { get; }
-        public ThemeFonts Fonts { get; }
-        public ThemeFontSizes FontSizes { get; }
 
-        #endregion
+        public ThemeColors Colors { get; }
+
+        public ThemeFonts Fonts { get; }
+
+        public ThemeFontSizes FontSizes { get; }
     }
 }

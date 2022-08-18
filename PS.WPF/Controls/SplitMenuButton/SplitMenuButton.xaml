@@ -39,7 +39,8 @@
         </Style.Triggers>
     </Style>
 
-    <ControlTemplate x:Key="{x:Static controls:SplitMenuButton+Resource.ControlTemplate}" TargetType="controls:SplitMenuButton">
+    <ControlTemplate x:Key="{x:Static controls:SplitMenuButton+Resource.ControlTemplate}"
+                     TargetType="controls:SplitMenuButton">
         <Border Name="PART_Border"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -138,13 +139,18 @@
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMenuOpened" Value="True">
-                <Setter TargetName="PART_Border" Property="CornerRadius" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreGeometry.CornerRadius), Converter={StaticResource CornerRadiusConverter}, ConverterParameter={x:Static controls:SplitMenuButtonCornerRadiusConverter.SingleWithMenu}}" />
-                <Setter TargetName="PART_Button" Property="components:StoreGeometry.CornerRadius" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreGeometry.CornerRadius), Converter={StaticResource CornerRadiusConverter}, ConverterParameter={x:Static controls:SplitMenuButtonCornerRadiusConverter.LeftWithMenu}}" />
-                <Setter TargetName="PART_ToggleButton" Property="components:StoreGeometry.CornerRadius" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreGeometry.CornerRadius), Converter={StaticResource CornerRadiusConverter}, ConverterParameter={x:Static controls:SplitMenuButtonCornerRadiusConverter.RightWithMenu}}" />
+                <Setter TargetName="PART_Border" Property="CornerRadius"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreGeometry.CornerRadius), Converter={StaticResource CornerRadiusConverter}, ConverterParameter={x:Static controls:SplitMenuButtonCornerRadiusConverter.SingleWithMenu}}" />
+                <Setter TargetName="PART_Button" Property="components:StoreGeometry.CornerRadius"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreGeometry.CornerRadius), Converter={StaticResource CornerRadiusConverter}, ConverterParameter={x:Static controls:SplitMenuButtonCornerRadiusConverter.LeftWithMenu}}" />
+                <Setter TargetName="PART_ToggleButton" Property="components:StoreGeometry.CornerRadius"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreGeometry.CornerRadius), Converter={StaticResource CornerRadiusConverter}, ConverterParameter={x:Static controls:SplitMenuButtonCornerRadiusConverter.RightWithMenu}}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="PART_ContentPresenter" Property="TextElement.Foreground" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}" />
-                <Setter TargetName="PART_ToggleContent" Property="Fill" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}" />
+                <Setter TargetName="PART_ContentPresenter" Property="TextElement.Foreground"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}" />
+                <Setter TargetName="PART_ToggleContent" Property="Fill"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -158,12 +164,15 @@
         <Setter Property="FontFamily" Value="{theme:Font Strong}" />
         <Setter Property="Foreground" Value="{theme:Brush AccentForeground}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="MenuItemContainerStyle" Value="{StaticResource {x:Static controls:SplitMenuButton+Resource.MenuItemStyle}}" />
-        <Setter Property="MenuItemsPanel" Value="{StaticResource {x:Static controls:SplitMenuButton+Resource.ItemsPanelTemplate}}" />
+        <Setter Property="MenuItemContainerStyle"
+                Value="{StaticResource {x:Static controls:SplitMenuButton+Resource.MenuItemStyle}}" />
+        <Setter Property="MenuItemsPanel"
+                Value="{StaticResource {x:Static controls:SplitMenuButton+Resource.ItemsPanelTemplate}}" />
         <Setter Property="MenuStyle" Value="{StaticResource {x:Static styles:Menu.MenuStyle}}" />
         <Setter Property="Padding" Value="4,2" />
         <Setter Property="SnapsToDevicePixels" Value="true" />
-        <Setter Property="Template" Value="{StaticResource {x:Static controls:SplitMenuButton+Resource.ControlTemplate}}" />
+        <Setter Property="Template"
+                Value="{StaticResource {x:Static controls:SplitMenuButton+Resource.ControlTemplate}}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="components:StoreBrush.MouseOver" Value="{theme:Brush AccentForeground}" />
         <Setter Property="components:StoreBrush.Pressed" Value="{theme:Brush AccentDeep}" />

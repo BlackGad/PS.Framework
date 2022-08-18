@@ -3,7 +3,8 @@
                     xmlns:controls="clr-namespace:PS.WPF.Controls.Ribbon.Controls"
                     xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters">
 
-    <ControlTemplate x:Key="{x:Static controls:RibbonButtonContent+Resource.ControlTemplate}" TargetType="controls:RibbonButtonContent">
+    <ControlTemplate x:Key="{x:Static controls:RibbonButtonContent+Resource.ControlTemplate}"
+                     TargetType="controls:RibbonButtonContent">
         <Grid x:Name="Layout">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="PART_GridColumnFirst" />
@@ -54,7 +55,8 @@
                 <Setter TargetName="PART_GridRowFirst" Property="Height" Value="Auto" />
                 <Setter TargetName="PART_GridRowSecond" Property="Height" Value="*" />
                 <Setter TargetName="PART_Image" Property="Height" Value="32" />
-                <Setter TargetName="PART_Image" Property="Source" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LargeImageSource}" />
+                <Setter TargetName="PART_Image" Property="Source"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LargeImageSource}" />
                 <Setter TargetName="PART_Image" Property="Width" Value="32" />
                 <Setter TargetName="PART_ImageLayout" Property="HorizontalAlignment" Value="Center" />
                 <Setter TargetName="PART_ImageLayout" Property="VerticalAlignment" Value="Center" />
@@ -74,7 +76,8 @@
                 <Setter TargetName="PART_GridRowFirst" Property="Height" Value="*" />
                 <Setter TargetName="PART_GridRowSecond" Property="Height" Value="Auto" />
                 <Setter TargetName="PART_Image" Property="Height" Value="16" />
-                <Setter TargetName="PART_Image" Property="Source" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SmallImageSource}" />
+                <Setter TargetName="PART_Image" Property="Source"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SmallImageSource}" />
                 <Setter TargetName="PART_Image" Property="Width" Value="16" />
                 <Setter TargetName="PART_ImageLayout" Property="HorizontalAlignment" Value="Center" />
                 <Setter TargetName="PART_ImageLayout" Property="VerticalAlignment" Value="Center" />
@@ -94,11 +97,16 @@
                 <Setter TargetName="PART_Image" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="PART_TwoLineText" Property="Grid.Column" Value="0" />
                 <Setter TargetName="PART_TwoLineText" Property="Grid.Row" Value="0" />
-                <Setter TargetName="PART_TwoLineText" Property="HasTwoLines" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HasTwoLines}" />
-                <Setter TargetName="PART_TwoLineText" Property="HorizontalAlignment" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HorizontalContentAlignment}" />
-                <Setter TargetName="PART_TwoLineText" Property="Margin" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Padding}" />
-                <Setter TargetName="PART_TwoLineText" Property="TextAlignment" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LabelTextAlignment}" />
-                <Setter TargetName="PART_TwoLineText" Property="VerticalAlignment" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=VerticalContentAlignment}" />
+                <Setter TargetName="PART_TwoLineText" Property="HasTwoLines"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HasTwoLines}" />
+                <Setter TargetName="PART_TwoLineText" Property="HorizontalAlignment"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HorizontalContentAlignment}" />
+                <Setter TargetName="PART_TwoLineText" Property="Margin"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Padding}" />
+                <Setter TargetName="PART_TwoLineText" Property="TextAlignment"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LabelTextAlignment}" />
+                <Setter TargetName="PART_TwoLineText" Property="VerticalAlignment"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=VerticalContentAlignment}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -114,8 +122,11 @@
 
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsLabelVisible}" Value="False" />
-                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=LabelGeometry, Converter={x:Static valueConverters:ObjectConverters.Exist}}" Value="True" />
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsLabelVisible}"
+                               Value="False" />
+                    <Condition
+                        Binding="{Binding RelativeSource={RelativeSource Self}, Path=LabelGeometry, Converter={x:Static valueConverters:ObjectConverters.Exist}}"
+                        Value="True" />
                 </MultiDataTrigger.Conditions>
                 <Setter TargetName="PART_ImageLabelGeometry" Property="Visibility" Value="Visible" />
             </MultiDataTrigger>
@@ -126,9 +137,11 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="{x:Static controls:RibbonButtonContent+Resource.ControlStyle}" TargetType="controls:RibbonButtonContent">
+    <Style x:Key="{x:Static controls:RibbonButtonContent+Resource.ControlStyle}"
+           TargetType="controls:RibbonButtonContent">
         <Setter Property="Padding" Value="1" />
-        <Setter Property="Template" Value="{StaticResource {x:Static controls:RibbonButtonContent+Resource.ControlTemplate}}" />
+        <Setter Property="Template"
+                Value="{StaticResource {x:Static controls:RibbonButtonContent+Resource.ControlTemplate}}" />
     </Style>
 
 </ResourceDictionary>

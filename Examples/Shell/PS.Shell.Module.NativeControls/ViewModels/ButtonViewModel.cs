@@ -14,8 +14,6 @@ namespace PS.Shell.Module.NativeControls.ViewModels
 
         private bool _isEnabled;
 
-        #region Constructors
-
         public ButtonViewModel(ILogger logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -23,10 +21,6 @@ namespace PS.Shell.Module.NativeControls.ViewModels
             Content = "Content";
             IsEnabled = true;
         }
-
-        #endregion
-
-        #region Properties
 
         public string Content
         {
@@ -53,7 +47,5 @@ namespace PS.Shell.Module.NativeControls.ViewModels
                 }
             }
         }
-
-        #endregion
     }
 }

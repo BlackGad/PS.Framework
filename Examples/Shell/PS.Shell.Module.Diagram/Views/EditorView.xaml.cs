@@ -2,28 +2,19 @@
 using PS.MVVM.Patterns;
 using PS.Shell.Module.Diagram.ViewModels;
 
-namespace PS.Shell.Module.Diagram.Views
+namespace PS.Shell.Module.Diagram.Views;
+
+[DependencyRegisterAsSelf]
+[DependencyRegisterAsInterface(typeof(IView<EditorViewModel>))]
+public partial class EditorView : IView<EditorViewModel>
 {
-    [DependencyRegisterAsSelf]
-    [DependencyRegisterAsInterface(typeof(IView<EditorViewModel>))]
-    public partial class EditorView : IView<EditorViewModel>
+    public EditorView()
     {
-        #region Constructors
+        InitializeComponent();
+    }
 
-        public EditorView()
-        {
-            InitializeComponent();
-        }
-
-        #endregion
-
-        #region IView<EditorViewModel> Members
-
-        public EditorViewModel ViewModel
-        {
-            get { return DataContext as EditorViewModel; }
-        }
-
-        #endregion
+    public EditorViewModel ViewModel
+    {
+        get { return DataContext as EditorViewModel; }
     }
 }

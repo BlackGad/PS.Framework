@@ -12,8 +12,6 @@ namespace PS.WPF.Controls
 {
     public class Window : System.Windows.Window
     {
-        #region Property definitions
-
         private static readonly DependencyPropertyKey ValidationErrorsPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(ValidationErrors),
                                                 typeof(IReadOnlyList<ValidationError>),
@@ -40,10 +38,6 @@ namespace PS.WPF.Controls
 
         public static readonly DependencyProperty ValidationErrorsProperty = ValidationErrorsPropertyKey.DependencyProperty;
 
-        #endregion
-
-        #region Static members
-
         private static object OnCoerceCommands(DependencyObject d, object baseValue)
         {
             return baseValue ?? new UICommandCollection();
@@ -68,10 +62,6 @@ namespace PS.WPF.Controls
             }
         }
 
-        #endregion
-
-        #region Constructors
-
         static Window()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Window), new FrameworkPropertyMetadata(typeof(Window)));
@@ -84,10 +74,6 @@ namespace PS.WPF.Controls
 
             Validation.AddErrorHandler(this, ErrorHandler);
         }
-
-        #endregion
-
-        #region Properties
 
         public HorizontalAlignment CommandButtonsHorizontalAlignment
         {
@@ -113,10 +99,6 @@ namespace PS.WPF.Controls
             private set { SetValue(ValidationErrorsPropertyKey, value); }
         }
 
-        #endregion
-
-        #region Override members
-
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -129,10 +111,6 @@ namespace PS.WPF.Controls
                 SetCurrentValue(CommandsProperty, new UICommandCollection(Commands));
             }
         }
-
-        #endregion
-
-        #region Event handlers
 
         private void ErrorHandler(object sender, ValidationErrorEventArgs e)
         {
@@ -168,14 +146,10 @@ namespace PS.WPF.Controls
             Dispatcher.Postpone(() => Validation.GetHasError(this));
         }
 
-        #endregion
-
         #region Nested type: WindowResource
 
         public static class WindowResource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/Window.xaml", UriKind.RelativeOrAbsolute);
 
@@ -186,8 +160,6 @@ namespace PS.WPF.Controls
             public static readonly ResourceDescriptor ControlTemplate =
                 ResourceDescriptor.Create<ControlTemplate>(description: "Default Window control template",
                                                            resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

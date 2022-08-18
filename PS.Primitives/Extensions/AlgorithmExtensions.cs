@@ -5,8 +5,6 @@ namespace PS.Extensions
 {
     public static class AlgorithmExtensions
     {
-        #region Static members
-
         public static IEnumerable<T> Traverse<T>(this T root, Func<T, T> traverseFunc, Func<T, bool> continuePredicate = null)
         {
             if (root == null) yield break;
@@ -19,7 +17,5 @@ namespace PS.Extensions
                 if (!continuePredicate(element)) break;
             }
         }
-
-        #endregion
     }
 }

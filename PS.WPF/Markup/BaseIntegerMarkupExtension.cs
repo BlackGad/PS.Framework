@@ -7,8 +7,6 @@ namespace PS.WPF.Markup
     {
         private PresetMode _preset;
 
-        #region Constructors
-
         protected BaseIntegerMarkupExtension()
         {
         }
@@ -17,10 +15,6 @@ namespace PS.WPF.Markup
             : base(value)
         {
         }
-
-        #endregion
-
-        #region Properties
 
         public PresetMode Preset
         {
@@ -31,10 +25,6 @@ namespace PS.WPF.Markup
                 _preset = value;
             }
         }
-
-        #endregion
-
-        #region Members
 
         private T GetPreset(PresetMode value)
         {
@@ -53,8 +43,6 @@ namespace PS.WPF.Markup
                     throw new ArgumentOutOfRangeException("value", value, null);
             }
         }
-
-        #endregion
 
         #region Nested type: PresetMode
 

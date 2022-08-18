@@ -11,17 +11,11 @@ namespace PS.WPF.Controls.Ribbon.Controls
 {
     public class RibbonApplicationSplitMenuItem : System.Windows.Controls.Ribbon.RibbonApplicationSplitMenuItem
     {
-        #region Property definitions
-
         public static readonly DependencyProperty AccentProperty =
             DependencyProperty.Register(nameof(Accent),
                                         typeof(Brush),
                                         typeof(RibbonApplicationSplitMenuItem),
                                         new FrameworkPropertyMetadata(default(Brush)));
-
-        #endregion
-
-        #region Static members
 
         private static object CoerceIsChecked(DependencyObject sender, object value, CoerceValueCallback originalCallback)
         {
@@ -35,11 +29,7 @@ namespace PS.WPF.Controls.Ribbon.Controls
             return value;
         }
 
-        #endregion
-
         private object _currentItem;
-
-        #region Constructors
 
         static RibbonApplicationSplitMenuItem()
         {
@@ -48,19 +38,11 @@ namespace PS.WPF.Controls.Ribbon.Controls
             IsCheckedProperty.Override(typeof(RibbonApplicationSplitMenuItem), coerce: CoerceIsChecked);
         }
 
-        #endregion
-
-        #region Properties
-
         public Brush Accent
         {
             get { return (Brush)GetValue(AccentProperty); }
             set { SetValue(AccentProperty, value); }
         }
-
-        #endregion
-
-        #region Override members
 
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
@@ -118,14 +100,10 @@ namespace PS.WPF.Controls.Ribbon.Controls
             return new RibbonApplicationMenuItem();
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/Ribbon/Controls/RibbonApplicationSplitMenuItem.xaml", UriKind.RelativeOrAbsolute);
 
@@ -136,8 +114,6 @@ namespace PS.WPF.Controls.Ribbon.Controls
             public static readonly ResourceDescriptor ControlTemplate =
                 ResourceDescriptor.Create<ControlTemplate>(description: "Default RibbonApplicationSplitMenuItem control template",
                                                            resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

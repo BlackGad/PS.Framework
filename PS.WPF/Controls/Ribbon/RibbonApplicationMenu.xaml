@@ -6,14 +6,17 @@
                     xmlns:controls="clr-namespace:PS.WPF.Controls.Ribbon"
                     xmlns:components="clr-namespace:PS.WPF.Components">
 
-    <ControlTemplate x:Key="{x:Static controls:RibbonApplicationMenu+Resource.MainButtonTemplate}" TargetType="RibbonToggleButton">
+    <ControlTemplate x:Key="{x:Static controls:RibbonApplicationMenu+Resource.MainButtonTemplate}"
+                     TargetType="RibbonToggleButton">
         <Grid x:Name="Layout"
               Background="Transparent"
               SnapsToDevicePixels="True">
             <components:StoreBrush.Background>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource AncestorType=controls:RibbonApplicationMenu}" Path="Accent" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.(controls:Ribbon.Accent)" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource AncestorType=controls:RibbonApplicationMenu}"
+                             Path="Accent" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.(controls:Ribbon.Accent)"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.Background>
             <Border x:Name="Border"
@@ -44,7 +47,8 @@
                     <Condition Property="IsKeyboardFocused" Value="True" />
                     <Condition Property="IsChecked" Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter TargetName="Border" Property="Background" Value="{Binding ElementName=Layout, Path=(components:StoreBrush.Background), Converter={x:Static valueConverters:ColorConverters.Tint}, ConverterParameter={markup:Double 0.2}}" />
+                <Setter TargetName="Border" Property="Background"
+                        Value="{Binding ElementName=Layout, Path=(components:StoreBrush.Background), Converter={x:Static valueConverters:ColorConverters.Tint}, ConverterParameter={markup:Double 0.2}}" />
             </MultiTrigger>
 
             <MultiTrigger>
@@ -52,21 +56,30 @@
                     <Condition Property="IsMouseOver" Value="True" />
                     <Condition Property="IsChecked" Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter TargetName="Border" Property="Background" Value="{Binding ElementName=Layout, Path=(components:StoreBrush.Background), Converter={x:Static valueConverters:ColorConverters.Tint}, ConverterParameter={markup:Double 0.2}}" />
+                <Setter TargetName="Border" Property="Background"
+                        Value="{Binding ElementName=Layout, Path=(components:StoreBrush.Background), Converter={x:Static valueConverters:ColorConverters.Tint}, ConverterParameter={markup:Double 0.2}}" />
             </MultiTrigger>
 
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:RibbonApplicationMenu}}, Path=SmallImageSource}" Value="{x:Null}">
+            <DataTrigger
+                Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:RibbonApplicationMenu}}, Path=SmallImageSource}"
+                Value="{x:Null}">
                 <Setter TargetName="Icon" Property="Visibility" Value="Collapsed" />
             </DataTrigger>
 
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:RibbonApplicationMenu}}, Path=Label, Converter={x:Static valueConverters:StringConverters.IsEmpty}}" Value="True">
+            <DataTrigger
+                Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:RibbonApplicationMenu}}, Path=Label, Converter={x:Static valueConverters:StringConverters.IsEmpty}}"
+                Value="True">
                 <Setter TargetName="Header" Property="Visibility" Value="Collapsed" />
             </DataTrigger>
 
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:RibbonApplicationMenu}}, Path=SmallImageSource}" Value="{x:Null}" />
-                    <Condition Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:RibbonApplicationMenu}}, Path=Label, Converter={x:Static valueConverters:StringConverters.IsEmpty}}" Value="True" />
+                    <Condition
+                        Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:RibbonApplicationMenu}}, Path=SmallImageSource}"
+                        Value="{x:Null}" />
+                    <Condition
+                        Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:RibbonApplicationMenu}}, Path=Label, Converter={x:Static valueConverters:StringConverters.IsEmpty}}"
+                        Value="True" />
                 </MultiDataTrigger.Conditions>
                 <Setter TargetName="Icon" Property="Margin" Value="0,0,2,0" />
             </MultiDataTrigger>
@@ -80,32 +93,40 @@
         <Setter Property="FocusManager.IsFocusScope" Value="False" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Margin" Value="0,1,0,0" />
-        <Setter Property="Template" Value="{StaticResource {x:Static controls:RibbonApplicationMenu+Resource.MainButtonTemplate}}" />
+        <Setter Property="Template"
+                Value="{StaticResource {x:Static controls:RibbonApplicationMenu+Resource.MainButtonTemplate}}" />
         <Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
         <Setter Property="ToolTipService.InitialShowDelay" Value="900" />
         <Setter Property="ToolTipService.ShowDuration" Value="20000" />
     </Style>
 
-    <ControlTemplate x:Key="{x:Static controls:RibbonApplicationMenu+Resource.ControlTemplate}" TargetType="controls:RibbonApplicationMenu">
+    <ControlTemplate x:Key="{x:Static controls:RibbonApplicationMenu+Resource.ControlTemplate}"
+                     TargetType="controls:RibbonApplicationMenu">
         <Grid x:Name="Layout"
               Background="Transparent"
               Focusable="False">
             <components:StoreBrush.Accent>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Accent" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.(controls:Ribbon.Accent)" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Accent"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.(controls:Ribbon.Accent)"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.Accent>
             <components:StoreBrush.Background>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.Background>
             <components:StoreBrush.BorderBrush>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.BorderBrush>
 
@@ -227,10 +248,12 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="{x:Static controls:RibbonApplicationMenu+Resource.ControlStyle}" TargetType="controls:RibbonApplicationMenu">
+    <Style x:Key="{x:Static controls:RibbonApplicationMenu+Resource.ControlStyle}"
+           TargetType="controls:RibbonApplicationMenu">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Padding" Value="15,0" />
-        <Setter Property="Template" Value="{StaticResource {x:Static controls:RibbonApplicationMenu+Resource.ControlTemplate}}" />
+        <Setter Property="Template"
+                Value="{StaticResource {x:Static controls:RibbonApplicationMenu+Resource.ControlTemplate}}" />
         <Style.Triggers>
             <Trigger Property="IsDropDownOpen" Value="True">
                 <Setter Property="ToolTipService.IsEnabled" Value="False" />

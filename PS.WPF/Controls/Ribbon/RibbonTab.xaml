@@ -8,12 +8,15 @@
                     xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters">
 
     <ResourceDictionary.MergedDictionaries>
-        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Ribbon/RibbonHorizontalScrollViewer.xaml" />
+        <resources:SharedResourceDictionary
+            Source="/PS.WPF;component/Controls/Ribbon/RibbonHorizontalScrollViewer.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <valueConverters:CascadeValueConverter x:Key="TabHeaderCenterWidthConverter">
-        <valueConverters:RelayValueConverter Instance="{x:Static valueConverters:NumericConverters.Subtract}" Parameter="{markup:Double 2}" />
-        <valueConverters:RelayValueConverter Instance="{x:Static valueConverters:NumericConverters.Max}" Parameter="{markup:Double 0}" />
+        <valueConverters:RelayValueConverter Instance="{x:Static valueConverters:NumericConverters.Subtract}"
+                                             Parameter="{markup:Double 2}" />
+        <valueConverters:RelayValueConverter Instance="{x:Static valueConverters:NumericConverters.Max}"
+                                             Parameter="{markup:Double 0}" />
     </valueConverters:CascadeValueConverter>
 
     <ControlTemplate x:Key="{x:Static controls:RibbonTab+Resource.ControlTemplate}" TargetType="controls:RibbonTab">
@@ -23,15 +26,21 @@
               Visibility="{TemplateBinding IsSelected, Converter={x:Static valueConverters:BooleanConverters.ToVisibility}}">
             <components:StoreBrush.Background>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.(controls:Ribbon.SelectedTabHeaderBackground)" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                             Path="Ribbon.(controls:Ribbon.SelectedTabHeaderBackground)"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.Background>
             <components:StoreBrush.BorderBrush>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.BorderBrush>
 
@@ -57,8 +66,11 @@
                         DockPanel.Dock="Left"
                         SnapsToDevicePixels="True">
                     <Border.Width>
-                        <MultiBinding Converter="{x:Static valueConverters:NumericConverters.MultiSubtract}" ConverterParameter="{markup:Boolean True}">
-                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="TabHeaderRight" Converter="{x:Static valueConverters:NumericConverters.Subtract}" ConverterParameter="{markup:Double 2}" />
+                        <MultiBinding Converter="{x:Static valueConverters:NumericConverters.MultiSubtract}"
+                                      ConverterParameter="{markup:Boolean True}">
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="TabHeaderRight"
+                                     Converter="{x:Static valueConverters:NumericConverters.Subtract}"
+                                     ConverterParameter="{markup:Double 2}" />
                             <Binding ElementName="PART_TabHeaderLeft" Path="ActualWidth" />
                         </MultiBinding>
                     </Border.Width>
@@ -70,14 +82,16 @@
                         SnapsToDevicePixels="True" />
             </DockPanel>
 
-            <ScrollViewer x:Name="ScrollViewer" Style="{StaticResource {x:Static controls:RibbonHorizontalScrollViewer.ControlStyle}}">
+            <ScrollViewer x:Name="ScrollViewer"
+                          Style="{StaticResource {x:Static controls:RibbonHorizontalScrollViewer.ControlStyle}}">
                 <Grid RenderOptions.ClearTypeHint="Enabled">
                     <ItemsPresenter x:Name="ItemsPresenter" />
                 </Grid>
             </ScrollViewer>
         </Grid>
         <ControlTemplate.Triggers>
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Ribbon.IsMinimized}" Value="False">
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Ribbon.IsMinimized}"
+                         Value="False">
                 <Setter TargetName="PART_TabHeaderSeparator" Property="Visibility" Value="Visible" />
             </DataTrigger>
         </ControlTemplate.Triggers>

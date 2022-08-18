@@ -9,31 +9,19 @@ namespace PS.Shell.Module.Controls.Views
     [DependencyRegisterAsInterface(typeof(IView<CancelableProcessCommandViewModel>))]
     public partial class CancelableProcessCommandView : IView<CancelableProcessCommandViewModel>
     {
-        #region Constructors
-
         public CancelableProcessCommandView()
         {
             InitializeComponent();
         }
-
-        #endregion
-
-        #region IView<CancelableProcessCommandViewModel> Members
 
         public CancelableProcessCommandViewModel ViewModel
         {
             get { return DataContext as CancelableProcessCommandViewModel; }
         }
 
-        #endregion
-
-        #region Event handlers
-
         private void Execute_OnClick(object sender, RoutedEventArgs e)
         {
             ViewModel.Command.Execute(null);
         }
-
-        #endregion
     }
 }

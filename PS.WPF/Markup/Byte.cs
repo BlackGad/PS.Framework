@@ -5,8 +5,6 @@ namespace PS.WPF.Markup
     [MarkupExtensionReturnType(typeof(byte))]
     public class Byte : BaseIntegerMarkupExtension<byte>
     {
-        #region Constructors
-
         public Byte()
         {
         }
@@ -15,7 +13,5 @@ namespace PS.WPF.Markup
             : base(value)
         {
         }
-
-        #endregion
     }
 }

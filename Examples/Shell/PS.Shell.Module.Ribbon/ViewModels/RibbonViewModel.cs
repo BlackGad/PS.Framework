@@ -8,19 +8,11 @@ namespace PS.Shell.Module.Ribbon.ViewModels
     public class RibbonViewModel : BaseNotifyPropertyChanged,
                                    IViewModel
     {
-        #region Constructors
-
         public RibbonViewModel()
         {
             SomeCommand = new RelayUICommand();
         }
 
-        #endregion
-
-        #region Properties
-
         public IUICommand SomeCommand { get; }
-
-        #endregion
     }
 }

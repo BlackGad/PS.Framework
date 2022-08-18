@@ -2,11 +2,8 @@
 {
     public interface IActivationAware : IIsActiveAware
     {
-        #region Members
-
         void Activate();
-        void Deactivate();
 
-        #endregion
+        void Deactivate();
     }
 }

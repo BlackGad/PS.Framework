@@ -2,27 +2,18 @@
 using PS.MVVM.Patterns;
 using PS.Shell.Infrastructure.Models.ExamplesService;
 
-namespace PS.Shell.Views
+namespace PS.Shell.Views;
+
+[DependencyRegisterAsSelf]
+public partial class DesignView : IView<IExample>
 {
-    [DependencyRegisterAsSelf]
-    public partial class DesignView : IView<IExample>
+    public DesignView()
     {
-        #region Constructors
+        InitializeComponent();
+    }
 
-        public DesignView()
-        {
-            InitializeComponent();
-        }
-
-        #endregion
-
-        #region IView<IExample> Members
-
-        public IExample ViewModel
-        {
-            get { return DataContext as IExample; }
-        }
-
-        #endregion
+    public IExample ViewModel
+    {
+        get { return DataContext as IExample; }
     }
 }

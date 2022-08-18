@@ -5,8 +5,6 @@ namespace PS.WPF.Markup
     [MarkupExtensionReturnType(typeof(decimal))]
     public class Decimal : BaseIntegerMarkupExtension<decimal>
     {
-        #region Constructors
-
         public Decimal()
         {
         }
@@ -15,7 +13,5 @@ namespace PS.WPF.Markup
             : base(value)
         {
         }
-
-        #endregion
     }
 }

@@ -9,18 +9,12 @@ namespace PS.WPF.Theming.Markup
         private ThemeColorOpacity _opacity;
         private ThemeColor _type;
 
-        #region Constructors
-
         public Brush(ThemeColor type)
         {
             Type = type;
             Mode = BindingMode.OneWay;
             Source = Theme.Current;
         }
-
-        #endregion
-
-        #region Properties
 
         [ConstructorArgument("opacity")]
         public ThemeColorOpacity Opacity
@@ -44,10 +38,6 @@ namespace PS.WPF.Theming.Markup
             }
         }
 
-        #endregion
-
-        #region Members
-
         private string GeneratePath(ThemeColor color, ThemeColorOpacity opacity)
         {
             var result = nameof(Theme.Brushes) + "." + color;
@@ -58,7 +48,5 @@ namespace PS.WPF.Theming.Markup
 
             return result;
         }
-
-        #endregion
     }
 }

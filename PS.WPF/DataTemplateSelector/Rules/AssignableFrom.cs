@@ -4,15 +4,9 @@ namespace PS.WPF.DataTemplateSelector.Rules
 {
     public class AssignableFrom : SelectRule
     {
-        #region Properties
-
         public Type DataType { get; set; }
 
         public bool Derived { get; set; }
-
-        #endregion
-
-        #region Override members
 
         public override bool IsValid(object item)
         {
@@ -25,7 +19,5 @@ namespace PS.WPF.DataTemplateSelector.Rules
             if (Derived) return DataType.IsAssignableFrom(itemType);
             return itemType == DataType;
         }
-
-        #endregion
     }
 }

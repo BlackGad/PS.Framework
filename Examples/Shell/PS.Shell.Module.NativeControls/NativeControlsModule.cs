@@ -13,8 +13,6 @@ namespace PS.Shell.Module.NativeControls
 {
     public class NativeControlsModule : Autofac.Module
     {
-        #region Override members
-
         protected override void AttachToComponentRegistration(IComponentRegistryBuilder componentRegistry, IComponentRegistration registration)
         {
             registration.HandleActivation<IViewResolverService>(ViewResolverServiceActivation);
@@ -25,10 +23,6 @@ namespace PS.Shell.Module.NativeControls
         {
             builder.RegisterAssemblyTypesWithAttributes(ThisAssembly);
         }
-
-        #endregion
-
-        #region Members
 
         private void ControlsServiceActivation(ILifetimeScope scope, IExamplesService service)
         {
@@ -41,7 +35,5 @@ namespace PS.Shell.Module.NativeControls
         {
             service.AssociateTemplate<ButtonViewModel>(scope.Resolve<IDataTemplate<ButtonView>>());
         }
-
-        #endregion
     }
 }

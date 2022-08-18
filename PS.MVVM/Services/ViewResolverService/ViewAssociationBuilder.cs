@@ -16,17 +16,11 @@ namespace PS.MVVM.Services
         private readonly object _region;
         private Dictionary<object, object> _chainAssociationMetadata;
 
-        #region Constructors
-
         public ViewAssociationBuilder(object region)
         {
             _region = region ?? throw new ArgumentNullException(nameof(region));
             _associations = new ObjectsStorage<Tuple<Type, Type>, AssociationData>();
         }
-
-        #endregion
-
-        #region IViewAssociationBuilder Members
 
         public IViewAssociationBuilder Associate(Type consumerServiceType, Type viewModelType, object payload)
         {
@@ -53,10 +47,6 @@ namespace PS.MVVM.Services
             if (_chainAssociationMetadata != null) _chainAssociationMetadata.AddOrUpdate(key, k => value, (k, existing) => value);
             return this;
         }
-
-        #endregion
-
-        #region Members
 
         public IViewAssociation Find(Type consumerServiceType, Type viewModelType)
         {
@@ -87,27 +77,18 @@ namespace PS.MVVM.Services
             };
         }
 
-        #endregion
-
         #region Nested type: AssociationData
 
         private class AssociationData
         {
-            #region Constructors
-
             public AssociationData()
             {
                 Metadata = new Dictionary<object, object>();
             }
 
-            #endregion
-
-            #region Properties
-
             public Dictionary<object, object> Metadata { get; }
-            public object Payload { get; set; }
 
-            #endregion
+            public object Payload { get; set; }
         }
 
         #endregion

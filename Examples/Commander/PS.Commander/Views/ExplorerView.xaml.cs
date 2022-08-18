@@ -8,22 +8,14 @@ namespace PS.Commander.Views
     [DependencyRegisterAsInterface(typeof(IView<ExplorerViewModel>))]
     public partial class ExplorerView : IView<ExplorerViewModel>
     {
-        #region Constructors
-
         public ExplorerView()
         {
             InitializeComponent();
         }
 
-        #endregion
-
-        #region IView<ExplorerViewModel> Members
-
         public ExplorerViewModel ViewModel
         {
             get { return DataContext as ExplorerViewModel; }
         }
-
-        #endregion
     }
 }

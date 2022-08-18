@@ -13,8 +13,6 @@ namespace PS.Shell.Module.Ribbon
 {
     public class RibbonModule : Autofac.Module
     {
-        #region Override members
-
         protected override void AttachToComponentRegistration(IComponentRegistryBuilder componentRegistry, IComponentRegistration registration)
         {
             registration.HandleActivation<IViewResolverService>(ViewResolverServiceActivation);
@@ -26,10 +24,6 @@ namespace PS.Shell.Module.Ribbon
             builder.RegisterAssemblyTypesWithAttributes(ThisAssembly);
         }
 
-        #endregion
-
-        #region Members
-
         private void ControlsServiceActivation(ILifetimeScope scope, IExamplesService service)
         {
             service.Add<RibbonViewModel>("Ribbon", "XAML usage");
@@ -39,7 +33,5 @@ namespace PS.Shell.Module.Ribbon
         {
             service.AssociateTemplate<RibbonViewModel>(scope.Resolve<IDataTemplate<RibbonView>>());
         }
-
-        #endregion
     }
 }

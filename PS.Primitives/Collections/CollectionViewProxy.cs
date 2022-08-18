@@ -7,16 +7,10 @@ namespace PS.Collections
     {
         private readonly CollectionView<TSource, TTarget> _list;
 
-        #region Constructors
-
         public CollectionViewProxy(CollectionView<TSource, TTarget> list)
         {
             _list = list ?? throw new ArgumentNullException(nameof(list));
         }
-
-        #endregion
-
-        #region Properties
 
         [DebuggerBrowsable(DebuggerBrowsableState.RootHidden)]
         public TTarget[] Items
@@ -28,7 +22,5 @@ namespace PS.Collections
                 return array;
             }
         }
-
-        #endregion
     }
 }

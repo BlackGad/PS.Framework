@@ -14,24 +14,16 @@ namespace PS.WPF.DataTemplateSelector
     public class DataTemplateSelector : System.Windows.Controls.DataTemplateSelector,
                                         IValueConverter
     {
-        #region Constructors
-
         public DataTemplateSelector()
         {
             Rules = new ObservableCollection<SelectRule>();
         }
 
-        #endregion
-
-        #region Properties
-
         public System.Windows.DataTemplate DefaultTemplate { get; set; }
+
         public ObservableCollection<SelectRule> Rules { get; set; }
+
         public string ValuePath { get; set; }
-
-        #endregion
-
-        #region Override members
 
         public override System.Windows.DataTemplate SelectTemplate(object item, DependencyObject container)
         {
@@ -41,15 +33,11 @@ namespace PS.WPF.DataTemplateSelector
             return template != null ? template.Template : DefaultTemplate;
         }
 
-        #endregion
-
-        #region IValueConverter Members
-
         /// <summary>
-        ///     Converts a value.
+        /// Converts a value.
         /// </summary>
         /// <returns>
-        ///     A converted value. If the method returns null, the valid null value is used.
+        /// A converted value. If the method returns null, the valid null value is used.
         /// </returns>
         /// <param name="value">The value produced by the binding source.</param>
         /// <param name="targetType">The type of the binding target property.</param>
@@ -61,10 +49,10 @@ namespace PS.WPF.DataTemplateSelector
         }
 
         /// <summary>
-        ///     Converts a value.
+        /// Converts a value.
         /// </summary>
         /// <returns>
-        ///     A converted value. If the method returns null, the valid null value is used.
+        /// A converted value. If the method returns null, the valid null value is used.
         /// </returns>
         /// <param name="value">The value that is produced by the binding target.</param>
         /// <param name="targetType">The type to convert to.</param>
@@ -74,7 +62,5 @@ namespace PS.WPF.DataTemplateSelector
         {
             throw new NotSupportedException();
         }
-
-        #endregion
     }
 }

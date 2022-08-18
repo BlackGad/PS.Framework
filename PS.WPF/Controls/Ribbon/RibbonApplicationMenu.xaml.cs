@@ -6,7 +6,6 @@ using System.Windows.Controls.Ribbon;
 using System.Windows.Media;
 using PS.WPF.Extensions;
 using PS.WPF.Resources;
-using RibbonApplicationMenuItem = PS.WPF.Controls.Ribbon.Controls.RibbonApplicationMenuItem;
 using RibbonButton = PS.WPF.Controls.Ribbon.Controls.RibbonButton;
 using RibbonMenuButton = PS.WPF.Controls.Ribbon.Controls.RibbonMenuButton;
 using RibbonMenuItem = PS.WPF.Controls.Ribbon.Controls.RibbonMenuItem;
@@ -17,19 +16,13 @@ namespace PS.WPF.Controls.Ribbon
 {
     public class RibbonApplicationMenu : System.Windows.Controls.Ribbon.RibbonApplicationMenu
     {
-        #region Property definitions
-
         public static readonly DependencyProperty AccentProperty =
             DependencyProperty.Register(nameof(Accent),
                                         typeof(Brush),
                                         typeof(RibbonApplicationMenu),
                                         new FrameworkPropertyMetadata(default(Brush)));
 
-        #endregion
-
         private object _currentItem;
-
-        #region Constructors
 
         static RibbonApplicationMenu()
         {
@@ -42,26 +35,18 @@ namespace PS.WPF.Controls.Ribbon
             System.Windows.Controls.Ribbon.RibbonQuickAccessToolBar.AddCloneHandler(this, OnRibbonQuickAccessToolBarClone);
         }
 
-        #endregion
-
-        #region Properties
-
         public Brush Accent
         {
             get { return (Brush)GetValue(AccentProperty); }
             set { SetValue(AccentProperty, value); }
         }
 
-        #endregion
-
-        #region Override members
-
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
-            if (item is System.Windows.Controls.Ribbon.RibbonApplicationMenuItem ||
-                item is System.Windows.Controls.Ribbon.RibbonApplicationSplitMenuItem ||
-                item is System.Windows.Controls.Ribbon.RibbonSeparator ||
-                item is System.Windows.Controls.Ribbon.RibbonGallery)
+            if (item is RibbonApplicationMenuItem ||
+                item is RibbonApplicationSplitMenuItem ||
+                item is RibbonSeparator ||
+                item is RibbonGallery)
             {
                 return true;
             }
@@ -95,12 +80,12 @@ namespace PS.WPF.Controls.Ribbon
             if (UsesItemContainerTemplate)
             {
                 var dataTemplate = ItemContainerTemplateSelector.SelectTemplate(currentItem, this);
-                if (dataTemplate == null) return new RibbonApplicationMenuItem();
+                if (dataTemplate == null) return new Controls.RibbonApplicationMenuItem();
 
                 object templateContent = dataTemplate.LoadContent();
-                if (templateContent is System.Windows.Controls.Ribbon.RibbonApplicationMenuItem ||
-                    templateContent is System.Windows.Controls.Ribbon.RibbonApplicationSplitMenuItem ||
-                    templateContent is System.Windows.Controls.Ribbon.RibbonSeparator ||
+                if (templateContent is RibbonApplicationMenuItem ||
+                    templateContent is RibbonApplicationSplitMenuItem ||
+                    templateContent is RibbonSeparator ||
                     templateContent is RibbonGallery)
                 {
                     return (DependencyObject)templateContent;
@@ -109,12 +94,8 @@ namespace PS.WPF.Controls.Ribbon
                 throw new InvalidOperationException("InvalidApplicationMenuOrItemContainer");
             }
 
-            return new RibbonApplicationMenuItem();
+            return new Controls.RibbonApplicationMenuItem();
         }
-
-        #endregion
-
-        #region Event handlers
 
         private void OnRibbonQuickAccessToolBarClone(object sender, RibbonQuickAccessToolBarCloneEventArgs e)
         {
@@ -199,14 +180,10 @@ namespace PS.WPF.Controls.Ribbon
             e.Handled = true;
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/Ribbon/RibbonApplicationMenu.xaml", UriKind.RelativeOrAbsolute);
 
@@ -225,8 +202,6 @@ namespace PS.WPF.Controls.Ribbon
             public static readonly ResourceDescriptor MainButtonTemplate =
                 ResourceDescriptor.Create<ControlTemplate>(description: "Default RibbonApplicationMenu head button template",
                                                            resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

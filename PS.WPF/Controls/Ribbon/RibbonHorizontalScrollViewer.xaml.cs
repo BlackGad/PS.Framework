@@ -7,8 +7,6 @@ namespace PS.WPF.Controls.Ribbon
 {
     public static class RibbonHorizontalScrollViewer
     {
-        #region Constants
-
         private static readonly Uri Default =
             new Uri("/PS.WPF;component/Controls/Ribbon/RibbonHorizontalScrollViewer.xaml", UriKind.RelativeOrAbsolute);
 
@@ -27,7 +25,5 @@ namespace PS.WPF.Controls.Ribbon
         public static readonly ResourceDescriptor RepeatButtonTemplate =
             ResourceDescriptor.Create<ControlTemplate>(description: "Default RibbonHorizontalScrollViewer RepeatButton template",
                                                        resourceDictionary: Default);
-
-        #endregion
     }
 }

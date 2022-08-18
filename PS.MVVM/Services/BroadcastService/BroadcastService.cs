@@ -13,17 +13,11 @@ namespace PS.MVVM.Services
         private readonly ThreadSynchronizationContext _enqueueSynchronizationContext;
         private readonly Dictionary<Type, List<Delegate>> _subscriptions;
 
-        #region Constructors
-
         public BroadcastService()
         {
             _subscriptions = new Dictionary<Type, List<Delegate>>();
             _enqueueSynchronizationContext = new ThreadSynchronizationContext(ApartmentState.MTA);
         }
-
-        #endregion
-
-        #region IBroadcastService Members
 
         public Task Broadcast(Type eventType, object args)
         {
@@ -96,10 +90,6 @@ namespace PS.MVVM.Services
             }
         }
 
-        #endregion
-
-        #region IDisposable Members
-
         public void Dispose()
         {
             lock (_subscriptions)
@@ -110,10 +100,6 @@ namespace PS.MVVM.Services
             _enqueueSynchronizationContext.Dispose();
         }
 
-        #endregion
-
-        #region Members
-
         protected virtual void CallDelegate<T>(Delegate @delegate, T args)
         {
             @delegate?.DynamicInvoke(args);
@@ -123,7 +109,5 @@ namespace PS.MVVM.Services
         {
             //TODO: Implement delegate signature check. It must return void and handle single argument that can handle argument type
         }
-
-        #endregion
     }
 }

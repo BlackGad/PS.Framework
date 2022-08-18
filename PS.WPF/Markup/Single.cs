@@ -6,8 +6,6 @@ namespace PS.WPF.Markup
     [MarkupExtensionReturnType(typeof(float))]
     public class Single : BaseFloatingMarkupExtension<float>
     {
-        #region Constructors
-
         public Single()
         {
         }
@@ -16,10 +14,6 @@ namespace PS.WPF.Markup
             : base(value)
         {
         }
-
-        #endregion
-
-        #region Override members
 
         protected override float GetPreset(PresetMode preset)
         {
@@ -46,7 +40,5 @@ namespace PS.WPF.Markup
                 }
             }
         }
-
-        #endregion
     }
 }

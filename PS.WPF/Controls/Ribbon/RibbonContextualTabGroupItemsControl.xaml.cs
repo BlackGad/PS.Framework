@@ -9,18 +9,12 @@ namespace PS.WPF.Controls.Ribbon
 {
     public class RibbonContextualTabGroupItemsControl : System.Windows.Controls.Ribbon.RibbonContextualTabGroupItemsControl
     {
-        #region Constructors
-
         static RibbonContextualTabGroupItemsControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonContextualTabGroupItemsControl),
                                                      new FrameworkPropertyMetadata(typeof(RibbonContextualTabGroupItemsControl)));
             ResourceHelper.SetDefaultStyle(typeof(RibbonContextualTabGroupItemsControl), Resource.ControlStyle);
         }
-
-        #endregion
-
-        #region Override members
 
         protected override DependencyObject GetContainerForItemOverride()
         {
@@ -65,14 +59,10 @@ namespace PS.WPF.Controls.Ribbon
             }
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/Ribbon/RibbonContextualTabGroupItemsControl.xaml", UriKind.RelativeOrAbsolute);
 
@@ -83,8 +73,6 @@ namespace PS.WPF.Controls.Ribbon
             public static readonly ResourceDescriptor ControlTemplate =
                 ResourceDescriptor.Create<ControlTemplate>(description: "Default RibbonContextualTabGroupItemsControl control template",
                                                            resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

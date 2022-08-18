@@ -5,7 +5,8 @@
                     xmlns:m="clr-namespace:PS.WPF.Markup"
                     xmlns:switchValueConverter="clr-namespace:PS.WPF.ValueConverters.SwitchValueConverter">
 
-    <switchValueConverter:SwitchValueConverter x:Key="CommandsVisibilityConverter" ConvertDefault="{m:Visibility Visible}">
+    <switchValueConverter:SwitchValueConverter x:Key="CommandsVisibilityConverter"
+                                               ConvertDefault="{m:Visibility Visible}">
         <cases:EqualTo Result="{m:Visibility Collapsed}" Value="{m:Int32 0}" />
     </switchValueConverter:SwitchValueConverter>
 
@@ -27,7 +28,8 @@
 
     </ControlTemplate>
 
-    <Style x:Key="{x:Static controls:Window+WindowResource.ControlStyle}" BasedOn="{StaticResource {x:Type Window}}" TargetType="controls:Window">
+    <Style x:Key="{x:Static controls:Window+WindowResource.ControlStyle}" BasedOn="{StaticResource {x:Type Window}}"
+           TargetType="controls:Window">
         <Setter Property="CommandButtonsHorizontalAlignment" Value="Center" />
         <Setter Property="Padding" Value="5" />
         <Setter Property="Template" Value="{StaticResource {x:Static controls:Window+WindowResource.ControlTemplate}}" />

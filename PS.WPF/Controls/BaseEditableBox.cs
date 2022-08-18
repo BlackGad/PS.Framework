@@ -14,8 +14,6 @@ namespace PS.WPF.Controls
     public abstract class BaseEditableBox : Control,
                                             IEditableObject
     {
-        #region Property definitions
-
         private static readonly DependencyPropertyKey IsEditModePropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(IsEditMode),
                                                 typeof(bool),
@@ -92,10 +90,6 @@ namespace PS.WPF.Controls
                                         typeof(BaseEditableBox),
                                         new FrameworkPropertyMetadata("Empty", OnWatermarkChanged));
 
-        #endregion
-
-        #region Constants
-
         public static readonly RoutedEvent EditCancelledEvent = EventManager.RegisterRoutedEvent(
             "EditCancelled",
             RoutingStrategy.Bubble,
@@ -113,10 +107,6 @@ namespace PS.WPF.Controls
             RoutingStrategy.Bubble,
             typeof(RoutedEventHandler),
             typeof(BaseEditableBox));
-
-        #endregion
-
-        #region Static members
 
         private static void OnCultureInfoChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -141,18 +131,10 @@ namespace PS.WPF.Controls
             owner.UpdateWatermarkAvailability();
         }
 
-        #endregion
-
-        #region Constructors
-
         protected BaseEditableBox()
         {
             UpdateWatermarkAvailability();
         }
-
-        #endregion
-
-        #region Properties
 
         public CultureInfo CultureInfo
         {
@@ -226,10 +208,6 @@ namespace PS.WPF.Controls
             set { SetValue(WatermarkProperty, value); }
         }
 
-        #endregion
-
-        #region Events
-
         public event RoutedEventHandler EditCancelled
         {
             add { AddHandler(EditCancelledEvent, value); }
@@ -247,10 +225,6 @@ namespace PS.WPF.Controls
             add { AddHandler(EditStartedEvent, value); }
             remove { RemoveHandler(EditStartedEvent, value); }
         }
-
-        #endregion
-
-        #region Override members
 
         public override void OnApplyTemplate()
         {
@@ -375,10 +349,6 @@ namespace PS.WPF.Controls
             }
         }
 
-        #endregion
-
-        #region IEditableObject Members
-
         public void BeginEdit()
         {
             if (IsEditMode || IsReadOnly) return;
@@ -406,10 +376,6 @@ namespace PS.WPF.Controls
                 RaiseEditCancelledEvent();
             }
         }
-
-        #endregion
-
-        #region Members
 
         protected void EndEdit(EndEditReason reason)
         {
@@ -467,8 +433,6 @@ namespace PS.WPF.Controls
         {
             IsWatermarkAvailable = !string.IsNullOrEmpty(Watermark) && !HasValue();
         }
-
-        #endregion
     }
 
     public enum EndEditReason
@@ -480,20 +444,12 @@ namespace PS.WPF.Controls
 
     public class EditCommittedEventArgs : RoutedEventArgs
     {
-        #region Constructors
-
         public EditCommittedEventArgs(EndEditReason reason, RoutedEvent routedEvent, object source)
             : base(routedEvent, source)
         {
             Reason = reason;
         }
 
-        #endregion
-
-        #region Properties
-
         public EndEditReason Reason { get; }
-
-        #endregion
     }
 }

@@ -2,93 +2,94 @@
 <#@ assembly name="System.Core" #>
 <#@ assembly name="System.Xml" #>
 <#@ assembly name="System.Xml.Linq" #>
+<#@ output extension=".Generated.cs" #>
 <#@ import namespace="System.Linq" #>
-<#@ import namespace="System.IO" #>
-<#@ import namespace="System.Text" #>
 <#@ import namespace="System.Xml.Linq" #>
 <#@ import namespace="System.Xml.XPath" #>
-<#@ import namespace="System.Collections.Generic" #>
-<#@ output extension=".Generated.cs" #>
-<# 
-    var configurationFilePath = this.Host.ResolvePath("Theme.xml");
-	var configuration = XDocument.Load(configurationFilePath); 
-    
-	var colorElements = configuration.XPathSelectElements("//Theme/Definition/Color[@Name and @Name[not(.=\"\")]]");
-    var colors = colorElements.Select(c => {
-        var name = c.Attribute(XName.Get("Name")).Value;
-        try
-        {
-            var result = new TemplateColor
-            {
-                Name = name,
-                Value = c.Attribute(XName.Get("Value"))?.Value,
-                Transform = ColorTransform.Parse(c.Attribute(XName.Get("Transform"))?.Value)
-            };
-            result.FieldName = char.ToLower(result.Name[0]) + result.Name.Substring(1);
-            return result;
-        }
-        catch (Exception e)
-        {
-            throw new Exception($"Color '{name}' definition is invalid", e);
-        }
-    }).ToList();
+<#
+	var configurationFilePath = this.Host.ResolvePath("Theme.xml");
+	var configuration = XDocument.Load(configurationFilePath);
 
-    var colorOpacityElements = configuration.XPathSelectElements("//Theme/Definition/AdditionalColorOpacity[@Name and @Name[not(.=\"\")]]");
-    var colorOpacities = colorOpacityElements.Select(c => {
-        var name = c.Attribute(XName.Get("Name")).Value;
-        try
-        {
-            var result = new TemplateColorOpacity
-            {
-                Name = name,
-                Value = c.Attribute(XName.Get("Value"))?.Value,
-                Postfix = c.Attribute(XName.Get("Postfix"))?.Value
-            };
-            return result;
-        }
-        catch (Exception e)
-        {
-            throw new Exception($"Color opacity '{name}' definition is invalid", e);
-        }
-    }).ToList();
+	var colorElements = configuration.XPathSelectElements("//Theme/Definition/Color[@Name and @Name[not(.=\"\")]]");
+	var colors = colorElements.Select(c =>
+	{
+		var name = c.Attribute(XName.Get("Name")).Value;
+		try
+		{
+			var result = new TemplateColor
+			{
+				Name = name,
+				Value = c.Attribute(XName.Get("Value"))?.Value,
+				Transform = ColorTransform.Parse(c.Attribute(XName.Get("Transform"))?.Value)
+			};
+			result.FieldName = char.ToLower(result.Name[0]) + result.Name.Substring(1);
+			return result;
+		}
+		catch (Exception e)
+		{
+			throw new Exception($"Color '{name}' definition is invalid", e);
+		}
+	}).ToList();
+
+	var colorOpacityElements = configuration.XPathSelectElements("//Theme/Definition/AdditionalColorOpacity[@Name and @Name[not(.=\"\")]]");
+	var colorOpacities = colorOpacityElements.Select(c =>
+	{
+		var name = c.Attribute(XName.Get("Name")).Value;
+		try
+		{
+			var result = new TemplateColorOpacity
+			{
+				Name = name,
+				Value = c.Attribute(XName.Get("Value"))?.Value,
+				Postfix = c.Attribute(XName.Get("Postfix"))?.Value
+			};
+			return result;
+		}
+		catch (Exception e)
+		{
+			throw new Exception($"Color opacity '{name}' definition is invalid", e);
+		}
+	}).ToList();
 
 	var fontElements = configuration.XPathSelectElements("//Theme/Definition/Font[@Name and @Name[not(.=\"\")]]");
-    var fonts = fontElements.Select(c => {
-        var name = c.Attribute(XName.Get("Name")).Value;
-        try
-        {
-            var result = new TemplateFont
-            {
-                Name = name,
-                Value = c.Attribute(XName.Get("Value"))?.Value,
-            };
-            result.FieldName = char.ToLower(result.Name[0]) + result.Name.Substring(1);
-            return result;
-        }
-        catch (Exception e)
-        {
-            throw new Exception($"Font '{name}' definition is invalid", e);
-        }
-    }).ToList();
+	var fonts = fontElements.Select(c =>
+	{
+		var name = c.Attribute(XName.Get("Name")).Value;
+		try
+		{
+			var result = new TemplateFont
+			{
+				Name = name,
+				Value = c.Attribute(XName.Get("Value"))?.Value,
+			};
+			result.FieldName = char.ToLower(result.Name[0]) + result.Name.Substring(1);
+			return result;
+		}
+		catch (Exception e)
+		{
+			throw new Exception($"Font '{name}' definition is invalid", e);
+		}
+	}).ToList();
 
-    var fontSizeElements = configuration.XPathSelectElements("//Theme/Definition/FontSize[@Name and @Name[not(.=\"\")]]");
-    var fontSizes = fontSizeElements.Select(c => {
-        var name = c.Attribute(XName.Get("Name")).Value;
-        try
-        {
-            var result = new TemplateFontSize
-            {
-                Name = name,
-                Value = c.Attribute(XName.Get("Value"))?.Value,
-            };
-            result.FieldName = char.ToLower(result.Name[0]) + result.Name.Substring(1);
-            return result;
-        }
-        catch (Exception e)
-        {
-            throw new Exception($"Font size '{name}' definition is invalid", e);
-        }
-    }).ToList();
+	var fontSizeElements = configuration.XPathSelectElements("//Theme/Definition/FontSize[@Name and @Name[not(.=\"\")]]");
+	var fontSizes = fontSizeElements.Select(c =>
+	{
+		var name = c.Attribute(XName.Get("Name")).Value;
+		try
+		{
+			var result = new TemplateFontSize
+			{
+				Name = name,
+				Value = c.Attribute(XName.Get("Value"))?.Value,
+			};
+			result.FieldName = char.ToLower(result.Name[0]) + result.Name.Substring(1);
+			return result;
+		}
+		catch (Exception e)
+		{
+			throw new Exception($"Font size '{name}' definition is invalid", e);
+		}
+	}).ToList();
 #>
 using System;
 using System.ComponentModel;
@@ -99,14 +100,14 @@ namespace PS.WPF.Theming
 {
     public enum ThemeColor
     {
-<# 
-	foreach (var color in colors) 
-    { 
-        var propertyName = color.Name;
+<#
+	foreach (var color in colors)
+	{
+		var propertyName = color.Name;
 #>
-        <#=propertyName#>,
-<# 
-    } 
+        <#= propertyName #>,
+<#
+	}
 #>
     }
     
@@ -114,59 +115,60 @@ namespace PS.WPF.Theming
     {
         [DefaultValue(1.0)]
         None,
-<# 
-	foreach (var colorOpacity in colorOpacities) { 
+<#
+	foreach (var colorOpacity in colorOpacities)
+	{
 #>
-        [DefaultValue(<#=colorOpacity.Value#>)]
-        [PostfixAttribute("<#=colorOpacity.Postfix#>")]
-        <#=colorOpacity.Name#>,
-<# 
-    } 
+        [DefaultValue(<#= colorOpacity.Value #>)]
+        [PostfixAttribute("<#= colorOpacity.Postfix #>")]
+        <#= colorOpacity.Name #>,
+<#
+	}
 #>
     }
 
     public enum ThemeFont
     {
-<# 
-	foreach (var font in fonts) 
-    { 
-        var propertyName = font.Name;
+<#
+	foreach (var font in fonts)
+	{
+		var propertyName = font.Name;
 #>
-        <#=propertyName#>,
-<# 
-    } 
+        <#= propertyName #>,
+<#
+	}
 #>
     }
 
     public enum ThemeFontSize
     {
-<# 
-	foreach (var fontSize in fontSizes) 
-    { 
-        var propertyName = fontSize.Name;
+<#
+	foreach (var fontSize in fontSizes)
+	{
+		var propertyName = fontSize.Name;
 #>
-        <#=propertyName#>,
-<# 
-    } 
+        <#= propertyName #>,
+<#
+	}
 #>
     }
 
     public sealed class ThemeFonts : BaseNotifyPropertyChanged
     {
-<# 
-	foreach (var font in fonts) 
-    { 
-        var propertyName = font.Name;
-        var fieldName = font.FieldName;
+<#
+	foreach (var font in fonts)
+	{
+		var propertyName = font.Name;
+		var fieldName = font.FieldName;
 #>
-        private FontFamily _<#=fieldName#>;
-        public FontFamily <#=propertyName#>
+        private FontFamily _<#= fieldName #>;
+        public FontFamily <#= propertyName #>
         {
-            get { return _<#=fieldName#>; }
-            set { SetField(ref _<#=fieldName#>, value); }
+            get { return _<#= fieldName #>; }
+            set { SetField(ref _<#= fieldName #>, value); }
         }
-<# 
-    } 
+<#
+	}
 #>
 
         public FontFamily this[ThemeFont font]
@@ -175,14 +177,14 @@ namespace PS.WPF.Theming
             {
                 switch(font)
                 {
-<# 
-	foreach (var font in fonts) 
-    { 
-        var propertyName = font.Name;
+<#
+	foreach (var font in fonts)
+	{
+		var propertyName = font.Name;
 #>
-                    case ThemeFont.<#=propertyName#>: return <#=propertyName#>;
-<# 
-    } 
+                    case ThemeFont.<#= propertyName #>: return <#= propertyName #>;
+<#
+	}
 #>
                     default:
                         throw new ArgumentException($"{font} is unknown");
@@ -192,14 +194,14 @@ namespace PS.WPF.Theming
             {
                 switch(font)
                 {
-<# 
-	foreach (var font in fonts) 
-    { 
-        var propertyName = font.Name;
+<#
+	foreach (var font in fonts)
+	{
+		var propertyName = font.Name;
 #>
-                    case ThemeFont.<#=propertyName#>: <#=propertyName#> = value; break;
-<# 
-    } 
+                    case ThemeFont.<#= propertyName #>: <#= propertyName #> = value; break;
+<#
+	}
 #>
                     default:
                         throw new ArgumentException($"{font} is unknown");
@@ -210,20 +212,20 @@ namespace PS.WPF.Theming
 
     public sealed class ThemeFontSizes : BaseNotifyPropertyChanged
     {
-<# 
-	foreach (var fontSize in fontSizes) 
-    { 
-        var propertyName = fontSize.Name;
-        var fieldName = fontSize.FieldName;
+<#
+	foreach (var fontSize in fontSizes)
+	{
+		var propertyName = fontSize.Name;
+		var fieldName = fontSize.FieldName;
 #>
-        private double _<#=fieldName#>;
-        public double <#=propertyName#>
+        private double _<#= fieldName #>;
+        public double <#= propertyName #>
         {
-            get { return _<#=fieldName#>; }
-            set { SetField(ref _<#=fieldName#>, value); }
+            get { return _<#= fieldName #>; }
+            set { SetField(ref _<#= fieldName #>, value); }
         }
-<# 
-    } 
+<#
+	}
 #>
 
         public double this[ThemeFontSize fontSize]
@@ -232,14 +234,14 @@ namespace PS.WPF.Theming
             {
                 switch(fontSize)
                 {
-<# 
-	foreach (var fontSize in fontSizes) 
-    { 
-        var propertyName = fontSize.Name;
+<#
+	foreach (var fontSize in fontSizes)
+	{
+		var propertyName = fontSize.Name;
 #>
-                    case ThemeFontSize.<#=propertyName#>: return <#=propertyName#>;
-<# 
-    } 
+                    case ThemeFontSize.<#= propertyName #>: return <#= propertyName #>;
+<#
+	}
 #>
                     default:
                         throw new ArgumentException($"{fontSize} is unknown");
@@ -249,14 +251,14 @@ namespace PS.WPF.Theming
             {
                 switch(fontSize)
                 {
-<# 
-	foreach (var fontSize in fontSizes) 
-    { 
-        var propertyName = fontSize.Name;
+<#
+	foreach (var fontSize in fontSizes)
+	{
+		var propertyName = fontSize.Name;
 #>
-                    case ThemeFontSize.<#=propertyName#>: <#=propertyName#> = value; break;
-<# 
-    } 
+                    case ThemeFontSize.<#= propertyName #>: <#= propertyName #> = value; break;
+<#
+	}
 #>
                     default:
                         throw new ArgumentException($"{fontSize} is unknown");
@@ -267,51 +269,54 @@ namespace PS.WPF.Theming
 
     public sealed class ThemeColors : BaseNotifyPropertyChanged
     {
-<# 
-	foreach (var color in colors) 
-    { 
-        var propertyName = color.Name;
-        var fieldName = color.FieldName;
+<#
+	foreach (var color in colors)
+	{
+		var propertyName = color.Name;
+		var fieldName = color.FieldName;
 #>
-        private Color _<#=fieldName#>;
-        public Color <#=propertyName#>
+        private Color _<#= fieldName #>;
+        public Color <#= propertyName #>
         {
-            get { return _<#=fieldName#>; }
+            get { return _<#= fieldName #>; }
             set
             {
-                if(SetField(ref _<#=fieldName#>, value))
+                if(SetField(ref _<#= fieldName #>, value))
                 {
-<# 
-	    foreach (var colorOpacity in colorOpacities) { 
+<#
+		foreach (var colorOpacity in colorOpacities)
+		{
 #>
-                    <#=propertyName#><#=colorOpacity.Postfix#> = ColorConverters.ApplyOpacity(value, <#=colorOpacity.Value#>); OnPropertyChanged("<#=propertyName#><#=colorOpacity.Postfix#>");
-<# 
-        } 
+                    <#= propertyName #><#= colorOpacity.Postfix #> = ColorConverters.ApplyOpacity(value, <#= colorOpacity.Value #>); OnPropertyChanged("<#= propertyName #><#= colorOpacity.Postfix #>");
+<#
+		}
 #>
 
-                    var args = new ColorChangedEventArgs("<#=propertyName#>", 
-<# 
-	    foreach (var colorOpacity in colorOpacities) { 
+                    var args = new ColorChangedEventArgs("<#= propertyName #>", 
+<#
+		foreach (var colorOpacity in colorOpacities)
+		{
 #>
-                                                         <#=propertyName#><#=colorOpacity.Postfix#>,
-<# 
-        } 
+                                                         <#= propertyName #><#= colorOpacity.Postfix #>,
+<#
+		}
 #>
                                                          value);
                     ColorChanged?.Invoke(this, args);
                 }
             }
         }
-<# 
-	    foreach (var colorOpacity in colorOpacities) { 
+<#
+		foreach (var colorOpacity in colorOpacities)
+		{
 #>
-        public Color <#=propertyName#><#=colorOpacity.Postfix#> { get; private set; }
-<# 
-        } 
+        public Color <#= propertyName #><#= colorOpacity.Postfix #> { get; private set; }
+<#
+		}
 #>
 
-<# 
-    } 
+<#
+	}
 #>
 
         public Color this[ThemeColor color]
@@ -320,14 +325,14 @@ namespace PS.WPF.Theming
             {
                 switch(color)
                 {
-<# 
-	foreach (var color in colors) 
-    { 
-        var propertyName = color.Name;
+<#
+	foreach (var color in colors)
+	{
+		var propertyName = color.Name;
 #>
-                    case ThemeColor.<#=propertyName#>: return <#=propertyName#>;
-<# 
-    } 
+                    case ThemeColor.<#= propertyName #>: return <#= propertyName #>;
+<#
+	}
 #>
                     default:
                         throw new ArgumentException($"{color} is unknown");
@@ -337,14 +342,14 @@ namespace PS.WPF.Theming
             {
                 switch(color)
                 {
-<# 
-	foreach (var color in colors) 
-    { 
-        var propertyName = color.Name;
+<#
+	foreach (var color in colors)
+	{
+		var propertyName = color.Name;
 #>
-                    case ThemeColor.<#=propertyName#>: <#=propertyName#> = value; break;
-<# 
-    } 
+                    case ThemeColor.<#= propertyName #>: <#= propertyName #> = value; break;
+<#
+	}
 #>
                     default:
                         throw new ArgumentException($"{color} is unknown");
@@ -362,22 +367,23 @@ namespace PS.WPF.Theming
             if (colors == null) throw new ArgumentNullException(nameof(colors));
             colors.ColorChanged += OnColorChanged;
         }
-<# 
-	foreach (var color in colors) 
-    { 
-        var propertyName = color.Name;
+<#
+	foreach (var color in colors)
+	{
+		var propertyName = color.Name;
 #>
-        public Brush <#=propertyName#> { get; private set; }
-<# 
-	    foreach (var colorOpacity in colorOpacities) { 
+        public Brush <#= propertyName #> { get; private set; }
+<#
+		foreach (var colorOpacity in colorOpacities)
+		{
 #>
-        public Brush <#=propertyName#><#=colorOpacity.Postfix#> { get; private set; }
-<# 
-        } 
+        public Brush <#= propertyName #><#= colorOpacity.Postfix #> { get; private set; }
+<#
+		}
 #>
 
-<# 
-    } 
+<#
+	}
 #>
         public Brush this[ThemeColor color]
         {
@@ -385,14 +391,14 @@ namespace PS.WPF.Theming
             {
                 switch(color)
                 {
-<# 
-	foreach (var color in colors) 
-    { 
-        var propertyName = color.Name;
+<#
+	foreach (var color in colors)
+	{
+		var propertyName = color.Name;
 #>
-                    case ThemeColor.<#=propertyName#>: return <#=propertyName#>;
-<# 
-    } 
+                    case ThemeColor.<#= propertyName #>: return <#= propertyName #>;
+<#
+	}
 #>
                     default:
                         throw new ArgumentException($"{color} is unknown");
@@ -404,23 +410,24 @@ namespace PS.WPF.Theming
         {
             switch (e.Name)
             {
-<# 
-	foreach (var color in colors) 
-    { 
-        var propertyName = color.Name;
+<#
+	foreach (var color in colors)
+	{
+		var propertyName = color.Name;
 #>
-                case "<#=propertyName#>":
-                    <#=propertyName#> = new SolidColorBrush(e.Value); OnPropertyChanged("<#=propertyName#>");
-<# 
-	    foreach (var colorOpacity in colorOpacities) { 
+                case "<#= propertyName #>":
+                    <#= propertyName #> = new SolidColorBrush(e.Value); OnPropertyChanged("<#= propertyName #>");
+<#
+		foreach (var colorOpacity in colorOpacities)
+		{
 #>
-                    <#=propertyName#><#=colorOpacity.Postfix#> = new SolidColorBrush(e.<#=colorOpacity.Name#>); OnPropertyChanged("<#=propertyName#><#=colorOpacity.Postfix#>");
-<# 
-        } 
+                    <#= propertyName #><#= colorOpacity.Postfix #> = new SolidColorBrush(e.<#= colorOpacity.Name #>); OnPropertyChanged("<#= propertyName #><#= colorOpacity.Postfix #>");
+<#
+		}
 #>
                     break;
-<# 
-    } 
+<#
+	}
 #>
                 default:
                     throw new InvalidCastException($"{e.Name} property is not defined in brushes");
@@ -439,31 +446,31 @@ namespace PS.WPF.Theming
         {
             if (ReferenceEquals(theme, this)) return;
 
-<# 
-	foreach (var color in colors) 
-    {
+<#
+	foreach (var color in colors)
+	{
 #>
-            Colors.<#=color.Name#> = theme.Colors.<#=color.Name#>;
-<# 
-    } 
-#>
-
-<# 
-	foreach (var font in fonts) 
-    {
-#>
-            Fonts.<#=font.Name#> = theme.Fonts.<#=font.Name#>;
-<# 
-    } 
+            Colors.<#= color.Name #> = theme.Colors.<#= color.Name #>;
+<#
+	}
 #>
 
-<# 
-	foreach (var fontSize in fontSizes) 
-    {
+<#
+	foreach (var font in fonts)
+	{
 #>
-            FontSizes.<#=fontSize.Name#> = theme.FontSizes.<#=fontSize.Name#>;
-<# 
-    } 
+            Fonts.<#= font.Name #> = theme.Fonts.<#= font.Name #>;
+<#
+	}
+#>
+
+<#
+	foreach (var fontSize in fontSizes)
+	{
+#>
+            FontSizes.<#= fontSize.Name #> = theme.FontSizes.<#= fontSize.Name #>;
+<#
+	}
 #>
         }
 	}
@@ -472,51 +479,51 @@ namespace PS.WPF.Theming
     {
         public ThemeDefault()
         {
-<# 
-	foreach (var color in colors) 
-    { 
-        if(string.IsNullOrEmpty(color.Value))
-        {
-            continue;
-        }
+<#
+	foreach (var color in colors)
+	{
+		if (string.IsNullOrEmpty(color.Value))
+		{
+			continue;
+		}
 #>
-            Colors.<#=color.Name#> = (Color)ColorConverter.ConvertFromString("<#=color.Value#>");
-<# 
-    } 
+            Colors.<#= color.Name #> = (Color)ColorConverter.ConvertFromString("<#= color.Value #>");
+<#
+	}
 #>
-<# 
-	foreach (var color in colors) 
-    { 
-        if(color.Transform == null)
-        {
-            continue;
-        }
+<#
+	foreach (var color in colors)
+	{
+		if (color.Transform == null)
+		{
+			continue;
+		}
 #>
-            Colors.<#=color.Name#> = ColorConverters.Apply<#=color.Transform.Effect#>(Colors.<#=color.Transform.Source#>, <#=color.Transform.Coefficient#>);
-<# 
-    } 
-#>
-
-<# 
-	foreach (var fontSize in fontSizes) 
-    { 
-        var propertyName = fontSize.Name;
-        var value = fontSize.Value;
-#>
-            FontSizes.<#=propertyName#> = <#=value#>;
-<# 
-    } 
+            Colors.<#= color.Name #> = ColorConverters.Apply<#= color.Transform.Effect #>(Colors.<#= color.Transform.Source #>, <#= color.Transform.Coefficient #>);
+<#
+	}
 #>
 
-<# 
-	foreach (var font in fonts) 
-    { 
-        var propertyName = font.Name;
-        var value = font.Value;
+<#
+	foreach (var fontSize in fontSizes)
+	{
+		var propertyName = fontSize.Name;
+		var value = fontSize.Value;
 #>
-            Fonts.<#=propertyName#> = new FontFamily("<#=value#>");
-<# 
-    } 
+            FontSizes.<#= propertyName #> = <#= value #>;
+<#
+	}
+#>
+
+<#
+	foreach (var font in fonts)
+	{
+		var propertyName = font.Name;
+		var value = font.Value;
+#>
+            Fonts.<#= propertyName #> = new FontFamily("<#= value #>");
+<#
+	}
 #>
         }
     }
@@ -524,33 +531,36 @@ namespace PS.WPF.Theming
     public class ColorChangedEventArgs : EventArgs
     {
         public ColorChangedEventArgs(string name, 
-<# 
-	    foreach (var colorOpacity in colorOpacities) { 
+<#
+	foreach (var colorOpacity in colorOpacities)
+	{
 #>
-                                     Color <#=colorOpacity.Name#>,
-<# 
-        } 
+                                     Color <#= colorOpacity.Name #>,
+<#
+	}
 #>
                                      Color value)
         {
             Name = name;
             Value = value;
 
-<# 
-	    foreach (var colorOpacity in colorOpacities) { 
+<#
+	foreach (var colorOpacity in colorOpacities)
+	{
 #>
-            this.<#=colorOpacity.Name#> = <#=colorOpacity.Name#>;
-<# 
-        } 
+            this.<#= colorOpacity.Name #> = <#= colorOpacity.Name #>;
+<#
+	}
 #>
         }
 
-<# 
-	    foreach (var colorOpacity in colorOpacities) { 
+<#
+	foreach (var colorOpacity in colorOpacities)
+	{
 #>
-        public Color <#=colorOpacity.Name#> { get; }
-<# 
-        } 
+        public Color <#= colorOpacity.Name #> { get; }
+<#
+	}
 #>
 
         public Color Value { get; }
@@ -558,56 +568,59 @@ namespace PS.WPF.Theming
     }
 }
 <#+
-    class TemplateColor
-    {
-        public string Name;
-        public string FieldName;
-        public string Value;
-        public ColorTransform Transform;
-    }
-    class TemplateColorOpacity
-    {
-        public string Name;
-        public string Value;
-        public string Postfix;
-    }
-    class TemplateFont
-    {
-        public string Name;
-        public string FieldName;
-        public string Value;
-    }
-    class TemplateFontSize
-    {
-        public string Name;
-        public string FieldName;
-        public string Value;
-    }
-    class ColorTransform
-    {
-        public static ColorTransform Parse(string source)
-        {
-            if(string.IsNullOrEmpty(source))
-            {
-                return null;
-            }
+	class TemplateColor
+	{
+		public string Name;
+		public string FieldName;
+		public string Value;
+		public ColorTransform Transform;
+	}
 
-            var parts = source.Split(':');
-            if(parts.Length != 3)
-            {
-                throw new ArgumentException("Transform format is invalid. <SourceProperty>:<Effect>:<Coefficient>");
-            }
-            return new ColorTransform
-            {
-                Source = parts[0],
-                Effect = parts[1],
-                Coefficient = parts[2],
-            };
-        }
-       
+	class TemplateColorOpacity
+	{
+		public string Name;
+		public string Value;
+		public string Postfix;
+	}
 
-        public string Source;
-        public string Effect;
-        public string Coefficient;
-    }
+	class TemplateFont
+	{
+		public string Name;
+		public string FieldName;
+		public string Value;
+	}
+
+	class TemplateFontSize
+	{
+		public string Name;
+		public string FieldName;
+		public string Value;
+	}
+
+	class ColorTransform
+	{
+		public static ColorTransform Parse(string source)
+		{
+			if (string.IsNullOrEmpty(source))
+			{
+				return null;
+			}
+
+			var parts = source.Split(':');
+			if (parts.Length != 3)
+			{
+				throw new ArgumentException("Transform format is invalid. <SourceProperty>:<Effect>:<Coefficient>");
+			}
+			return new ColorTransform
+			{
+				Source = parts[0],
+				Effect = parts[1],
+				Coefficient = parts[2],
+			};
+		}
+
+		public string Source;
+		public string Effect;
+		public string Coefficient;
+	}
 #>

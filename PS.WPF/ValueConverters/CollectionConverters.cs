@@ -10,8 +10,6 @@ namespace PS.WPF.ValueConverters
 {
     public static class CollectionConverters
     {
-        #region Constants
-
         public static readonly RelayValueConverter Any;
         public static readonly RelayMultiValueConverter Contain;
         public static readonly RelayValueConverter Count;
@@ -20,10 +18,6 @@ namespace PS.WPF.ValueConverters
         public static readonly RelayValueConverter Group;
         public static readonly RelayValueConverter GroupAndSort;
         public static readonly RelayValueConverter Sort;
-
-        #endregion
-
-        #region Static members
 
         private static object CreateView(object value, IEnumerable parameter)
         {
@@ -59,10 +53,6 @@ namespace PS.WPF.ValueConverters
 
             return source.View;
         }
-
-        #endregion
-
-        #region Constructors
 
         static CollectionConverters()
         {
@@ -103,7 +93,5 @@ namespace PS.WPF.ValueConverters
                 return result;
             });
         }
-
-        #endregion
     }
 }

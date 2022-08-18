@@ -4,8 +4,6 @@
     {
         private PresetMode _preset;
 
-        #region Constructors
-
         protected BaseFloatingMarkupExtension()
         {
         }
@@ -14,10 +12,6 @@
             : base(value)
         {
         }
-
-        #endregion
-
-        #region Properties
 
         public PresetMode Preset
         {
@@ -29,13 +23,7 @@
             }
         }
 
-        #endregion
-
-        #region Members
-
         protected abstract T GetPreset(PresetMode value);
-
-        #endregion
 
         #region Nested type: PresetMode
 

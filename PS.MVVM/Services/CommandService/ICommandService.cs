@@ -7,8 +7,6 @@ namespace PS.MVVM.Services.CommandService
 {
     public interface ICommandService
     {
-        #region Members
-
         void Add(CommandServiceComponent component);
 
         IEnumerable CreateView(Func<CommandServiceComponent, bool> filter);
@@ -16,7 +14,5 @@ namespace PS.MVVM.Services.CommandService
         IReadOnlyCollection<CommandServiceComponent> Find(object identifier);
 
         ISubscriptionAware HandleActivation(object identifier);
-
-        #endregion
     }
 }

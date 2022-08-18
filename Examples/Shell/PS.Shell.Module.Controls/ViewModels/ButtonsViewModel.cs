@@ -11,8 +11,6 @@ namespace PS.Shell.Module.Controls.ViewModels
     public class ButtonsViewModel : BaseNotifyPropertyChanged,
                                     IViewModel
     {
-        #region Constructors
-
         public ButtonsViewModel(ILogger logger)
         {
             Logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -29,19 +27,15 @@ namespace PS.Shell.Module.Controls.ViewModels
             ToggleButtonAction = CreateUICommand<bool>("Toggle Button action");
         }
 
-        #endregion
-
-        #region Properties
-
         public IUICommand ButtonAction { get; }
+
         public ILogger Logger { get; }
+
         public IUICommand SplitButtonAction { get; }
+
         public ObservableCollection<IUICommand> SplitMenuButtonCommands { get; }
+
         public IUICommand ToggleButtonAction { get; }
-
-        #endregion
-
-        #region Members
 
         private IUICommand CreateUICommand(string name, bool canExecute = true)
         {
@@ -58,7 +52,5 @@ namespace PS.Shell.Module.Controls.ViewModels
                 Title = name
             };
         }
-
-        #endregion
     }
 }

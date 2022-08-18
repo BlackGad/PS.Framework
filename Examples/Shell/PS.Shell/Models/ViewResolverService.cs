@@ -1,11 +1,10 @@
 ﻿using PS.IoC.Attributes;
 using PS.MVVM.Services;
 
-namespace PS.Shell.Models
+namespace PS.Shell.Models;
+
+[DependencyRegisterAsInterface(typeof(IViewResolverService))]
+[DependencyLifetime(DependencyLifetime.InstanceSingle)]
+internal class ViewResolverService : MVVM.Services.ViewResolverService
 {
-    [DependencyRegisterAsInterface(typeof(IViewResolverService))]
-    [DependencyLifetime(DependencyLifetime.InstanceSingle)]
-    internal class ViewResolverService : MVVM.Services.ViewResolverService
-    {
-    }
 }

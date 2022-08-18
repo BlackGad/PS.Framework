@@ -5,14 +5,8 @@ namespace PS.WPF.ValueConverters
 {
     public static class TypeConverters
     {
-        #region Constants
-
         public static readonly RelayValueConverter DisplayName;
         public static readonly RelayValueConverter EnumValues;
-
-        #endregion
-
-        #region Constructors
 
         static TypeConverters()
         {
@@ -32,7 +26,5 @@ namespace PS.WPF.ValueConverters
                 return null;
             });
         }
-
-        #endregion
     }
 }

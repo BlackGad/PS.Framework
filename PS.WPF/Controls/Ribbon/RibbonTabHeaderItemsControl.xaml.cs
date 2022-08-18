@@ -10,17 +10,11 @@ namespace PS.WPF.Controls.Ribbon
 {
     public class RibbonTabHeaderItemsControl : System.Windows.Controls.Ribbon.RibbonTabHeaderItemsControl
     {
-        #region Property definitions
-
         /// <summary>
-        ///     DependencyProperty for Ribbon property.
+        /// DependencyProperty for Ribbon property.
         /// </summary>
         public static readonly DependencyProperty RibbonProperty =
             RibbonControlService.RibbonProperty.AddOwner(typeof(RibbonTabHeader));
-
-        #endregion
-
-        #region Constructors
 
         static RibbonTabHeaderItemsControl()
         {
@@ -28,21 +22,13 @@ namespace PS.WPF.Controls.Ribbon
             ResourceHelper.SetDefaultStyle(typeof(RibbonTabHeaderItemsControl), Resource.ControlStyle);
         }
 
-        #endregion
-
-        #region Properties
-
         /// <summary>
-        ///     This property is used to access Ribbon
+        /// This property is used to access Ribbon
         /// </summary>
         public System.Windows.Controls.Ribbon.Ribbon Ribbon
         {
             get { return RibbonControlService.GetRibbon(this); }
         }
-
-        #endregion
-
-        #region Override members
 
         public override void OnApplyTemplate()
         {
@@ -87,14 +73,10 @@ namespace PS.WPF.Controls.Ribbon
             return new RibbonTabHeader();
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/Ribbon/RibbonTabHeaderItemsControl.xaml", UriKind.RelativeOrAbsolute);
 
@@ -105,8 +87,6 @@ namespace PS.WPF.Controls.Ribbon
             public static readonly ResourceDescriptor ControlTemplate =
                 ResourceDescriptor.Create<ControlTemplate>(description: "Default RibbonTabHeaderItemsControl control template",
                                                            resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

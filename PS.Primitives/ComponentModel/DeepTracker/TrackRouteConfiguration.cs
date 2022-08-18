@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using PS.ComponentModel.DeepTracker.Extensions;
 using PS.ComponentModel.DeepTracker.Filters;
+using PS.ComponentModel.Navigation;
 using PS.Extensions;
 
 namespace PS.ComponentModel.DeepTracker
@@ -17,9 +18,7 @@ namespace PS.ComponentModel.DeepTracker
         private bool _isCreated;
         private object _source;
 
-        #region Constructors
-
-        public TrackRouteConfiguration(object source, Navigation.Route route)
+        public TrackRouteConfiguration(object source, Route route)
         {
             _source = source ?? throw new ArgumentNullException(nameof(source));
             _excludeList = new List<IExcludeTrackRoute>
@@ -34,15 +33,7 @@ namespace PS.ComponentModel.DeepTracker
             this.Exclude((reference, value, r) => !reference.SourceType.IsClass);
         }
 
-        #endregion
-
-        #region Properties
-
-        public Navigation.Route Route { get; }
-
-        #endregion
-
-        #region ITrackRouteConfiguration Members
+        public Route Route { get; }
 
         public ITrackRouteConfiguration Exclude(IExcludeTrackRoute exclude)
         {
@@ -160,11 +151,7 @@ namespace PS.ComponentModel.DeepTracker
             return result;
         }
 
-        #endregion
-
-        #region Members
-
-        public bool IsAllowed(PropertyReference reference, Lazy<object> value, Navigation.Route propertyRoute)
+        public bool IsAllowed(PropertyReference reference, Lazy<object> value, Route propertyRoute)
         {
             var isIncluded = true;
             if (_includeList.Any())
@@ -186,7 +173,7 @@ namespace PS.ComponentModel.DeepTracker
             return true;
         }
 
-        public bool IsAllowed(PropertyReference reference, Navigation.Route propertyRoute)
+        public bool IsAllowed(PropertyReference reference, Route propertyRoute)
         {
             if (reference.TryGetDescriptor(out var descriptor))
             {
@@ -206,7 +193,5 @@ namespace PS.ComponentModel.DeepTracker
         {
             if (_isCreated) throw new InvalidOperationException("Tracker already created");
         }
-
-        #endregion
     }
 }

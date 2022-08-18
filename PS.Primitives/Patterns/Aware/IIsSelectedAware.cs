@@ -2,10 +2,6 @@
 {
     public interface IIsSelectedAware
     {
-        #region Properties
-
         bool IsSelected { get; }
-
-        #endregion
     }
 }

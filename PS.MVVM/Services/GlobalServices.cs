@@ -5,13 +5,7 @@ namespace PS.MVVM.Services
 {
     public static class GlobalServices
     {
-        #region Constants
-
         private static readonly ObjectsStorage<Type, object> GlobalServicesStorage;
-
-        #endregion
-
-        #region Static members
 
         public static TResolverService Get<TResolverService>()
             where TResolverService : class
@@ -26,15 +20,9 @@ namespace PS.MVVM.Services
             GlobalServicesStorage[typeof(TResolverService)] = service;
         }
 
-        #endregion
-
-        #region Constructors
-
         static GlobalServices()
         {
             GlobalServicesStorage = new ObjectsStorage<Type, object>();
         }
-
-        #endregion
     }
 }

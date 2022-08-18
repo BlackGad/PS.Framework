@@ -6,8 +6,6 @@ namespace PS.Commander
 {
     public static class XamlResources
     {
-        #region Constants
-
         private static readonly Uri Default =
             new Uri("/PS.Commander;component/XamlResources.xaml", UriKind.RelativeOrAbsolute);
 
@@ -18,7 +16,5 @@ namespace PS.Commander
         public static readonly ResourceDescriptor ShellWindowStyle =
             ResourceDescriptor.Create<Style>(description: "Default style for window",
                                              resourceDictionary: Default);
-
-        #endregion
     }
 }

@@ -8,8 +8,6 @@ namespace PS.ComponentModel.DeepTracker.Filters
 {
     public class IncludeObjectProperty : IIncludeTrackRoute
     {
-        #region Constructors
-
         public IncludeObjectProperty(ILookup<Type, string> lookup)
         {
             ObjectProperties = lookup ?? throw new ArgumentNullException(nameof(lookup));
@@ -20,15 +18,7 @@ namespace PS.ComponentModel.DeepTracker.Filters
         {
         }
 
-        #endregion
-
-        #region Properties
-
         public ILookup<Type, string> ObjectProperties { get; }
-
-        #endregion
-
-        #region IIncludeTrackRoute Members
 
         public bool Include(PropertyReference propertyReference, Lazy<object> value, Route route)
         {
@@ -42,7 +32,5 @@ namespace PS.ComponentModel.DeepTracker.Filters
 
             return false;
         }
-
-        #endregion
     }
 }

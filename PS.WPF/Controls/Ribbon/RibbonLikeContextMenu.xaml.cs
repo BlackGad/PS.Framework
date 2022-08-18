@@ -14,8 +14,6 @@ namespace PS.WPF.Controls.Ribbon
 {
     public class RibbonLikeContextMenu : ContextMenu
     {
-        #region Property definitions
-
         public static readonly DependencyProperty AccentProperty =
             DependencyProperty.Register(nameof(Accent),
                                         typeof(Brush),
@@ -41,16 +39,12 @@ namespace PS.WPF.Controls.Ribbon
                                         new FrameworkPropertyMetadata(default(Brush)));
 
         /// <summary>
-        ///     DependencyProperty for Ribbon property.
+        /// DependencyProperty for Ribbon property.
         /// </summary>
         public static readonly DependencyProperty RibbonProperty =
             RibbonControlService.RibbonProperty.AddOwner(typeof(RibbonLikeContextMenu));
 
-        #endregion
-
         private object _currentItem;
-
-        #region Constructors
 
         static RibbonLikeContextMenu()
         {
@@ -62,10 +56,6 @@ namespace PS.WPF.Controls.Ribbon
         {
             AddHandler(RibbonControlService.DismissPopupEvent, new RibbonDismissPopupEventHandler(OnDismissPopup));
         }
-
-        #endregion
-
-        #region Properties
 
         public Brush Accent
         {
@@ -92,16 +82,12 @@ namespace PS.WPF.Controls.Ribbon
         }
 
         /// <summary>
-        ///     This property is used to access Ribbon
+        /// This property is used to access Ribbon
         /// </summary>
         public System.Windows.Controls.Ribbon.Ribbon Ribbon
         {
             get { return RibbonControlService.GetRibbon(this); }
         }
-
-        #endregion
-
-        #region Override members
 
         protected override DependencyObject GetContainerForItemOverride()
         {
@@ -171,23 +157,15 @@ namespace PS.WPF.Controls.Ribbon
             return false;
         }
 
-        #endregion
-
-        #region Event handlers
-
         private void OnDismissPopup(object sender, RibbonDismissPopupEventArgs e)
         {
             IsOpen = false;
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/Ribbon/RibbonLikeContextMenu.xaml", UriKind.RelativeOrAbsolute);
 
@@ -198,8 +176,6 @@ namespace PS.WPF.Controls.Ribbon
             public static readonly ResourceDescriptor ControlTemplate =
                 ResourceDescriptor.Create<ControlTemplate>(description: "Default RibbonLikeContextMenu control template",
                                                            resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

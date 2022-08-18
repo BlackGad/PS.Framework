@@ -5,8 +5,6 @@ namespace PS.WPF.Extensions
 {
     public static class ConvertExtensions
     {
-        #region Static members
-
         public static Brush ToBrush(this object source)
         {
             if (source == null) return null;
@@ -73,7 +71,5 @@ namespace PS.WPF.Extensions
                     throw new NotSupportedException($"{source.GetType()} not supported as source type");
             }
         }
-
-        #endregion
     }
 }

@@ -1,26 +1,17 @@
 ﻿using PS.MVVM.Patterns;
 using PS.Shell.Infrastructure.ViewModels;
 
-namespace PS.Shell.Views
+namespace PS.Shell.Views;
+
+public partial class NotificationView : IView<NotificationViewModel>
 {
-    public partial class NotificationView : IView<NotificationViewModel>
+    public NotificationView()
     {
-        #region Constructors
+        InitializeComponent();
+    }
 
-        public NotificationView()
-        {
-            InitializeComponent();
-        }
-
-        #endregion
-
-        #region IView<NotificationViewModel> Members
-
-        public NotificationViewModel ViewModel
-        {
-            get { return DataContext as NotificationViewModel; }
-        }
-
-        #endregion
+    public NotificationViewModel ViewModel
+    {
+        get { return DataContext as NotificationViewModel; }
     }
 }

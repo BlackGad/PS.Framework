@@ -9,22 +9,12 @@ namespace PS.MVVM.Services.CommandService
     {
         private object _contextualId;
 
-        #region Constructors
-
         public CommandBundle()
         {
             Groups = new ObservableCollection<CommandGroup>();
         }
 
-        #endregion
-
-        #region Properties
-
         public ObservableCollection<CommandGroup> Groups { get; }
-
-        #endregion
-
-        #region IContextAware Members
 
         public object Context
         {
@@ -36,7 +26,5 @@ namespace PS.MVVM.Services.CommandService
                 OnPropertyChanged();
             }
         }
-
-        #endregion
     }
 }

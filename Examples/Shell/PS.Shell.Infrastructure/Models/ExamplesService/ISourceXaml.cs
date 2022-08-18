@@ -2,10 +2,6 @@
 {
     public interface ISourceXaml : ISource
     {
-        #region Properties
-
         string Code { get; }
-
-        #endregion
     }
 }

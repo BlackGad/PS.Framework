@@ -15,8 +15,6 @@ namespace PS.Shell.Module.Controls
 {
     public class ControlsModule : Autofac.Module
     {
-        #region Override members
-
         protected override void AttachToComponentRegistration(IComponentRegistryBuilder componentRegistry, IComponentRegistration registration)
         {
             registration.HandleActivation<IViewResolverService>(ViewResolverServiceActivation);
@@ -27,10 +25,6 @@ namespace PS.Shell.Module.Controls
         {
             builder.RegisterAssemblyTypesWithAttributes(ThisAssembly);
         }
-
-        #endregion
-
-        #region Members
 
         private void ControlsServiceActivation(ILifetimeScope scope, IExamplesService service)
         {
@@ -76,7 +70,5 @@ namespace PS.Shell.Module.Controls
                    .AssociateTemplate<BusyContainerStackViewModel>(scope.Resolve<IDataTemplate<BusyContainerStackView>>())
                    .AssociateTemplate<CancelableProcessCommandViewModel>(scope.Resolve<IDataTemplate<CancelableProcessCommandView>>());
         }
-
-        #endregion
     }
 }

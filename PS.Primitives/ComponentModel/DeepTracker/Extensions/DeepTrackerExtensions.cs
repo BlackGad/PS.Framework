@@ -5,8 +5,6 @@ namespace PS.ComponentModel.DeepTracker.Extensions
 {
     public static class DeepTrackerExtensions
     {
-        #region Static members
-
         public static string FormatMessage(this ChangedEventArgs e, bool trimOutput = true)
         {
             if (e is ChangedCollectionEventArgs collectionEventArgs)
@@ -42,7 +40,5 @@ namespace PS.ComponentModel.DeepTracker.Extensions
 
             return $"{e.Route} changed.";
         }
-
-        #endregion
     }
 }

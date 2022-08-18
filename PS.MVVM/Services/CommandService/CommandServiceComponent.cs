@@ -19,17 +19,11 @@ namespace PS.MVVM.Services.CommandService
         private int _order;
         private string _title;
 
-        #region Constructors
-
         protected CommandServiceComponent()
         {
             Id = Guid.NewGuid().ToString("N");
             IsVisible = true;
         }
-
-        #endregion
-
-        #region IDescriptionAware Members
 
         public string Description
         {
@@ -42,10 +36,6 @@ namespace PS.MVVM.Services.CommandService
             }
         }
 
-        #endregion
-
-        #region IIDAware<object> Members
-
         public object Id
         {
             get { return _id; }
@@ -57,15 +47,7 @@ namespace PS.MVVM.Services.CommandService
             }
         }
 
-        #endregion
-
-        #region INotifyPropertyChanged Members
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
-
-        #region IOrderAware Members
 
         public int Order
         {
@@ -78,10 +60,6 @@ namespace PS.MVVM.Services.CommandService
             }
         }
 
-        #endregion
-
-        #region ITitleAware Members
-
         public string Title
         {
             get { return _title; }
@@ -93,10 +71,6 @@ namespace PS.MVVM.Services.CommandService
             }
         }
 
-        #endregion
-
-        #region IVisibilityAware Members
-
         public bool IsVisible
         {
             get { return _isVisible; }
@@ -107,10 +81,6 @@ namespace PS.MVVM.Services.CommandService
                 OnPropertyChanged();
             }
         }
-
-        #endregion
-
-        #region Members
 
         public void Hide()
         {
@@ -126,7 +96,5 @@ namespace PS.MVVM.Services.CommandService
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        #endregion
     }
 }
