@@ -2,24 +2,25 @@
 using System.Windows.Data;
 using PS.MVVM.Services;
 
-namespace PS.MVVM.Components.ModelResolver;
-
-public class CollectionModelResolver : ModelResolver
+namespace PS.MVVM.Components.ModelResolver
 {
-    protected override Binding ProvideBinding(bool isReadOnly)
+    public class CollectionModelResolver : ModelResolver
     {
-        return new Binding
+        protected override Binding ProvideBinding(bool isReadOnly)
         {
-            Source = this,
-            Path = new PropertyPath(nameof(Model)),
-            Mode = BindingMode.OneWay,
-            Converter = Converter,
-            ConverterParameter = ConverterParameter
-        };
-    }
+            return new Binding
+            {
+                Source = this,
+                Path = new PropertyPath(nameof(Model)),
+                Mode = BindingMode.OneWay,
+                Converter = Converter,
+                ConverterParameter = ConverterParameter
+            };
+        }
 
-    protected override object ProvideObservableModel(IModelResolverService modelResolverService)
-    {
-        return modelResolverService.Collection(Region);
+        protected override object ProvideObservableModel(IModelResolverService modelResolverService)
+        {
+            return modelResolverService.Collection(Region);
+        }
     }
 }

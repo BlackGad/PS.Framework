@@ -4,49 +4,50 @@ using System.Windows.Controls;
 using PS.WPF.Resources;
 using PS.WPF.StyleSelector;
 
-namespace PS.MVVM.Components;
-
-public class StyleResolver : BaseViewResolver
+namespace PS.MVVM.Components
 {
-    public Style Default { get; set; }
-
-    public override object ProvideValue(IServiceProvider serviceProvider)
+    public class StyleResolver : BaseViewResolver
     {
-        var result = base.ProvideValue(serviceProvider);
-        if (result != null) return result;
+        public Style Default { get; set; }
 
-        var message = $"Invalid target property type. {nameof(StyleSelector)} expected";
-        throw new ArgumentException(message);
-    }
-
-    protected override object CreateResult(Type propertyType, object targetObject)
-    {
-        if (typeof(StyleSelector).IsAssignableFrom(propertyType))
+        public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            return new RelayStyleSelector((item, container) =>
-            {
-                if (item == null) return Default;
+            var result = base.ProvideValue(serviceProvider);
+            if (result != null) return result;
 
-                var viewModelType = item as Type;
-                viewModelType = viewModelType ?? item.GetType();
-
-                var viewRegistryService = GetService(targetObject, ServiceProperty);
-                if (viewRegistryService == null)
-                {
-                    var message = FormatServiceErrorMessage(ServiceProperty);
-                    throw new ArgumentException(message);
-                }
-
-                var association = viewRegistryService.Find(typeof(StyleResolver), viewModelType, Region);
-                if (association == null) return Default;
-
-                if (association.Payload is Style style) return style;
-                if (association.Payload is ResourceDescriptor descriptor) return descriptor.GetResource<Style>();
-
-                return Default;
-            });
+            var message = $"Invalid target property type. {nameof(StyleSelector)} expected";
+            throw new ArgumentException(message);
         }
 
-        return null;
+        protected override object CreateResult(Type propertyType, object targetObject)
+        {
+            if (typeof(StyleSelector).IsAssignableFrom(propertyType))
+            {
+                return new RelayStyleSelector((item, container) =>
+                {
+                    if (item == null) return Default;
+
+                    var viewModelType = item as Type;
+                    viewModelType = viewModelType ?? item.GetType();
+
+                    var viewRegistryService = GetService(targetObject, ServiceProperty);
+                    if (viewRegistryService == null)
+                    {
+                        var message = FormatServiceErrorMessage(ServiceProperty);
+                        throw new ArgumentException(message);
+                    }
+
+                    var association = viewRegistryService.Find(typeof(StyleResolver), viewModelType, Region);
+                    if (association == null) return Default;
+
+                    if (association.Payload is Style style) return style;
+                    if (association.Payload is ResourceDescriptor descriptor) return descriptor.GetResource<Style>();
+
+                    return Default;
+                });
+            }
+
+            return null;
+        }
     }
 }

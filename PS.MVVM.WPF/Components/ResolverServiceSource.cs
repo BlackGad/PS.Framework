@@ -1,8 +1,9 @@
-﻿namespace PS.MVVM.Components;
-
-public enum ResolverServiceSource
+﻿namespace PS.MVVM.Components
 {
-    Global,
-    Ancestor,
-    Direct
+    public enum ResolverServiceSource
+    {
+        Global,
+        Ancestor,
+        Direct
+    }
 }

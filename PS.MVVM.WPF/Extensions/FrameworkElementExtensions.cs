@@ -2,46 +2,47 @@
 using PS.Extensions;
 using PS.MVVM.Patterns.Aware;
 
-namespace PS.MVVM.Extensions;
-
-public static class FrameworkElementExtensions
+namespace PS.MVVM.Extensions
 {
-    public static void ForwardVisualLifetimeToViewModel(this FrameworkElement element)
+    public static class FrameworkElementExtensions
     {
-        if (element == null) return;
-
-        object dataContext = null;
-
-        element.Loaded += (sender, args) =>
+        public static void ForwardVisualLifetimeToViewModel(this FrameworkElement element)
         {
-            if (dataContext is ILoadedAware loadedAware)
-            {
-                loadedAware.Loaded();
-            }
-        };
-        element.Unloaded += (sender, args) =>
-        {
-            if (dataContext is IUnloadedAware unloadedAware)
-            {
-                unloadedAware.Unloaded();
-            }
-        };
+            if (element == null) return;
 
-        element.DataContextChanged += (sender, args) =>
-        {
-            if (args.NewValue.AreEqual(args.OldValue)) return;
+            object dataContext = null;
 
-            if (dataContext is IUnloadedAware unloadedAware && element.IsLoaded)
+            element.Loaded += (sender, args) =>
             {
-                unloadedAware.Unloaded();
-            }
-
-            dataContext = args.NewValue;
-
-            if (dataContext is ILoadedAware loadedAware && element.IsLoaded)
+                if (dataContext is ILoadedAware loadedAware)
+                {
+                    loadedAware.Loaded();
+                }
+            };
+            element.Unloaded += (sender, args) =>
             {
-                loadedAware.Loaded();
-            }
-        };
+                if (dataContext is IUnloadedAware unloadedAware)
+                {
+                    unloadedAware.Unloaded();
+                }
+            };
+
+            element.DataContextChanged += (sender, args) =>
+            {
+                if (args.NewValue.AreEqual(args.OldValue)) return;
+
+                if (dataContext is IUnloadedAware unloadedAware && element.IsLoaded)
+                {
+                    unloadedAware.Unloaded();
+                }
+
+                dataContext = args.NewValue;
+
+                if (dataContext is ILoadedAware loadedAware && element.IsLoaded)
+                {
+                    loadedAware.Loaded();
+                }
+            };
+        }
     }
 }

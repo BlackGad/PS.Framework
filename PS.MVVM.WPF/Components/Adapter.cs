@@ -1,79 +1,80 @@
 ﻿using System;
 using System.Windows;
 
-namespace PS.MVVM.Components;
-
-public abstract class Adapter : Freezable,
-                                IDisposable
+namespace PS.MVVM.Components
 {
-    protected override Freezable CreateInstanceCore()
+    public abstract class Adapter : Freezable,
+                                    IDisposable
     {
-        throw new NotSupportedException();
-    }
-
-    public abstract void Dispose();
-
-    protected virtual void ContainerOnLoaded(object sender, RoutedEventArgs e)
-    {
-    }
-
-    protected virtual void ContainerOnUnloaded(object sender, RoutedEventArgs e)
-    {
-    }
-
-    public void Attach(object container)
-    {
-        if (container is FrameworkElement frameworkElement)
+        protected override Freezable CreateInstanceCore()
         {
-            frameworkElement.Loaded += ContainerOnLoaded;
-            frameworkElement.Unloaded += ContainerOnUnloaded;
+            throw new NotSupportedException();
         }
 
-        OnAttach(container);
+        public abstract void Dispose();
+
+        protected virtual void ContainerOnLoaded(object sender, RoutedEventArgs e)
+        {
+        }
+
+        protected virtual void ContainerOnUnloaded(object sender, RoutedEventArgs e)
+        {
+        }
+
+        public void Attach(object container)
+        {
+            if (container is FrameworkElement frameworkElement)
+            {
+                frameworkElement.Loaded += ContainerOnLoaded;
+                frameworkElement.Unloaded += ContainerOnUnloaded;
+            }
+
+            OnAttach(container);
+        }
+
+        public void Detach(object container)
+        {
+            OnDetach(container);
+            if (container is FrameworkElement frameworkElement)
+            {
+                frameworkElement.Loaded -= ContainerOnLoaded;
+                frameworkElement.Unloaded -= ContainerOnUnloaded;
+            }
+        }
+
+        protected abstract void OnAttach(object container);
+
+        protected abstract void OnDetach(object container);
     }
 
-    public void Detach(object container)
+    public abstract class Adapter<T> : Adapter
     {
-        OnDetach(container);
-        if (container is FrameworkElement frameworkElement)
+        protected sealed override void OnAttach(object container)
         {
-            frameworkElement.Loaded -= ContainerOnLoaded;
-            frameworkElement.Unloaded -= ContainerOnUnloaded;
+            if (container is T typedContainer)
+            {
+                OnAttach(typedContainer);
+            }
+            else
+            {
+                throw new ArgumentException($"Invalid container type. {typeof(T).Name} expected");
+            }
         }
+
+        protected sealed override void OnDetach(object container)
+        {
+            if (container is T typedContainer)
+            {
+                OnDetach(typedContainer);
+            }
+            else
+            {
+                throw new ArgumentException($"Invalid container type. {typeof(T).Name} expected");
+            }
+        }
+
+        protected abstract void OnAttach(T container);
+
+        protected abstract void OnDetach(T container);
     }
-
-    protected abstract void OnAttach(object container);
-
-    protected abstract void OnDetach(object container);
-}
-
-public abstract class Adapter<T> : Adapter
-{
-    protected sealed override void OnAttach(object container)
-    {
-        if (container is T typedContainer)
-        {
-            OnAttach(typedContainer);
-        }
-        else
-        {
-            throw new ArgumentException($"Invalid container type. {typeof(T).Name} expected");
-        }
-    }
-
-    protected sealed override void OnDetach(object container)
-    {
-        if (container is T typedContainer)
-        {
-            OnDetach(typedContainer);
-        }
-        else
-        {
-            throw new ArgumentException($"Invalid container type. {typeof(T).Name} expected");
-        }
-    }
-
-    protected abstract void OnAttach(T container);
-
-    protected abstract void OnDetach(T container);
 }
