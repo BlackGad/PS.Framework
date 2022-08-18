@@ -1,8 +1,9 @@
 ﻿using System;
 
-namespace PS.Shell.Module.Diagram;
-
-public static class XamlResources
+namespace PS.Shell.Module.Diagram
 {
-    private static readonly Uri Default = new("/PS.Shell.Module.Diagram;component/XamlResources.xaml", UriKind.RelativeOrAbsolute);
+    public static class XamlResources
+    {
+        private static readonly Uri Default = new Uri("/PS.Shell.Module.Diagram;component/XamlResources.xaml", UriKind.RelativeOrAbsolute);
+    }
 }

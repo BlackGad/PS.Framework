@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using NLog;
 using NLog.Targets;
 
-namespace PS.Shell.Models.PageService;
-
-class CollectionTarget : TargetWithLayout
+namespace PS.Shell.Models.PageService
 {
-    private readonly IList<string> _collection;
-
-    public CollectionTarget(IList<string> collection)
+    class CollectionTarget : TargetWithLayout
     {
-        _collection = collection ?? throw new ArgumentNullException(nameof(collection));
-    }
+        private readonly IList<string> _collection;
 
-    protected override void Write(LogEventInfo logEvent)
-    {
-        var item = Layout.Render(logEvent);
-        _collection.Add(item);
+        public CollectionTarget(IList<string> collection)
+        {
+            _collection = collection ?? throw new ArgumentNullException(nameof(collection));
+        }
+
+        protected override void Write(LogEventInfo logEvent)
+        {
+            var item = Layout.Render(logEvent);
+            _collection.Add(item);
+        }
     }
 }

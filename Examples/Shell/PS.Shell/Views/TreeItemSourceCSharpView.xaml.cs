@@ -2,18 +2,19 @@
 using PS.MVVM.Patterns;
 using PS.Shell.Infrastructure.Models.ExamplesService;
 
-namespace PS.Shell.Views;
-
-[DependencyRegisterAsSelf]
-public partial class TreeItemSourceCSharpView : IView<ISourceCSharp>
+namespace PS.Shell.Views
 {
-    public TreeItemSourceCSharpView()
+    [DependencyRegisterAsSelf]
+    public partial class TreeItemSourceCSharpView : IView<ISourceCSharp>
     {
-        InitializeComponent();
-    }
+        public TreeItemSourceCSharpView()
+        {
+            InitializeComponent();
+        }
 
-    public ISourceCSharp ViewModel
-    {
-        get { return DataContext as ISourceCSharp; }
+        public ISourceCSharp ViewModel
+        {
+            get { return DataContext as ISourceCSharp; }
+        }
     }
 }

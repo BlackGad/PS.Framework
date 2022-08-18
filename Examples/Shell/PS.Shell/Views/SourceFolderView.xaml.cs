@@ -2,19 +2,20 @@
 using PS.MVVM.Patterns;
 using PS.Shell.Infrastructure.Models.ExamplesService;
 
-namespace PS.Shell.Views;
-
-[DependencyRegisterAsSelf]
-[DependencyRegisterAsInterface(typeof(IView<ISourceFolder>))]
-public partial class SourceFolderView : IView<ISourceFolder>
+namespace PS.Shell.Views
 {
-    public SourceFolderView()
+    [DependencyRegisterAsSelf]
+    [DependencyRegisterAsInterface(typeof(IView<ISourceFolder>))]
+    public partial class SourceFolderView : IView<ISourceFolder>
     {
-        InitializeComponent();
-    }
+        public SourceFolderView()
+        {
+            InitializeComponent();
+        }
 
-    public ISourceFolder ViewModel
-    {
-        get { return DataContext as ISourceFolder; }
+        public ISourceFolder ViewModel
+        {
+            get { return DataContext as ISourceFolder; }
+        }
     }
 }

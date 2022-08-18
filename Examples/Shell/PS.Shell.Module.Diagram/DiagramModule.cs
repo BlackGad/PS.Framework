@@ -8,22 +8,23 @@ using PS.Shell.Module.Diagram.ViewModels;
 using PS.Shell.Module.Diagram.Views;
 using PS.WPF.DataTemplate;
 
-namespace PS.Shell.Module.Diagram;
-
-public class DiagramModule : Autofac.Module
+namespace PS.Shell.Module.Diagram
 {
-    protected override void AttachToComponentRegistration(IComponentRegistryBuilder componentRegistry, IComponentRegistration registration)
+    public class DiagramModule : Autofac.Module
     {
-        registration.HandleActivation<IViewResolverService>(ViewResolverServiceActivation);
-    }
+        protected override void AttachToComponentRegistration(IComponentRegistryBuilder componentRegistry, IComponentRegistration registration)
+        {
+            registration.HandleActivation<IViewResolverService>(ViewResolverServiceActivation);
+        }
 
-    protected override void Load(ContainerBuilder builder)
-    {
-        builder.RegisterAssemblyTypesWithAttributes(ThisAssembly);
-    }
+        protected override void Load(ContainerBuilder builder)
+        {
+            builder.RegisterAssemblyTypesWithAttributes(ThisAssembly);
+        }
 
-    private void ViewResolverServiceActivation(ILifetimeScope scope, IViewResolverService service)
-    {
-        service.AssociateTemplate<EditorViewModel>(scope.Resolve<IDataTemplate<EditorView>>());
+        private void ViewResolverServiceActivation(ILifetimeScope scope, IViewResolverService service)
+        {
+            service.AssociateTemplate<EditorViewModel>(scope.Resolve<IDataTemplate<EditorView>>());
+        }
     }
 }

@@ -4,46 +4,47 @@ using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
 using PS.Shell.Infrastructure.Models.ExamplesService;
 
-namespace PS.Shell.Views;
-
-[DependencyRegisterAsSelf]
-[DependencyRegisterAsInterface(typeof(IView<ISourceCSharp>))]
-public partial class SourceCSharpView : IView<ISourceCSharp>
+namespace PS.Shell.Views
 {
-    public static readonly DependencyProperty CodeProperty =
-        DependencyProperty.Register(nameof(Code),
-                                    typeof(string),
-                                    typeof(SourceCSharpView),
-                                    new FrameworkPropertyMetadata(OnCodeChanged));
-
-    private static void OnCodeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    [DependencyRegisterAsSelf]
+    [DependencyRegisterAsInterface(typeof(IView<ISourceCSharp>))]
+    public partial class SourceCSharpView : IView<ISourceCSharp>
     {
-        var owner = (SourceCSharpView)d;
-        owner.Text = (string)e.NewValue;
-    }
+        public static readonly DependencyProperty CodeProperty =
+            DependencyProperty.Register(nameof(Code),
+                                        typeof(string),
+                                        typeof(SourceCSharpView),
+                                        new FrameworkPropertyMetadata(OnCodeChanged));
 
-    public SourceCSharpView()
-    {
-        InitializeComponent();
+        private static void OnCodeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var owner = (SourceCSharpView)d;
+            owner.Text = (string)e.NewValue;
+        }
 
-        SetBinding(CodeProperty,
-                   new Binding
-                   {
-                       Path = new PropertyPath($"{nameof(ISourceCSharp.Code)}")
-                   });
+        public SourceCSharpView()
+        {
+            InitializeComponent();
 
-        TextArea.SelectionCornerRadius = 0;
-        TextArea.SelectionBorder = null;
-    }
+            SetBinding(CodeProperty,
+                       new Binding
+                       {
+                           Path = new PropertyPath($"{nameof(ISourceCSharp.Code)}")
+                       });
 
-    public string Code
-    {
-        get { return (string)GetValue(CodeProperty); }
-        set { SetValue(CodeProperty, value); }
-    }
+            TextArea.SelectionCornerRadius = 0;
+            TextArea.SelectionBorder = null;
+        }
 
-    public ISourceCSharp ViewModel
-    {
-        get { return DataContext as ISourceCSharp; }
+        public string Code
+        {
+            get { return (string)GetValue(CodeProperty); }
+            set { SetValue(CodeProperty, value); }
+        }
+
+        public ISourceCSharp ViewModel
+        {
+            get { return DataContext as ISourceCSharp; }
+        }
     }
 }

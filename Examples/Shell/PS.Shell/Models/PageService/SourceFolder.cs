@@ -2,20 +2,21 @@
 using System.Collections.ObjectModel;
 using PS.Shell.Infrastructure.Models.ExamplesService;
 
-namespace PS.Shell.Models.PageService;
-
-class SourceFolder : ISourceFolder
+namespace PS.Shell.Models.PageService
 {
-    public SourceFolder(string title)
+    class SourceFolder : ISourceFolder
     {
-        Title = title;
-        Children = new ObservableCollection<ISource>();
-        Order = 10;
+        public SourceFolder(string title)
+        {
+            Title = title;
+            Children = new ObservableCollection<ISource>();
+            Order = 10;
+        }
+
+        public string Title { get; }
+
+        public IList<ISource> Children { get; }
+
+        public int Order { get; }
     }
-
-    public string Title { get; }
-
-    public IList<ISource> Children { get; }
-
-    public int Order { get; }
 }

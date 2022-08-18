@@ -2,18 +2,19 @@
 using PS.MVVM.Patterns;
 using PS.Shell.Infrastructure.Models.ExamplesService;
 
-namespace PS.Shell.Views;
-
-[DependencyRegisterAsSelf]
-public partial class TreeItemSourceXamlView : IView<ISourceXaml>
+namespace PS.Shell.Views
 {
-    public TreeItemSourceXamlView()
+    [DependencyRegisterAsSelf]
+    public partial class TreeItemSourceXamlView : IView<ISourceXaml>
     {
-        InitializeComponent();
-    }
+        public TreeItemSourceXamlView()
+        {
+            InitializeComponent();
+        }
 
-    public ISourceXaml ViewModel
-    {
-        get { return DataContext as ISourceXaml; }
+        public ISourceXaml ViewModel
+        {
+            get { return DataContext as ISourceXaml; }
+        }
     }
 }

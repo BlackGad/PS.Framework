@@ -4,41 +4,42 @@ using Autofac;
 using PS.IoC.Attributes;
 using PS.WPF.DataTemplate;
 
-namespace PS.Shell.Models;
-
-[DependencyRegisterAsGenericTypeOf(typeof(IDataTemplate<>))]
-internal class IoCDataTemplate<TView> : ViewHierarchicalDataTemplate,
-                                        IDataTemplate<TView>
+namespace PS.Shell.Models
 {
-    public IoCDataTemplate(ILifetimeScope scope,
-                           BindingBase hierarchyBinding = null,
-                           PropertyPath hierarchyBindingPropertyPath = null,
-                           DependencyProperty hierarchyBindingProperty = null)
+    [DependencyRegisterAsGenericTypeOf(typeof(IDataTemplate<>))]
+    internal class IoCDataTemplate<TView> : ViewHierarchicalDataTemplate,
+                                            IDataTemplate<TView>
     {
-        ViewType = typeof(TView);
-        ViewFactory = type => (FrameworkElement)scope.Resolve(type);
-
-        var binding = hierarchyBinding;
-        if (binding == null)
+        public IoCDataTemplate(ILifetimeScope scope,
+                               BindingBase hierarchyBinding = null,
+                               PropertyPath hierarchyBindingPropertyPath = null,
+                               DependencyProperty hierarchyBindingProperty = null)
         {
-            var bindingPropertyPath = hierarchyBindingPropertyPath;
-            if (bindingPropertyPath == null && hierarchyBindingProperty != null)
-            {
-                bindingPropertyPath = new PropertyPath(hierarchyBindingProperty.Name);
-            }
+            ViewType = typeof(TView);
+            ViewFactory = type => (FrameworkElement)scope.Resolve(type);
 
-            if (bindingPropertyPath != null)
+            var binding = hierarchyBinding;
+            if (binding == null)
             {
-                binding = new Binding
+                var bindingPropertyPath = hierarchyBindingPropertyPath;
+                if (bindingPropertyPath == null && hierarchyBindingProperty != null)
                 {
-                    Path = bindingPropertyPath
-                };
-            }
-        }
+                    bindingPropertyPath = new PropertyPath(hierarchyBindingProperty.Name);
+                }
 
-        if (binding != null)
-        {
-            ItemsSource = binding;
+                if (bindingPropertyPath != null)
+                {
+                    binding = new Binding
+                    {
+                        Path = bindingPropertyPath
+                    };
+                }
+            }
+
+            if (binding != null)
+            {
+                ItemsSource = binding;
+            }
         }
     }
 }

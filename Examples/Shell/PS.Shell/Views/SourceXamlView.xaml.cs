@@ -4,46 +4,47 @@ using PS.IoC.Attributes;
 using PS.MVVM.Patterns;
 using PS.Shell.Infrastructure.Models.ExamplesService;
 
-namespace PS.Shell.Views;
-
-[DependencyRegisterAsSelf]
-[DependencyRegisterAsInterface(typeof(IView<ISourceXaml>))]
-public partial class SourceXamlView : IView<ISourceXaml>
+namespace PS.Shell.Views
 {
-    public static readonly DependencyProperty CodeProperty =
-        DependencyProperty.Register(nameof(Code),
-                                    typeof(string),
-                                    typeof(SourceXamlView),
-                                    new FrameworkPropertyMetadata(OnCodeChanged));
-
-    private static void OnCodeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    [DependencyRegisterAsSelf]
+    [DependencyRegisterAsInterface(typeof(IView<ISourceXaml>))]
+    public partial class SourceXamlView : IView<ISourceXaml>
     {
-        var owner = (SourceXamlView)d;
-        owner.Text = (string)e.NewValue;
-    }
+        public static readonly DependencyProperty CodeProperty =
+            DependencyProperty.Register(nameof(Code),
+                                        typeof(string),
+                                        typeof(SourceXamlView),
+                                        new FrameworkPropertyMetadata(OnCodeChanged));
 
-    public SourceXamlView()
-    {
-        InitializeComponent();
+        private static void OnCodeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var owner = (SourceXamlView)d;
+            owner.Text = (string)e.NewValue;
+        }
 
-        SetBinding(CodeProperty,
-                   new Binding
-                   {
-                       Path = new PropertyPath($"{nameof(ISourceXaml.Code)}")
-                   });
+        public SourceXamlView()
+        {
+            InitializeComponent();
 
-        TextArea.SelectionCornerRadius = 0;
-        TextArea.SelectionBorder = null;
-    }
+            SetBinding(CodeProperty,
+                       new Binding
+                       {
+                           Path = new PropertyPath($"{nameof(ISourceXaml.Code)}")
+                       });
 
-    public string Code
-    {
-        get { return (string)GetValue(CodeProperty); }
-        set { SetValue(CodeProperty, value); }
-    }
+            TextArea.SelectionCornerRadius = 0;
+            TextArea.SelectionBorder = null;
+        }
 
-    public ISourceXaml ViewModel
-    {
-        get { return DataContext as ISourceXaml; }
+        public string Code
+        {
+            get { return (string)GetValue(CodeProperty); }
+            set { SetValue(CodeProperty, value); }
+        }
+
+        public ISourceXaml ViewModel
+        {
+            get { return DataContext as ISourceXaml; }
+        }
     }
 }

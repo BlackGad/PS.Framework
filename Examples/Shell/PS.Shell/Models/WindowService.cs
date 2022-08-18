@@ -7,53 +7,54 @@ using PS.MVVM.Services.WindowService;
 using PS.WPF.Controls;
 using Window = System.Windows.Window;
 
-namespace PS.Shell.Models;
-
-[DependencyRegisterAsInterface(typeof(IWindowService))]
-[DependencyLifetime(DependencyLifetime.InstanceSingle)]
-internal class WindowService : MVVM.Services.WindowService.WindowService,
-                               IDisposable
+namespace PS.Shell.Models
 {
-    private readonly ILifetimeScope _scope;
-    private readonly IViewResolverService _viewResolverService;
-
-    public WindowService(IViewResolverService viewResolverService,
-                         ILifetimeScope scope)
+    [DependencyRegisterAsInterface(typeof(IWindowService))]
+    [DependencyLifetime(DependencyLifetime.InstanceSingle)]
+    internal class WindowService : MVVM.Services.WindowService.WindowService,
+                                   IDisposable
     {
-        _viewResolverService = viewResolverService;
-        _scope = scope;
-    }
+        private readonly ILifetimeScope _scope;
+        private readonly IViewResolverService _viewResolverService;
 
-    protected override void OnPreviewWindowShow<TViewModel>(Window window, TViewModel viewModel, string region)
-    {
-    }
-
-    protected override void OnWindowClose<TViewModel>(Window window, TViewModel viewModel, string region)
-    {
-    }
-
-    protected override Window CreateWindow()
-    {
-        var result = new ChromelessWindow
+        public WindowService(IViewResolverService viewResolverService,
+                             ILifetimeScope scope)
         {
-            WindowStartupLocation = WindowStartupLocation.CenterOwner,
-            Icon = App.GetApplicationIcon()
-        };
+            _viewResolverService = viewResolverService;
+            _scope = scope;
+        }
 
-        return result;
-    }
+        protected override void OnPreviewWindowShow<TViewModel>(Window window, TViewModel viewModel, string region)
+        {
+        }
 
-    protected override IViewAssociation GetAssociation(Type consumerServiceType, Type viewModelType, string key)
-    {
-        return _viewResolverService.Find(consumerServiceType, viewModelType, key);
-    }
+        protected override void OnWindowClose<TViewModel>(Window window, TViewModel viewModel, string region)
+        {
+        }
 
-    protected override object Resolve(Type type)
-    {
-        return _scope.Resolve(type);
-    }
+        protected override Window CreateWindow()
+        {
+            var result = new ChromelessWindow
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Icon = App.GetApplicationIcon()
+            };
 
-    public void Dispose()
-    {
+            return result;
+        }
+
+        protected override IViewAssociation GetAssociation(Type consumerServiceType, Type viewModelType, string key)
+        {
+            return _viewResolverService.Find(consumerServiceType, viewModelType, key);
+        }
+
+        protected override object Resolve(Type type)
+        {
+            return _scope.Resolve(type);
+        }
+
+        public void Dispose()
+        {
+        }
     }
 }
