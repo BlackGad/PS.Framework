@@ -21,6 +21,7 @@
                           VerticalAlignment="Stretch"
                           Background="{TemplateBinding Background}"
                           BorderThickness="0"
+                          Focusable="False"
                           ShowsPreview="False" />
             <Border Grid.Column="2"
                     Background="{TemplateBinding Background}"

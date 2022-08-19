@@ -79,7 +79,7 @@ namespace PS.WPF.Controls
             DependencyProperty.Register("MaximumSuggestionCount",
                                         typeof(int),
                                         typeof(SuggestListView),
-                                        new FrameworkPropertyMetadata(default(int)));
+                                        new FrameworkPropertyMetadata(OnMaximumSuggestionCountChanged));
 
         public static readonly DependencyProperty SelectFirstItemOnResetProperty =
             DependencyProperty.Register(nameof(SelectFirstItemOnReset),
@@ -116,6 +116,12 @@ namespace PS.WPF.Controls
         }
 
         private static void OnInputChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var owner = (SuggestListView)d;
+            owner.UpdateSuggestions();
+        }
+
+        private static void OnMaximumSuggestionCountChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var owner = (SuggestListView)d;
             owner.UpdateSuggestions();
@@ -296,6 +302,7 @@ namespace PS.WPF.Controls
             if (e.AddedItems.Enumerate().Any() && _suggestionsListView != null)
             {
                 SelectedItem = _suggestionsListView.SelectedItem;
+                ScrollIntoView(SelectedItem);
             }
         }
 

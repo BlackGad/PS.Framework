@@ -31,6 +31,14 @@ namespace PS.Shell.Module.Controls
             service.Add<TextBoxViewModel>("Controls", "TextBox")
                    .Source<TextBoxViewModel>(@"ViewModels")
                    .XamlPage<TextBoxView>(@"Views");
+            
+            service.Add<SuggestListViewViewModel>("Controls", "SuggestListView")
+                   .Source<SuggestListViewViewModel>(@"ViewModels")
+                   .XamlPage<SuggestListViewView>(@"Views");
+            
+            service.Add<AutoCompleteBoxViewModel>("Controls", "AutoCompleteBoxView")
+                   .Source<AutoCompleteBoxViewModel>(@"ViewModels")
+                   .XamlPage<AutoCompleteBoxView>(@"Views");
 
             service.Add<DecimalTextBoxViewModel>("Controls", "DecimalTextBox")
                    .Source<DecimalTextBoxViewModel>(@"ViewModels")
@@ -63,6 +71,8 @@ namespace PS.Shell.Module.Controls
         private void ViewResolverServiceActivation(ILifetimeScope scope, IViewResolverService service)
         {
             service.AssociateTemplate<TextBoxViewModel>(scope.Resolve<IDataTemplate<TextBoxView>>())
+                   .AssociateTemplate<AutoCompleteBoxViewModel>(scope.Resolve<IDataTemplate<AutoCompleteBoxView>>())
+                   .AssociateTemplate<SuggestListViewViewModel>(scope.Resolve<IDataTemplate<SuggestListViewView>>())
                    .AssociateTemplate<DecimalTextBoxViewModel>(scope.Resolve<IDataTemplate<DecimalTextBoxView>>())
                    .AssociateTemplate<ButtonsViewModel>(scope.Resolve<IDataTemplate<ButtonsView>>())
                    .AssociateTemplate<BusyContainerSimpleViewModel>(scope.Resolve<IDataTemplate<BusyContainerSimpleView>>())
