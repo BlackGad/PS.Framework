@@ -109,10 +109,9 @@
                        MinWidth="{TemplateBinding ActualWidth}"
                        AllowsTransparency="True"
                        Focusable="True"
-                       HorizontalOffset="-1"
                        IsOpen="{Binding ElementName=PART_ToggleButton, Path=IsChecked, Mode=TwoWay}"
                        Placement="Bottom"
-                       PlacementTarget="{Binding ElementName=PART_Button}"
+                       PlacementTarget="{Binding ElementName=PART_Border}"
                        SnapsToDevicePixels="True"
                        StaysOpen="False"
                        VerticalOffset="-1">
