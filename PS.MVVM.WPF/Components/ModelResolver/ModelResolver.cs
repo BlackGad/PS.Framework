@@ -54,6 +54,8 @@ namespace PS.MVVM.Components.ModelResolver
             }
         }
 
+        public string Path { get; set; }
+
         public object Region { get; set; }
 
         public sealed override object ProvideValue(IServiceProvider serviceProvider)
