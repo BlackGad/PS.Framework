@@ -1,4 +1,8 @@
-﻿using System;
+﻿
+
+
+
+using System;
 using System.ComponentModel;
 using System.Windows.Media;
 using PS.WPF.ValueConverters;
@@ -1134,43 +1138,76 @@ namespace PS.WPF.Theming
 
     public class ThemeDefault : Theme
     {
-        public ThemeDefault()
+        public ThemeDefault(
+            Color? Accent = null,
+            Color? AccentHigh = null,
+            Color? AccentLow = null,
+            Color? AccentDeep = null,
+            Color? AccentForeground = null,
+            Color? AccentBorder = null,
+            Color? AccentBorderHigh = null,
+            Color? AccentBorderLow = null,
+            Color? AccentBorderDeep = null,
+            Color? Main = null,
+            Color? MainHigh = null,
+            Color? MainLow = null,
+            Color? MainDeep = null,
+            Color? MainForeground = null,
+            Color? MainBorder = null,
+            Color? MainBorderHigh = null,
+            Color? MainBorderLow = null,
+            Color? MainBorderDeep = null,
+            Color? Success = null,
+            Color? Failure = null,
+            Color? Warning = null,
+            FontFamily Normal = null,
+            FontFamily Light = null,
+            FontFamily Strong = null,
+            FontFamily ExtraStrong = null,
+            double? XS = null,
+            double? S = null,
+            double? M = null,
+            double? L = null,
+            double? XL = null,
+            double? XXL = null,
+            double? XXXL = null,
+            double? XXXXL = null)
         {
-            Colors.Accent = (Color)ColorConverter.ConvertFromString("#FFA52A2A");
-            Colors.AccentForeground = (Color)ColorConverter.ConvertFromString("#FFFFFFFF");
-            Colors.AccentBorder = (Color)ColorConverter.ConvertFromString("#FFFFFFFF");
-            Colors.Main = (Color)ColorConverter.ConvertFromString("#FFFFFFFF");
-            Colors.MainForeground = (Color)ColorConverter.ConvertFromString("#FF000000");
-            Colors.MainBorder = (Color)ColorConverter.ConvertFromString("#FFA9A9A9");
-            Colors.Success = (Color)ColorConverter.ConvertFromString("#FF008000");
-            Colors.Failure = (Color)ColorConverter.ConvertFromString("#FFFF0000");
-            Colors.Warning = (Color)ColorConverter.ConvertFromString("#FFFFA500");
-            Colors.AccentHigh = ColorConverters.ApplyTint(Colors.Accent, 0.2);
-            Colors.AccentLow = ColorConverters.ApplyShade(Colors.Accent, 0.3);
-            Colors.AccentDeep = ColorConverters.ApplyShade(Colors.Accent, 0.5);
-            Colors.AccentBorderHigh = ColorConverters.ApplyTint(Colors.AccentBorder, 0.2);
-            Colors.AccentBorderLow = ColorConverters.ApplyShade(Colors.AccentBorder, 0.3);
-            Colors.AccentBorderDeep = ColorConverters.ApplyShade(Colors.AccentBorder, 0.5);
-            Colors.MainHigh = ColorConverters.ApplyTint(Colors.Accent, 0.2);
-            Colors.MainLow = ColorConverters.ApplyShade(Colors.Main, 0.3);
-            Colors.MainDeep = ColorConverters.ApplyShade(Colors.Main, 0.5);
-            Colors.MainBorderHigh = ColorConverters.ApplyTint(Colors.MainBorder, 0.5);
-            Colors.MainBorderLow = ColorConverters.ApplyShade(Colors.MainBorder, 0.3);
-            Colors.MainBorderDeep = ColorConverters.ApplyShade(Colors.MainBorder, 0.5);
+            Colors.Accent = Accent ?? (Color)ColorConverter.ConvertFromString("#FFA52A2A");
+            Colors.AccentForeground = AccentForeground ?? (Color)ColorConverter.ConvertFromString("#FFFFFFFF");
+            Colors.AccentBorder = AccentBorder ?? (Color)ColorConverter.ConvertFromString("#FFFFFFFF");
+            Colors.Main = Main ?? (Color)ColorConverter.ConvertFromString("#FFFFFFFF");
+            Colors.MainForeground = MainForeground ?? (Color)ColorConverter.ConvertFromString("#FF000000");
+            Colors.MainBorder = MainBorder ?? (Color)ColorConverter.ConvertFromString("#FFA9A9A9");
+            Colors.Success = Success ?? (Color)ColorConverter.ConvertFromString("#FF008000");
+            Colors.Failure = Failure ?? (Color)ColorConverter.ConvertFromString("#FFFF0000");
+            Colors.Warning = Warning ?? (Color)ColorConverter.ConvertFromString("#FFFFA500");
+            Colors.AccentHigh = AccentHigh ?? ColorConverters.ApplyTint(Colors.Accent, 0.2);
+            Colors.AccentLow = AccentLow ?? ColorConverters.ApplyShade(Colors.Accent, 0.3);
+            Colors.AccentDeep = AccentDeep ?? ColorConverters.ApplyShade(Colors.Accent, 0.5);
+            Colors.AccentBorderHigh = AccentBorderHigh ?? ColorConverters.ApplyTint(Colors.AccentBorder, 0.2);
+            Colors.AccentBorderLow = AccentBorderLow ?? ColorConverters.ApplyShade(Colors.AccentBorder, 0.3);
+            Colors.AccentBorderDeep = AccentBorderDeep ?? ColorConverters.ApplyShade(Colors.AccentBorder, 0.5);
+            Colors.MainHigh = MainHigh ?? ColorConverters.ApplyTint(Colors.Accent, 0.2);
+            Colors.MainLow = MainLow ?? ColorConverters.ApplyShade(Colors.Main, 0.3);
+            Colors.MainDeep = MainDeep ?? ColorConverters.ApplyShade(Colors.Main, 0.5);
+            Colors.MainBorderHigh = MainBorderHigh ?? ColorConverters.ApplyTint(Colors.MainBorder, 0.5);
+            Colors.MainBorderLow = MainBorderLow ?? ColorConverters.ApplyShade(Colors.MainBorder, 0.3);
+            Colors.MainBorderDeep = MainBorderDeep ?? ColorConverters.ApplyShade(Colors.MainBorder, 0.5);
 
-            FontSizes.XS = 10;
-            FontSizes.S = 11;
-            FontSizes.M = 12;
-            FontSizes.L = 14;
-            FontSizes.XL = 16;
-            FontSizes.XXL = 20;
-            FontSizes.XXXL = 24;
-            FontSizes.XXXXL = 36;
+            FontSizes.XS = XS ?? 10;
+            FontSizes.S = S ?? 11;
+            FontSizes.M = M ?? 12;
+            FontSizes.L = L ?? 14;
+            FontSizes.XL = XL ?? 16;
+            FontSizes.XXL = XXL ?? 20;
+            FontSizes.XXXL = XXXL ?? 24;
+            FontSizes.XXXXL = XXXXL ?? 36;
 
-            Fonts.Normal = new FontFamily("Segoe UI");
-            Fonts.Light = new FontFamily("Segoe UI Light");
-            Fonts.Strong = new FontFamily("Segoe UI Semibold");
-            Fonts.ExtraStrong = new FontFamily("Segoe UI Black");
+            Fonts.Normal = Normal ?? new FontFamily("Segoe UI");
+            Fonts.Light = Light ?? new FontFamily("Segoe UI Light");
+            Fonts.Strong = Strong ?? new FontFamily("Segoe UI Semibold");
+            Fonts.ExtraStrong = ExtraStrong ?? new FontFamily("Segoe UI Black");
         }
     }
 

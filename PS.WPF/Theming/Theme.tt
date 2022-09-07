@@ -477,7 +477,31 @@ namespace PS.WPF.Theming
 
     public class ThemeDefault : Theme
     {
-        public ThemeDefault()
+        public ThemeDefault(
+<#
+	foreach (var color in colors)
+	{
+#>
+            Color? <#= color.Name #> = null,
+<#
+	}
+
+	foreach (var font in fonts)
+	{
+#>
+            FontFamily <#= font.Name #> = null,
+<#
+	}
+
+	for (var i = 0; i < fontSizes.Count; i++)
+	{
+		var fontSize = fontSizes[i];
+#>
+            double? <#= fontSize.Name #> = null<#if(i < fontSizes.Count - 1){#>,
+<#}#>
+<#
+	}
+#>)
         {
 <#
 	foreach (var color in colors)
@@ -487,7 +511,7 @@ namespace PS.WPF.Theming
 			continue;
 		}
 #>
-            Colors.<#= color.Name #> = (Color)ColorConverter.ConvertFromString("<#= color.Value #>");
+            Colors.<#= color.Name #> = <#=color.Name#> ?? (Color)ColorConverter.ConvertFromString("<#= color.Value #>");
 <#
 	}
 #>
@@ -499,7 +523,7 @@ namespace PS.WPF.Theming
 			continue;
 		}
 #>
-            Colors.<#= color.Name #> = ColorConverters.Apply<#= color.Transform.Effect #>(Colors.<#= color.Transform.Source #>, <#= color.Transform.Coefficient #>);
+            Colors.<#= color.Name #> = <#=color.Name#> ?? ColorConverters.Apply<#= color.Transform.Effect #>(Colors.<#= color.Transform.Source #>, <#= color.Transform.Coefficient #>);
 <#
 	}
 #>
@@ -510,7 +534,7 @@ namespace PS.WPF.Theming
 		var propertyName = fontSize.Name;
 		var value = fontSize.Value;
 #>
-            FontSizes.<#= propertyName #> = <#= value #>;
+            FontSizes.<#= propertyName #> = <#=propertyName#> ?? <#= value #>;
 <#
 	}
 #>
@@ -521,7 +545,7 @@ namespace PS.WPF.Theming
 		var propertyName = font.Name;
 		var value = font.Value;
 #>
-            Fonts.<#= propertyName #> = new FontFamily("<#= value #>");
+            Fonts.<#= propertyName #> = <#=propertyName#> ?? new FontFamily("<#= value #>");
 <#
 	}
 #>
