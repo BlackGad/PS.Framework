@@ -11,6 +11,7 @@
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.Data")]
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.Controls")]
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.Controls.BusyContainer")]
+[assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.Controls.BannerControl")]
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.Controls.TreeView")]
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.Controls.Ribbon")]
 [assembly: XmlnsDefinition("http://schemas.ps.com/2019/xaml", "PS.WPF.Controls.Ribbon.Controls")]

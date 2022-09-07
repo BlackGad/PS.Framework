@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:markup="clr-namespace:PS.WPF.Theming.Markup"
+                    xmlns:bannerControl="clr-namespace:PS.WPF.Controls.BannerControl">
+
+    <ControlTemplate x:Key="{x:Static bannerControl:BannerControl+Resource.ControlTemplate}" TargetType="bannerControl:BannerControl">
+        <ItemsPresenter />
+    </ControlTemplate>
+
+    <Style x:Key="{x:Static bannerControl:BannerControl+Resource.ControlStyle}" TargetType="bannerControl:BannerControl">
+        <Setter Property="BorderBrush" Value="{markup:Brush MainBorderDeep}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <bannerControl:BannerControlPanel />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Margin" Value="1" />
+        <Setter Property="Template" Value="{StaticResource {x:Static bannerControl:BannerControl+Resource.ControlTemplate}}" />
+    </Style>
+
+</ResourceDictionary>
