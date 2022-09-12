@@ -21,7 +21,7 @@ set trimVersion=%major%.%YYt%%MM%.%DDt%%HH%.%Mint%%Sec%-%suffix%
 echo version: "%version%"
 echo Trim version: "%trimVersion%"
 
-dotnet build --no-restore -p:Version=%version% -c Local
+dotnet build --no-restore -p:Version=%version% -c Debug
 
 
 for /R ..\ %%i IN (*%trimVersion%.nupkg) DO (
