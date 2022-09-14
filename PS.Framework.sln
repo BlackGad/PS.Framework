@@ -42,6 +42,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Shared", ".Shared", "{BE7CB99A-9DC0-4E39-8E17-33A8E06B0BE1}"
 	ProjectSection(SolutionItems) = preProject
 		.Shared\Build.targets = .Shared\Build.targets
+		Directory.Build.targets = Directory.Build.targets
 		.Shared\Sign.snk = .Shared\Sign.snk
 	EndProjectSection
 EndProject
