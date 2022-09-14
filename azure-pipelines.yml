@@ -45,13 +45,13 @@ jobs:
     condition: always()
     inputs:
       targetType: inline
-      script: 'reportgenerator "-reports:$(Agent.TempDirectory)/_temp/**/coverage.cobertura.xml" "-targetdir:$(Agent.TempDirectory)/_temp/coverage/Cobertura" "-reporttypes:Cobertura;HTMLInline;HTMLChart" '
+      script: 'reportgenerator "-reports:$(Agent.TempDirectory)/**/coverage.cobertura.xml" "-targetdir:$(Agent.TempDirectory)/coverage/Cobertura" "-reporttypes:Cobertura;HTMLInline;HTMLChart" '
   - task: PublishCodeCoverageResults@1
     displayName: Publish Code Coverage Results
     condition: always()
     inputs:
       codeCoverageTool: cobertura
-      summaryFileLocation: $(Agent.TempDirectory)/_temp/coverage/Cobertura/Cobertura.xml
+      summaryFileLocation: $(Agent.TempDirectory)/coverage/Cobertura/Cobertura.xml
   - task: PublishTestResults@2
     displayName: Publish Test Results
     condition: always()
