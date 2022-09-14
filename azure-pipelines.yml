@@ -36,6 +36,7 @@ jobs:
       arguments: -c Release --no-build --logger:trx --results-directory "$(System.DefaultWorkingDirectory)/_temp" --collect:"XPlat Code Coverage"
       projects: $(System.DefaultWorkingDirectory)/$(SolutionRelativePath)
       workingDirectory: $(System.DefaultWorkingDirectory)
+      publishTestResults: false
   - task: PowerShell@2
     displayName: Report Generator Installation
     condition: always()
