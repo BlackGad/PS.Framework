@@ -1,6 +1,8 @@
 variables:
   SolutionRelativePath: PS.Framework.sln
 
+trigger: none
+
 pr:
     branches:
         include: 
