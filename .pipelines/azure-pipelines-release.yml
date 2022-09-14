@@ -18,7 +18,7 @@ stages:
   - job: Change_Build_Version_Number
     steps:
      - checkout: none
-     - script: echo "##vso[build.updatebuildnumber]$(Version.Major).$(Version.Minor).$(Version.Revision)"
+     - script: echo "Hi"
 
 - stage: Build_And_Pack
     jobs:
