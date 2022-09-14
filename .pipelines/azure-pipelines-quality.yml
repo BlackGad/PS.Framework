@@ -3,8 +3,9 @@ variables:
 
 pr:
     branches:
-        include: master
-        include: ci
+        include: 
+            - master
+            - ci
     drafts: false
 
 pool:
