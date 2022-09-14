@@ -20,23 +20,19 @@ jobs:
     displayName: Restore solution
     inputs:
       command: restore
-      projects: $(System.DefaultWorkingDirectory)/$(SolutionRelativePath)
-      workingDirectory: $(System.DefaultWorkingDirectory)
+      projects: $(SolutionRelativePath)
   - task: DotNetCoreCLI@2
     displayName: Build solution
     inputs:
       command: build
       arguments: -c Release --no-restore
-      projects: $(System.DefaultWorkingDirectory)/$(SolutionRelativePath)
-      workingDirectory: $(System.DefaultWorkingDirectory)
+      projects: $(SolutionRelativePath)
   - task: DotNetCoreCLI@2
     displayName: Test solution
     inputs:
       command: test
-      arguments: -c Release --no-build --logger:trx --results-directory "$(System.DefaultWorkingDirectory)/_temp" --collect:"XPlat Code Coverage"
-      projects: $(System.DefaultWorkingDirectory)/$(SolutionRelativePath)
-      workingDirectory: $(System.DefaultWorkingDirectory)
-      publishTestResults: false
+      arguments: -c Release --no-build --collect:"XPlat Code Coverage"
+      projects: $(SolutionRelativePath)
   - task: DotNetCoreCLI@2
     displayName: Report Generator Installation
     condition: always()
@@ -49,13 +45,13 @@ jobs:
     condition: always()
     inputs:
       targetType: inline
-      script: 'reportgenerator "-reports:$(System.DefaultWorkingDirectory)/_temp/**/coverage.cobertura.xml" "-targetdir:$(System.DefaultWorkingDirectory)/_temp/coverage/Cobertura" "-reporttypes:Cobertura;HTMLInline;HTMLChart" '
+      script: 'reportgenerator "-reports:$(Agent.TempDirectory)/_temp/**/coverage.cobertura.xml" "-targetdir:$(Agent.TempDirectory)/_temp/coverage/Cobertura" "-reporttypes:Cobertura;HTMLInline;HTMLChart" '
   - task: PublishCodeCoverageResults@1
     displayName: Publish Code Coverage Results
     condition: always()
     inputs:
       codeCoverageTool: cobertura
-      summaryFileLocation: $(System.DefaultWorkingDirectory)/_temp/coverage/Cobertura/Cobertura.xml
+      summaryFileLocation: $(Agent.TempDirectory)/_temp/coverage/Cobertura/Cobertura.xml
   - task: PublishTestResults@2
     displayName: Publish Test Results
     condition: always()
