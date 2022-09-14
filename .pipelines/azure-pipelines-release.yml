@@ -2,8 +2,8 @@ variables:
 - group: FrameworkVersion
 - name: SolutionRelativePath
   value: PS.Framework.sln
-- name: Revision
-  value: $[counter(variables['Minor'], 0)]
+#- name: Revision
+#  value: $[counter(variables['Minor'], 0)]
 
 trigger:
   branches:
@@ -23,7 +23,8 @@ stages:
   - job: Change_Build_Version_Number
     steps:
      - checkout: none
-     - script: echo '##vso[task.setVariable variable=Revision]$(Revision)'
+     - script: echo '##vso[task.setVariable variable=Revision]$[counter(variables['Minor'], 0)]'
+     - script: echo 'Version: $(Major).$(Minor).$(Revision)'
 
 #- stage: Build_And_Pack
 #  jobs:
