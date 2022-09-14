@@ -1,6 +1,7 @@
 variables:
+- group: FrameworkVersion
   SolutionRelativePath: PS.Framework.sln
-  - group: FrameworkVersion
+  
 
 trigger:
   branches:
