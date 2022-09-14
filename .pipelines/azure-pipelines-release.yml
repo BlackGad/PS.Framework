@@ -6,6 +6,7 @@ trigger:
     include:
     - master
     - ci
+    - Azure-Test-CI
 
 pr: none
     
