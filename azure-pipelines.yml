@@ -25,14 +25,14 @@ jobs:
   - task: DotNetCoreCLI@2
     displayName: Build solution
     inputs:
-      command: build solution
+      command: build
       arguments: -c Release --no-restore
       projects: $(System.DefaultWorkingDirectory)/$(SolutionRelativePath)
       workingDirectory: $(System.DefaultWorkingDirectory)
   - task: DotNetCoreCLI@2
     displayName: Test solution
     inputs:
-      command: test solution
+      command: test
       arguments: -c Release --no-build --logger:trx --results-directory "$(System.DefaultWorkingDirectory)/_temp" --collect:"XPlat Code Coverage"
       projects: $(System.DefaultWorkingDirectory)/$(SolutionRelativePath)
       workingDirectory: $(System.DefaultWorkingDirectory)
