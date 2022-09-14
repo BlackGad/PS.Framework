@@ -20,7 +20,7 @@ stages:
   - job: Change Build Version Number
     steps:
      - checkout: none
-     - script: echo "Major: $(FrameworkVersion.Major), Minor: $(FrameworkVersion.Minor)"
+     - script: echo  $(Major)
 
 #- stage: Build_And_Pack
 #  jobs:
