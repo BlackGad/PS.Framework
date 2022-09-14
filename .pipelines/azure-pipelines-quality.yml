@@ -1,10 +1,12 @@
 variables:
   SolutionRelativePath: PS.Framework.sln
 
-trigger:
-  branches:
-    exclude:
-    - master
+pr:
+    branches:
+        include: master
+        include: ci
+    drafts: false
+
 pool:
   vmImage: windows-2022
 
