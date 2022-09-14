@@ -21,24 +21,24 @@ stages:
      - script: echo "Hi"
 
 - stage: Build_And_Pack
-    jobs:
-    - job: Build
-      timeoutInMinutes: 0
-      displayName: Build
-      steps:
-      - checkout: self
-        path: s
-        target: host
-      - task: DotNetCoreCLI@2
-        displayName: Restore solution
-        inputs:
-          command: restore
-          projects: $(SolutionRelativePath)
-      - task: DotNetCoreCLI@2
-        displayName: Build solution
-        inputs:
-          command: build
-          arguments: -c Release --no-restore
-          projects: $(SolutionRelativePath)
-      - task: PublishBuildArtifacts@1
-        displayName: Publish Artifacts
+  jobs:
+  - job: Build
+    timeoutInMinutes: 0
+    displayName: Build
+    steps:
+    - checkout: self
+      path: s
+      target: host
+    - task: DotNetCoreCLI@2
+      displayName: Restore solution
+      inputs:
+        command: restore
+        projects: $(SolutionRelativePath)
+    - task: DotNetCoreCLI@2
+      displayName: Build solution
+      inputs:
+        command: build
+        arguments: -c Release --no-restore
+        projects: $(SolutionRelativePath)
+    - task: PublishBuildArtifacts@1
+      displayName: Publish Artifacts
