@@ -1,3 +1,7 @@
+variables:
+  SolutionRelativePath: PS.Framework.sln
+- group: FrameworkVersion
+  
 trigger:
   branches:
     include:
@@ -6,10 +10,6 @@ trigger:
     - Azure-Test-CI
 
 pr: none
-
-variables:
-- group: FrameworkVersion
-  SolutionRelativePath: PS.Framework.sln
     
 pool:
   vmImage: windows-2022
