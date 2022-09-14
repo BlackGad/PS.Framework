@@ -41,7 +41,7 @@ jobs:
       custom: tool
       arguments: 'install dotnet-reportgenerator-globaltool --global'
   - task: PowerShell@2
-    displayName: Report Generator Installation
+    displayName: Report Generator execution
     condition: always()
     inputs:
       targetType: inline
@@ -57,4 +57,4 @@ jobs:
     condition: always()
     inputs:
       testResultsFormat: VSTest
-      testResultsFiles: '**/*.trx'
+      testResultsFiles: '$(Agent.TempDirectory)/**/*.trx'
