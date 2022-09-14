@@ -2,9 +2,8 @@ variables:
 - group: FrameworkVersion
 - name: SolutionRelativePath
   value: PS.Framework.sln
-
-#- name: Revision
-#  value: $[counter(variables['Minor'], 0)]
+- name: Revision
+  value: $[counter(variables['Minor'], 0)]
 
 trigger:
   branches:
