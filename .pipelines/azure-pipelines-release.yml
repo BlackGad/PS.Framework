@@ -2,7 +2,9 @@ variables:
 - group: FrameworkVersion
 - name: SolutionRelativePath
   value: PS.Framework.sln
-  
+- name: Revision
+  value: $[counter(variables['Minor'], 0)]
+
 trigger:
   branches:
     include:
@@ -21,7 +23,7 @@ stages:
   - job: Change_Build_Version_Number
     steps:
      - checkout: none
-     - script: echo  $(Major)
+     - script: echo $(Major).$(Minor).$(Revision)
 
 #- stage: Build_And_Pack
 #  jobs:
