@@ -18,7 +18,7 @@ pool:
 stages:
 - stage: Change_Build_Version_Number
   jobs:
-  - job: Change Build Version Number
+  - job: Change_Build_Version_Number
     steps:
      - checkout: none
      - script: echo  $(Major)
