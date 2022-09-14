@@ -1,0 +1,56 @@
+variables:
+  SolutionRelativePath: PS.Framework.sln
+
+trigger:
+  branches:
+    include:
+    - master
+pool:
+  vmImage: windows-2022
+
+jobs:
+- job: BuildAndTest
+  timeoutInMinutes: 0
+  displayName: Build and Test
+  steps:
+  - checkout: self
+    path: s
+    target: host
+  - task: DotNetCoreCLI@2
+    displayName: restore solution
+    inputs:
+      command: restore
+      projects: $(System.DefaultWorkingDirectory)/$(SolutionRelativePath)
+      workingDirectory: $(System.DefaultWorkingDirectory)
+  - task: DotNetCoreCLI@2
+    displayName: Build Deloitte.ETP.WP
+    inputs:
+      command: build solution
+      arguments: -c Release --no-restore
+      projects: $(System.DefaultWorkingDirectory)/$(SolutionRelativePath)
+      workingDirectory: $(System.DefaultWorkingDirectory)
+  - task: DotNetCoreCLI@2
+    displayName: Test Deloitte.ETP.WP
+    inputs:
+      command: test solution
+      arguments: -c Release --no-build --logger:trx --results-directory "$(System.DefaultWorkingDirectory)/_temp" --collect:"XPlat Code Coverage"
+      projects: $(System.DefaultWorkingDirectory)/$(SolutionRelativePath)
+      workingDirectory: $(System.DefaultWorkingDirectory)
+  - task: PowerShell@2
+    displayName: Report Generator Installation
+    condition: always()
+    inputs:
+      targetType: inline
+      script: 'dotnet tool install dotnet-reportgenerator-globaltool --global | reportgenerator "-reports:$(System.DefaultWorkingDirectory)/_temp/**/coverage.cobertura.xml" "-targetdir:$(System.DefaultWorkingDirectory)/_temp/coverage/Cobertura" "-reporttypes:Cobertura;HTMLInline;HTMLChart" '
+  - task: PublishCodeCoverageResults@1
+    displayName: Publish Code Coverage Results
+    condition: always()
+    inputs:
+      codeCoverageTool: cobertura
+      summaryFileLocation: $(System.DefaultWorkingDirectory)/_temp/coverage/Cobertura/Cobertura.xml
+  - task: PublishTestResults@2
+    displayName: Publish Test Results
+    condition: always()
+    inputs:
+      testResultsFormat: VSTest
+      testResultsFiles: '**/*.trx'
