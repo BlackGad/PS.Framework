@@ -37,12 +37,19 @@ jobs:
       projects: $(System.DefaultWorkingDirectory)/$(SolutionRelativePath)
       workingDirectory: $(System.DefaultWorkingDirectory)
       publishTestResults: false
+  - task: DotNetCoreCLI@2
+    displayName: Report Generator Installation
+    condition: always()
+    inputs:
+      command: custom
+      custom: tool
+      arguments: 'install dotnet-reportgenerator-globaltool --global'
   - task: PowerShell@2
     displayName: Report Generator Installation
     condition: always()
     inputs:
       targetType: inline
-      script: 'dotnet tool install dotnet-reportgenerator-globaltool --global | reportgenerator "-reports:$(System.DefaultWorkingDirectory)/_temp/**/coverage.cobertura.xml" "-targetdir:$(System.DefaultWorkingDirectory)/_temp/coverage/Cobertura" "-reporttypes:Cobertura;HTMLInline;HTMLChart" '
+      script: 'reportgenerator "-reports:$(System.DefaultWorkingDirectory)/_temp/**/coverage.cobertura.xml" "-targetdir:$(System.DefaultWorkingDirectory)/_temp/coverage/Cobertura" "-reporttypes:Cobertura;HTMLInline;HTMLChart" '
   - task: PublishCodeCoverageResults@1
     displayName: Publish Code Coverage Results
     condition: always()
