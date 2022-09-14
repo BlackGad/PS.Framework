@@ -1,0 +1,60 @@
+variables:
+  SolutionRelativePath: PS.Framework.sln
+
+trigger:
+  branches:
+    exclude:
+    - master
+pool:
+  vmImage: windows-2022
+
+jobs:
+- job: BuildAndTest
+  timeoutInMinutes: 0
+  displayName: Build and Test
+  steps:
+  - checkout: self
+    path: s
+    target: host
+  - task: DotNetCoreCLI@2
+    displayName: Restore solution
+    inputs:
+      command: restore
+      projects: $(SolutionRelativePath)
+  - task: DotNetCoreCLI@2
+    displayName: Build solution
+    inputs:
+      command: build
+      arguments: -c Release --no-restore
+      projects: $(SolutionRelativePath)
+  - task: DotNetCoreCLI@2
+    displayName: Test solution
+    inputs:
+      command: test
+      arguments: -c Release --no-build --collect:"XPlat Code Coverage"
+      projects: $(SolutionRelativePath)
+  - task: DotNetCoreCLI@2
+    displayName: Report Generator Installation
+    condition: always()
+    inputs:
+      command: custom
+      custom: tool
+      arguments: 'install dotnet-reportgenerator-globaltool --global'
+  - task: PowerShell@2
+    displayName: Report Generator execution
+    condition: always()
+    inputs:
+      targetType: inline
+      script: 'reportgenerator "-reports:$(Agent.TempDirectory)/**/coverage.cobertura.xml" "-targetdir:$(Agent.TempDirectory)/coverage/Cobertura" "-reporttypes:Cobertura;HTMLInline;HTMLChart" '
+  - task: PublishCodeCoverageResults@1
+    displayName: Publish Code Coverage Results
+    condition: always()
+    inputs:
+      codeCoverageTool: cobertura
+      summaryFileLocation: $(Agent.TempDirectory)/coverage/Cobertura/Cobertura.xml
+  - task: PublishTestResults@2
+    displayName: Publish Test Results
+    condition: always()
+    inputs:
+      testResultsFormat: VSTest
+      testResultsFiles: '$(Agent.TempDirectory)/**/*.trx'
