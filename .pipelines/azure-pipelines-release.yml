@@ -1,8 +1,3 @@
-variables:
-- group: FrameworkVersion
-  SolutionRelativePath: PS.Framework.sln
-  
-
 trigger:
   branches:
     include:
@@ -11,6 +6,10 @@ trigger:
     - Azure-Test-CI
 
 pr: none
+
+variables:
+- group: FrameworkVersion
+  SolutionRelativePath: PS.Framework.sln
     
 pool:
   vmImage: windows-2022
@@ -21,7 +20,7 @@ stages:
   - job: Change Build Version Number
     steps:
      - checkout: none
-     - script: echo "Major: $(Major), Minor: $(Minor)"
+     - script: echo "Major: $(FrameworkVersion.Major), Minor: $(FrameworkVersion.Minor)"
 
 #- stage: Build_And_Pack
 #  jobs:
