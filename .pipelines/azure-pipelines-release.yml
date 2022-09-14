@@ -13,7 +13,7 @@ trigger:
     - Azure-Test-CI
 
 pr: none
-    
+
 pool:
   vmImage: windows-2022
 
