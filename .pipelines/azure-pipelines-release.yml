@@ -23,7 +23,7 @@ stages:
   - job: Change_Build_Version_Number
     steps:
      - checkout: none
-     - script: echo $(Major).$(Minor).$(Revision)
+     - script: echo '##vso[task.setVariable variable=Revision]$(Revision)'
 
 #- stage: Build_And_Pack
 #  jobs:
