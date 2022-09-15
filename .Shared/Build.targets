@@ -9,6 +9,8 @@
 		<PackageProjectUrl>https://github.com/BlackGad/PS.Framework</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/BlackGad/PS.Framework</RepositoryUrl>
 		<RepositoryType>github</RepositoryType>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<Choose>
