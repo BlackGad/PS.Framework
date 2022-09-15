@@ -23,9 +23,8 @@ stages:
   - job: Change_Build_Version_Number
     steps:
      - checkout: none
-     - script: |
-         echo '##vso[task.setVariable variable=TestUrl;]$(System.CollectionUri)$(System.TeamProject)/_apis/distributedtask/variablegroups/'
-         echo '$(TestUrl)'
+     - bash: echo "##vso[task.setvariable variable=TestUrl]$(System.CollectionUri)$(System.TeamProject)/_apis/distributedtask/variablegroups/"
+     - bash: echo $(TestUrl)
          
 
 #- stage: Build_And_Pack
