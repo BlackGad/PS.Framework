@@ -6,7 +6,7 @@ $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0
 Write-Host "The URL for this call: " $URL
 
 # Get the variable group by id
-$groupVariables = Invoke-RestMethod -Uri $URL -Method Get -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)}
+$groupVariables = Invoke-RestMethod -Uri $URL -Method Get -Headers @{Authorization=("Bearer {0}" -f $PAT)}
 
 Write-Host "Variables call result: " $groupVariables.variables
 
@@ -25,6 +25,6 @@ $json = ($groupVariables | ConvertTo-Json -Compress).ToString()
 Write-Host "After modifying and Jsonifying the variables: " $json
 
 # Send the updated varible group back to Azure DevOps
-$pipeline = Invoke-RestMethod -Uri $URL -Method Put -Body $json -ContentType "application/json" -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)}
+$pipeline = Invoke-RestMethod -Uri $URL -Method Put -Body $json -ContentType "application/json" -Headers @{Authorization=("Bearer {0}" -f $PAT)}
 
 Write-Host "Updating variable group was successful."
