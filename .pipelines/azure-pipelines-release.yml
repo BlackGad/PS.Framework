@@ -22,18 +22,14 @@ stages:
   jobs:
   - job: Change_Build_Version_Number
     steps:
-     - checkout: self
-       path: s
-       target: host
-     - task: PowerShell@2
-       inputs:
-         targetType: filePath
-         filePath: .pipelines/update-version-code-script.ps1
-         arguments:
-           -URL $(System.CollectionUri)$(System.TeamProject)/_apis/distributedtask/variablegroups/1?api-version=5.1-preview.1 `
-           -PAT $(System.AccessToken) `
-           -MODE Revision
-         displayName: Test ps1
+     - checkout: none
+     - powershell: |
+       $URL = $(System.CollectionUri)$(System.TeamProject)/_apis/distributedtask/variablegroups/1?api-version=5.1-preview.1;
+       $PAT = $(System.AccessToken);
+       $groupVariables = Invoke-RestMethod -Uri $URL -Method Get -Headers @{Authorization=("Bearer {0}" -f $PAT)}
+       $groupVariables.variables.Revision.value = $groupVariables.variables.Revision.value/1 + 1;
+       $json = ($groupVariables | ConvertTo-Json -Compress).ToString()
+       $pipeline = Invoke-RestMethod -Uri $URL -Method Put -Body $json -ContentType "application/json" -Headers @{Authorization=("Bearer {0}" -f $PAT)}
          
 #- stage: Build_And_Pack
 #  jobs:

@@ -1,9 +1,6 @@
 Param($URL, $PAT, $MODE)
 $groupVariables = Invoke-RestMethod -Uri $URL -Method Get -Headers @{Authorization=("Bearer {0}" -f $PAT)}
-Write-Host $groupVariables.variables[0];
-Write-Host $groupVariables.variables[$MODE];
-Write-Host $groupVariables.variables['$MODE'];
-$groupVariables.variables[$MODE].value = $groupVariables.variables[$MODE].value/1 + 1;
+$groupVariables.variables.Revision.value = $groupVariables.variables.Revision.value/1 + 1;
 # switch ($MODE) 
 # {
    # "MAJOR" { $groupVariables.variables.Major.value = $groupVariables.variables.Major.value/1 + 1; break; }
