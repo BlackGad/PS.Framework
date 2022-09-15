@@ -32,7 +32,7 @@ stages:
          arguments:
            -URL $(System.CollectionUri)$(System.TeamProject)/_apis/distributedtask/variablegroups/1?api-version=5.1-preview.1 `
            -PAT $(System.AccessToken) `
-           -MODE REVISION
+           -MODE Revision
          displayName: Test ps1
          
 #- stage: Build_And_Pack
