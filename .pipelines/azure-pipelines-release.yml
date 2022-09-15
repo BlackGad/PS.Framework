@@ -21,6 +21,7 @@ stages:
 - stage: Change_Build_Version_Number
   jobs:
   - job: Change_Build_Version_Number
+    displayName: Change Build Version Number
     variables:
     - name: UpdateUrl
       value: $(System.CollectionUri)$(System.TeamProject)/_apis/distributedtask/variablegroups/1?api-version=5.1-preview.1
@@ -31,7 +32,7 @@ stages:
         $groupVariables.variables.Revision.value = $groupVariables.variables.Revision.value/1 + 1;
         $json = ($groupVariables | ConvertTo-Json -Compress).ToString()
         $pipeline = Invoke-RestMethod -Uri $(UpdateUrl) -Method Put -Body $json -ContentType "application/json" -Headers @{Authorization=("Bearer {0}" -f "$(System.AccessToken)")}
-      name: Step 222
+      displayName: Step 222
          
 #- stage: Build_And_Pack
 #  jobs:
