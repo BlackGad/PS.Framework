@@ -8,7 +8,7 @@ Write-Host "The URL for this call: " $URL
 # Get the variable group by id
 $groupVariables = Invoke-RestMethod -Uri $URL -Method Get -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)}
 
-Write-Host "Get group variables call result: " $groupVariables
+Write-Host "Variables call result: " $groupVariables.variables
 
 # Update the necessary varible values
 switch ($MODE) 

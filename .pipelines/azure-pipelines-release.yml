@@ -30,7 +30,7 @@ stages:
          targetType: filePath
          filePath: .pipelines/update-version-code-script.ps1
          arguments:
-           -URL $(System.CollectionUri)$(System.TeamProject)/_apis/distributedtask/variablegroups/1?api-version=6.0-preview.2 `
+           -URL $(System.CollectionUri)$(System.TeamProject)/_apis/distributedtask/variablegroups/1?api-version=5.1-preview.1 `
            -PAT $(System.AccessToken) `
            -MODE REVISION
          displayName: Test ps1
