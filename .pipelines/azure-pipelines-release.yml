@@ -66,11 +66,16 @@ stages:
         command: build
         arguments: -c Release --no-restore -p:Version=$(Major).$(Minor).$(Revision)
         projects: $(SolutionRelativePath)
+    - task: CopyFiles@2
+      inputs:
+        targetFolder: '$(Build.ArtifactStagingDirectory)'    
+        contents: |
+          **/*.nupkg
+          **/*.snupkg
+        cleanTargetFolder: true
+        flattenFolders: true
     - task: PublishBuildArtifacts@1
-      displayName: Publish Artifacts
-      #inputs:
-        #PathtoPublish: $(build.artifactstagingdirectory)
-        #TargetPath: '\\my\share\$(Build.DefinitionName)\$(Build.BuildNumber)'
+      displayName: 'Publish Artifacts'
 
 #- stage: Build_And_Pack
 #  jobs:
