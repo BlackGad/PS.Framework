@@ -27,10 +27,10 @@ stages:
     steps:
     - checkout: none
     - powershell: |
-        $groupVariables = Invoke-RestMethod -Uri $(UpdateUrl) -Method Get -Headers @{Authorization=("Bearer {0}" -f $(System.AccessToken))}
+        $groupVariables = Invoke-RestMethod -Uri $(UpdateUrl) -Method Get -Headers @{Authorization=("Bearer {0}" -f "$(System.AccessToken)")}
         $groupVariables.variables.Revision.value = $groupVariables.variables.Revision.value/1 + 1;
         $json = ($groupVariables | ConvertTo-Json -Compress).ToString()
-        $pipeline = Invoke-RestMethod -Uri $(UpdateUrl) -Method Put -Body $json -ContentType "application/json" -Headers @{Authorization=("Bearer {0}" -f $(System.AccessToken))}
+        $pipeline = Invoke-RestMethod -Uri $(UpdateUrl) -Method Put -Body $json -ContentType "application/json" -Headers @{Authorization=("Bearer {0}" -f "$(System.AccessToken)")}
          
 #- stage: Build_And_Pack
 #  jobs:
