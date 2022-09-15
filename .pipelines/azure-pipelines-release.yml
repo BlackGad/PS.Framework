@@ -64,7 +64,7 @@ stages:
       displayName: Build solution
       inputs:
         command: build
-        arguments: -c Release --no-restore -v $(Major).$(Minor).$(Revision)
+        arguments: -c Release --no-restore -p:Version=$(Major).$(Minor).$(Revision)
         projects: $(SolutionRelativePath)
     - task: PublishBuildArtifacts@1
       displayName: Publish Artifacts
