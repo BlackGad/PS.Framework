@@ -52,10 +52,25 @@ stages:
     - name: SolutionRelativePath
       value: PS.Framework.sln
     steps:
-    - checkout: none
-    - powershell: |
-        Write-Host 1 $(Major).$(Minor).$(Revision);
-    
+    - checkout: self
+      path: s
+      target: host
+    - task: DotNetCoreCLI@2
+      displayName: Restore solution
+      inputs:
+        command: restore
+        projects: $(SolutionRelativePath)
+    - task: DotNetCoreCLI@2
+      displayName: Build solution
+      inputs:
+        command: build
+        arguments: -c Release --no-restore -v $(Major).$(Minor).$(Revision)
+        projects: $(SolutionRelativePath)
+    - task: PublishBuildArtifacts@1
+      displayName: Publish Artifacts
+      #inputs:
+        #PathtoPublish: $(build.artifactstagingdirectory)
+        #TargetPath: '\\my\share\$(Build.DefinitionName)\$(Build.BuildNumber)'
 
 #- stage: Build_And_Pack
 #  jobs:
