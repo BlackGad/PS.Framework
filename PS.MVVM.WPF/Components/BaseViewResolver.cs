@@ -10,17 +10,11 @@ namespace PS.MVVM.Components
 {
     public abstract class BaseViewResolver : BaseResolver<IViewResolverService>
     {
-        #region Property definitions
-
         public static readonly DependencyProperty ServiceProperty =
             DependencyProperty.RegisterAttached("Service",
                                                 typeof(IViewResolverService),
                                                 typeof(BaseViewResolver),
                                                 new PropertyMetadata(default(IViewResolverService)));
-
-        #endregion
-
-        #region Static members
 
         public static IViewResolverService GetService(DependencyObject element)
         {
@@ -32,15 +26,7 @@ namespace PS.MVVM.Components
             element.SetValue(ServiceProperty, value);
         }
 
-        #endregion
-
-        #region Properties
-
         public object Region { get; set; }
-
-        #endregion
-
-        #region Override members
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
@@ -68,12 +54,6 @@ namespace PS.MVVM.Components
             return null;
         }
 
-        #endregion
-
-        #region Members
-
         protected abstract object CreateResult(Type propertyType, object targetObject);
-
-        #endregion
     }
 }

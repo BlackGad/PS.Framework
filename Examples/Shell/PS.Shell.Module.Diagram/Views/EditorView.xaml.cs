@@ -8,22 +8,14 @@ namespace PS.Shell.Module.Diagram.Views
     [DependencyRegisterAsInterface(typeof(IView<EditorViewModel>))]
     public partial class EditorView : IView<EditorViewModel>
     {
-        #region Constructors
-
         public EditorView()
         {
             InitializeComponent();
         }
 
-        #endregion
-
-        #region IView<EditorViewModel> Members
-
         public EditorViewModel ViewModel
         {
             get { return DataContext as EditorViewModel; }
         }
-
-        #endregion
     }
 }

@@ -6,10 +6,6 @@
 
     public interface IView<out T> : IView
     {
-        #region Properties
-
         T ViewModel { get; }
-
-        #endregion
     }
 }

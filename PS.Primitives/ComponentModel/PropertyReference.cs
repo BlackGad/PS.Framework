@@ -6,8 +6,6 @@ namespace PS.ComponentModel
 {
     public class PropertyReference
     {
-        #region Static members
-
         public static bool operator ==(PropertyReference left, PropertyReference right)
         {
             return Equals(left, right);
@@ -18,13 +16,9 @@ namespace PS.ComponentModel
             return !Equals(left, right);
         }
 
-        #endregion
-
         private readonly object _descriptor;
         private readonly int _hashCode;
         private readonly object _source;
-
-        #region Constructors
 
         public PropertyReference(object source, PropertyDescriptor descriptor, bool weakSource = true, bool weakDescriptor = false)
         {
@@ -43,19 +37,15 @@ namespace PS.ComponentModel
             SourceType = source.GetType();
         }
 
-        #endregion
-
-        #region Properties
-
         public bool IsReadOnly { get; }
+
         public string Name { get; }
+
         public Type PropertyType { get; }
+
         public Type SourceType { get; }
+
         public bool SupportsChangeEvents { get; }
-
-        #endregion
-
-        #region Override members
 
         public override bool Equals(object obj)
         {
@@ -69,10 +59,6 @@ namespace PS.ComponentModel
         {
             return _hashCode;
         }
-
-        #endregion
-
-        #region Members
 
         public object GetSource()
         {
@@ -168,7 +154,5 @@ namespace PS.ComponentModel
             if (source == null || descriptor == null) return false;
             return true;
         }
-
-        #endregion
     }
 }

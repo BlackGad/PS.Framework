@@ -14,16 +14,10 @@ namespace PS.Shell.Models.PageService
     {
         private readonly ILifetimeScope _scope;
 
-        #region Constructors
-
         public ExamplesService(ILifetimeScope scope)
         {
             _scope = scope ?? throw new ArgumentNullException(nameof(scope));
         }
-
-        #endregion
-
-        #region IExamplesService Members
 
         public IExample Add<T>(string group, string title)
         {
@@ -50,7 +44,5 @@ namespace PS.Shell.Models.PageService
 
             return example;
         }
-
-        #endregion
     }
 }

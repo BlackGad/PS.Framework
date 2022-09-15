@@ -14,8 +14,6 @@ namespace PS.Data
         private readonly Func<TKey, TObject> _factory;
         private readonly ConcurrentDictionary<TKey, Lazy<TObject>> _storage;
 
-        #region Constructors
-
         public ObjectsStorage()
             : this(null)
         {
@@ -26,10 +24,6 @@ namespace PS.Data
             _factory = factory ?? (key => Activator.CreateInstance<TObject>());
             _storage = new ConcurrentDictionary<TKey, Lazy<TObject>>();
         }
-
-        #endregion
-
-        #region IDictionary<TKey,TObject> Members
 
         void IDictionary<TKey, TObject>.Add(TKey key, TObject value)
         {
@@ -81,10 +75,6 @@ namespace PS.Data
             ((IDictionary<TKey, TObject>)_storage).CopyTo(array, arrayIndex);
         }
 
-        #endregion
-
-        #region IDisposable Members
-
         public void Dispose()
         {
             foreach (var value in this)
@@ -95,10 +85,6 @@ namespace PS.Data
                 }
             }
         }
-
-        #endregion
-
-        #region IReadOnlyDictionary<TKey,TObject> Members
 
         public IEnumerator<KeyValuePair<TKey, TObject>> GetEnumerator()
         {
@@ -153,10 +139,6 @@ namespace PS.Data
             get { return _storage.Count; }
         }
 
-        #endregion
-
-        #region Members
-
         public TObject Create(TKey key)
         {
             return _factory(key);
@@ -167,7 +149,5 @@ namespace PS.Data
             if (_storage.TryRemove(key, out var obj)) return obj.Value;
             return default;
         }
-
-        #endregion
     }
 }

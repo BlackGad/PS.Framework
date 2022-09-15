@@ -9,18 +9,16 @@ namespace PS.Windows.Interop
     public interface IFileDialog
     {
         [PreserveSig]
-        ErrorCode Show([In] [Optional] IntPtr hwndOwner);
+        ErrorCode Show([In][Optional] IntPtr hwndOwner);
 
         uint SetFileTypes([In] uint cFileTypes,
-                          [In] [MarshalAs(UnmanagedType.LPArray)]
-                          IntPtr rgFilterSpec);
+                          [In][MarshalAs(UnmanagedType.LPArray)] IntPtr rgFilterSpec);
 
         uint SetFileTypeIndex([In] uint iFileType);
 
         uint GetFileTypeIndex(out uint piFileType);
 
-        uint Advise([In] [MarshalAs(UnmanagedType.Interface)]
-                    IntPtr pfde,
+        uint Advise([In][MarshalAs(UnmanagedType.Interface)] IntPtr pfde,
                     out uint pdwCookie);
 
         uint Unadvise([In] uint dwCookie);
@@ -29,33 +27,30 @@ namespace PS.Windows.Interop
 
         uint GetOptions(out FileOpenDialogOptions fos);
 
-        void SetDefaultFolder([In] [MarshalAs(UnmanagedType.Interface)]
-                              IShellItem psi);
+        void SetDefaultFolder([In][MarshalAs(UnmanagedType.Interface)] IShellItem psi);
 
-        uint SetFolder([In] [MarshalAs(UnmanagedType.Interface)]
-                       IShellItem psi);
+        uint SetFolder([In][MarshalAs(UnmanagedType.Interface)] IShellItem psi);
 
         uint GetFolder([MarshalAs(UnmanagedType.Interface)] out IShellItem ppsi);
 
         uint GetCurrentSelection([MarshalAs(UnmanagedType.Interface)] out IShellItem ppsi);
 
-        uint SetFileName([In] [MarshalAs(UnmanagedType.LPWStr)] string pszName);
+        uint SetFileName([In][MarshalAs(UnmanagedType.LPWStr)] string pszName);
 
         uint GetFileName([MarshalAs(UnmanagedType.LPWStr)] out string pszName);
 
-        uint SetTitle([In] [MarshalAs(UnmanagedType.LPWStr)] string pszTitle);
+        uint SetTitle([In][MarshalAs(UnmanagedType.LPWStr)] string pszTitle);
 
-        uint SetOkButtonLabel([In] [MarshalAs(UnmanagedType.LPWStr)] string pszText);
+        uint SetOkButtonLabel([In][MarshalAs(UnmanagedType.LPWStr)] string pszText);
 
-        uint SetFileNameLabel([In] [MarshalAs(UnmanagedType.LPWStr)] string pszLabel);
+        uint SetFileNameLabel([In][MarshalAs(UnmanagedType.LPWStr)] string pszLabel);
 
         ErrorCode GetResult([MarshalAs(UnmanagedType.Interface)] out IShellItem ppsi);
 
-        uint AddPlace([In] [MarshalAs(UnmanagedType.Interface)]
-                      IShellItem psi,
+        uint AddPlace([In][MarshalAs(UnmanagedType.Interface)] IShellItem psi,
                       uint fdap);
 
-        uint SetDefaultExtension([In] [MarshalAs(UnmanagedType.LPWStr)] string pszDefaultExtension);
+        uint SetDefaultExtension([In][MarshalAs(UnmanagedType.LPWStr)] string pszDefaultExtension);
 
         uint Close([MarshalAs(UnmanagedType.Error)] uint hr);
 

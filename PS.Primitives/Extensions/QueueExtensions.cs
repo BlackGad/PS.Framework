@@ -5,8 +5,6 @@ namespace PS.Extensions
 {
     public static class QueueExtensions
     {
-        #region Static members
-
         public static bool TryDequeue<T>(this Queue<T> queue, out T value)
         {
             value = default;
@@ -18,7 +16,5 @@ namespace PS.Extensions
 
             return false;
         }
-
-        #endregion
     }
 }

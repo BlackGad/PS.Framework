@@ -2,10 +2,6 @@
 {
     public interface ILargeIconAware
     {
-        #region Properties
-
         object LargeIcon { get; set; }
-
-        #endregion
     }
 }

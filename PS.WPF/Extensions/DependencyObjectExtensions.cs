@@ -7,13 +7,7 @@ namespace PS.WPF.Extensions
 {
     public static class DependencyObjectExtensions
     {
-        #region Constants
-
         private static readonly ResourceReferenceExpressionConverter ResourceReferenceExpressionConverter;
-
-        #endregion
-
-        #region Static members
 
         public static void CopySimilarValuesTo(this DependencyObject source, DependencyObject target, params DependencyProperty[] properties)
         {
@@ -155,15 +149,9 @@ namespace PS.WPF.Extensions
             }
         }
 
-        #endregion
-
-        #region Constructors
-
         static DependencyObjectExtensions()
         {
             ResourceReferenceExpressionConverter = new ResourceReferenceExpressionConverter();
         }
-
-        #endregion
     }
 }

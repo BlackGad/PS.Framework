@@ -8,13 +8,7 @@ namespace PS.WPF
 {
     public static class Runtime
     {
-        #region Constants
-
         private static readonly IReadOnlyList<string> DebugFlagAliases;
-
-        #endregion
-
-        #region Static members
 
         public static bool IsDebugBuild
         {
@@ -52,10 +46,6 @@ namespace PS.WPF
             }
         }
 
-        #endregion
-
-        #region Constructors
-
         static Runtime()
         {
             DebugFlagAliases = new List<string>
@@ -64,7 +54,5 @@ namespace PS.WPF
                 "--debug"
             };
         }
-
-        #endregion
     }
 }

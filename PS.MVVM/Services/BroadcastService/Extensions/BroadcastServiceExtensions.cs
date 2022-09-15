@@ -5,8 +5,6 @@ namespace PS.MVVM.Services.Extensions
 {
     public static class BroadcastServiceExtensions
     {
-        #region Static members
-
         public static Task Broadcast<T>(this IBroadcastService service, T args)
         {
             if (service == null) throw new ArgumentNullException(nameof(service));
@@ -45,7 +43,5 @@ namespace PS.MVVM.Services.Extensions
             if (service == null) throw new ArgumentNullException(nameof(service));
             return service.Unsubscribe(typeof(T), unsubscribeAction);
         }
-
-        #endregion
     }
 }

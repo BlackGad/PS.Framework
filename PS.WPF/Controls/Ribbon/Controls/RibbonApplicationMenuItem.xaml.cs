@@ -10,19 +10,13 @@ namespace PS.WPF.Controls.Ribbon.Controls
 {
     public class RibbonApplicationMenuItem : System.Windows.Controls.Ribbon.RibbonApplicationMenuItem
     {
-        #region Property definitions
-
         public static readonly DependencyProperty AccentProperty =
             DependencyProperty.Register(nameof(Accent),
                                         typeof(Brush),
                                         typeof(RibbonApplicationMenuItem),
                                         new FrameworkPropertyMetadata(default(Brush)));
 
-        #endregion
-
         private object _currentItem;
-
-        #region Constructors
 
         static RibbonApplicationMenuItem()
         {
@@ -30,19 +24,11 @@ namespace PS.WPF.Controls.Ribbon.Controls
             ResourceHelper.SetDefaultStyle(typeof(RibbonApplicationMenuItem), Resource.ControlStyle);
         }
 
-        #endregion
-
-        #region Properties
-
         public Brush Accent
         {
             get { return (Brush)GetValue(AccentProperty); }
             set { SetValue(AccentProperty, value); }
         }
-
-        #endregion
-
-        #region Override members
 
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
@@ -100,14 +86,10 @@ namespace PS.WPF.Controls.Ribbon.Controls
             return new RibbonApplicationMenuItem();
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/Ribbon/Controls/RibbonApplicationMenuItem.xaml", UriKind.RelativeOrAbsolute);
 
@@ -118,8 +100,6 @@ namespace PS.WPF.Controls.Ribbon.Controls
             public static readonly ResourceDescriptor ControlTemplate =
                 ResourceDescriptor.Create<ControlTemplate>(description: "Default RibbonApplicationMenuItem control template",
                                                            resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

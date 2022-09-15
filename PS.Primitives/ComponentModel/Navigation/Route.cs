@@ -19,16 +19,10 @@ namespace PS.ComponentModel.Navigation
                          IReadOnlyList<string>,
                          ICloneable
     {
-        #region Constants
-
         internal const string Wildcard = "*";
         internal const string WildcardRecursive = "**";
 
         private static readonly Dictionary<int, RouteToken> RoutesCache;
-
-        #endregion
-
-        #region Static members
 
         public static Route Create(params object[] parts)
         {
@@ -124,13 +118,9 @@ namespace PS.ComponentModel.Navigation
             return route;
         }
 
-        #endregion
-
         private readonly int _hashCode;
 
         internal RouteTokenSequence[] Sequences;
-
-        #region Constructors
 
         static Route()
         {
@@ -172,15 +162,7 @@ namespace PS.ComponentModel.Navigation
             Merge(this, route);
         }
 
-        #endregion
-
-        #region Properties
-
         public bool IsWild { get; }
-
-        #endregion
-
-        #region Override members
 
         public override bool Equals(object obj)
         {
@@ -199,27 +181,15 @@ namespace PS.ComponentModel.Navigation
             return ToString(null);
         }
 
-        #endregion
-
-        #region ICloneable Members
-
         object ICloneable.Clone()
         {
             return Clone();
         }
 
-        #endregion
-
-        #region IEquatable<Route> Members
-
         public bool Equals(Route other)
         {
             return Equals(_hashCode, other?._hashCode);
         }
-
-        #endregion
-
-        #region IFormattable Members
 
         string IFormattable.ToString(string format, IFormatProvider formatProvider)
         {
@@ -227,10 +197,6 @@ namespace PS.ComponentModel.Navigation
             return string.Join(routeFormatProvider.Separator,
                                this.Select(p => p.Replace(routeFormatProvider.Separator, RouteFormatting.EscapeSymbol + routeFormatProvider.Separator)));
         }
-
-        #endregion
-
-        #region IReadOnlyList<string> Members
 
         public int Count { get; }
 
@@ -249,18 +215,10 @@ namespace PS.ComponentModel.Navigation
             return Sequences[(int)RouteCaseMode.Sensitive].Select(h => h.Value).GetEnumerator();
         }
 
-        #endregion
-
-        #region ISerializable Members
-
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue(nameof(Route), this.ToArray(), typeof(string[]));
         }
-
-        #endregion
-
-        #region IXmlSerializable Members
 
         XmlSchema IXmlSerializable.GetSchema()
         {
@@ -288,10 +246,6 @@ namespace PS.ComponentModel.Navigation
             }
         }
 
-        #endregion
-
-        #region Members
-
         public Route Clone()
         {
             return Merge(new Route(), this);
@@ -306,7 +260,5 @@ namespace PS.ComponentModel.Navigation
         {
             return ((IFormattable)this).ToString(null, formatProvider);
         }
-
-        #endregion
     }
 }

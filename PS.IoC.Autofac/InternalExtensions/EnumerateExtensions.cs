@@ -6,8 +6,6 @@ namespace PS.IoC.InternalExtensions
 {
     internal static class EnumerateExtensions
     {
-        #region Static members
-
         public static IEnumerable<T> Enumerate<T>(this object @object)
         {
             return @object is IEnumerable enumerable ? enumerable.OfType<T>() : Enumerable.Empty<T>();
@@ -23,7 +21,5 @@ namespace PS.IoC.InternalExtensions
             var enumerable = @object as IEnumerable;
             return enumerable.Enumerate<object>();
         }
-
-        #endregion
     }
 }

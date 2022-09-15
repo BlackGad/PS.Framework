@@ -28,8 +28,6 @@ namespace PS.MVVM.Services.CommandService
         private readonly ObservableCollection<CommandServiceComponent> _trackerRegistry;
         private readonly ObservableCollection<CommandServiceComponent> _viewRegistry;
 
-        #region Constructors
-
         public CommandService()
         {
             _activations = new ObjectsStorage<object, EventHandlerSubscriptionStorage>(ComponentSubscriptionActivationFactory);
@@ -48,10 +46,6 @@ namespace PS.MVVM.Services.CommandService
                                             .Create()
                                             .Activate();
         }
-
-        #endregion
-
-        #region ICommandService Members
 
         public void Add(CommandServiceComponent component)
         {
@@ -92,25 +86,13 @@ namespace PS.MVVM.Services.CommandService
             return _activations[identifier];
         }
 
-        #endregion
-
-        #region IDisposable Members
-
         public void Dispose()
         {
             _activations?.Dispose();
             _componentsTracker?.Dispose();
         }
 
-        #endregion
-
-        #region INotifyPropertyChanged Members
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
-
-        #region Event handlers
 
         private void OnChangedPropertyEvent(object sender, ChangedPropertyEventArgs e)
         {
@@ -157,10 +139,6 @@ namespace PS.MVVM.Services.CommandService
             }
         }
 
-        #endregion
-
-        #region Members
-
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -180,15 +158,11 @@ namespace PS.MVVM.Services.CommandService
             }
         }
 
-        #endregion
-
         #region Nested type: ComponentMetadata
 
         private class ComponentMetadata
         {
             private int _referenceCount;
-
-            #region Constructors
 
             public ComponentMetadata(CommandServiceComponent component)
             {
@@ -196,15 +170,7 @@ namespace PS.MVVM.Services.CommandService
                 AddReference();
             }
 
-            #endregion
-
-            #region Properties
-
             public WeakReference ComponentReference { get; }
-
-            #endregion
-
-            #region Members
 
             public void AddReference()
             {
@@ -215,8 +181,6 @@ namespace PS.MVVM.Services.CommandService
             {
                 return Interlocked.Decrement(ref _referenceCount);
             }
-
-            #endregion
         }
 
         #endregion

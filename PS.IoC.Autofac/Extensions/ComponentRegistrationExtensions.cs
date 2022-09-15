@@ -10,8 +10,6 @@ namespace PS.IoC.Extensions
 {
     public static class ComponentRegistrationExtensions
     {
-        #region Static members
-
         public static void HandleActivation<TService>(this IComponentRegistration registration,
                                                       Action<ILifetimeScope, TService> action,
                                                       Action<ILifetimeScope, IEnumerable<Parameter>> previewActivation = null)
@@ -32,7 +30,5 @@ namespace PS.IoC.Extensions
                 };
             }
         }
-
-        #endregion
     }
 }

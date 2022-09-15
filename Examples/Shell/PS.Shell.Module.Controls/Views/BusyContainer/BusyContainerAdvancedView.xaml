@@ -47,10 +47,14 @@
                                 <Style TargetType="ps:TextBox">
                                     <Setter Property="IsEnabled" Value="False" />
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Content, Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ITitleAware}}" Value="True">
+                                        <DataTrigger
+                                            Binding="{Binding Content, Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ITitleAware}}"
+                                            Value="True">
                                             <Setter Property="Value" Value="{Binding Content.Title, Mode=OneWay}" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding Content, Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IMutableTitleAware}}" Value="True">
+                                        <DataTrigger
+                                            Binding="{Binding Content, Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IMutableTitleAware}}"
+                                            Value="True">
                                             <Setter Property="IsEnabled" Value="True" />
                                             <Setter Property="Value" Value="{Binding Content.Title}" />
                                         </DataTrigger>
@@ -66,10 +70,14 @@
                                     <Setter Property="IsEnabled" Value="False" />
                                     <Setter Property="Value" Value="{x:Null}" />
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Content, Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IDescriptionAware}}" Value="True">
+                                        <DataTrigger
+                                            Binding="{Binding Content, Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IDescriptionAware}}"
+                                            Value="True">
                                             <Setter Property="Value" Value="{Binding Content.Description, Mode=OneWay}" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding Content, Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IMutableDescriptionAware}}" Value="True">
+                                        <DataTrigger
+                                            Binding="{Binding Content, Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:IMutableDescriptionAware}}"
+                                            Value="True">
                                             <Setter Property="IsEnabled" Value="True" />
                                             <Setter Property="Value" Value="{Binding Content.Description}" />
                                         </DataTrigger>

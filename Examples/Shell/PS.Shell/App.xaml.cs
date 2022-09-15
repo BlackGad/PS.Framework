@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Windows;
 using System.Windows.Media;
@@ -11,7 +12,6 @@ using Autofac;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
-using PS.Extensions;
 using PS.IoC;
 using PS.MVVM.Services.WindowService;
 using PS.Shell.Infrastructure;
@@ -25,12 +25,10 @@ using PS.WPF;
 namespace PS.Shell
 {
     /// <summary>
-    ///     Interaction logic for App.xaml
+    /// Interaction logic for App.xaml
     /// </summary>
     public partial class App
     {
-        #region Static members
-
         public static ImageSource GetApplicationIcon()
         {
             return null;
@@ -113,13 +111,9 @@ namespace PS.Shell
             }
         }
 
-        #endregion
-
         private readonly Bootstrapper _bootstrapper;
         private readonly IDisposable _launchMutex;
         private readonly ILogger _logger;
-
-        #region Constructors
 
         static App()
         {
@@ -186,10 +180,6 @@ namespace PS.Shell
             }
         }
 
-        #endregion
-
-        #region Override members
-
         protected override void OnStartup(StartupEventArgs e)
         {
             var startupInitialTime = DateTime.Now;
@@ -242,10 +232,6 @@ namespace PS.Shell
             }
         }
 
-        #endregion
-
-        #region Event handlers
-
         private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             var exception = e.ExceptionObject as Exception;
@@ -289,10 +275,6 @@ namespace PS.Shell
             }
         }
 
-        #endregion
-
-        #region Members
-
         private void DumpApplicationInformation()
         {
             var currentAssembly = Assembly.GetEntryAssembly();
@@ -301,7 +283,7 @@ namespace PS.Shell
                 var version = currentAssembly.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version;
                 var informationalVersion = currentAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
                 var framework = currentAssembly.GetCustomAttribute<TargetFrameworkAttribute>()?.FrameworkName;
-                var architecture = System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture;
+                var architecture = RuntimeInformation.ProcessArchitecture;
                 var buildMode = Runtime.IsDebugBuild ? "Debug" : "Release";
                 var debuggingPanelState = "Disabled";
                 if (Runtime.IsDebugMode)
@@ -364,7 +346,5 @@ namespace PS.Shell
                 throw new ApplicationException("Shell initialization failed", exception);
             }
         }
-
-        #endregion
     }
 }

@@ -12,16 +12,10 @@ namespace PS.Shell
 {
     public class Bootstrapper : Bootstrapper<ILifetimeScope>
     {
-        #region Constructors
-
         public Bootstrapper(IBootstrapperLogger logger)
             : base(logger)
         {
         }
-
-        #endregion
-
-        #region Override members
 
         protected override void Dispose(IBootstrapperLogger logger)
         {
@@ -71,10 +65,6 @@ namespace PS.Shell
             //ThemeFonts.FontFamily = new FontFamily(fontsUri, "./#<Font name>, Courier New");
         }
 
-        #endregion
-
-        #region Members
-
         private void RegisterContainerTypes(IBootstrapperLogger logger, ContainerBuilder builder)
         {
             logger.Trace("Registering modules...");
@@ -87,7 +77,5 @@ namespace PS.Shell
 
             logger.Debug("Modules registered");
         }
-
-        #endregion
     }
 }

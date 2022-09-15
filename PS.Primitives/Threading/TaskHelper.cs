@@ -9,13 +9,7 @@ namespace PS.Threading
 {
     public static class TaskHelper
     {
-        #region Constants
-
         private static readonly IReadOnlyList<MethodInfo> StaticMethods;
-
-        #endregion
-
-        #region Static members
 
         public static Task FromException(Exception exception)
         {
@@ -30,10 +24,6 @@ namespace PS.Threading
             return (Task<TResult>)genericMethod.Invoke(null, new object[] { exception });
         }
 
-        #endregion
-
-        #region Constructors
-
         static TaskHelper()
         {
             var taskType = typeof(Task);
@@ -41,7 +31,5 @@ namespace PS.Threading
                                     .Enumerate()
                                     .ToArray();
         }
-
-        #endregion
     }
 }

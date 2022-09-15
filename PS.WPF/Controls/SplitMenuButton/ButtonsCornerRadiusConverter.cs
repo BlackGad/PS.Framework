@@ -7,17 +7,11 @@ namespace PS.WPF.Controls
 {
     public class SplitMenuButtonCornerRadiusConverter : IValueConverter
     {
-        #region Constants
-
         public const string Left = nameof(Left);
         public const string LeftWithMenu = nameof(LeftWithMenu);
         public const string Right = nameof(Right);
         public const string RightWithMenu = nameof(RightWithMenu);
         public const string SingleWithMenu = nameof(SingleWithMenu);
-
-        #endregion
-
-        #region IValueConverter Members
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -45,7 +39,5 @@ namespace PS.WPF.Controls
         {
             throw new NotSupportedException();
         }
-
-        #endregion
     }
 }

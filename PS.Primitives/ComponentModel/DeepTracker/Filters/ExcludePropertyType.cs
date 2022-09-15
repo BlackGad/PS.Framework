@@ -8,8 +8,6 @@ namespace PS.ComponentModel.DeepTracker.Filters
 {
     public class ExcludePropertyType : IExcludeTrackRoute
     {
-        #region Constructors
-
         public ExcludePropertyType(bool derived, params Type[] types)
         {
             Derived = derived;
@@ -21,17 +19,9 @@ namespace PS.ComponentModel.DeepTracker.Filters
         {
         }
 
-        #endregion
-
-        #region Properties
-
         public bool Derived { get; }
 
         public IReadOnlyCollection<Type> Types { get; }
-
-        #endregion
-
-        #region IExcludeTrackRoute Members
 
         public bool Exclude(PropertyReference propertyReference, Lazy<object> value, Route route)
         {
@@ -39,7 +29,5 @@ namespace PS.ComponentModel.DeepTracker.Filters
             if (Derived) return Types.Any(t => t.IsAssignableFrom(propertyType));
             return Types.Any(t => t == propertyType);
         }
-
-        #endregion
     }
 }

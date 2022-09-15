@@ -6,8 +6,6 @@ namespace PS.Shell.Models.PageService
 {
     class SourceXaml : ISourceXaml
     {
-        #region Constructors
-
         public SourceXaml(string title, string code)
         {
             Title = title;
@@ -16,15 +14,12 @@ namespace PS.Shell.Models.PageService
             Children = new ObservableCollection<ISource>();
         }
 
-        #endregion
-
-        #region ISourceXaml Members
-
         public string Title { get; }
-        public IList<ISource> Children { get; }
-        public string Code { get; }
-        public int Order { get; }
 
-        #endregion
+        public IList<ISource> Children { get; }
+
+        public string Code { get; }
+
+        public int Order { get; }
     }
 }

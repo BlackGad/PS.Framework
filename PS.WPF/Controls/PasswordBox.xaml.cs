@@ -15,34 +15,6 @@ namespace PS.WPF.Controls
                                IValueProvider
 
     {
-        #region Property definitions
-
-        public static readonly DependencyProperty SideButtonCommandProperty =
-            DependencyProperty.Register(nameof(SideButtonCommand),
-                                        typeof(IUICommand),
-                                        typeof(PasswordBox),
-                                        new FrameworkPropertyMetadata(default(IUICommand)));
-
-        public static readonly DependencyProperty SideButtonStyleProperty =
-            DependencyProperty.Register(nameof(SideButtonStyle),
-                                        typeof(Style),
-                                        typeof(PasswordBox),
-                                        new FrameworkPropertyMetadata(default(Style)));
-
-        public static readonly DependencyProperty TextWrappingProperty =
-            DependencyProperty.Register(nameof(TextWrapping),
-                                        typeof(TextWrapping),
-                                        typeof(PasswordBox),
-                                        new FrameworkPropertyMetadata(default(TextWrapping)));
-
-        public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value",
-                                        typeof(string),
-                                        typeof(PasswordBox),
-                                        new FrameworkPropertyMetadata(default(string),
-                                                                      FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
-                                                                      OnValueChanged));
-
         public static readonly DependencyProperty EditableTextProperty =
             DependencyProperty.Register("EditableText",
                                         typeof(string),
@@ -73,6 +45,12 @@ namespace PS.WPF.Controls
                                         typeof(PasswordBox),
                                         new FrameworkPropertyMetadata(default(object)));
 
+        public static readonly DependencyProperty SideButtonCommandProperty =
+            DependencyProperty.Register(nameof(SideButtonCommand),
+                                        typeof(IUICommand),
+                                        typeof(PasswordBox),
+                                        new FrameworkPropertyMetadata(default(IUICommand)));
+
         public static readonly DependencyProperty SideButtonGeometryProperty =
             DependencyProperty.Register(nameof(SideButtonGeometry),
                                         typeof(Geometry),
@@ -91,9 +69,25 @@ namespace PS.WPF.Controls
                                         typeof(PasswordBox),
                                         new FrameworkPropertyMetadata(default(Geometry)));
 
-        #endregion
+        public static readonly DependencyProperty SideButtonStyleProperty =
+            DependencyProperty.Register(nameof(SideButtonStyle),
+                                        typeof(Style),
+                                        typeof(PasswordBox),
+                                        new FrameworkPropertyMetadata(default(Style)));
 
-        #region Static members
+        public static readonly DependencyProperty TextWrappingProperty =
+            DependencyProperty.Register(nameof(TextWrapping),
+                                        typeof(TextWrapping),
+                                        typeof(PasswordBox),
+                                        new FrameworkPropertyMetadata(default(TextWrapping)));
+
+        public static readonly DependencyProperty ValueProperty =
+            DependencyProperty.Register("Value",
+                                        typeof(string),
+                                        typeof(PasswordBox),
+                                        new FrameworkPropertyMetadata(default(string),
+                                                                      FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                                                                      OnValueChanged));
 
         private static void IsPasswordVisibleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -107,12 +101,8 @@ namespace PS.WPF.Controls
             owner.NotifyValueChanged();
         }
 
-        #endregion
-
         private System.Windows.Controls.PasswordBox _passwordBox;
         private System.Windows.Controls.TextBox _textBox;
-
-        #region Constructors
 
         static PasswordBox()
         {
@@ -124,10 +114,6 @@ namespace PS.WPF.Controls
         {
             SetCurrentValue(SideButtonCommandProperty, new RelayUICommand(() => IsPasswordVisible = !IsPasswordVisible));
         }
-
-        #endregion
-
-        #region Properties
 
         public string EditableText
         {
@@ -195,10 +181,6 @@ namespace PS.WPF.Controls
             set { SetValue(TextWrappingProperty, value); }
         }
 
-        #endregion
-
-        #region Override members
-
         protected override void OnBeginEdit()
         {
             EditableText = Value;
@@ -255,10 +237,6 @@ namespace PS.WPF.Controls
             return !string.IsNullOrEmpty(Value);
         }
 
-        #endregion
-
-        #region IValueProvider Members
-
         void IValueProvider.SetValue(string value)
         {
             Value = value;
@@ -270,14 +248,10 @@ namespace PS.WPF.Controls
             set { SetValue(ValueProperty, value); }
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/PasswordBox.xaml", UriKind.RelativeOrAbsolute);
 
@@ -300,8 +274,6 @@ namespace PS.WPF.Controls
             public static readonly ResourceDescriptor SideButtonStyle =
                 ResourceDescriptor.Create<Style>(description: "Default PasswordBox side button style",
                                                  resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

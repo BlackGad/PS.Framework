@@ -14,16 +14,17 @@ namespace PS.WPF.Controls
                                   IValueProvider,
                                   IRangeValueProvider
     {
-        #region Property definitions
-
-        public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value",
-                                        typeof(decimal?),
+        public static readonly DependencyProperty EditableTextProperty =
+            DependencyProperty.Register("EditableText",
+                                        typeof(string),
                                         typeof(DecimalTextBox),
-                                        new FrameworkPropertyMetadata(default(decimal?),
-                                                                      FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
-                                                                      OnValueChanged,
-                                                                      OnValueCoerce));
+                                        new FrameworkPropertyMetadata(default(string), null, OnEditableTextPropertyCoerce));
+
+        public static readonly DependencyProperty LargeChangeProperty =
+            DependencyProperty.Register("LargeChange",
+                                        typeof(decimal),
+                                        typeof(DecimalTextBox),
+                                        new FrameworkPropertyMetadata(new decimal(100), null, OnChangeCoerce));
 
         public static readonly DependencyProperty MaximumProperty =
             DependencyProperty.Register("Maximum",
@@ -37,12 +38,6 @@ namespace PS.WPF.Controls
                                         typeof(DecimalTextBox),
                                         new FrameworkPropertyMetadata(OnRangeChanged));
 
-        public static readonly DependencyProperty LargeChangeProperty =
-            DependencyProperty.Register("LargeChange",
-                                        typeof(decimal),
-                                        typeof(DecimalTextBox),
-                                        new FrameworkPropertyMetadata(new decimal(100), null, OnChangeCoerce));
-
         public static readonly DependencyProperty PrecisionProperty =
             DependencyProperty.Register("Precision",
                                         typeof(int?),
@@ -55,15 +50,14 @@ namespace PS.WPF.Controls
                                         typeof(DecimalTextBox),
                                         new FrameworkPropertyMetadata(new decimal(10), null, OnChangeCoerce));
 
-        public static readonly DependencyProperty EditableTextProperty =
-            DependencyProperty.Register("EditableText",
-                                        typeof(string),
+        public static readonly DependencyProperty ValueProperty =
+            DependencyProperty.Register("Value",
+                                        typeof(decimal?),
                                         typeof(DecimalTextBox),
-                                        new FrameworkPropertyMetadata(default(string), null, OnEditableTextPropertyCoerce));
-
-        #endregion
-
-        #region Static members
+                                        new FrameworkPropertyMetadata(default(decimal?),
+                                                                      FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                                                                      OnValueChanged,
+                                                                      OnValueCoerce));
 
         private static decimal? CoerceValue(decimal? source, decimal? maximum, decimal? minimum)
         {
@@ -129,21 +123,13 @@ namespace PS.WPF.Controls
             return null;
         }
 
-        #endregion
-
         private System.Windows.Controls.TextBox _textBox;
-
-        #region Constructors
 
         static DecimalTextBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DecimalTextBox), new FrameworkPropertyMetadata(typeof(DecimalTextBox)));
             ResourceHelper.SetDefaultStyle(typeof(DecimalTextBox), Resource.ControlStyle);
         }
-
-        #endregion
-
-        #region Properties
 
         public string EditableText
         {
@@ -186,10 +172,6 @@ namespace PS.WPF.Controls
             get { return (decimal?)GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
-
-        #endregion
-
-        #region Override members
 
         protected override void OnCancelEdit()
         {
@@ -248,10 +230,6 @@ namespace PS.WPF.Controls
             ClearValue(EditableTextProperty);
         }
 
-        #endregion
-
-        #region IRangeValueProvider Members
-
         double IRangeValueProvider.LargeChange
         {
             get { return (double)LargeChange; }
@@ -282,10 +260,6 @@ namespace PS.WPF.Controls
             Value = (decimal)value;
         }
 
-        #endregion
-
-        #region IValueProvider Members
-
         string IValueProvider.Value
         {
             get { return FormatValue(Value); }
@@ -295,10 +269,6 @@ namespace PS.WPF.Controls
         {
             Value = ParseText(value, CultureInfo);
         }
-
-        #endregion
-
-        #region Members
 
         protected object CoerceEditableText(string textValue)
         {
@@ -320,14 +290,10 @@ namespace PS.WPF.Controls
             return value.Value.ToString(format, CultureInfo);
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/DecimalTextBox.xaml", UriKind.RelativeOrAbsolute);
 
@@ -338,8 +304,6 @@ namespace PS.WPF.Controls
             public static readonly ResourceDescriptor ControlTemplate =
                 ResourceDescriptor.Create<ControlTemplate>(description: "Default DecimalTextBox control template",
                                                            resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

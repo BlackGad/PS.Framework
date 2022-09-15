@@ -23,10 +23,12 @@
             <ps:GroupExpander Header="Generic">
                 <StackPanel>
                     <ps:HeaderedContent Header="Title">
-                        <TextBox VerticalAlignment="Center" Text="{Binding Path=Command.Title, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox VerticalAlignment="Center"
+                                 Text="{Binding Path=Command.Title, UpdateSourceTrigger=PropertyChanged}" />
                     </ps:HeaderedContent>
                     <ps:HeaderedContent Header="Description">
-                        <TextBox VerticalAlignment="Center" Text="{Binding Path=Command.Description, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox VerticalAlignment="Center"
+                                 Text="{Binding Path=Command.Description, UpdateSourceTrigger=PropertyChanged}" />
                     </ps:HeaderedContent>
                     <ps:HeaderedContent Header="CanExecute">
                         <CheckBox VerticalAlignment="Center" IsChecked="{Binding Path=CanExecute}" />

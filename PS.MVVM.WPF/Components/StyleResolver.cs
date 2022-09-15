@@ -8,13 +8,7 @@ namespace PS.MVVM.Components
 {
     public class StyleResolver : BaseViewResolver
     {
-        #region Properties
-
         public Style Default { get; set; }
-
-        #endregion
-
-        #region Override members
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
@@ -55,7 +49,5 @@ namespace PS.MVVM.Components
 
             return null;
         }
-
-        #endregion
     }
 }

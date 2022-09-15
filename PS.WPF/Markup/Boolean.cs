@@ -5,8 +5,6 @@ namespace PS.WPF.Markup
     [MarkupExtensionReturnType(typeof(bool))]
     public class Boolean : BaseBoxMarkupExtension<bool>
     {
-        #region Constructors
-
         public Boolean()
         {
         }
@@ -15,7 +13,5 @@ namespace PS.WPF.Markup
             : base(value)
         {
         }
-
-        #endregion
     }
 }

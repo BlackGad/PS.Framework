@@ -4,18 +4,17 @@ namespace PS.IoC
 {
     public class RelayBootstrapperLogger : IBootstrapperLogger
     {
-        #region Properties
-
         public Action<string> DebugAction { get; set; }
+
         public Action<string> ErrorAction { get; set; }
+
         public Action<string> FatalAction { get; set; }
+
         public Action<string> InfoAction { get; set; }
+
         public Action<string> TraceAction { get; set; }
+
         public Action<string> WarnAction { get; set; }
-
-        #endregion
-
-        #region IBootstrapperLogger Members
 
         public void Debug(string message)
         {
@@ -46,7 +45,5 @@ namespace PS.IoC
         {
             WarnAction?.Invoke(message);
         }
-
-        #endregion
     }
 }

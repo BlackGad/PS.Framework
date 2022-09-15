@@ -11,8 +11,6 @@ namespace PS.WPF.Controls.BusyContainer
 {
     public class BusyContainer : ContentControl
     {
-        #region Property definitions
-
         public static readonly DependencyProperty BehaviorProperty =
             DependencyProperty.Register(nameof(Behavior),
                                         typeof(BusyBehavior),
@@ -30,10 +28,6 @@ namespace PS.WPF.Controls.BusyContainer
                                         typeof(object),
                                         typeof(BusyContainer),
                                         new FrameworkPropertyMetadata(OnBusyStateChanged));
-
-        #endregion
-
-        #region Static members
 
         private static void OnBusyBehaviorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -54,23 +48,15 @@ namespace PS.WPF.Controls.BusyContainer
             owner.Dispatcher.Postpone(owner.UpdateBusyState);
         }
 
-        #endregion
-
         private TextBlock _description;
 
         private TextBlock _title;
-
-        #region Constructors
 
         static BusyContainer()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BusyContainer), new FrameworkPropertyMetadata(typeof(BusyContainer)));
             ResourceHelper.SetDefaultStyle(typeof(BusyContainer), Resource.ControlStyle);
         }
-
-        #endregion
-
-        #region Properties
 
         public BusyBehavior Behavior
         {
@@ -90,10 +76,6 @@ namespace PS.WPF.Controls.BusyContainer
             set { SetValue(StateProperty, value); }
         }
 
-        #endregion
-
-        #region Override members
-
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -110,10 +92,6 @@ namespace PS.WPF.Controls.BusyContainer
             UpdateBindings();
             UpdateBusyState();
         }
-
-        #endregion
-
-        #region Members
 
         private void UpdateBindings()
         {
@@ -165,14 +143,10 @@ namespace PS.WPF.Controls.BusyContainer
             }
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/BusyContainer/BusyContainer.xaml", UriKind.RelativeOrAbsolute);
 
@@ -191,8 +165,6 @@ namespace PS.WPF.Controls.BusyContainer
             public static readonly ResourceDescriptor ControlTemplate =
                 ResourceDescriptor.Create<ControlTemplate>(description: "Default BusyContainer control template",
                                                            resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

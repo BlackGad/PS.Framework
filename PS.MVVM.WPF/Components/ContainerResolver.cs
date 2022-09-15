@@ -7,13 +7,7 @@ namespace PS.MVVM.Components
 {
     public class ContainerResolver : BaseViewResolver
     {
-        #region Properties
-
         public ItemContainerTemplate Default { get; set; }
-
-        #endregion
-
-        #region Override members
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
@@ -54,7 +48,5 @@ namespace PS.MVVM.Components
 
             return null;
         }
-
-        #endregion
     }
 }

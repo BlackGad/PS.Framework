@@ -8,22 +8,14 @@ namespace PS.Shell.Module.Controls.Views.BusyContainer
     [DependencyRegisterAsInterface(typeof(IView<BusyContainerStackViewModel>))]
     public partial class BusyContainerStackView : IView<BusyContainerStackViewModel>
     {
-        #region Constructors
-
         public BusyContainerStackView()
         {
             InitializeComponent();
         }
 
-        #endregion
-
-        #region IView<BusyContainerStackViewModel> Members
-
         public BusyContainerStackViewModel ViewModel
         {
             get { return DataContext as BusyContainerStackViewModel; }
         }
-
-        #endregion
     }
 }

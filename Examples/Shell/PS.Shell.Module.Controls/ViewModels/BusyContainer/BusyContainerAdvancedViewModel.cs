@@ -13,8 +13,6 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
         private object _content;
         private bool _isBusy;
 
-        #region Constructors
-
         public BusyContainerAdvancedViewModel()
         {
             ResetContentCommand = new RelayUICommand(() => Content = null, () => Content != null)
@@ -69,10 +67,6 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
             };
         }
 
-        #endregion
-
-        #region Properties
-
         public object Content
         {
             get { return _content; }
@@ -94,11 +88,13 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
         }
 
         public IUICommand ResetContentCommand { get; }
-        public IUICommand SetContentBuiltInBusyStateCommand { get; }
-        public IUICommand SetContentStateWithMutableDescriptionCommand { get; }
-        public IUICommand SetContentStateWithMutableTitleCommand { get; }
-        public IUICommand SetContentStateWithToStringOverrideCommand { get; }
 
-        #endregion
+        public IUICommand SetContentBuiltInBusyStateCommand { get; }
+
+        public IUICommand SetContentStateWithMutableDescriptionCommand { get; }
+
+        public IUICommand SetContentStateWithMutableTitleCommand { get; }
+
+        public IUICommand SetContentStateWithToStringOverrideCommand { get; }
     }
 }

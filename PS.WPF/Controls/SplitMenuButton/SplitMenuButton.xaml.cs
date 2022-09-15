@@ -21,8 +21,6 @@ namespace PS.WPF.Controls
     public class SplitMenuButton : Control,
                                    ICommandSource
     {
-        #region Property definitions
-
         private static readonly DependencyPropertyKey HasHeaderPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(HasHeader),
                                                 typeof(bool),
@@ -129,25 +127,17 @@ namespace PS.WPF.Controls
                                         typeof(SplitMenuButton),
                                         new FrameworkPropertyMetadata(default(Style)));
 
-        #endregion
-
-        #region Static members
-
         private static void OnHeaderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var owner = (SplitMenuButton)d;
             owner.HasHeader = e.NewValue != null;
         }
 
-        #endregion
-
         // ReSharper disable once NotAccessedField.Local
         private readonly DeepTracker _itemsSourcePropertyChangedTracker;
         private Button _actionButton;
         private Menu _menu;
         private ToggleButton _toggleButton;
-
-        #region Constructors
 
         static SplitMenuButton()
         {
@@ -169,10 +159,6 @@ namespace PS.WPF.Controls
                                                             .Create()
                                                             .Activate();
         }
-
-        #endregion
-
-        #region Properties
 
         public bool HasHeader
         {
@@ -260,10 +246,6 @@ namespace PS.WPF.Controls
             set { SetValue(MenuStyleProperty, value); }
         }
 
-        #endregion
-
-        #region Events
-
         [Category("Behavior")]
         public event RoutedEventHandler Checked
         {
@@ -284,10 +266,6 @@ namespace PS.WPF.Controls
             add { AddHandler(ToggleButton.UncheckedEvent, value); }
             remove { RemoveHandler(ToggleButton.UncheckedEvent, value); }
         }
-
-        #endregion
-
-        #region Override members
 
         public override void OnApplyTemplate()
         {
@@ -310,10 +288,6 @@ namespace PS.WPF.Controls
             }
         }
 
-        #endregion
-
-        #region ICommandSource Members
-
         public ICommand Command
         {
             get { return (ICommand)GetValue(CommandProperty); }
@@ -331,10 +305,6 @@ namespace PS.WPF.Controls
             get { return (IInputElement)GetValue(CommandTargetProperty); }
             set { SetValue(CommandTargetProperty, value); }
         }
-
-        #endregion
-
-        #region Event handlers
 
         private void CheckedUncheckedEventHandler(object sender, RoutedEventArgs e)
         {
@@ -373,10 +343,6 @@ namespace PS.WPF.Controls
             IsMenuOpened = false;
         }
 
-        #endregion
-
-        #region Members
-
         private void UpdateHasItems()
         {
             HasItems = Items.Any() || ItemsSource?.Enumerate().Any() == true;
@@ -401,22 +367,16 @@ namespace PS.WPF.Controls
             UpdateHasItems();
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default = new Uri("/PS.WPF;component/Controls/SplitMenuButton/SplitMenuButton.xaml", UriKind.RelativeOrAbsolute);
             public static readonly ResourceDescriptor ControlStyle = ResourceDescriptor.Create<Style>(Default);
             public static readonly ResourceDescriptor ControlTemplate = ResourceDescriptor.Create<ControlTemplate>(Default);
 
             public static readonly ResourceDescriptor ItemsPanelTemplate = ResourceDescriptor.Create<ItemsPanelTemplate>(Default);
             public static readonly ResourceDescriptor MenuItemStyle = ResourceDescriptor.Create<Style>(Default);
-
-            #endregion
         }
 
         #endregion

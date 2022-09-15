@@ -1,0 +1,256 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
+                    xmlns:local="clr-namespace:PS.WPF.Controls"
+                    xmlns:styles="clr-namespace:PS.WPF.Controls.Native"
+                    xmlns:markup="clr-namespace:PS.WPF.Markup"
+                    xmlns:themeMarkup="clr-namespace:PS.WPF.Theming.Markup"
+                    xmlns:xaml="clr-namespace:PS.WPF.XAML">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/PS.WPF;component/Controls/Native/Common.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Geometry x:Key="{x:Static local:AutoCompleteBox+Resource.ClearFilterGeometry}">M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z</Geometry>
+
+    <ControlTemplate x:Key="{x:Static local:AutoCompleteBox+Resource.ControlTemplate}"
+                     TargetType="local:AutoCompleteBox">
+
+        <Grid Name="PART_Layout" Background="{TemplateBinding Background}">
+            <Border Name="PART_Border"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    SnapsToDevicePixels="True" />
+
+            <Grid Name="PART_EditableModeContent" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Name="PART_TextBox"
+                         Grid.Column="0"
+                         Margin="{TemplateBinding Padding}"
+                         Padding="0"
+                         Background="{TemplateBinding Background}"
+                         Foreground="{TemplateBinding Foreground}"
+                         BorderThickness="0"
+                         FontFamily="{TemplateBinding FontFamily}"
+                         FontSize="{TemplateBinding FontSize}"
+                         IsReadOnly="{TemplateBinding IsReadOnly}" />
+
+                <local:IconicButton Grid.Column="1"
+                                    Width="16"
+                                    Height="16"
+                                    Margin="1"
+                                    VerticalAlignment="Center"
+                                    Background="{TemplateBinding BorderBrush}"
+                                    Command="{TemplateBinding ClearFilterCommand}"
+                                    Geometry="{TemplateBinding ClearFilterGeometry}" />
+            </Grid>
+
+            <Grid Name="PART_DisplayModeContent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Name="PART_ItemPresenter" Grid.Column="0">
+
+                    <ContentControl Name="PART_AdvancedItemPresenter"
+                                    Margin="{TemplateBinding Padding}"
+                                    Background="{TemplateBinding Background}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                    Content="{TemplateBinding SelectedItem}"
+                                    ContentTemplate="{TemplateBinding ItemTemplate}"
+                                    FontFamily="{TemplateBinding FontFamily}"
+                                    FontSize="{TemplateBinding FontSize}" />
+
+                    <TextBlock Name="PART_SimpleItemPresenter"
+                               Margin="{TemplateBinding Padding}"
+                               Background="{TemplateBinding Background}"
+                               Foreground="{TemplateBinding Foreground}"
+                               FontFamily="{TemplateBinding FontFamily}"
+                               FontSize="{TemplateBinding FontSize}"
+                               Style="{StaticResource {x:Static styles:Common.NormalTextBlockStyle}}"
+                               Text="{TemplateBinding DisplayText}"
+                               TextAlignment="{TemplateBinding TextAlignment}"
+                               TextWrapping="NoWrap"
+                               Visibility="Collapsed" />
+                </Grid>
+
+                <TextBlock Name="PART_NotSelectedItemWatermark"
+                           Grid.Column="0"
+                           Margin="{TemplateBinding Padding}"
+                           Background="{TemplateBinding Background}"
+                           Foreground="{TemplateBinding Foreground}"
+                           FontFamily="{TemplateBinding FontFamily}"
+                           FontSize="{TemplateBinding FontSize}"
+                           FontStyle="Italic"
+                           Opacity="0.5"
+                           Style="{StaticResource {x:Static styles:Common.NormalTextBlockStyle}}"
+                           Text="{TemplateBinding Watermark}"
+                           TextAlignment="{TemplateBinding TextAlignment}"
+                           TextWrapping="NoWrap"
+                           Visibility="Collapsed" />
+
+                <Path x:Name="PART_DropDownIcon"
+                      Grid.Column="1"
+                      Width="8"
+                      Height="6"
+                      Margin="2,2,5,2"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Data="M5,6h10l-5,9L5,6z"
+                      Fill="{TemplateBinding BorderBrush}"
+                      Stretch="Fill" />
+            </Grid>
+
+            <Rectangle Name="PART_FocusBorder"
+                       Style="{StaticResource {x:Static styles:Common.FocusRectangleStyle}}"
+                       Visibility="Hidden" />
+
+            <local:Popup Name="PART_Popup"
+                         MinWidth="{Binding ElementName=PART_Layout, Path=ActualWidth}"
+                         MaxHeight="{TemplateBinding PopupHeight}"
+                         Placement="{TemplateBinding PopupPlacement}"
+                         PlacementTarget="{Binding ElementName=PART_Layout}"
+                         VerticalOffset="-1">
+
+                <Popup.IsOpen>
+                    <MultiBinding Converter="{x:Static valueConverters:BooleanConverters.MultiAnd}">
+                        <Binding RelativeSource="{RelativeSource AncestorType=local:AutoCompleteBox}" Path="IsEditMode"
+                                 Mode="OneWay" />
+                        <Binding RelativeSource="{RelativeSource AncestorType=Window}" Path="IsActive" Mode="OneWay" />
+                    </MultiBinding>
+                </Popup.IsOpen>
+
+                <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="1">
+
+                    <Border.Resources>
+                        <xaml:XamlObjectProvider x:Key="ItemsSourceProvider"
+                                                 Object="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ItemsSource}" />
+                        <xaml:XamlObjectProvider x:Key="AdditionalItemsSourceProvider"
+                                                 Object="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=AdditionalItemsSource}" />
+                    </Border.Resources>
+
+                    <local:SuggestListView Name="PART_SuggestList"
+                                           Padding="2,1"
+                                           BorderThickness="0"
+                                           ItemTemplateSelector="{TemplateBinding PopupItemTemplateSelector}"
+                                           FilterMemberPath="{TemplateBinding FilterMemberPath}"
+                                           Input="{Binding ElementName=PART_TextBox, Path=Text, Mode=TwoWay}"
+                                           ItemTemplate="{TemplateBinding PopupItemTemplate}"
+                                           MaximumSuggestionCount="{TemplateBinding MaximumSuggestionCount}"
+                                           SelectFirstItemOnReset="{TemplateBinding SelectFirstItemOnReset}"
+                                           ShowItemsWhenHasSuggestions="{TemplateBinding ShowItemsWhenHasSuggestions}">
+                        <local:SuggestListView.ItemsSource>
+                            <CompositeCollection>
+                                <CollectionContainer
+                                    Collection="{Binding Source={StaticResource ItemsSourceProvider}, Path=Object}" />
+                                <CollectionContainer
+                                    Collection="{Binding Source={StaticResource AdditionalItemsSourceProvider}, Path=Object}" />
+                            </CompositeCollection>
+                        </local:SuggestListView.ItemsSource>
+                    </local:SuggestListView>
+                </Border>
+            </local:Popup>
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsReadOnly" Value="True">
+                <Setter TargetName="PART_Border" Property="Opacity" Value="0.2" />
+                <Setter TargetName="PART_DropDownIcon" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+
+            <Trigger Property="IsWatermarkAvailable" Value="True">
+                <Setter TargetName="PART_ItemPresenter" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_NotSelectedItemWatermark" Property="Visibility" Value="Visible" />
+            </Trigger>
+
+            <Trigger Property="IsEditMode" Value="True">
+                <Setter TargetName="PART_DisplayModeContent" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_EditableModeContent" Property="Visibility" Value="Visible" />
+            </Trigger>
+
+            <Trigger Property="IsVisible" Value="False">
+                <Setter TargetName="PART_Popup" Property="IsOpen" Value="False" />
+            </Trigger>
+
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="PART_Border" Property="Opacity" Value="0.2" />
+                <Setter TargetName="PART_DropDownIcon" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_ItemPresenter" Property="Opacity" Value="0.2" />
+            </Trigger>
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsFocused" Value="True" />
+                    <Condition Property="FocusBorderVisibility" Value="Visible" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="PART_FocusBorder" Property="Visibility" Value="Visible" />
+            </MultiTrigger>
+
+            <Trigger Property="IsReadOnly" Value="True">
+                <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
+            </Trigger>
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="ItemTemplate" Value="{x:Null}" />
+                    <Condition Property="ItemTemplateSelector" Value="{x:Null}" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="PART_AdvancedItemPresenter" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_SimpleItemPresenter" Property="Visibility" Value="Visible" />
+            </MultiTrigger>
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="PopupItemTemplate" Value="{x:Null}" />
+                    <Condition Property="PopupItemTemplateSelector" Value="{x:Null}" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="PART_SuggestList" Property="DisplayMemberPath">
+                    <Setter.Value>
+                        <PriorityBinding FallbackValue="{x:Null}">
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="ValueMemberPath"
+                                     Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="FilterMemberPath"
+                                     Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                        </PriorityBinding>
+                    </Setter.Value>
+                </Setter>
+            </MultiTrigger>
+
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="{x:Static local:AutoCompleteBox+Resource.ControlStyle}" TargetType="local:AutoCompleteBox">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="ClearFilterGeometry"
+                Value="{StaticResource {x:Static local:AutoCompleteBox+Resource.ClearFilterGeometry}}" />
+        <Setter Property="Margin" Value="2" />
+        <Setter Property="MaximumSuggestionCount" Value="5" />
+        <Setter Property="MinHeight" Value="16" />
+        <Setter Property="Padding" Value="3" />
+        <Setter Property="PopupHeight" Value="250" />
+        <Setter Property="PopupPlacement" Value="Bottom" />
+        <Setter Property="Template" Value="{StaticResource {x:Static local:AutoCompleteBox+Resource.ControlTemplate}}" />
+        <Setter Property="TextAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Style.Triggers>
+            <!--  WPF Engine cannot resolve Bindings in straight forward Setters. So Bypass this with triggers  -->
+            <DataTrigger Binding="{Binding Source={markup:Boolean True}}" Value="{markup:Boolean True}">
+                <Setter Property="Background" Value="{themeMarkup:Brush Main}" />
+                <Setter Property="BorderBrush" Value="{themeMarkup:Brush MainBorderHigh}" />
+                <Setter Property="FontFamily" Value="{themeMarkup:Font Normal}" />
+                <Setter Property="FontSize" Value="{themeMarkup:FontSize M}" />
+                <Setter Property="Foreground" Value="{themeMarkup:Brush MainForeground}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+
+</ResourceDictionary>

@@ -7,8 +7,6 @@ namespace PS.WPF.Controls.Native
 {
     public static class Menu
     {
-        #region Constants
-
         public static readonly Uri DictionaryLocation = new Uri("/PS.WPF;component/Controls/Native/Menu.xaml", UriKind.RelativeOrAbsolute);
 
         public static readonly ResourceDescriptor ContextMenuStyle =
@@ -82,7 +80,5 @@ namespace PS.WPF.Controls.Native
                 description: "Top level item template template",
                 resourceDictionary: DictionaryLocation
             );
-
-        #endregion
     }
 }

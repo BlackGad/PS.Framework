@@ -5,9 +5,7 @@
     <ControlTemplate x:Key="{x:Static controls:HeaderedContent+Resource.ControlTemplate}" TargetType="controls:HeaderedContent">
         <Grid Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="PART_KeyColumn"
-                                  Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HeaderColumnGridLength, Mode=TwoWay}"
-                                  MinWidth="50" />
+                <ColumnDefinition x:Name="PART_KeyColumn" Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HeaderColumnGridLength, Mode=TwoWay}" MinWidth="50" />
                 <ColumnDefinition x:Name="PART_SplitterColumn" Width="Auto" />
                 <ColumnDefinition x:Name="PART_ValueColumn" Width="*" />
             </Grid.ColumnDefinitions>
@@ -39,6 +37,7 @@
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Stretch"
                           Background="Transparent"
+                          Focusable="False"
                           IsHitTestVisible="{TemplateBinding IsResizable}"
                           IsTabStop="False"
                           ResizeBehavior="PreviousAndNext" />
@@ -69,12 +68,12 @@
 
     <Style x:Key="{x:Static controls:HeaderedContent+Resource.ControlStyle}" TargetType="controls:HeaderedContent">
         <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HeaderColumnWidth" Value="100" />
         <Setter Property="HeaderPadding" Value="2" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="HorizontalHeaderAlignment" Value="Left" />
         <Setter Property="IsResizable" Value="True" />
         <Setter Property="IsTabStop" Value="False" />
-        <Setter Property="HeaderColumnWidth" Value="100" />
         <Setter Property="MinHeight" Value="32" />
         <Setter Property="Orientation" Value="Horizontal" />
         <Setter Property="Template" Value="{StaticResource {x:Static controls:HeaderedContent+Resource.ControlTemplate}}" />

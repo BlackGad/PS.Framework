@@ -11,23 +11,17 @@ namespace PS.WPF.Automation
 {
     public class Automation : DependencyObject
     {
-        #region Property definitions
-
-        public static readonly DependencyProperty RootIdProperty =
-            DependencyProperty.RegisterAttached("RootId",
-                                                typeof(string),
-                                                typeof(Automation),
-                                                new PropertyMetadata(OnAutomationIdChanged));
-
         public static readonly DependencyProperty IdProperty =
             DependencyProperty.RegisterAttached("Id",
                                                 typeof(string),
                                                 typeof(Automation),
                                                 new PropertyMetadata(OnAutomationIdChanged));
 
-        #endregion
-
-        #region Static members
+        public static readonly DependencyProperty RootIdProperty =
+            DependencyProperty.RegisterAttached("RootId",
+                                                typeof(string),
+                                                typeof(Automation),
+                                                new PropertyMetadata(OnAutomationIdChanged));
 
         public static string GetId(DependencyObject obj)
         {
@@ -93,7 +87,5 @@ namespace PS.WPF.Automation
 
             return value;
         }
-
-        #endregion
     }
 }

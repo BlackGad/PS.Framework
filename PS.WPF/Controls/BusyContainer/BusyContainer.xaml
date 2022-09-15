@@ -58,7 +58,8 @@
         <valueConverters:RelayValueConverter Instance="{x:Static valueConverters:BooleanConverters.ToVisibility}" />
     </valueConverters:CascadeValueConverter>
 
-    <ControlTemplate x:Key="{x:Static controls:BusyContainer+Resource.ControlTemplate}" TargetType="controls:BusyContainer">
+    <ControlTemplate x:Key="{x:Static controls:BusyContainer+Resource.ControlTemplate}"
+                     TargetType="controls:BusyContainer">
         <Grid x:Name="Layout" Background="{TemplateBinding Background}">
 
             <ContentPresenter x:Name="PART_ContentPresenter"

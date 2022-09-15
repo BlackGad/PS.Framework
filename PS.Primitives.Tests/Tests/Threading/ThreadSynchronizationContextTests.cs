@@ -9,8 +9,6 @@ namespace PS.Tests.Threading
     [TestFixture]
     public class ThreadSynchronizationContextTests
     {
-        #region Members
-
         [Test]
         public void Sequential_Post_Success()
         {
@@ -140,7 +138,5 @@ namespace PS.Tests.Threading
                 Assert.AreEqual(expectedException, resultException);
             }
         }
-
-        #endregion
     }
 }

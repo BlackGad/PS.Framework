@@ -55,7 +55,8 @@
                     <Condition Property="IsMouseOver" Value="True" />
                     <Condition Property="IsEnabled" Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter TargetName="Arrow" Property="Fill" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground}" />
+                <Setter TargetName="Arrow" Property="Fill"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground}" />
             </MultiTrigger>
 
             <MultiTrigger>
@@ -63,7 +64,8 @@
                     <Condition Property="IsChecked" Value="True" />
                     <Condition Property="IsEnabled" Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter TargetName="Arrow" Property="Fill" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground}" />
+                <Setter TargetName="Arrow" Property="Fill"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground}" />
             </MultiTrigger>
 
             <Trigger Property="IsFocused" Value="True">

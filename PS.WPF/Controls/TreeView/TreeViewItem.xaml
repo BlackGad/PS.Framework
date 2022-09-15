@@ -6,7 +6,8 @@
                     xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
                     xmlns:markup="clr-namespace:PS.WPF.Markup">
 
-    <ControlTemplate x:Key="{x:Static treeView:TreeViewItem+Resource.ExpandCollapseToggleTemplate}" TargetType="{x:Type ToggleButton}">
+    <ControlTemplate x:Key="{x:Static treeView:TreeViewItem+Resource.ExpandCollapseToggleTemplate}"
+                     TargetType="{x:Type ToggleButton}">
         <Border Background="Transparent">
             <Path x:Name="ExpandPath"
                   Width="8"
@@ -22,21 +23,26 @@
         <ControlTemplate.Triggers>
             <Trigger Property="IsChecked" Value="True">
                 <Setter TargetName="ExpandPath" Property="Data" Value="M 6,0 V6 H0 Z" />
-                <Setter TargetName="ExpandPath" Property="Fill" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.Selected)}" />
+                <Setter TargetName="ExpandPath" Property="Fill"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.Selected)}" />
                 <Setter TargetName="ExpandPath" Property="Height" Value="6" />
-                <Setter TargetName="ExpandPath" Property="Stroke" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.Selected)}" />
+                <Setter TargetName="ExpandPath" Property="Stroke"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.Selected)}" />
                 <Setter TargetName="ExpandPath" Property="Width" Value="6" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="ExpandPath" Property="Stroke" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.MouseOver)}" />
+                <Setter TargetName="ExpandPath" Property="Stroke"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.MouseOver)}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsMouseOver" Value="True" />
                     <Condition Property="IsChecked" Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter TargetName="ExpandPath" Property="Fill" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.MouseOver)}" />
-                <Setter TargetName="ExpandPath" Property="Stroke" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.MouseOver)}" />
+                <Setter TargetName="ExpandPath" Property="Fill"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.MouseOver)}" />
+                <Setter TargetName="ExpandPath" Property="Stroke"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.MouseOver)}" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -45,7 +51,8 @@
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Height" Value="16" />
         <Setter Property="Padding" Value="3" />
-        <Setter Property="Template" Value="{StaticResource {x:Static treeView:TreeViewItem+Resource.ExpandCollapseToggleTemplate}}" />
+        <Setter Property="Template"
+                Value="{StaticResource {x:Static treeView:TreeViewItem+Resource.ExpandCollapseToggleTemplate}}" />
         <Setter Property="Width" Value="16" />
         <Style.Triggers>
             <!--  WPF Engine cannot resolve Bindings in straight forward Setters. So Bypass this with triggers  -->
@@ -56,7 +63,8 @@
         </Style.Triggers>
     </Style>
 
-    <ControlTemplate x:Key="{x:Static treeView:TreeViewItem+Resource.ControlTemplate}" TargetType="{x:Type treeView:TreeViewItem}">
+    <ControlTemplate x:Key="{x:Static treeView:TreeViewItem+Resource.ControlTemplate}"
+                     TargetType="{x:Type treeView:TreeViewItem}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -71,7 +79,8 @@
                     SnapsToDevicePixels="true" />
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=AbsoluteHierarchicalItemsOffset, Converter={x:Static valueConverters:NumericConverters.ToGridLength}}" />
+                    <ColumnDefinition
+                        Width="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=AbsoluteHierarchicalItemsOffset, Converter={x:Static valueConverters:NumericConverters.ToGridLength}}" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
@@ -107,8 +116,10 @@
                     <Condition Property="IsSelected" Value="true" />
                     <Condition Property="IsSelectionActive" Value="false" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}}" />
-                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}}" />
+                <Setter TargetName="Bd" Property="Background"
+                        Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
             </MultiTrigger>
             <Trigger Property="IsEnabled" Value="false">
                 <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
@@ -116,7 +127,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="{x:Static treeView:TreeViewItem+Resource.ControlStyle}" BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="treeView:TreeViewItem">
+    <Style x:Key="{x:Static treeView:TreeViewItem+Resource.ControlStyle}"
+           BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="treeView:TreeViewItem">
         <Setter Property="HierarchicalItemsOffset" Value="16" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="Template" Value="{StaticResource {x:Static treeView:TreeViewItem+Resource.ControlTemplate}}" />

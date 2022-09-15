@@ -2,10 +2,6 @@
 {
     public interface IUnloadedAware
     {
-        #region Members
-
         void Unloaded();
-
-        #endregion
     }
 }

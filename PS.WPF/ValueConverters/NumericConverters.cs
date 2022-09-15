@@ -10,8 +10,6 @@ namespace PS.WPF.ValueConverters
 {
     public static class NumericConverters
     {
-        #region Constants
-
         public static readonly RelayValueConverter Abs;
         public static readonly RelayValueConverter Add;
         public static readonly RelayValueConverter Divide;
@@ -34,10 +32,6 @@ namespace PS.WPF.ValueConverters
         public static readonly RelayValueConverter StringToNumeric;
         public static readonly RelayValueConverter Subtract;
         public static readonly RelayValueConverter ToGridLength;
-
-        #endregion
-
-        #region Static members
 
         private static object AbsFunc(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -121,10 +115,6 @@ namespace PS.WPF.ValueConverters
             return (dynamic)value - (dynamic)parameter;
         }
 
-        #endregion
-
-        #region Constructors
-
         static NumericConverters()
         {
             Invert = new RelayValueConverter(InvertFunc, InvertFunc);
@@ -176,6 +166,7 @@ namespace PS.WPF.ValueConverters
                 {
                     return (dynamic)result > 0 ? result : type.GetSystemDefaultValue();
                 }
+
                 return result;
             });
 
@@ -246,7 +237,5 @@ namespace PS.WPF.ValueConverters
                                                        throw new NotSupportedException();
                                                    });
         }
-
-        #endregion
     }
 }

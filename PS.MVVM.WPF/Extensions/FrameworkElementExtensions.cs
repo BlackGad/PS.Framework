@@ -6,8 +6,6 @@ namespace PS.MVVM.Extensions
 {
     public static class FrameworkElementExtensions
     {
-        #region Static members
-
         public static void ForwardVisualLifetimeToViewModel(this FrameworkElement element)
         {
             if (element == null) return;
@@ -46,7 +44,5 @@ namespace PS.MVVM.Extensions
                 }
             };
         }
-
-        #endregion
     }
 }

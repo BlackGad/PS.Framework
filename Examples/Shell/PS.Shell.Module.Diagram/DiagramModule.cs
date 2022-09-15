@@ -12,8 +12,6 @@ namespace PS.Shell.Module.Diagram
 {
     public class DiagramModule : Autofac.Module
     {
-        #region Override members
-
         protected override void AttachToComponentRegistration(IComponentRegistryBuilder componentRegistry, IComponentRegistration registration)
         {
             registration.HandleActivation<IViewResolverService>(ViewResolverServiceActivation);
@@ -24,15 +22,9 @@ namespace PS.Shell.Module.Diagram
             builder.RegisterAssemblyTypesWithAttributes(ThisAssembly);
         }
 
-        #endregion
-
-        #region Members
-
         private void ViewResolverServiceActivation(ILifetimeScope scope, IViewResolverService service)
         {
             service.AssociateTemplate<EditorViewModel>(scope.Resolve<IDataTemplate<EditorView>>());
         }
-
-        #endregion
     }
 }

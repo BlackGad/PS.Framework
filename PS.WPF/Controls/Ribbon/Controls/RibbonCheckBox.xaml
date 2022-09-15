@@ -8,20 +8,25 @@
 
     <Geometry x:Key="CheckGeometry">M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z</Geometry>
 
-    <ControlTemplate x:Key="{x:Static controls:RibbonCheckBox+Resource.ControlTemplate}" TargetType="controls:RibbonCheckBox">
+    <ControlTemplate x:Key="{x:Static controls:RibbonCheckBox+Resource.ControlTemplate}"
+                     TargetType="controls:RibbonCheckBox">
         <Grid x:Name="Layout"
               Background="Transparent"
               SnapsToDevicePixels="True">
             <components:StoreBrush.Background>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.Background>
             <components:StoreBrush.BorderBrush>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.BorderBrush>
             <StackPanel x:Name="StackPanel"
@@ -45,16 +50,28 @@
                                 Visibility="Hidden">
                             <Border.Background>
                                 <PriorityBinding>
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                                    <Binding ElementName="Border" Path="Background" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.1}" />
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                             Path="MouseOverBackground"
+                                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                             Path="Ribbon.MouseOverBackground"
+                                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                    <Binding ElementName="Border" Path="Background"
+                                             Converter="{x:Static valueConverters:ColorConverters.Shade}"
+                                             ConverterParameter="{markup:Double 0.1}" />
                                 </PriorityBinding>
                             </Border.Background>
                             <Border.BorderBrush>
                                 <PriorityBinding>
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                                    <Binding ElementName="Border" Path="BorderBrush" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.1}" />
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                             Path="MouseOverBorderBrush"
+                                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                             Path="Ribbon.MouseOverBorderBrush"
+                                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                    <Binding ElementName="Border" Path="BorderBrush"
+                                             Converter="{x:Static valueConverters:ColorConverters.Shade}"
+                                             ConverterParameter="{markup:Double 0.1}" />
                                 </PriorityBinding>
                             </Border.BorderBrush>
                         </Border>
@@ -63,16 +80,27 @@
                                 Visibility="Hidden">
                             <Border.Background>
                                 <PriorityBinding>
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="PressedBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.PressedBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                                    <Binding ElementName="Border" Path="Background" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.3}" />
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="PressedBackground"
+                                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                             Path="Ribbon.PressedBackground"
+                                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                    <Binding ElementName="Border" Path="Background"
+                                             Converter="{x:Static valueConverters:ColorConverters.Shade}"
+                                             ConverterParameter="{markup:Double 0.3}" />
                                 </PriorityBinding>
                             </Border.Background>
                             <Border.BorderBrush>
                                 <PriorityBinding>
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="PressedBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.PressedBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                                    <Binding ElementName="Border" Path="BorderBrush" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.3}" />
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                             Path="PressedBorderBrush"
+                                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                             Path="Ribbon.PressedBorderBrush"
+                                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                                    <Binding ElementName="Border" Path="BorderBrush"
+                                             Converter="{x:Static valueConverters:ColorConverters.Shade}"
+                                             ConverterParameter="{markup:Double 0.3}" />
                                 </PriorityBinding>
                             </Border.BorderBrush>
                         </Border>
@@ -104,13 +132,15 @@
             </StackPanel>
         </Grid>
         <ControlTemplate.Triggers>
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.ImageSize}" Value="Large">
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.ImageSize}"
+                         Value="Large">
                 <Setter Property="MinHeight" Value="66" />
                 <Setter Property="MinWidth" Value="44" />
                 <Setter TargetName="Grid" Property="MinHeight" Value="26" />
                 <Setter TargetName="TwoLineText" Property="HasTwoLines" Value="True" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.ImageSize}" Value="Small">
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.ImageSize}"
+                         Value="Small">
                 <Setter Property="Height" Value="22.0" />
                 <Setter TargetName="PART_CheckBox" Property="Height" Value="16" />
                 <Setter TargetName="PART_CheckBox" Property="Margin" Value="3,0,1,0" />
@@ -121,19 +151,24 @@
             </DataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.ImageSize}" Value="Small" />
-                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsInQuickAccessToolBar}" Value="True" />
+                    <Condition
+                        Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.ImageSize}"
+                        Value="Small" />
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsInQuickAccessToolBar}"
+                               Value="True" />
                 </MultiDataTrigger.Conditions>
                 <Setter Property="Height" Value="Auto" />
             </MultiDataTrigger>
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.IsLabelVisible}" Value="False">
+            <DataTrigger
+                Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.IsLabelVisible}"
+                Value="False">
                 <Setter TargetName="TwoLineText" Property="Margin" Value="0" />
                 <Setter TargetName="TwoLineText" Property="Text" Value="{x:Null}" />
             </DataTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver" Value="True"/>
-                    <Condition Property="IsEnabled" Value="True"/>
+                    <Condition Property="IsMouseOver" Value="True" />
+                    <Condition Property="IsEnabled" Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter TargetName="MouseOverBorder" Property="Visibility" Value="Visible" />
             </MultiTrigger>
@@ -161,7 +196,8 @@
                 <RibbonControlSizeDefinition ImageSize="Small" IsLabelVisible="True" />
             </Setter.Value>
         </Setter>
-        <Setter Property="Template" Value="{StaticResource {x:Static controls:RibbonCheckBox+Resource.ControlTemplate}}" />
+        <Setter Property="Template"
+                Value="{StaticResource {x:Static controls:RibbonCheckBox+Resource.ControlTemplate}}" />
         <Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
         <Setter Property="ToolTipService.InitialShowDelay" Value="900" />
         <Setter Property="ToolTipService.ShowDuration" Value="20000" />

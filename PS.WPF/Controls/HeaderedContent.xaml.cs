@@ -10,8 +10,6 @@ namespace PS.WPF.Controls
     [ContentProperty(nameof(Content))]
     public class HeaderedContent : HeaderedContentControl
     {
-        #region Property definitions
-
         public static readonly DependencyProperty HeaderColumnWidthAdjustmentProperty =
             DependencyProperty.Register(nameof(HeaderColumnWidthAdjustment),
                                         typeof(double),
@@ -66,10 +64,6 @@ namespace PS.WPF.Controls
                                         typeof(HeaderedContent),
                                         new FrameworkPropertyMetadata(OnHeaderColumnGridLengthChanged));
 
-        #endregion
-
-        #region Static members
-
         public static double? GetHeaderColumnWidth(DependencyObject element)
         {
             if (element.IsDefaultValue(HeaderColumnWidthProperty)) return null;
@@ -123,22 +117,14 @@ namespace PS.WPF.Controls
             if (d is HeaderedContent owner) owner.OnHeaderColumnWidthChanged(e);
         }
 
-        #endregion
-
         private bool _internalGridLengthChange;
         private bool _internalWidthChange;
-
-        #region Constructors
 
         static HeaderedContent()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(HeaderedContent), new FrameworkPropertyMetadata(typeof(HeaderedContent)));
             ResourceHelper.SetDefaultStyle(typeof(HeaderedContent), Resource.ControlStyle);
         }
-
-        #endregion
-
-        #region Properties
 
         public double HeaderColumnWidth
         {
@@ -194,20 +180,12 @@ namespace PS.WPF.Controls
             set { SetValue(HeaderColumnGridLengthProperty, value); }
         }
 
-        #endregion
-
-        #region Override members
-
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
             this.SetBindingToAncestorIfDefault(HeaderColumnWidthProperty);
             this.SetBindingToAncestorIfDefault(IsResizableProperty);
         }
-
-        #endregion
-
-        #region Members
 
         private void InternalHeaderColumnGridLengthUpdate(GridLength gridLength)
         {
@@ -263,19 +241,13 @@ namespace PS.WPF.Controls
             }
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default = new Uri("/PS.WPF;component/Controls/HeaderedContent.xaml", UriKind.RelativeOrAbsolute);
             public static readonly ResourceDescriptor ControlStyle = ResourceDescriptor.Create<Style>(Default);
             public static readonly ResourceDescriptor ControlTemplate = ResourceDescriptor.Create<ControlTemplate>(Default);
-
-            #endregion
         }
 
         #endregion

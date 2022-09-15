@@ -182,7 +182,8 @@
         <Setter Property="Margin" Value="2" />
         <Setter Property="MinHeight" Value="16" />
         <Setter Property="Padding" Value="3" />
-        <Setter Property="SideButtonStyle" Value="{StaticResource {x:Static local:TimeSpanBox+Resource.SideButtonStyle}}" />
+        <Setter Property="SideButtonStyle"
+                Value="{StaticResource {x:Static local:TimeSpanBox+Resource.SideButtonStyle}}" />
         <Setter Property="Template" Value="{StaticResource {x:Static local:TimeSpanBox+Resource.ControlTemplate}}" />
         <Setter Property="TextAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />

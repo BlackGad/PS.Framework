@@ -5,13 +5,7 @@ namespace PS.WPF.Extensions
 {
     public static class WindowExtensions
     {
-        #region Constants
-
         private static readonly FieldInfo ShowingAsDialogField;
-
-        #endregion
-
-        #region Static members
 
         public static bool IsModal(this Window window)
         {
@@ -19,15 +13,9 @@ namespace PS.WPF.Extensions
             return (bool)ShowingAsDialogField.GetValue(window);
         }
 
-        #endregion
-
-        #region Constructors
-
         static WindowExtensions()
         {
             ShowingAsDialogField = typeof(Window).GetField("_showingAsDialog", BindingFlags.Instance | BindingFlags.NonPublic);
         }
-
-        #endregion
     }
 }

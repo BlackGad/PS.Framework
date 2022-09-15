@@ -12,16 +12,10 @@ namespace PS.MVVM.Services
     {
         private readonly ConditionalWeakTable<object, ObjectsStorage<object, object>> _metadata;
 
-        #region Constructors
-
         public ObservableModelCollection()
         {
             _metadata = new ConditionalWeakTable<object, ObjectsStorage<object, object>>();
         }
-
-        #endregion
-
-        #region IObservableModelCollection Members
 
         public void Add(object item, Action<object, IDictionary<object, object>> activationAction)
         {
@@ -56,7 +50,5 @@ namespace PS.MVVM.Services
                 }
             }
         }
-
-        #endregion
     }
 }

@@ -11,8 +11,6 @@ namespace PS.Shell.Infrastructure.ViewModels
                                          IViewModel,
                                          ITitleAware
     {
-        #region Property definitions
-
         private static readonly DependencyPropertyKey FlowDocumentPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(FlowDocument),
                                                 typeof(FlowDocument),
@@ -33,19 +31,11 @@ namespace PS.Shell.Infrastructure.ViewModels
                                         typeof(NotificationViewModel),
                                         new FrameworkPropertyMetadata(default(string)));
 
-        #endregion
-
-        #region Static members
-
         private static void OnContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var owner = (NotificationViewModel)d;
             owner.OnContentChanged(e);
         }
-
-        #endregion
-
-        #region Properties
 
         public object Content
         {
@@ -59,25 +49,15 @@ namespace PS.Shell.Infrastructure.ViewModels
             private set { SetValue(FlowDocumentPropertyKey, value); }
         }
 
-        #endregion
-
-        #region ITitleAware Members
-
         public string Title
         {
             get { return (string)GetValue(TitleProperty); }
             set { SetValue(TitleProperty, value); }
         }
 
-        #endregion
-
-        #region Members
-
         private void OnContentChanged(DependencyPropertyChangedEventArgs e)
         {
             FlowDocument = e.NewValue.CreateDocument(Theme.Current.Fonts.Normal, Theme.Current.FontSizes.M);
         }
-
-        #endregion
     }
 }

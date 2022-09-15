@@ -8,8 +8,6 @@ namespace PS.ComponentModel.Navigation
     internal class RouteTokenSequence : IReadOnlyList<RouteToken>,
                                         IFormattable
     {
-        #region Static members
-
         public static bool operator ==(RouteTokenSequence left, RouteTokenSequence right)
         {
             return Equals(left, right);
@@ -20,12 +18,8 @@ namespace PS.ComponentModel.Navigation
             return !Equals(left, right);
         }
 
-        #endregion
-
         public readonly IReadOnlyList<int> Hashes;
         private readonly List<RouteToken> _records;
-
-        #region Constructors
 
         public RouteTokenSequence(List<RouteToken> records, IReadOnlyList<int> hashes, int? recursiveStart, int? recursiveEnd, string regexInput, string regexPattern)
         {
@@ -38,20 +32,13 @@ namespace PS.ComponentModel.Navigation
             RegexInput = regexInput;
         }
 
-        #endregion
-
-        #region Properties
-
         public int? RecursiveEnd { get; }
 
         public int? RecursiveStart { get; }
 
         public string RegexInput { get; }
+
         public string RegexPattern { get; }
-
-        #endregion
-
-        #region Override members
 
         public override bool Equals(object obj)
         {
@@ -71,10 +58,6 @@ namespace PS.ComponentModel.Navigation
             return ToString(null);
         }
 
-        #endregion
-
-        #region IFormattable Members
-
         string IFormattable.ToString(string format, IFormatProvider formatProvider)
         {
             var routeFormatProvider = formatProvider as RouteFormatting ?? RouteFormatting.Default;
@@ -82,10 +65,6 @@ namespace PS.ComponentModel.Navigation
                                _records.Select(p => p.Value.Replace(routeFormatProvider.Separator,
                                                                     RouteFormatting.EscapeSymbol + routeFormatProvider.Separator)));
         }
-
-        #endregion
-
-        #region IReadOnlyList<RouteToken> Members
 
         public int Count
         {
@@ -107,10 +86,6 @@ namespace PS.ComponentModel.Navigation
             return GetEnumerator();
         }
 
-        #endregion
-
-        #region Members
-
         public string ToString(IFormatProvider formatProvider)
         {
             return ((IFormattable)this).ToString(null, formatProvider);
@@ -120,7 +95,5 @@ namespace PS.ComponentModel.Navigation
         {
             return GetHashCode() == other.GetHashCode();
         }
-
-        #endregion
     }
 }

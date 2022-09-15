@@ -10,16 +10,10 @@ namespace PS.IoC
         private bool _disposed;
         private bool _disposing;
 
-        #region Constructors
-
         protected Bootstrapper(IBootstrapperLogger logger)
         {
             _logger = logger ?? new RelayBootstrapperLogger();
         }
-
-        #endregion
-
-        #region Properties
 
         public TContainer Container
         {
@@ -31,10 +25,6 @@ namespace PS.IoC
         }
 
         public bool IsInitialized { get; private set; }
-
-        #endregion
-
-        #region IDisposable Members
 
         public void Dispose()
         {
@@ -80,10 +70,6 @@ namespace PS.IoC
                 _disposed = true;
             }
         }
-
-        #endregion
-
-        #region Members
 
         public void Initialize(TContainer parentContainer = null)
         {
@@ -185,7 +171,5 @@ namespace PS.IoC
         protected virtual void SetupVisualTheme(IBootstrapperLogger logger, TContainer container)
         {
         }
-
-        #endregion
     }
 }

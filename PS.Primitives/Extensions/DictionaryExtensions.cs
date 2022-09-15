@@ -5,8 +5,6 @@ namespace PS.Extensions
 {
     public static class DictionaryExtensions
     {
-        #region Static members
-
         public static TValue AddOrUpdate<TKey, TValue>(this IDictionary<TKey, TValue> dictionary,
                                                        TKey key,
                                                        Func<TKey, TValue> addFactory,
@@ -52,7 +50,5 @@ namespace PS.Extensions
             if (!dictionary.ContainsKey(key)) dictionary.Add(key, addFactory(key));
             return dictionary[key];
         }
-
-        #endregion
     }
 }

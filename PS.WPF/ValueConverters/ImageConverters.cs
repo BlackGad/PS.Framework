@@ -8,13 +8,7 @@ namespace PS.WPF.ValueConverters
 {
     public static class ImageConverters
     {
-        #region Constants
-
         public static readonly RelayValueConverter Generic;
-
-        #endregion
-
-        #region Constructors
 
         static ImageConverters()
         {
@@ -45,7 +39,5 @@ namespace PS.WPF.ValueConverters
                 return value;
             });
         }
-
-        #endregion
     }
 }

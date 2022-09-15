@@ -5,7 +5,8 @@
 
     <primitives:RibbonScrollButtonVisibilityConverter x:Key="RibbonScrollButtonVisibilityConverter" />
 
-    <ControlTemplate x:Key="{x:Static controls:RibbonHorizontalScrollViewer.RepeatButtonTemplate}" TargetType="{x:Type RepeatButton}">
+    <ControlTemplate x:Key="{x:Static controls:RibbonHorizontalScrollViewer.RepeatButtonTemplate}"
+                     TargetType="{x:Type RepeatButton}">
         <Border Name="OuterBorder"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -28,20 +29,26 @@
                 <Setter TargetName="OuterBorder" Property="CornerRadius" Value="0,3,3,0" />
             </Trigger>
             <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True">
-                <Setter TargetName="InnerBorder" Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(RibbonControlService.Ribbon).MouseOverBackground}" />
+                <Setter TargetName="InnerBorder" Property="Background"
+                        Value="{Binding RelativeSource={RelativeSource Self}, Path=(RibbonControlService.Ribbon).MouseOverBackground}" />
             </DataTrigger>
             <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsPressed}" Value="True">
-                <Setter TargetName="InnerBorder" Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(RibbonControlService.Ribbon).PressedBackground}" />
+                <Setter TargetName="InnerBorder" Property="Background"
+                        Value="{Binding RelativeSource={RelativeSource Self}, Path=(RibbonControlService.Ribbon).PressedBackground}" />
             </DataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="{x:Static controls:RibbonHorizontalScrollViewer.RepeatButtonStyle}" TargetType="{x:Type RepeatButton}">
-        <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(RibbonControlService.Ribbon).Background}" />
-        <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Self}, Path=(RibbonControlService.Ribbon).BorderBrush}" />
+    <Style x:Key="{x:Static controls:RibbonHorizontalScrollViewer.RepeatButtonStyle}"
+           TargetType="{x:Type RepeatButton}">
+        <Setter Property="Background"
+                Value="{Binding RelativeSource={RelativeSource Self}, Path=(RibbonControlService.Ribbon).Background}" />
+        <Setter Property="BorderBrush"
+                Value="{Binding RelativeSource={RelativeSource Self}, Path=(RibbonControlService.Ribbon).BorderBrush}" />
         <Setter Property="Focusable" Value="false" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
-        <Setter Property="Template" Value="{StaticResource {x:Static controls:RibbonHorizontalScrollViewer.RepeatButtonTemplate}}" />
+        <Setter Property="Template"
+                Value="{StaticResource {x:Static controls:RibbonHorizontalScrollViewer.RepeatButtonTemplate}}" />
         <Setter Property="Width" Value="14" />
     </Style>
 
@@ -68,7 +75,8 @@
                     <MultiBinding FallbackValue="Visibility.Collapsed"
                                   Converter="{StaticResource RibbonScrollButtonVisibilityConverter}"
                                   ConverterParameter="0">
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="ComputedHorizontalScrollBarVisibility" />
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                 Path="ComputedHorizontalScrollBarVisibility" />
                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="HorizontalOffset" />
                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="ExtentWidth" />
                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="ViewportWidth" />
@@ -85,7 +93,8 @@
                     <MultiBinding FallbackValue="Visibility.Collapsed"
                                   Converter="{StaticResource RibbonScrollButtonVisibilityConverter}"
                                   ConverterParameter="100">
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="ComputedHorizontalScrollBarVisibility" />
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                 Path="ComputedHorizontalScrollBarVisibility" />
                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="HorizontalOffset" />
                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="ExtentWidth" />
                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="ViewportWidth" />
@@ -96,12 +105,14 @@
 
     </ControlTemplate>
 
-    <Style x:Key="{x:Static controls:RibbonHorizontalScrollViewer.ControlStyle}" BasedOn="{x:Null}" TargetType="ScrollViewer">
+    <Style x:Key="{x:Static controls:RibbonHorizontalScrollViewer.ControlStyle}" BasedOn="{x:Null}"
+           TargetType="ScrollViewer">
         <Setter Property="CanContentScroll" Value="True" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="Template" Value="{StaticResource {x:Static controls:RibbonHorizontalScrollViewer.ControlTemplate}}" />
+        <Setter Property="Template"
+                Value="{StaticResource {x:Static controls:RibbonHorizontalScrollViewer.ControlTemplate}}" />
         <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
     </Style>
 

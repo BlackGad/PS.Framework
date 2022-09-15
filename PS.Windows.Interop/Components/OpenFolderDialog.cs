@@ -10,8 +10,6 @@ namespace PS.Windows.Interop.Components
 {
     public class OpenFolderDialog : IDisposable
     {
-        #region Static members
-
         public static IWin32Window GetIWin32Window(Visual visual)
         {
             var source = (HwndSource)PresentationSource.FromVisual(visual);
@@ -19,37 +17,25 @@ namespace PS.Windows.Interop.Components
             return new OldWindow(source.Handle);
         }
 
-        #endregion
-
-        #region Properties
-
         /// <summary>
-        ///     Gets/sets directory in which dialog will be open if there is no recent directory available.
+        /// Gets/sets directory in which dialog will be open if there is no recent directory available.
         /// </summary>
         public string DefaultFolder { get; set; }
 
         /// <summary>
-        ///     Gets/sets folder in which dialog will be open.
+        /// Gets/sets folder in which dialog will be open.
         /// </summary>
         public string InitialFolder { get; set; }
 
         /// <summary>
-        ///     Gets selected folder.
+        /// Gets selected folder.
         /// </summary>
         public string SelectedFolder { get; private set; }
-
-        #endregion
-
-        #region IDisposable Members
 
         public void Dispose()
         {
             //just to have possibility of Using statement.
         }
-
-        #endregion
-
-        #region Members
 
         public bool ShowDialog()
         {
@@ -115,31 +101,21 @@ namespace PS.Windows.Interop.Components
             return DialogBoxResult.Cancel;
         }
 
-        #endregion
-
         #region Nested type: OldWindow
 
         private class OldWindow : IWin32Window
         {
             private readonly IntPtr _handle;
 
-            #region Constructors
-
             public OldWindow(IntPtr handle)
             {
                 _handle = handle;
             }
 
-            #endregion
-
-            #region IWin32Window Members
-
             IntPtr IWin32Window.Handle
             {
                 get { return _handle; }
             }
-
-            #endregion
         }
 
         #endregion

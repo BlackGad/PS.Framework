@@ -6,6 +6,7 @@
         <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Native/ToggleButton.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style BasedOn="{StaticResource {x:Static local:ToggleButton.ToggleButtonStyle}}" TargetType="{x:Type ToggleButton}" />
+    <Style BasedOn="{StaticResource {x:Static local:ToggleButton.ToggleButtonStyle}}"
+           TargetType="{x:Type ToggleButton}" />
 
 </ResourceDictionary>

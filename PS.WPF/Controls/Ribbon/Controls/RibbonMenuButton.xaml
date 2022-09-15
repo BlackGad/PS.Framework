@@ -13,20 +13,25 @@
 
     <Geometry x:Key="DropDownGeometry">M 0 0 L 2.5 3 L 5 0 Z</Geometry>
 
-    <ControlTemplate x:Key="{x:Static controls:RibbonMenuButton+Resource.ControlTemplate}" TargetType="controls:RibbonMenuButton">
+    <ControlTemplate x:Key="{x:Static controls:RibbonMenuButton+Resource.ControlTemplate}"
+                     TargetType="controls:RibbonMenuButton">
         <Grid x:Name="Layout"
               Background="Transparent"
               SnapsToDevicePixels="True">
             <components:StoreBrush.Background>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.Background>
             <components:StoreBrush.BorderBrush>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.BorderBrush>
 
@@ -86,7 +91,8 @@
                                 BorderBrush="{Binding ElementName=Layout, Path=(components:StoreBrush.BorderBrush)}"
                                 BorderThickness="0,1,0,0"
                                 Visibility="Collapsed">
-                            <Thumb x:Name="PART_ResizeThumb" Style="{StaticResource {x:Static ribbon:RibbonResizeThumbs.ThumbBothRightTopStyle}}" />
+                            <Thumb x:Name="PART_ResizeThumb"
+                                   Style="{StaticResource {x:Static ribbon:RibbonResizeThumbs.ThumbBothRightTopStyle}}" />
                         </Border>
                     </Grid>
                 </Border>
@@ -95,8 +101,11 @@
         <ControlTemplate.Triggers>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.ImageSize}" Value="Small" />
-                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsInQuickAccessToolBar}" Value="True" />
+                    <Condition
+                        Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.ImageSize}"
+                        Value="Small" />
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsInQuickAccessToolBar}"
+                               Value="True" />
                 </MultiDataTrigger.Conditions>
                 <Setter Property="Height" Value="Auto" />
             </MultiDataTrigger>
@@ -113,7 +122,8 @@
             </Setter.Value>
         </Setter>
         <Setter Property="RibbonTwoLineText.PathData" Value="{StaticResource DropDownGeometry}" />
-        <Setter Property="Template" Value="{StaticResource {x:Static controls:RibbonMenuButton+Resource.ControlTemplate}}" />
+        <Setter Property="Template"
+                Value="{StaticResource {x:Static controls:RibbonMenuButton+Resource.ControlTemplate}}" />
         <Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
         <Setter Property="ToolTipService.InitialShowDelay" Value="900" />
         <Setter Property="ToolTipService.ShowDuration" Value="20000" />

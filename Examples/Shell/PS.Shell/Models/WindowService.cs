@@ -17,18 +17,12 @@ namespace PS.Shell.Models
         private readonly ILifetimeScope _scope;
         private readonly IViewResolverService _viewResolverService;
 
-        #region Constructors
-
         public WindowService(IViewResolverService viewResolverService,
                              ILifetimeScope scope)
         {
             _viewResolverService = viewResolverService;
             _scope = scope;
         }
-
-        #endregion
-
-        #region Override members
 
         protected override void OnPreviewWindowShow<TViewModel>(Window window, TViewModel viewModel, string region)
         {
@@ -59,14 +53,8 @@ namespace PS.Shell.Models
             return _scope.Resolve(type);
         }
 
-        #endregion
-
-        #region IDisposable Members
-
         public void Dispose()
         {
         }
-
-        #endregion
     }
 }

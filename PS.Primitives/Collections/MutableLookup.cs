@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using PS.Data;
@@ -9,8 +10,6 @@ namespace PS.Collections
     public class MutableLookup<TKey, TValue> : IMutableLookup<TKey, TValue>
     {
         private readonly ObjectsStorage<TKey, List<TValue>> _contents;
-
-        #region Constructors
 
         public MutableLookup(IEnumerable<IGrouping<TKey, TValue>> groups)
         {
@@ -36,18 +35,10 @@ namespace PS.Collections
             _contents = new ObjectsStorage<TKey, List<TValue>>();
         }
 
-        #endregion
-
-        #region Properties
-
         public IEnumerable<TKey> Keys
         {
             get { return _contents.Keys; }
         }
-
-        #endregion
-
-        #region IMutableLookup<TKey,TValue> Members
 
         public int Count
         {
@@ -95,14 +86,10 @@ namespace PS.Collections
             }).GetEnumerator();
         }
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
-
-        #endregion
-
-        #region Members
 
         public void Add(TKey key, params TValue[] values)
         {
@@ -117,15 +104,11 @@ namespace PS.Collections
             }
         }
 
-        #endregion
-
         #region Nested type: Grouping
 
         private class Grouping : IGrouping<TKey, TValue>
         {
             public MutableLookup<TKey, TValue> Source;
-
-            #region IGrouping<TKey,TValue> Members
 
             public TKey Key { get; set; }
 
@@ -140,12 +123,10 @@ namespace PS.Collections
                 }
             }
 
-            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+            IEnumerator IEnumerable.GetEnumerator()
             {
                 return GetEnumerator();
             }
-
-            #endregion
         }
 
         #endregion

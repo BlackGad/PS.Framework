@@ -8,8 +8,6 @@ namespace PS.Tests.ComponentModel.Dynamic
     [TestFixture]
     public class DynamicSubscriptionTests
     {
-        #region Members
-
         [Test]
         public void Subscription_Test()
         {
@@ -26,7 +24,5 @@ namespace PS.Tests.ComponentModel.Dynamic
 
             Assert.AreEqual(1, delegateCallCount);
         }
-
-        #endregion
     }
 }

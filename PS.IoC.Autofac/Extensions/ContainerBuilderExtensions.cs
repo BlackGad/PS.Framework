@@ -11,8 +11,6 @@ namespace PS.IoC.Extensions
 {
     public static class ContainerBuilderExtensions
     {
-        #region Static members
-
         public static ContainerBuilder RegisterAssemblyTypesWithAttributes(this ContainerBuilder builder, params Assembly[] assemblies)
         {
             return builder.RegisterTypesWithAttributes(assemblies.SelectMany(t => t.GetAssemblyTypes()).ToArray());
@@ -123,7 +121,5 @@ namespace PS.IoC.Extensions
                     throw new ArgumentOutOfRangeException();
             }
         }
-
-        #endregion
     }
 }

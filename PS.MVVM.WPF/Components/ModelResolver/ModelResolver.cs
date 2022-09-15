@@ -14,23 +14,13 @@ namespace PS.MVVM.Components.ModelResolver
     public abstract class ModelResolver : BaseResolver<IModelResolverService>,
                                           INotifyPropertyChanged
     {
-        #region Property definitions
-
         public static readonly DependencyProperty ServiceProperty =
             DependencyProperty.RegisterAttached("Service",
                                                 typeof(IModelResolverService),
                                                 typeof(ModelResolver),
                                                 new PropertyMetadata(default(IModelResolverService)));
 
-        #endregion
-
-        #region Constants
-
         private static readonly MethodInfo CreateBindingExpressionMethod;
-
-        #endregion
-
-        #region Static members
 
         public static IModelResolverService GetService(DependencyObject element)
         {
@@ -42,22 +32,15 @@ namespace PS.MVVM.Components.ModelResolver
             element.SetValue(ServiceProperty, value);
         }
 
-        #endregion
-
         private object _model;
-
-        #region Constructors
 
         static ModelResolver()
         {
             CreateBindingExpressionMethod = typeof(BindingExpression).GetMethod("CreateBindingExpression", BindingFlags.NonPublic | BindingFlags.Static);
         }
 
-        #endregion
-
-        #region Properties
-
         public IValueConverter Converter { get; set; }
+
         public object ConverterParameter { get; set; }
 
         public object Model
@@ -71,11 +54,9 @@ namespace PS.MVVM.Components.ModelResolver
             }
         }
 
+        public string Path { get; set; }
+
         public object Region { get; set; }
-
-        #endregion
-
-        #region Override members
 
         public sealed override object ProvideValue(IServiceProvider serviceProvider)
         {
@@ -133,15 +114,7 @@ namespace PS.MVVM.Components.ModelResolver
             return null;
         }
 
-        #endregion
-
-        #region INotifyPropertyChanged Members
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
-
-        #region Members
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -149,8 +122,7 @@ namespace PS.MVVM.Components.ModelResolver
         }
 
         protected abstract Binding ProvideBinding(bool isReadOnly);
-        protected abstract object ProvideObservableModel(IModelResolverService modelResolverService);
 
-        #endregion
+        protected abstract object ProvideObservableModel(IModelResolverService modelResolverService);
     }
 }

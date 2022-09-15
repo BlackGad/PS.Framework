@@ -18,54 +18,70 @@
             <ps:GroupExpander Header="Generic">
                 <StackPanel>
                     <ps:HeaderedContent Header="Value">
-                        <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox VerticalAlignment="Center"
+                                 Text="{Binding ElementName=Control, Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </ps:HeaderedContent>
                     <ps:HeaderedContent Header="DisplayText">
-                        <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=DisplayText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox VerticalAlignment="Center"
+                                 Text="{Binding ElementName=Control, Path=DisplayText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </ps:HeaderedContent>
                     <ps:HeaderedContent Header="EditableText">
-                        <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=EditableText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox VerticalAlignment="Center"
+                                 Text="{Binding ElementName=Control, Path=EditableText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </ps:HeaderedContent>
                     <ps:HeaderedContent Header="Watermark">
-                        <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=Watermark, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox VerticalAlignment="Center"
+                                 Text="{Binding ElementName=Control, Path=Watermark, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </ps:HeaderedContent>
                     <ps:HeaderedContent Header="FormatString">
-                        <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=FormatString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox VerticalAlignment="Center"
+                                 Text="{Binding ElementName=Control, Path=FormatString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </ps:HeaderedContent>
                     <ps:HeaderedContent Header="InputReplacementPattern">
-                        <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=InputReplacementPattern, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox VerticalAlignment="Center"
+                                 Text="{Binding ElementName=Control, Path=InputReplacementPattern, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </ps:HeaderedContent>
                     <ps:HeaderedContent Header="InputMatchPattern">
-                        <TextBox VerticalAlignment="Center" Text="{Binding ElementName=Control, Path=InputMatchPattern, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox VerticalAlignment="Center"
+                                 Text="{Binding ElementName=Control, Path=InputMatchPattern, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </ps:HeaderedContent>
                     <ps:HeaderedContent Header="IsReadOnly">
                         <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=IsReadOnly}" />
                     </ps:HeaderedContent>
                     <ps:HeaderedContent Header="IsSideButtonVisible">
-                        <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=IsSideButtonVisible}" />
+                        <CheckBox VerticalAlignment="Center"
+                                  IsChecked="{Binding ElementName=Control, Path=IsSideButtonVisible}" />
                     </ps:HeaderedContent>
                     <ps:HeaderedContent Header="RealTimeValueChange">
-                        <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=RealTimeValueChange}" />
+                        <CheckBox VerticalAlignment="Center"
+                                  IsChecked="{Binding ElementName=Control, Path=RealTimeValueChange}" />
                     </ps:HeaderedContent>
                     <ps:HeaderedContent Header="IsDisplayTextSelectable">
-                        <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=IsDisplayTextSelectable}" />
+                        <CheckBox VerticalAlignment="Center"
+                                  IsChecked="{Binding ElementName=Control, Path=IsDisplayTextSelectable}" />
                     </ps:HeaderedContent>
                     <ps:HeaderedContent Header="UseWatermarkWhenValueEmpty">
-                        <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=UseWatermarkWhenValueEmpty}" />
+                        <CheckBox VerticalAlignment="Center"
+                                  IsChecked="{Binding ElementName=Control, Path=UseWatermarkWhenValueEmpty}" />
                     </ps:HeaderedContent>
                     <ps:HeaderedContent Header="HandleArrowsAsTabs">
-                        <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=HandleArrowsAsTabs}" />
+                        <CheckBox VerticalAlignment="Center"
+                                  IsChecked="{Binding ElementName=Control, Path=HandleArrowsAsTabs}" />
                     </ps:HeaderedContent>
                     <ps:HeaderedContent Header="IsEditMode" IsEnabled="False">
-                        <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=IsEditMode, Mode=OneWay}" />
+                        <CheckBox VerticalAlignment="Center"
+                                  IsChecked="{Binding ElementName=Control, Path=IsEditMode, Mode=OneWay}" />
                     </ps:HeaderedContent>
                     <ps:HeaderedContent Header="IsWatermarkAvailable" IsEnabled="False">
-                        <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=IsWatermarkAvailable, Mode=OneWay}" />
+                        <CheckBox VerticalAlignment="Center"
+                                  IsChecked="{Binding ElementName=Control, Path=IsWatermarkAvailable, Mode=OneWay}" />
                     </ps:HeaderedContent>
                     <ps:HeaderedContent Header="ManualEditMode">
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=ManualEditMode}" />
-                            <StackPanel IsEnabled="{Binding ElementName=Control, Path=ManualEditMode}" Orientation="Horizontal">
+                            <CheckBox VerticalAlignment="Center"
+                                      IsChecked="{Binding ElementName=Control, Path=ManualEditMode}" />
+                            <StackPanel IsEnabled="{Binding ElementName=Control, Path=ManualEditMode}"
+                                        Orientation="Horizontal">
                                 <Button Width="70"
                                         Margin="2"
                                         Click="BeginEdit_OnClick"
@@ -82,7 +98,8 @@
                         </StackPanel>
                     </ps:HeaderedContent>
                     <ps:HeaderedContent Header="RequireConfirmationOnFocusLost">
-                        <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Control, Path=RequireConfirmationOnFocusLost}" />
+                        <CheckBox VerticalAlignment="Center"
+                                  IsChecked="{Binding ElementName=Control, Path=RequireConfirmationOnFocusLost}" />
                     </ps:HeaderedContent>
                 </StackPanel>
             </ps:GroupExpander>

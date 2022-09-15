@@ -6,8 +6,6 @@ namespace PS.Shell.Models.PageService
 {
     class SourceFolder : ISourceFolder
     {
-        #region Constructors
-
         public SourceFolder(string title)
         {
             Title = title;
@@ -15,14 +13,10 @@ namespace PS.Shell.Models.PageService
             Order = 10;
         }
 
-        #endregion
-
-        #region ISourceFolder Members
-
         public string Title { get; }
-        public IList<ISource> Children { get; }
-        public int Order { get; }
 
-        #endregion
+        public IList<ISource> Children { get; }
+
+        public int Order { get; }
     }
 }

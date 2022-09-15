@@ -11,27 +11,19 @@ namespace PS.WPF.ValueConverters
     [ContentProperty(nameof(ConvertSequence))]
     public class CascadeMultiValueConverter : IMultiValueConverter
     {
-        #region Constructors
-
         public CascadeMultiValueConverter()
         {
             ConvertBackSequence = new ObservableCollection<IValueConverter>();
             ConvertSequence = new ObservableCollection<IValueConverter>();
         }
 
-        #endregion
-
-        #region Properties
-
         public IMultiValueConverter ConvertBackFinishConverter { get; set; }
 
         public ObservableCollection<IValueConverter> ConvertBackSequence { get; set; }
+
         public ObservableCollection<IValueConverter> ConvertSequence { get; set; }
+
         public IMultiValueConverter ConvertStartConverter { get; set; }
-
-        #endregion
-
-        #region IMultiValueConverter Members
 
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
@@ -60,7 +52,5 @@ namespace PS.WPF.ValueConverters
 
             return ConvertBackFinishConverter.ConvertBack(result, targetTypes, parameter, culture);
         }
-
-        #endregion
     }
 }

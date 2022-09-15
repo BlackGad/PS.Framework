@@ -7,8 +7,6 @@ namespace PS.WPF.Commands
 {
     public class CancelableProcessCommand : CancelableProcessCommand<object>
     {
-        #region Constructors
-
         public CancelableProcessCommand(Action<CancellationToken> executeAction = null,
                                         Func<bool> canExecutePredicate = null,
                                         Action<Exception> errorAction = null)
@@ -17,8 +15,6 @@ namespace PS.WPF.Commands
                    (parameter, e) => errorAction?.Invoke(e))
         {
         }
-
-        #endregion
     }
 
     public class CancelableProcessCommand<T> : BaseNotifyPropertyChanged,
@@ -38,8 +34,6 @@ namespace PS.WPF.Commands
         private int _order;
         private string _title;
 
-        #region Constructors
-
         public CancelableProcessCommand(Action<T, CancellationToken> executeAction = null,
                                         Func<T, bool> canExecutePredicate = null,
                                         Action<T, Exception> errorAction = null)
@@ -53,10 +47,6 @@ namespace PS.WPF.Commands
 
             IsVisible = true;
         }
-
-        #endregion
-
-        #region IUICommand Members
 
         public void RaiseCanExecuteChanged()
         {
@@ -117,10 +107,6 @@ namespace PS.WPF.Commands
             set { SetField(ref _color, value); }
         }
 
-        #endregion
-
-        #region Members
-
         private async Task Process(T parameter)
         {
             if (!_userCanExecutePredicate(parameter))
@@ -170,7 +156,5 @@ namespace PS.WPF.Commands
                 RaiseCanExecuteChanged();
             }
         }
-
-        #endregion
     }
 }

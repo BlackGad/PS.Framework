@@ -16,14 +16,10 @@ namespace PS.Collections
 {
     public class CollectionView<T> : CollectionView<T, T>
     {
-        #region Constructors
-
         public CollectionView(Func<T, bool> filterPredicate = null)
             : base(arg => arg, arg => arg, filterPredicate)
         {
         }
-
-        #endregion
     }
 
     [DebuggerDisplay("Count = {" + nameof(Count) + "}")]
@@ -36,18 +32,16 @@ namespace PS.Collections
                                                     IDisposable
     {
         private readonly Func<TTarget, TSource> _convertBackFunc;
-        private readonly Action<TTarget> _disposeAction;
         private readonly Dictionary<int, TSource> _convertBackMap;
         private readonly Func<TSource, TTarget> _convertFunc;
         private readonly Dictionary<int, TTarget> _convertMap;
+        private readonly Action<TTarget> _disposeAction;
         private readonly Func<TSource, bool> _filterPredicate;
         private readonly DeepTracker _itemsTracker;
         private readonly object _syncRoot;
         private IList<TTarget> _cachedList;
 
         private IEnumerable _itemsSource;
-
-        #region Constructors
 
         public CollectionView(Func<TSource, TTarget> convertFunc,
                               Func<TTarget, TSource> convertBackFunc = null,
@@ -71,10 +65,6 @@ namespace PS.Collections
                                        .Activate();
         }
 
-        #endregion
-
-        #region Properties
-
         public IEnumerable ItemsSource
         {
             get { return _itemsSource; }
@@ -91,28 +81,16 @@ namespace PS.Collections
             get { return _cachedList ?? (_cachedList = GetSourceItems()); }
         }
 
-        #endregion
-
-        #region Override members
-
         ~CollectionView()
         {
             Dispose();
         }
-
-        #endregion
-
-        #region IDisposable Members
 
         public void Dispose()
         {
             GC.SuppressFinalize(this);
             _itemsTracker.Dispose();
         }
-
-        #endregion
-
-        #region IList Members
 
         bool IList.IsFixedSize
         {
@@ -186,10 +164,6 @@ namespace PS.Collections
                 array.SetValue(items[i], i + index);
             }
         }
-
-        #endregion
-
-        #region IList<TTarget> Members
 
         public int Count
         {
@@ -305,21 +279,9 @@ namespace PS.Collections
             if (sourceIndex != -1) collection.CollectionRemoveAt(index);
         }
 
-        #endregion
-
-        #region INotifyCollectionChanged Members
-
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        #endregion
-
-        #region INotifyPropertyChanged Members
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
-
-        #region Event handlers
 
         private void OnCollectionChanged(object sender, ChangedCollectionEventArgs e)
         {
@@ -341,7 +303,7 @@ namespace PS.Collections
             }
 
             if (action == NotifyCollectionChangedAction.Move && !newItems.Any()) return;
-            
+
             IList<TTarget> removedItems = oldItems;
             int newStartIndex, oldStartIndex;
             switch (action)
@@ -377,7 +339,7 @@ namespace PS.Collections
 
             DeferResync();
             CollectionChanged?.Invoke(this, args);
-            
+
             if (_disposeAction != null && removedItems.Any())
             {
                 foreach (var removedItem in removedItems)
@@ -406,10 +368,6 @@ namespace PS.Collections
                 OnPropertyChanged(e.PropertyReference.Name);
             }
         }
-
-        #endregion
-
-        #region Members
 
         public void DeferResync()
         {
@@ -464,7 +422,5 @@ namespace PS.Collections
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        #endregion
     }
 }

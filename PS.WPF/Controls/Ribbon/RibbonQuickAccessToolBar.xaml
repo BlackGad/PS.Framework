@@ -7,21 +7,26 @@
                     xmlns:controls1="clr-namespace:PS.WPF.Controls.Ribbon.Controls"
                     xmlns:components="clr-namespace:PS.WPF.Components">
 
-    <ControlTemplate x:Key="{x:Static controls:RibbonQuickAccessToolBar+Resource.ControlTemplate}" TargetType="controls:RibbonQuickAccessToolBar">
+    <ControlTemplate x:Key="{x:Static controls:RibbonQuickAccessToolBar+Resource.ControlTemplate}"
+                     TargetType="controls:RibbonQuickAccessToolBar">
         <Grid Name="Layout"
               Margin="{TemplateBinding Margin}"
               Background="{Binding RelativeSource={RelativeSource Self}, Path=(components:StoreBrush.Background)}"
               SnapsToDevicePixels="True">
             <components:StoreBrush.Background>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.Background>
             <components:StoreBrush.BorderBrush>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.BorderBrush>
             <Grid.ColumnDefinitions>
@@ -39,10 +44,10 @@
                   Grid.Column="2"
                   Visibility="Collapsed">
                 <controls1:RibbonToggleButton x:Name="PART_OverflowButton"
-                                             Width="12"
-                                             ClickMode="Press"
-                                             IsChecked="{Binding Path=IsOverflowOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                             KeyTip="00">
+                                              Width="12"
+                                              ClickMode="Press"
+                                              IsChecked="{Binding Path=IsOverflowOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                              KeyTip="00">
                     <RibbonToggleButton.ControlSizeDefinition>
                         <RibbonControlSizeDefinition ImageSize="Collapsed" IsLabelVisible="True" />
                     </RibbonToggleButton.ControlSizeDefinition>
@@ -71,8 +76,8 @@
                                 BorderThickness="1">
                             <DockPanel Margin="2">
                                 <primitives:RibbonQuickAccessToolBarOverflowPanel Name="PART_OverflowPanel"
-                                                                                  KeyboardNavigation.DirectionalNavigation="Cycle"
-                                                                                  KeyboardNavigation.TabNavigation="Cycle" />
+                                    KeyboardNavigation.DirectionalNavigation="Cycle"
+                                    KeyboardNavigation.TabNavigation="Cycle" />
                                 <ContentPresenter Name="OverflowCustomizeMenuHost" DockPanel.Dock="Right" />
                             </DockPanel>
                         </Border>
@@ -84,7 +89,8 @@
             <Trigger Property="HasOverflowItems" Value="true">
                 <Setter TargetName="MainCustomizeMenuHost" Property="Content" Value="{x:Null}" />
                 <Setter TargetName="OverflowButtonHost" Property="Visibility" Value="Visible" />
-                <Setter TargetName="OverflowCustomizeMenuHost" Property="Content" Value="{Binding Path=CustomizeMenuButton, RelativeSource={RelativeSource TemplatedParent}}" />
+                <Setter TargetName="OverflowCustomizeMenuHost" Property="Content"
+                        Value="{Binding Path=CustomizeMenuButton, RelativeSource={RelativeSource TemplatedParent}}" />
             </Trigger>
             <Trigger SourceName="PART_OverflowPopup" Property="Popup.IsOpen" Value="False">
                 <Setter TargetName="PART_OverflowPopup" Property="PopupAnimation" Value="None" />
@@ -92,10 +98,12 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="{x:Static controls:RibbonQuickAccessToolBar+Resource.ControlStyle}" TargetType="controls:RibbonQuickAccessToolBar">
+    <Style x:Key="{x:Static controls:RibbonQuickAccessToolBar+Resource.ControlStyle}"
+           TargetType="controls:RibbonQuickAccessToolBar">
         <Setter Property="Height" Value="{DynamicResource {x:Static SystemParameters.CaptionHeightKey}}" />
         <Setter Property="Margin" Value="3,0,3,0" />
-        <Setter Property="Template" Value="{StaticResource {x:Static controls:RibbonQuickAccessToolBar+Resource.ControlTemplate}}" />
+        <Setter Property="Template"
+                Value="{StaticResource {x:Static controls:RibbonQuickAccessToolBar+Resource.ControlTemplate}}" />
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
     </Style>
 

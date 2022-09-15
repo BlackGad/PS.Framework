@@ -9,25 +9,15 @@ namespace PS.Shell.Module.Controls.Views
     [DependencyRegisterAsInterface(typeof(IView<TextBoxViewModel>))]
     public partial class TextBoxView : IView<TextBoxViewModel>
     {
-        #region Constructors
-
         public TextBoxView()
         {
             InitializeComponent();
         }
 
-        #endregion
-
-        #region IView<TextBoxViewModel> Members
-
         public TextBoxViewModel ViewModel
         {
             get { return DataContext as TextBoxViewModel; }
         }
-
-        #endregion
-
-        #region Event handlers
 
         private void BeginEdit_OnClick(object sender, RoutedEventArgs e)
         {
@@ -46,7 +36,5 @@ namespace PS.Shell.Module.Controls.Views
             Control.EndEdit();
             ViewModel.Logger.Info("End edit called");
         }
-
-        #endregion
     }
 }

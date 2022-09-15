@@ -5,8 +5,6 @@ namespace PS.WPF.Markup
     [MarkupExtensionReturnType(typeof(System.UInt32))]
     public class UInt32 : BaseIntegerMarkupExtension<System.UInt32>
     {
-        #region Constructors
-
         public UInt32()
         {
         }
@@ -15,7 +13,5 @@ namespace PS.WPF.Markup
             : base(value)
         {
         }
-
-        #endregion
     }
 }

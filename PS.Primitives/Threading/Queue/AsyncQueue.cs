@@ -2,16 +2,14 @@
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
-
 #if !NETFRAMEWORK
 using System.Runtime.InteropServices;
 #endif
+
 namespace PS.Threading.Queue
 {
     public static class AsyncQueue
     {
-        #region Static members
-
         public static IAsyncQueueConfiguration<TPayload, TResult> Setup<TPayload, TResult>(Func<TPayload, CancellationToken, TResult> processHandler)
         {
             if (processHandler == null) throw new ArgumentNullException(nameof(processHandler));
@@ -33,8 +31,6 @@ namespace PS.Threading.Queue
                 }
             };
         }
-
-        #endregion
     }
 
     internal class AsyncQueue<TPayload, TResult> : IAsyncQueue<TPayload, TResult>
@@ -44,8 +40,6 @@ namespace PS.Threading.Queue
         private readonly Thread _consumeQueueThread;
         private readonly ManualResetEvent _consumeQueueThreadFinished;
         private readonly BlockingCollection<AsyncQueueMessage> _queue;
-
-        #region Constructors
 
         public AsyncQueue(AsyncQueueConfiguration<TPayload, TResult> configuration)
         {
@@ -95,17 +89,13 @@ namespace PS.Threading.Queue
             });
             #if !NETFRAMEWORK
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            #endif
+                #endif
             {
                 _consumeQueueThread.SetApartmentState(configuration.ApartmentState);
             }
 
             _consumeQueueThread.IsBackground = true;
         }
-
-        #endregion
-
-        #region IAsyncQueue<TPayload,TResult> Members
 
         public void Dispose()
         {
@@ -153,10 +143,6 @@ namespace PS.Threading.Queue
             Activate();
             return this;
         }
-
-        #endregion
-
-        #region Members
 
         private void ConsumeQueueLoop()
         {
@@ -215,15 +201,11 @@ namespace PS.Threading.Queue
             return new AsyncQueueMessage(payload, directCancellationToken);
         }
 
-        #endregion
-
         #region Nested type: AsyncQueueMessage
 
         private class AsyncQueueMessage
         {
             private readonly TaskCompletionSource<TResult> _taskCompletionSource;
-
-            #region Constructors
 
             public AsyncQueueMessage(TPayload payload, CancellationToken cancellationToken)
             {
@@ -231,10 +213,6 @@ namespace PS.Threading.Queue
                 CancellationToken = cancellationToken;
                 _taskCompletionSource = new TaskCompletionSource<TResult>();
             }
-
-            #endregion
-
-            #region Properties
 
             public Task<TResult> Awaiter
             {
@@ -244,10 +222,6 @@ namespace PS.Threading.Queue
             public CancellationToken CancellationToken { get; }
 
             public TPayload Payload { get; }
-
-            #endregion
-
-            #region Members
 
             public void Cancelled()
             {
@@ -263,8 +237,6 @@ namespace PS.Threading.Queue
             {
                 _taskCompletionSource.TrySetResult(result);
             }
-
-            #endregion
         }
 
         #endregion

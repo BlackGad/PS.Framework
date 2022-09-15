@@ -6,8 +6,6 @@ namespace PS.Reflection
 {
     public class TypeInheritanceDepth
     {
-        #region Static members
-
         public static TypeInheritanceDepth Measure(Type sourceType, Type inheritedType)
         {
             int? weight = null;
@@ -29,10 +27,6 @@ namespace PS.Reflection
             return new TypeInheritanceDepth(sourceType, inheritedType, weight);
         }
 
-        #endregion
-
-        #region Constructors
-
         private TypeInheritanceDepth(Type sourceType, Type inheritedType, int? depth)
         {
             SourceType = sourceType;
@@ -40,16 +34,10 @@ namespace PS.Reflection
             Depth = depth;
         }
 
-        #endregion
-
-        #region Properties
-
         public int? Depth { get; }
 
         public Type InheritedType { get; }
 
         public Type SourceType { get; }
-
-        #endregion
     }
 }

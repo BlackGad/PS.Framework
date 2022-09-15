@@ -6,22 +6,14 @@ namespace PS.Patterns.Dispose
     {
         private readonly Action _disposeAction;
 
-        #region Constructors
-
         public RelayDispose(Action disposeAction)
         {
             _disposeAction = disposeAction ?? (() => { });
         }
 
-        #endregion
-
-        #region IDisposable Members
-
         public void Dispose()
         {
             _disposeAction();
         }
-
-        #endregion
     }
 }

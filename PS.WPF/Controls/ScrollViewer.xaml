@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:PS.WPF.Controls">
+
+    <Style x:Key="{x:Static controls:ScrollViewer+Resource.ControlStyle}" TargetType="controls:ScrollViewer">
+        <Setter Property="HorizontalFlowDirection" Value="LeftToRight" />
+        <Setter Property="VerticalFlowDirection" Value="TopToBottom" />
+    </Style>
+
+</ResourceDictionary>

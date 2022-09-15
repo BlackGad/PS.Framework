@@ -10,8 +10,6 @@ namespace PS.MVVM.Extensions
 {
     public static class ViewAssociationExtensions
     {
-        #region Static members
-
         public static IViewResolverAssociateAware Associate<TViewModel>(this IViewResolverAssociateAware service,
                                                                         ResourceDescriptor container = null,
                                                                         ResourceDescriptor style = null,
@@ -67,7 +65,5 @@ namespace PS.MVVM.Extensions
             if (service == null) throw new ArgumentNullException(nameof(service));
             return service.Associate(typeof(TemplateResolver), typeof(TViewModel), descriptor);
         }
-
-        #endregion
     }
 }

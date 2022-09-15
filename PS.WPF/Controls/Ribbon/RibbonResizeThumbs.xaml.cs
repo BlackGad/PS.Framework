@@ -6,8 +6,6 @@ namespace PS.WPF.Controls.Ribbon
 {
     public static class RibbonResizeThumbs
     {
-        #region Constants
-
         private static readonly Uri Default =
             new Uri("/PS.WPF;component/Controls/Ribbon/RibbonResizeThumbs.xaml", UriKind.RelativeOrAbsolute);
 
@@ -26,7 +24,5 @@ namespace PS.WPF.Controls.Ribbon
         public static readonly ResourceDescriptor ThumbVerticalStyle =
             ResourceDescriptor.Create<Style>(description: "Default Thumb style",
                                              resourceDictionary: Default);
-
-        #endregion
     }
 }

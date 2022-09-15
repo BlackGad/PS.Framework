@@ -10,8 +10,6 @@ namespace PS.WPF.DataTemplate
     public class ViewHierarchicalDataTemplate : HierarchicalDataTemplate,
                                                 ICustomDataTemplate
     {
-        #region Constructors
-
         public ViewHierarchicalDataTemplate()
         {
             VisualTree = new CustomFrameworkElementFactory(this);
@@ -19,19 +17,12 @@ namespace PS.WPF.DataTemplate
             ViewFactory = type => Activator.CreateInstance(ViewType) as FrameworkElement;
         }
 
-        #endregion
-
-        #region Properties
-
         public Func<Type, FrameworkElement> ViewFactory { get; set; }
 
         public Type ViewType { get; set; }
 
-        #endregion
-
-        #region ICustomDataTemplate Members
-
         public double? DesignHeight { get; set; }
+
         public double? DesignWidth { get; set; }
 
         string ICustomDataTemplate.Description
@@ -43,7 +34,5 @@ namespace PS.WPF.DataTemplate
         {
             return ViewFactory?.Invoke(ViewType);
         }
-
-        #endregion
     }
 }

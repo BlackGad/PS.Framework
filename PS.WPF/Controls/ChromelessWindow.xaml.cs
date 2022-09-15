@@ -6,12 +6,35 @@ using System.Windows.Media;
 using System.Windows.Shell;
 using PS.Patterns.Command;
 using PS.WPF.Resources;
+using SystemParameters = PS.WPF.Components.SystemParameters;
 
 namespace PS.WPF.Controls
 {
     public class ChromelessWindow : Window
     {
-        #region Property definitions
+        private static readonly DependencyPropertyKey CloseCommandPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(CloseCommand),
+                                                typeof(ICommand),
+                                                typeof(ChromelessWindow),
+                                                new FrameworkPropertyMetadata(default(ICommand)));
+
+        private static readonly DependencyPropertyKey MaximizedContentMarginPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(MaximizedContentMargin),
+                                                typeof(Thickness),
+                                                typeof(ChromelessWindow),
+                                                new FrameworkPropertyMetadata(default(Thickness)));
+
+        private static readonly DependencyPropertyKey MaximizeRestoreCommandPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(MaximizeRestoreCommand),
+                                                typeof(ICommand),
+                                                typeof(ChromelessWindow),
+                                                new FrameworkPropertyMetadata(default(ICommand)));
+
+        private static readonly DependencyPropertyKey MinimizeCommandPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(MinimizeCommand),
+                                                typeof(ICommand),
+                                                typeof(ChromelessWindow),
+                                                new FrameworkPropertyMetadata(default(ICommand)));
 
         public static readonly DependencyProperty ButtonCloseVisibilityProperty =
             DependencyProperty.Register("ButtonCloseVisibility",
@@ -30,12 +53,6 @@ namespace PS.WPF.Controls
                                         typeof(Visibility),
                                         typeof(ChromelessWindow),
                                         new FrameworkPropertyMetadata(default(Visibility)));
-
-        private static readonly DependencyPropertyKey CloseCommandPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(CloseCommand),
-                                                typeof(ICommand),
-                                                typeof(ChromelessWindow),
-                                                new FrameworkPropertyMetadata(default(ICommand)));
 
         public static readonly DependencyProperty CloseCommandProperty = CloseCommandPropertyKey.DependencyProperty;
 
@@ -57,27 +74,9 @@ namespace PS.WPF.Controls
                                         typeof(ChromelessWindow),
                                         new FrameworkPropertyMetadata(default(bool)));
 
-        private static readonly DependencyPropertyKey MaximizedContentMarginPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(MaximizedContentMargin),
-                                                typeof(Thickness),
-                                                typeof(ChromelessWindow),
-                                                new FrameworkPropertyMetadata(default(Thickness)));
-
         public static readonly DependencyProperty MaximizedContentMarginProperty = MaximizedContentMarginPropertyKey.DependencyProperty;
 
-        private static readonly DependencyPropertyKey MaximizeRestoreCommandPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(MaximizeRestoreCommand),
-                                                typeof(ICommand),
-                                                typeof(ChromelessWindow),
-                                                new FrameworkPropertyMetadata(default(ICommand)));
-
         public static readonly DependencyProperty MaximizeRestoreCommandProperty = MaximizeRestoreCommandPropertyKey.DependencyProperty;
-
-        private static readonly DependencyPropertyKey MinimizeCommandPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(MinimizeCommand),
-                                                typeof(ICommand),
-                                                typeof(ChromelessWindow),
-                                                new FrameworkPropertyMetadata(default(ICommand)));
 
         public static readonly DependencyProperty MinimizeCommandProperty = MinimizeCommandPropertyKey.DependencyProperty;
 
@@ -86,14 +85,6 @@ namespace PS.WPF.Controls
                                         typeof(Visibility),
                                         typeof(ChromelessWindow),
                                         new FrameworkPropertyMetadata(default(Visibility)));
-
-        #endregion
-
-        #region Constants
-
-        #endregion
-
-        #region Constructors
 
         static ChromelessWindow()
         {
@@ -117,18 +108,14 @@ namespace PS.WPF.Controls
             WindowChrome.SetWindowChrome(this,
                                          new WindowChrome
                                          {
-                                             CaptionHeight = Components.SystemParameters.WindowCaptionHeightWithResizeFrame
+                                             CaptionHeight = SystemParameters.WindowCaptionHeightWithResizeFrame
                                          });
 
-            var borderWidth = SystemParameters.FixedFrameVerticalBorderWidth + SystemParameters.ResizeFrameVerticalBorderWidth;
-            var borderHeight = SystemParameters.FixedFrameHorizontalBorderHeight + SystemParameters.ResizeFrameHorizontalBorderHeight;
+            var borderWidth = System.Windows.SystemParameters.FixedFrameVerticalBorderWidth + System.Windows.SystemParameters.ResizeFrameVerticalBorderWidth;
+            var borderHeight = System.Windows.SystemParameters.FixedFrameHorizontalBorderHeight + System.Windows.SystemParameters.ResizeFrameHorizontalBorderHeight;
 
             MaximizedContentMargin = new Thickness(borderWidth, borderHeight, borderWidth, 0);
         }
-
-        #endregion
-
-        #region Properties
 
         public Visibility ButtonCloseVisibility
         {
@@ -196,10 +183,6 @@ namespace PS.WPF.Controls
             set { SetValue(WindowIconVisibilityProperty, value); }
         }
 
-        #endregion
-
-        #region Override members
-
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
@@ -215,10 +198,6 @@ namespace PS.WPF.Controls
             //Custom windows chrome has arrange issue. So force visual invalidation on source initialized
             InvalidateVisual();
         }
-
-        #endregion
-
-        #region Members
 
         private void MaximizeRestore()
         {
@@ -239,14 +218,10 @@ namespace PS.WPF.Controls
             WindowState = WindowState.Minimized;
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/ChromelessWindow.xaml", UriKind.RelativeOrAbsolute);
 
@@ -293,8 +268,6 @@ namespace PS.WPF.Controls
             public static readonly ResourceDescriptor HeaderTemplate =
                 ResourceDescriptor.Create<System.Windows.DataTemplate>(description: "Default Window header date template",
                                                                        resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

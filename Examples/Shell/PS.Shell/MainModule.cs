@@ -19,8 +19,6 @@ namespace PS.Shell
 {
     public class MainModule : Autofac.Module
     {
-        #region Override members
-
         protected override void AttachToComponentRegistration(IComponentRegistryBuilder componentRegistry, IComponentRegistration registration)
         {
             registration.HandleActivation<IViewResolverService>(ViewResolverServiceActivation);
@@ -34,10 +32,6 @@ namespace PS.Shell
             builder.RegisterType<NotificationViewModel>();
             builder.RegisterType<ConfirmationViewModel>();
         }
-
-        #endregion
-
-        #region Members
 
         private void ViewResolverServiceActivation(ILifetimeScope scope, IViewResolverService service)
         {
@@ -73,7 +67,5 @@ namespace PS.Shell
                    .AssociateTemplate<ISourceXaml>(scope.Resolve<IDataTemplate<TreeItemSourceXamlView>>(treeViewHierarchyBinding))
                    .AssociateTemplate<ISourceCSharp>(scope.Resolve<IDataTemplate<TreeItemSourceCSharpView>>(treeViewHierarchyBinding));
         }
-
-        #endregion
     }
 }

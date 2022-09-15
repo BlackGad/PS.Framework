@@ -2,17 +2,11 @@
 {
     public static class Routes
     {
-        #region Static members
-
         public static Route Empty { get; }
 
         public static Route Wildcard { get; }
 
         public static Route WildcardRecursive { get; }
-
-        #endregion
-
-        #region Constructors
 
         static Routes()
         {
@@ -20,7 +14,5 @@
             Wildcard = Route.Create(Route.Wildcard);
             WildcardRecursive = Route.Create(Route.WildcardRecursive);
         }
-
-        #endregion
     }
 }

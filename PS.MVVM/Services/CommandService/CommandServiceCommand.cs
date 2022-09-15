@@ -19,22 +19,12 @@ namespace PS.MVVM.Services.CommandService
         private object _toolTipImage;
         private string _toolTipTitle;
 
-        #region Constructors
-
         protected CommandServiceCommand()
         {
             Commands = new ObservableCollection<CommandServiceCommand>();
         }
 
-        #endregion
-
-        #region Properties
-
         public ObservableCollection<CommandServiceCommand> Commands { get; }
-
-        #endregion
-
-        #region IExtendedToolTipAware Members
 
         public string ToolTipDescription
         {
@@ -102,10 +92,6 @@ namespace PS.MVVM.Services.CommandService
             }
         }
 
-        #endregion
-
-        #region ILargeIconAware Members
-
         public object LargeIcon
         {
             get { return _largeIcon; }
@@ -117,10 +103,6 @@ namespace PS.MVVM.Services.CommandService
             }
         }
 
-        #endregion
-
-        #region ISmallIconAware Members
-
         public object SmallIcon
         {
             get { return _smallIcon; }
@@ -131,7 +113,5 @@ namespace PS.MVVM.Services.CommandService
                 OnPropertyChanged();
             }
         }
-
-        #endregion
     }
 }

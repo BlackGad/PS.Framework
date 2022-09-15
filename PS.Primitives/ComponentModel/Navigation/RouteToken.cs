@@ -7,8 +7,6 @@
         public readonly string TokenString;
         public readonly string Value;
 
-        #region Constructors
-
         public RouteToken(string value, int hash, int token)
         {
             Value = value;
@@ -16,10 +14,6 @@
             Token = token;
             TokenString = ";" + token + ";";
         }
-
-        #endregion
-
-        #region Override members
 
         public override int GetHashCode()
         {
@@ -30,7 +24,5 @@
         {
             return $"{Token} {Value}";
         }
-
-        #endregion
     }
 }

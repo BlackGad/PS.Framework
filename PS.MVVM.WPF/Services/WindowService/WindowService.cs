@@ -9,8 +9,6 @@ namespace PS.MVVM.Services.WindowService
 {
     public abstract class WindowService : IWindowService
     {
-        #region IWindowService Members
-
         TViewModel IWindowService.Show<TViewModel>(TViewModel viewModel, string region)
         {
             viewModel = (TViewModel)(viewModel as object ?? Resolve(typeof(TViewModel)));
@@ -62,10 +60,6 @@ namespace PS.MVVM.Services.WindowService
 
             return result.Task;
         }
-
-        #endregion
-
-        #region Members
 
         protected virtual Window CreateWindow()
         {
@@ -123,11 +117,7 @@ namespace PS.MVVM.Services.WindowService
                 window.ContentTemplate = payloadTemplateResourceDescriptor.GetResource<DataTemplate>();
             }
 
-            
-
             return window;
         }
-
-        #endregion
     }
 }

@@ -6,10 +6,6 @@
 
     public interface IIDAware<out T>
     {
-        #region Properties
-
         T Id { get; }
-
-        #endregion
     }
 }

@@ -7,8 +7,6 @@ namespace PS.IoC.InternalExtensions
 {
     internal static class TypeExtensions
     {
-        #region Static members
-
         public static Type[] GetAssemblyTypes(this Assembly assembly)
         {
             if (assembly == null) throw new ArgumentNullException(nameof(assembly));
@@ -26,7 +24,5 @@ namespace PS.IoC.InternalExtensions
         {
             return candidateType.GetTypeInfo().ImplementedInterfaces.Concat(candidateType.Traverse(t => t.GetTypeInfo().BaseType));
         }
-
-        #endregion
     }
 }

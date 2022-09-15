@@ -5,8 +5,6 @@ namespace PS.WPF.Patterns.Command
 {
     public class UICommandCollection : ObservableCollection<IUICommand>
     {
-        #region Constructors
-
         public UICommandCollection()
         {
         }
@@ -15,7 +13,5 @@ namespace PS.WPF.Patterns.Command
             : base(collection)
         {
         }
-
-        #endregion
     }
 }

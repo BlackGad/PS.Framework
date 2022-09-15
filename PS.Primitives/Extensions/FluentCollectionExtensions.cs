@@ -5,8 +5,6 @@ namespace PS.Extensions
 {
     public static class FluentCollectionExtensions
     {
-        #region Static members
-
         public static TElement Put<T, TElement>(this ICollection<T> list, TElement element)
             where TElement : T
         {
@@ -23,7 +21,5 @@ namespace PS.Extensions
 
             return list;
         }
-
-        #endregion
     }
 }

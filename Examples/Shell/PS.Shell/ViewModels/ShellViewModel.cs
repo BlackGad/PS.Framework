@@ -13,17 +13,11 @@ namespace PS.Shell.ViewModels
     {
         private object _content;
 
-        #region Constructors
-
         public ShellViewModel(IExamplesService examplesService)
         {
             ExamplesService = examplesService ?? throw new ArgumentNullException(nameof(examplesService));
             Title = App.GetApplicationTitle();
         }
-
-        #endregion
-
-        #region Properties
 
         public object Content
         {
@@ -33,12 +27,6 @@ namespace PS.Shell.ViewModels
 
         public IExamplesService ExamplesService { get; }
 
-        #endregion
-
-        #region ITitleAware Members
-
         public string Title { get; }
-
-        #endregion
     }
 }

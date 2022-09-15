@@ -8,8 +8,6 @@ namespace PS.Extensions
 {
     public static class EqualityExtensions
     {
-        #region Static members
-
         public static bool AreDiffers(this object source, object target)
         {
             return !AreEqual(source, target);
@@ -72,7 +70,5 @@ namespace PS.Extensions
 
             return Equals(source, target);
         }
-
-        #endregion
     }
 }

@@ -15,8 +15,6 @@ namespace PS.ComponentModel.Dynamic
         private readonly Dictionary<int, WeakReference> _targetsRegistry;
         private readonly Action<TObject, THandler> _unsubscribeAction;
 
-        #region Constructors
-
         public DynamicSubscription(Action<TObject, THandler> subscribeAction, Action<TObject, THandler> unsubscribeAction)
         {
             _subscribeAction = subscribeAction ?? throw new ArgumentNullException("subscribeAction");
@@ -24,10 +22,6 @@ namespace PS.ComponentModel.Dynamic
             _table = new ConditionalWeakTable<TObject, THandler>();
             _targetsRegistry = new Dictionary<int, WeakReference>();
         }
-
-        #endregion
-
-        #region Members
 
         public bool Subscribe(object target, THandler handler)
         {
@@ -68,7 +62,5 @@ namespace PS.ComponentModel.Dynamic
 
             _targetsRegistry.Clear();
         }
-
-        #endregion
     }
 }

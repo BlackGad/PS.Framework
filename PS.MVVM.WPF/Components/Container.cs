@@ -5,17 +5,11 @@ namespace PS.MVVM.Components
 {
     public static class Container
     {
-        #region Property definitions
-
         public static readonly DependencyProperty AdapterProperty =
             DependencyProperty.RegisterAttached("Adapter",
                                                 typeof(Adapter),
                                                 typeof(Container),
                                                 new PropertyMetadata(OnAdapterChanged));
-
-        #endregion
-
-        #region Static members
 
         public static Adapter GetAdapter(DependencyObject element)
         {
@@ -34,7 +28,5 @@ namespace PS.MVVM.Components
             if (e.OldValue is Adapter oldAdapter) oldAdapter.Detach(d);
             if (e.NewValue is Adapter newAdapter) newAdapter.Attach(d);
         }
-
-        #endregion
     }
 }

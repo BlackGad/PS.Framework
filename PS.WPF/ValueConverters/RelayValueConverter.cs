@@ -10,8 +10,6 @@ namespace PS.WPF.ValueConverters
         private Func<object, Type, object, CultureInfo, object> _convertFunc;
         private IValueConverter _instance;
 
-        #region Constructors
-
         public RelayValueConverter(Func<object, Type, object, CultureInfo, object> convertFunc = null,
                                    Func<object, Type, object, CultureInfo, object> convertBackFunc = null)
         {
@@ -22,10 +20,6 @@ namespace PS.WPF.ValueConverters
         public RelayValueConverter()
         {
         }
-
-        #endregion
-
-        #region Properties
 
         public IValueConverter Instance
         {
@@ -49,10 +43,6 @@ namespace PS.WPF.ValueConverters
 
         public object Parameter { get; set; }
 
-        #endregion
-
-        #region IValueConverter Members
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (_convertFunc == null) throw new NotSupportedException();
@@ -64,7 +54,5 @@ namespace PS.WPF.ValueConverters
             if (_convertBackFunc == null) throw new NotSupportedException();
             return _convertBackFunc(value, targetType, parameter ?? Parameter, culture);
         }
-
-        #endregion
     }
 }

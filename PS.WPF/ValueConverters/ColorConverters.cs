@@ -6,18 +6,12 @@ namespace PS.WPF.ValueConverters
 {
     public static class ColorConverters
     {
-        #region Constants
-
         public static readonly RelayValueConverter ContrastForeground;
         public static readonly RelayValueConverter Generic;
         public static readonly RelayValueConverter Invert;
         public static readonly RelayValueConverter Opacity;
         public static readonly RelayValueConverter Shade;
         public static readonly RelayValueConverter Tint;
-
-        #endregion
-
-        #region Static members
 
         public static Color ApplyInvert(Color color)
         {
@@ -52,7 +46,7 @@ namespace PS.WPF.ValueConverters
         }
 
         /// <summary>
-        ///     https://www.w3.org/TR/AERT/#color-contrast
+        /// https://www.w3.org/TR/AERT/#color-contrast
         /// </summary>
         private static double CalculateBrightness(Color color)
         {
@@ -60,7 +54,7 @@ namespace PS.WPF.ValueConverters
         }
 
         /// <summary>
-        ///     https://www.w3.org/TR/WCAG20-TECHS/G17.html
+        /// https://www.w3.org/TR/WCAG20-TECHS/G17.html
         /// </summary>
         private static double CalculateLuminance(Color color)
         {
@@ -93,10 +87,6 @@ namespace PS.WPF.ValueConverters
 
             return value;
         }
-
-        #endregion
-
-        #region Constructors
 
         static ColorConverters()
         {
@@ -177,7 +167,5 @@ namespace PS.WPF.ValueConverters
                 return PrepareTargetColor(targetColor, targetType ?? value.GetType());
             });
         }
-
-        #endregion
     }
 }

@@ -9,8 +9,6 @@ namespace PS.Shell.Models.PageService
 {
     class Example : IExample
     {
-        #region Constructors
-
         public Example(string group, string title, object viewModel, IReadOnlyList<string> log)
         {
             Title = title ?? throw new ArgumentNullException(nameof(title));
@@ -23,13 +21,12 @@ namespace PS.Shell.Models.PageService
             Children = new ObservableCollection<ISource>();
         }
 
-        #endregion
-
-        #region IExample Members
-
         public string Title { get; }
+
         public string Group { get; }
+
         public IReadOnlyList<string> Log { get; }
+
         public object ViewModel { get; }
 
         public IExample Source<T>(string folder)
@@ -72,10 +69,6 @@ namespace PS.Shell.Models.PageService
 
         public int Order { get; }
 
-        #endregion
-
-        #region Members
-
         private ISource GetRootFolder(string folder)
         {
             var parts = (folder ?? string.Empty).Split(new[] { "\\", "/" }, StringSplitOptions.RemoveEmptyEntries);
@@ -96,7 +89,5 @@ namespace PS.Shell.Models.PageService
 
             return current;
         }
-
-        #endregion
     }
 }

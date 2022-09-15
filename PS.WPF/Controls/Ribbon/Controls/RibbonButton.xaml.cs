@@ -10,8 +10,6 @@ namespace PS.WPF.Controls.Ribbon.Controls
 {
     public class RibbonButton : System.Windows.Controls.Ribbon.RibbonButton
     {
-        #region Static members
-
         private static object OnCoerceContextMenu(DependencyObject sender, object value, CoerceValueCallback originCallback)
         {
             var menu = originCallback?.Invoke(sender, value) ?? value;
@@ -24,20 +22,12 @@ namespace PS.WPF.Controls.Ribbon.Controls
             return menu;
         }
 
-        #endregion
-
-        #region Constructors
-
         static RibbonButton()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonButton), new FrameworkPropertyMetadata(typeof(RibbonButton)));
             ResourceHelper.SetDefaultStyle(typeof(RibbonButton), Resource.ControlStyle);
             ContextMenuProperty.Override(typeof(RibbonButton), coerce: OnCoerceContextMenu);
         }
-
-        #endregion
-
-        #region Override members
 
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
@@ -49,14 +39,10 @@ namespace PS.WPF.Controls.Ribbon.Controls
             }
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/Ribbon/Controls/RibbonButton.xaml", UriKind.RelativeOrAbsolute);
 
@@ -67,8 +53,6 @@ namespace PS.WPF.Controls.Ribbon.Controls
             public static readonly ResourceDescriptor ControlTemplate =
                 ResourceDescriptor.Create<ControlTemplate>(description: "Default RibbonButton control template",
                                                            resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

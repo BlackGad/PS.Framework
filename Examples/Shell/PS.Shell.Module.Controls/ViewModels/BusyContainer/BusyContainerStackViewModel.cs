@@ -18,8 +18,6 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
         private IBusyState _secondState;
         private IBusyState _thirdState;
 
-        #region Constructors
-
         public BusyContainerStackViewModel(ILogger logger)
         {
             Logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -83,10 +81,6 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
             };
         }
 
-        #endregion
-
-        #region Properties
-
         public StackBusyState Content { get; }
 
         public IBusyState FirstState
@@ -105,6 +99,7 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
         }
 
         public IList<IUICommand> FirstStateCommands { get; }
+
         public ILogger Logger { get; }
 
         public IBusyState SecondState
@@ -141,10 +136,6 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
 
         public IList<IUICommand> ThirdStateCommands { get; }
 
-        #endregion
-
-        #region Members
-
         private async Task PayloadBackgroundOperation(IBusyState state)
         {
             state.Description = "Direct payload progress";
@@ -158,7 +149,5 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
             });
             state.Description = "Direct payload progress ends";
         }
-
-        #endregion
     }
 }

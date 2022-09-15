@@ -7,17 +7,12 @@ namespace PS.WPF.ValueConverters
 {
     public static class StringConverters
     {
-        #region Constants
-
         public static readonly RelayValueConverter DisplayName;
         public static readonly RelayValueConverter EmptyWatermark;
         public static readonly RelayMultiValueConverter FirstNotEmpty;
+        public static readonly RelayValueConverter Format;
         public static readonly RelayValueConverter IsEmpty;
         public static readonly RelayValueConverter UnsetIfEmpty;
-
-        #endregion
-
-        #region Constructors
 
         static StringConverters()
         {
@@ -61,8 +56,12 @@ namespace PS.WPF.ValueConverters
                 var result = objects.Enumerate().FirstOrDefault(o => !string.IsNullOrEmpty(o.GetEffectiveString()));
                 return result;
             });
-        }
 
-        #endregion
+            Format = new RelayValueConverter((value, targetType, parameter, culture) =>
+            {
+                var formatString = parameter?.ToString() ?? "{0}";
+                return string.Format(formatString, value);
+            });
+        }
     }
 }

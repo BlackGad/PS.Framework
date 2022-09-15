@@ -9,8 +9,6 @@ namespace PS.ComponentModel.DeepTracker.Extensions
 {
     public static class TrackRouteConfigurationExtensions
     {
-        #region Static members
-
         public static ITrackRouteConfiguration Exclude(this ITrackRouteConfiguration configuration, params Route[] routes)
         {
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
@@ -125,7 +123,5 @@ namespace PS.ComponentModel.DeepTracker.Extensions
             configuration.Include(new RelayInclude(includeFunc));
             return configuration;
         }
-
-        #endregion
     }
 }

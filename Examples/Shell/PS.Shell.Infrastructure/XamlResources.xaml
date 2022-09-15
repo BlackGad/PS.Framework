@@ -26,13 +26,16 @@
         <Setter Property="SizeToContent" Value="WidthAndHeight" />
         <Setter Property="Title" Value="Notification" />
         <Style.Triggers>
-            <DataTrigger Binding="{Binding Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ITitleAware}}" Value="{m:Boolean True}">
+            <DataTrigger
+                Binding="{Binding Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ITitleAware}}"
+                Value="{m:Boolean True}">
                 <Setter Property="Title" Value="{Binding Title}" />
             </DataTrigger>
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="{x:Static infrastructure:XamlResources.ConfirmationStyle}" BasedOn="{StaticResource {x:Static infrastructure:XamlResources.NotificationStyle}}" TargetType="ps:Window">
+    <Style x:Key="{x:Static infrastructure:XamlResources.ConfirmationStyle}"
+           BasedOn="{StaticResource {x:Static infrastructure:XamlResources.NotificationStyle}}" TargetType="ps:Window">
         <Setter Property="Commands">
             <Setter.Value>
                 <ps:UICommandCollection>
@@ -48,7 +51,9 @@
         <Setter Property="SizeToContent" Value="WidthAndHeight" />
         <Setter Property="Title" Value="Confirmation" />
         <Style.Triggers>
-            <DataTrigger Binding="{Binding Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ITitleAware}}" Value="{m:Boolean True}">
+            <DataTrigger
+                Binding="{Binding Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ITitleAware}}"
+                Value="{m:Boolean True}">
                 <Setter Property="Title" Value="{Binding Title}" />
             </DataTrigger>
         </Style.Triggers>

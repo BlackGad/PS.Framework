@@ -7,8 +7,6 @@ namespace PS.WPF.Controls
 {
     public class GroupExpander : Expander
     {
-        #region Property definitions
-
         public static readonly DependencyProperty HeaderPaddingProperty =
             DependencyProperty.Register(nameof(HeaderPadding),
                                         typeof(Thickness),
@@ -21,19 +19,11 @@ namespace PS.WPF.Controls
                                         typeof(GroupExpander),
                                         new FrameworkPropertyMetadata(true));
 
-        #endregion
-
-        #region Constructors
-
         static GroupExpander()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GroupExpander), new FrameworkPropertyMetadata(typeof(GroupExpander)));
             ResourceHelper.SetDefaultStyle(typeof(GroupExpander), Resource.ControlStyle);
         }
-
-        #endregion
-
-        #region Properties
 
         public Thickness HeaderPadding
         {
@@ -47,14 +37,10 @@ namespace PS.WPF.Controls
             set { SetValue(ShowIndentProperty, value); }
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/GroupExpander.xaml", UriKind.RelativeOrAbsolute);
 
@@ -73,8 +59,6 @@ namespace PS.WPF.Controls
             public static readonly ResourceDescriptor ToggleButtonTemplate =
                 ResourceDescriptor.Create<ControlTemplate>(description: "Default ToggleButton control template",
                                                            resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

@@ -9,13 +9,7 @@ namespace PS.WPF.Extensions
 {
     public static class VisualTreeExtensions
     {
-        #region Property definitions
-
         private static readonly PropertyInfo InheritanceContextProperty;
-
-        #endregion
-
-        #region Static members
 
         public static DependencyObject FindVisualParentOf(this DependencyObject source, Type type)
         {
@@ -57,17 +51,17 @@ namespace PS.WPF.Extensions
             return null;
         }
 
+        public static bool HasVisualParent(this DependencyObject source, DependencyObject target)
+        {
+            var traverse = target.Traverse(e => e.GetVisualParent(), e => !e.AreEqual(source));
+            return traverse.LastOrDefault().AreEqual(source);
+        }
+
         public static bool HasVisualParentOf(this DependencyObject source, Type type)
         {
             if (type == null) return false;
             var traverse = source.Traverse(e => e.GetVisualParent(), e => !type.IsInstanceOfType(e));
             return type.IsInstanceOfType(traverse.LastOrDefault());
-        }
-
-        public static bool HasVisualParent(this DependencyObject source, DependencyObject target)
-        {
-            var traverse = target.Traverse(e => e.GetVisualParent(), e => !e.AreEqual(source));
-            return traverse.LastOrDefault().AreEqual(source);
         }
 
         public static DependencyObject TraverseVisualParentWhere(this DependencyObject source, Func<DependencyObject, bool> func)
@@ -79,10 +73,6 @@ namespace PS.WPF.Extensions
             return null;
         }
 
-        #endregion
-
-        #region Constructors
-
         static VisualTreeExtensions()
         {
             InheritanceContextProperty = typeof(Freezable).GetProperty("InheritanceContext",
@@ -90,7 +80,5 @@ namespace PS.WPF.Extensions
                                                                        BindingFlags.Instance |
                                                                        BindingFlags.FlattenHierarchy);
         }
-
-        #endregion
     }
 }

@@ -13,8 +13,6 @@ namespace PS.WPF.Extensions
 {
     public static class FlowDocumentExtensions
     {
-        #region Static members
-
         public static FlowDocument CreateDocument(this object content, FontFamily fontFamily, double fontSize)
         {
             var document = content as FlowDocument;
@@ -177,7 +175,5 @@ namespace PS.WPF.Extensions
             document.Blocks.Add(block);
             return document;
         }
-
-        #endregion
     }
 }

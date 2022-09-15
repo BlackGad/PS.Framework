@@ -6,13 +6,7 @@ namespace PS
 {
     public abstract class BaseNotifyPropertyChanged : INotifyPropertyChanged
     {
-        #region INotifyPropertyChanged Members
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
-
-        #region Members
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -26,7 +20,5 @@ namespace PS
             OnPropertyChanged(propertyName);
             return true;
         }
-
-        #endregion
     }
 }

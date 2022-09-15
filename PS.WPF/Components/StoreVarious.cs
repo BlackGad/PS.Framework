@@ -4,8 +4,6 @@ namespace PS.WPF.Components
 {
     public static class StoreVarious
     {
-        #region Property definitions
-
         public static readonly DependencyProperty IsInvalidProperty =
             DependencyProperty.RegisterAttached("IsInvalid",
                                                 typeof(bool),
@@ -23,10 +21,6 @@ namespace PS.WPF.Components
                                                 typeof(string),
                                                 typeof(StoreVarious),
                                                 new PropertyMetadata(default(string)));
-
-        #endregion
-
-        #region Static members
 
         public static bool GetIsInvalid(DependencyObject element)
         {
@@ -69,7 +63,5 @@ namespace PS.WPF.Components
             var newState = (bool)e.NewValue;
             SetIsInvalid(d, !newState);
         }
-
-        #endregion
     }
 }

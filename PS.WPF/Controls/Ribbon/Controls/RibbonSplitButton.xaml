@@ -11,34 +11,47 @@
         <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Ribbon/RibbonResizeThumbs.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <ControlTemplate x:Key="{x:Static controls:RibbonSplitButton+Resource.ControlTemplate}" TargetType="controls:RibbonSplitButton">
+    <ControlTemplate x:Key="{x:Static controls:RibbonSplitButton+Resource.ControlTemplate}"
+                     TargetType="controls:RibbonSplitButton">
         <Grid x:Name="Layout"
               Background="Transparent"
               SnapsToDevicePixels="True">
             <components:StoreBrush.Background>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.Background>
             <components:StoreBrush.BorderBrush>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.BorderBrush>
             <components:StoreBrush.MouseOver>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource Self}" Path="(components:StoreBrush.Background)" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.1}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource Self}" Path="(components:StoreBrush.Background)"
+                             Converter="{x:Static valueConverters:ColorConverters.Shade}"
+                             ConverterParameter="{markup:Double 0.1}" />
                 </PriorityBinding>
             </components:StoreBrush.MouseOver>
             <components:StoreBrush.MouseOverBorder>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource Self}" Path="(components:StoreBrush.BorderBrush)" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.1}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBackground"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBackground"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource Self}" Path="(components:StoreBrush.BorderBrush)"
+                             Converter="{x:Static valueConverters:ColorConverters.Shade}"
+                             ConverterParameter="{markup:Double 0.1}" />
                 </PriorityBinding>
             </components:StoreBrush.MouseOverBorder>
 
@@ -111,7 +124,8 @@
         </Grid>
         <ControlTemplate.Triggers>
 
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.ImageSize}" Value="Large">
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.ImageSize}"
+                         Value="Large">
                 <Setter Property="Height" Value="66" />
                 <Setter Property="MinWidth" Value="44" />
                 <Setter TargetName="PART_HeaderButton" Property="ControlSizeDefinition">
@@ -120,13 +134,16 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.ImageSize}" Value="Small">
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.ImageSize}"
+                         Value="Small">
                 <Setter Property="Height" Value="22.0" />
             </DataTrigger>
 
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.ImageSize}" Value="Large" />
+                    <Condition
+                        Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.ImageSize}"
+                        Value="Large" />
                     <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=HasItems}" Value="True" />
                 </MultiDataTrigger.Conditions>
                 <Setter TargetName="PART_HeaderButton" Property="ControlSizeDefinition">
@@ -148,7 +165,9 @@
 
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.ImageSize}" Value="Small" />
+                    <Condition
+                        Binding="{Binding RelativeSource={RelativeSource Self}, Path=ControlSizeDefinition.ImageSize}"
+                        Value="Small" />
                     <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=HasItems}" Value="True" />
                 </MultiDataTrigger.Conditions>
                 <Setter TargetName="PART_HeaderButton" Property="ControlSizeDefinition">
@@ -194,7 +213,8 @@
                 <RibbonControlSizeDefinition ImageSize="Small" IsLabelVisible="False" />
             </Setter.Value>
         </Setter>
-        <Setter Property="Template" Value="{StaticResource {x:Static controls:RibbonSplitButton+Resource.ControlTemplate}}" />
+        <Setter Property="Template"
+                Value="{StaticResource {x:Static controls:RibbonSplitButton+Resource.ControlTemplate}}" />
         <Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
         <Setter Property="ToolTipService.InitialShowDelay" Value="900" />
         <Setter Property="ToolTipService.ShowDuration" Value="20000" />

@@ -6,22 +6,14 @@ namespace PS.ComponentModel.Navigation
 {
     internal class RouteTokenSequenceBuilder
     {
-        #region Constants
-
         public static readonly char EscapeSymbol = ';';
         private static readonly RouteToken Wildcard;
         private static readonly RouteToken WildcardRecursive;
-
-        #endregion
-
-        #region Static members
 
         public static int TokenCountInSequence(string sequence)
         {
             return sequence.Count(c => c == EscapeSymbol) / 2;
         }
-
-        #endregion
 
         private readonly List<int> _hashes;
         private readonly List<RouteToken> _records;
@@ -29,8 +21,6 @@ namespace PS.ComponentModel.Navigation
         private readonly List<string> _regexPatternTokens;
         private int? _recursiveEnd;
         private int? _recursiveStart;
-
-        #region Constructors
 
         static RouteTokenSequenceBuilder()
         {
@@ -45,10 +35,6 @@ namespace PS.ComponentModel.Navigation
             _records = new List<RouteToken>();
             _hashes = new List<int>();
         }
-
-        #endregion
-
-        #region Members
 
         public void Add(RouteToken record)
         {
@@ -90,7 +76,5 @@ namespace PS.ComponentModel.Navigation
                                           regexInput,
                                           regexPattern);
         }
-
-        #endregion
     }
 }

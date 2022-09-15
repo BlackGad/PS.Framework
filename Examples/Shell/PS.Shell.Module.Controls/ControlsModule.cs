@@ -15,8 +15,6 @@ namespace PS.Shell.Module.Controls
 {
     public class ControlsModule : Autofac.Module
     {
-        #region Override members
-
         protected override void AttachToComponentRegistration(IComponentRegistryBuilder componentRegistry, IComponentRegistration registration)
         {
             registration.HandleActivation<IViewResolverService>(ViewResolverServiceActivation);
@@ -28,15 +26,19 @@ namespace PS.Shell.Module.Controls
             builder.RegisterAssemblyTypesWithAttributes(ThisAssembly);
         }
 
-        #endregion
-
-        #region Members
-
         private void ControlsServiceActivation(ILifetimeScope scope, IExamplesService service)
         {
             service.Add<TextBoxViewModel>("Controls", "TextBox")
                    .Source<TextBoxViewModel>(@"ViewModels")
                    .XamlPage<TextBoxView>(@"Views");
+            
+            service.Add<SuggestListViewViewModel>("Controls", "SuggestListView")
+                   .Source<SuggestListViewViewModel>(@"ViewModels")
+                   .XamlPage<SuggestListViewView>(@"Views");
+            
+            service.Add<AutoCompleteBoxViewModel>("Controls", "AutoCompleteBoxView")
+                   .Source<AutoCompleteBoxViewModel>(@"ViewModels")
+                   .XamlPage<AutoCompleteBoxView>(@"Views");
 
             service.Add<DecimalTextBoxViewModel>("Controls", "DecimalTextBox")
                    .Source<DecimalTextBoxViewModel>(@"ViewModels")
@@ -69,6 +71,8 @@ namespace PS.Shell.Module.Controls
         private void ViewResolverServiceActivation(ILifetimeScope scope, IViewResolverService service)
         {
             service.AssociateTemplate<TextBoxViewModel>(scope.Resolve<IDataTemplate<TextBoxView>>())
+                   .AssociateTemplate<AutoCompleteBoxViewModel>(scope.Resolve<IDataTemplate<AutoCompleteBoxView>>())
+                   .AssociateTemplate<SuggestListViewViewModel>(scope.Resolve<IDataTemplate<SuggestListViewView>>())
                    .AssociateTemplate<DecimalTextBoxViewModel>(scope.Resolve<IDataTemplate<DecimalTextBoxView>>())
                    .AssociateTemplate<ButtonsViewModel>(scope.Resolve<IDataTemplate<ButtonsView>>())
                    .AssociateTemplate<BusyContainerSimpleViewModel>(scope.Resolve<IDataTemplate<BusyContainerSimpleView>>())
@@ -76,7 +80,5 @@ namespace PS.Shell.Module.Controls
                    .AssociateTemplate<BusyContainerStackViewModel>(scope.Resolve<IDataTemplate<BusyContainerStackView>>())
                    .AssociateTemplate<CancelableProcessCommandViewModel>(scope.Resolve<IDataTemplate<CancelableProcessCommandView>>());
         }
-
-        #endregion
     }
 }

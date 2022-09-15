@@ -23,19 +23,15 @@ namespace PS.WPF.Commands
         private bool _isDefault;
         private bool _isVisible;
         private int _order;
-        private string _title;
 
-        #region Constructors
+        private bool _respectWindowValidationErrors;
+        private string _title;
 
         public CloseDialogCommand()
         {
             Title = "Close";
             IsVisible = true;
         }
-
-        #endregion
-
-        #region Properties
 
         public bool? DialogResult
         {
@@ -48,9 +44,16 @@ namespace PS.WPF.Commands
             }
         }
 
-        #endregion
-
-        #region IIsCancelAware Members
+        public bool RespectWindowValidationErrors
+        {
+            get { return _respectWindowValidationErrors; }
+            set
+            {
+                if (_respectWindowValidationErrors.AreEqual(value)) return;
+                _respectWindowValidationErrors = value;
+                OnPropertyChanged();
+            }
+        }
 
         public bool IsCancel
         {
@@ -63,10 +66,6 @@ namespace PS.WPF.Commands
             }
         }
 
-        #endregion
-
-        #region IIsDefaultAware Members
-
         public bool IsDefault
         {
             get { return _isDefault; }
@@ -77,10 +76,6 @@ namespace PS.WPF.Commands
                 OnPropertyChanged();
             }
         }
-
-        #endregion
-
-        #region IUICommand Members
 
         public event EventHandler CanExecuteChanged;
 
@@ -164,19 +159,6 @@ namespace PS.WPF.Commands
             }
         }
 
-        public bool RespectWindowValidationErrors
-        {
-            get { return _respectWindowValidationErrors; }
-            set
-            {
-                if (_respectWindowValidationErrors.AreEqual(value)) return;
-                _respectWindowValidationErrors = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private bool _respectWindowValidationErrors;
-
         public bool CanExecute(object parameter)
         {
             var element = parameter as FrameworkElement;
@@ -212,15 +194,9 @@ namespace PS.WPF.Commands
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        #endregion
-
-        #region Members
-
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        #endregion
     }
 }

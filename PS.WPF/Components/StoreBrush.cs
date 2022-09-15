@@ -7,8 +7,6 @@ namespace PS.WPF.Components
 {
     public static class StoreBrush
     {
-        #region Property definitions
-
         public static readonly DependencyProperty AccentProperty =
             DependencyProperty.RegisterAttached("Accent",
                                                 typeof(Brush),
@@ -86,10 +84,6 @@ namespace PS.WPF.Components
                                                 typeof(Brush),
                                                 typeof(StoreBrush),
                                                 new PropertyMetadata(default(Brush)));
-
-        #endregion
-
-        #region Static members
 
         public static Brush GetAccent(DependencyObject element)
         {
@@ -220,7 +214,5 @@ namespace PS.WPF.Components
         {
             element.SetValue(SelectedForegroundProperty, value);
         }
-
-        #endregion
     }
 }

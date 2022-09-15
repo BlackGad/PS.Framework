@@ -153,14 +153,16 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="MouseOver">
                         <Storyboard>
-                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Shape.Fill).Color">
+                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                          Storyboard.TargetProperty="(Shape.Fill).Color">
                                 <EasingColorKeyFrame KeyTime="0" Value="{theme:Color MainHigh}" />
                             </ColorAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualState>
                     <VisualState x:Name="Pressed">
                         <Storyboard>
-                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Shape.Fill).Color">
+                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                          Storyboard.TargetProperty="(Shape.Fill).Color">
                                 <EasingColorKeyFrame KeyTime="0" Value="{theme:Color MainLow}" />
                             </ColorAnimationUsingKeyFrames>
                         </Storyboard>
@@ -178,7 +180,8 @@
                 <VisualStateGroup x:Name="CheckStates">
                     <VisualState x:Name="Checked">
                         <Storyboard>
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckMark" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckMark"
+                                                           Storyboard.TargetProperty="(UIElement.Visibility)">
                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
                             </ObjectAnimationUsingKeyFrames>
                         </Storyboard>
@@ -200,9 +203,9 @@
         <Setter Property="Template" Value="{StaticResource {x:Static styles:Common.RadioButtonTemplate}}" />
     </Style>
 
-    
 
-    <ControlTemplate x:Key="{x:Static styles:Common.FlatDataGridColumnHeaderTemplate}" TargetType="{x:Type DataGridColumnHeader}">
+    <ControlTemplate x:Key="{x:Static styles:Common.FlatDataGridColumnHeaderTemplate}"
+                     TargetType="{x:Type DataGridColumnHeader}">
         <Grid Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -255,7 +258,9 @@
 
         <ControlTemplate.Triggers>
 
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Content, Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type system:String}}" Value="True">
+            <DataTrigger
+                Binding="{Binding RelativeSource={RelativeSource Self}, Path=Content, Converter={x:Static valueConverters:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type system:String}}"
+                Value="True">
                 <Setter TargetName="DefaultContentContentPresenter" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="TextContentTextBlock" Property="Visibility" Value="Visible" />
             </DataTrigger>
@@ -314,7 +319,8 @@
         <Setter Property="CanUserResizeRows" Value="False" />
         <Setter Property="CanUserSortColumns" Value="True" />
         <Setter Property="CellStyle" Value="{StaticResource {x:Static styles:Common.FlatDataGridCellStyle}}" />
-        <Setter Property="ColumnHeaderStyle" Value="{StaticResource {x:Static styles:Common.FlatDataGridColumnHeaderStyle}}" />
+        <Setter Property="ColumnHeaderStyle"
+                Value="{StaticResource {x:Static styles:Common.FlatDataGridColumnHeaderStyle}}" />
         <Setter Property="HorizontalGridLinesBrush" Value="{theme:Brush MainBorder, Opacity=O25}" />
         <Setter Property="RowHeaderWidth" Value="0" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />

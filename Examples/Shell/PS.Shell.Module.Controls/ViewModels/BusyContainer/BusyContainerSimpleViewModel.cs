@@ -12,16 +12,10 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
         private string _content;
         private bool _isBusy;
 
-        #region Constructors
-
         public BusyContainerSimpleViewModel(ILogger logger)
         {
             Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
-
-        #endregion
-
-        #region Properties
 
         public string Content
         {
@@ -36,7 +30,5 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
         }
 
         public ILogger Logger { get; }
-
-        #endregion
     }
 }

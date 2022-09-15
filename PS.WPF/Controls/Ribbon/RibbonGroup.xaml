@@ -8,32 +8,38 @@
 
     <Geometry x:Key="DropDownGeometry">M 0 0 L 2.5 3 L 5 0 Z</Geometry>
 
-    <ControlTemplate x:Key="{x:Static controls:RibbonGroup+Resource.CollapsedControlTemplate}" TargetType="controls:RibbonGroup">
-        <Grid x:Name="Layout" Background="{Binding RelativeSource={RelativeSource Self}, Path=(components:StoreBrush.Background)}">
+    <ControlTemplate x:Key="{x:Static controls:RibbonGroup+Resource.CollapsedControlTemplate}"
+                     TargetType="controls:RibbonGroup">
+        <Grid x:Name="Layout"
+              Background="{Binding RelativeSource={RelativeSource Self}, Path=(components:StoreBrush.Background)}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <components:StoreBrush.Background>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.Background>
             <components:StoreBrush.BorderBrush>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.BorderBrush>
             <controls1:RibbonToggleButton x:Name="PART_ToggleButton"
-                                         Margin="{TemplateBinding Padding}"
-                                         Background="{TemplateBinding Background}"
-                                         IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                         Label="{TemplateBinding Header}"
-                                         LargeImageSource="{TemplateBinding LargeImageSource}"
-                                         RibbonTwoLineText.PathData="{StaticResource DropDownGeometry}"
-                                         SmallImageSource="{TemplateBinding SmallImageSource}">
+                                          Margin="{TemplateBinding Padding}"
+                                          Background="{TemplateBinding Background}"
+                                          IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                          Label="{TemplateBinding Header}"
+                                          LargeImageSource="{TemplateBinding LargeImageSource}"
+                                          RibbonTwoLineText.PathData="{StaticResource DropDownGeometry}"
+                                          SmallImageSource="{TemplateBinding SmallImageSource}">
                 <controls1:RibbonToggleButton.ControlSizeDefinition>
                     <RibbonControlSizeDefinition ImageSize="Large" IsLabelVisible="True" />
                 </controls1:RibbonToggleButton.ControlSizeDefinition>
@@ -88,7 +94,8 @@
         </Grid>
         <ControlTemplate.Triggers>
             <DataTrigger Binding="{Binding Path=Background, RelativeSource={RelativeSource Self}}" Value="Transparent">
-                <Setter TargetName="PopupBorder" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Ribbon.Background}" />
+                <Setter TargetName="PopupBorder" Property="Background"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Ribbon.Background}" />
             </DataTrigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="ItemsPresenterLayout" Property="Opacity" Value="0.5" />
@@ -113,17 +120,22 @@
     </ControlTemplate>
 
     <ControlTemplate x:Key="{x:Static controls:RibbonGroup+Resource.ControlTemplate}" TargetType="controls:RibbonGroup">
-        <Grid x:Name="Layout" Background="{Binding RelativeSource={RelativeSource Self}, Path=(components:StoreBrush.Background)}">
+        <Grid x:Name="Layout"
+              Background="{Binding RelativeSource={RelativeSource Self}, Path=(components:StoreBrush.Background)}">
             <components:StoreBrush.Background>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.Background>
             <components:StoreBrush.BorderBrush>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.BorderBrush>
             <Grid.RowDefinitions>
@@ -179,7 +191,8 @@
         <Setter Property="ToolTipService.ShowDuration" Value="20000" />
         <Style.Triggers>
             <Trigger Property="IsCollapsed" Value="True">
-                <Setter Property="Template" Value="{StaticResource {x:Static controls:RibbonGroup+Resource.CollapsedControlTemplate}}" />
+                <Setter Property="Template"
+                        Value="{StaticResource {x:Static controls:RibbonGroup+Resource.CollapsedControlTemplate}}" />
             </Trigger>
         </Style.Triggers>
     </Style>

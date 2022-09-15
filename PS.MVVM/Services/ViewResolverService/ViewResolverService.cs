@@ -10,17 +10,11 @@ namespace PS.MVVM.Services
         private readonly object _defaultRegion;
         private readonly ObjectsStorage<object, ViewAssociationBuilder> _regionAssociationBuilders;
 
-        #region Constructors
-
         public ViewResolverService()
         {
             _regionAssociationBuilders = new ObjectsStorage<object, ViewAssociationBuilder>(region => new ViewAssociationBuilder(region));
             _defaultRegion = new object();
         }
-
-        #endregion
-
-        #region IViewResolverService Members
 
         public IViewAssociationBuilder Associate(Type consumerServiceType, Type viewModelType, object payload)
         {
@@ -44,7 +38,5 @@ namespace PS.MVVM.Services
         {
             return _regionAssociationBuilders[region ?? _defaultRegion];
         }
-
-        #endregion
     }
 }

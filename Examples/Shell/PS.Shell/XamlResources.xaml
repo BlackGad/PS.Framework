@@ -14,7 +14,9 @@
         <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
         <Setter Property="TextOptions.TextRenderingMode" Value="Aliased" />
         <Style.Triggers>
-            <DataTrigger Binding="{Binding Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ITitleAware}}" Value="{m:Boolean True}">
+            <DataTrigger
+                Binding="{Binding Converter={x:Static ps:ObjectConverters.AssignableFrom}, ConverterParameter={x:Type aware:ITitleAware}}"
+                Value="{m:Boolean True}">
                 <Setter Property="Title" Value="{Binding Title}" />
             </DataTrigger>
         </Style.Triggers>

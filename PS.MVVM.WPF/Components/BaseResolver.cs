@@ -11,8 +11,6 @@ namespace PS.MVVM.Components
     public abstract class BaseResolver<TService> : MarkupExtension
         where TService : class
     {
-        #region Static members
-
         protected static string FormatServiceErrorMessage(DependencyProperty property)
         {
             var message = $"Could not resolve {typeof(TService).Name}. To fix this you can: " +
@@ -22,22 +20,14 @@ namespace PS.MVVM.Components
             return message;
         }
 
-        #endregion
-
         private TService _resolver;
         private ResolverServiceSource _resolverSource;
-
-        #region Constructors
 
         protected BaseResolver()
         {
             var globalService = GlobalServices.Get<TService>();
             ResolverSource = globalService == null ? ResolverServiceSource.Ancestor : ResolverServiceSource.Global;
         }
-
-        #endregion
-
-        #region Properties
 
         public TService Resolver
         {
@@ -60,10 +50,6 @@ namespace PS.MVVM.Components
                 if (_resolverSource != ResolverServiceSource.Direct) Resolver = null;
             }
         }
-
-        #endregion
-
-        #region Members
 
         protected TService GetService(object targetObject, DependencyProperty resolverServiceProperty)
         {
@@ -88,7 +74,5 @@ namespace PS.MVVM.Components
                     throw new ArgumentOutOfRangeException();
             }
         }
-
-        #endregion
     }
 }

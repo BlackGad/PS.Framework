@@ -12,8 +12,6 @@ namespace PS.WPF.Controls.Ribbon.Controls
 {
     public class RibbonMenuItem : System.Windows.Controls.Ribbon.RibbonMenuItem
     {
-        #region Property definitions
-
         public static readonly DependencyProperty AccentProperty =
             DependencyProperty.Register(nameof(Accent),
                                         typeof(Brush),
@@ -26,11 +24,7 @@ namespace PS.WPF.Controls.Ribbon.Controls
                                         typeof(RibbonMenuItem),
                                         new FrameworkPropertyMetadata(default(int)));
 
-        #endregion
-
         private object _currentItem;
-
-        #region Constructors
 
         static RibbonMenuItem()
         {
@@ -44,10 +38,6 @@ namespace PS.WPF.Controls.Ribbon.Controls
             Loaded += OnLoaded;
         }
 
-        #endregion
-
-        #region Properties
-
         public Brush Accent
         {
             get { return (Brush)GetValue(AccentProperty); }
@@ -59,10 +49,6 @@ namespace PS.WPF.Controls.Ribbon.Controls
             get { return (int)GetValue(OrderProperty); }
             set { SetValue(OrderProperty, value); }
         }
-
-        #endregion
-
-        #region Override members
 
         public override void OnApplyTemplate()
         {
@@ -137,10 +123,6 @@ namespace PS.WPF.Controls.Ribbon.Controls
             return new RibbonMenuItem();
         }
 
-        #endregion
-
-        #region Event handlers
-
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             if (Command is IUICommand command)
@@ -149,14 +131,10 @@ namespace PS.WPF.Controls.Ribbon.Controls
             }
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/Ribbon/Controls/RibbonMenuItem.xaml", UriKind.RelativeOrAbsolute);
 
@@ -167,8 +145,6 @@ namespace PS.WPF.Controls.Ribbon.Controls
             public static readonly ResourceDescriptor ControlTemplate =
                 ResourceDescriptor.Create<ControlTemplate>(description: "Default RibbonMenuItem control template",
                                                            resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

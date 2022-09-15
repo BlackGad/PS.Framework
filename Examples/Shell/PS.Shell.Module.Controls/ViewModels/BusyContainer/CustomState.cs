@@ -7,23 +7,15 @@ namespace PS.Shell.Module.Controls.ViewModels.BusyContainer
     {
         private string _title;
 
-        #region Constructors
-
         public CustomState()
         {
             Title = "Mutable title";
         }
-
-        #endregion
-
-        #region IMutableTitleAware Members
 
         public string Title
         {
             get { return _title; }
             set { SetField(ref _title, value); }
         }
-
-        #endregion
     }
 }

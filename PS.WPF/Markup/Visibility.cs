@@ -5,8 +5,6 @@ namespace PS.WPF.Markup
     [MarkupExtensionReturnType(typeof(System.Windows.Visibility))]
     public class Visibility : BaseBoxMarkupExtension<System.Windows.Visibility>
     {
-        #region Constructors
-
         public Visibility()
         {
         }
@@ -15,7 +13,5 @@ namespace PS.WPF.Markup
             : base(value)
         {
         }
-
-        #endregion
     }
 }

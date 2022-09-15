@@ -9,18 +9,12 @@ namespace PS.Extensions
 {
     public static class TypeExtensions
     {
-        #region Constants
-
         private static readonly HashSet<TypeCode> FloatingTypeCodes;
         private static readonly HashSet<TypeCode> IntegerTypeCodes;
         private static readonly HashSet<TypeCode> NumericTypeCodes;
 
-        #endregion
-
-        #region Static members
-
         /// <summary>
-        ///     Returns assembly types.
+        /// Returns assembly types.
         /// </summary>
         /// <param name="assembly">Source assembly</param>
         /// <returns>List of types.</returns>
@@ -38,7 +32,7 @@ namespace PS.Extensions
         }
 
         /// <summary>
-        ///     Returns display name for the type with respect to well known display attributes.
+        /// Returns display name for the type with respect to well known display attributes.
         /// </summary>
         /// <param name="type">Source type.</param>
         /// <returns>Type display name.</returns>
@@ -56,13 +50,13 @@ namespace PS.Extensions
         }
 
         /// <summary>
-        ///     Gets display name from type attributes
+        /// Gets display name from type attributes
         /// </summary>
         /// <param name="field">
-        ///     Represent field declarations.
+        /// Represent field declarations.
         /// </param>
         /// <returns>
-        ///     Type display name.
+        /// Type display name.
         /// </returns>
         public static string GetDisplayName(this FieldInfo field)
         {
@@ -87,7 +81,7 @@ namespace PS.Extensions
         }
 
         /// <summary>
-        ///     Gets source type. Skips Nullable wrapper.
+        /// Gets source type. Skips Nullable wrapper.
         /// </summary>
         /// <param name="type">Source type</param>
         /// <returns>Source type or underline nullable type</returns>
@@ -98,7 +92,7 @@ namespace PS.Extensions
         }
 
         /// <summary>
-        ///     Gets type system default value. Default instance for value types, null for reference types
+        /// Gets type system default value. Default instance for value types, null for reference types
         /// </summary>
         /// <param name="type">Given type.</param>
         /// <returns>Default type value.</returns>
@@ -109,7 +103,7 @@ namespace PS.Extensions
         }
 
         /// <summary>
-        ///     Checks given type for floating numeric type
+        /// Checks given type for floating numeric type
         /// </summary>
         /// <param name="type">Given type.</param>
         /// <returns>True if type is floating numeric.</returns>
@@ -123,7 +117,7 @@ namespace PS.Extensions
         }
 
         /// <summary>
-        ///     Checks given type for integer numeric type
+        /// Checks given type for integer numeric type
         /// </summary>
         /// <param name="type">Given type.</param>
         /// <returns>True if type is integer numeric.</returns>
@@ -137,7 +131,7 @@ namespace PS.Extensions
         }
 
         /// <summary>
-        ///     Checks given type for Nullable wrapper.
+        /// Checks given type for Nullable wrapper.
         /// </summary>
         /// <param name="type">Given type.</param>
         /// <returns>True if type is Nullable.</returns>
@@ -148,7 +142,7 @@ namespace PS.Extensions
         }
 
         /// <summary>
-        ///     Checks given type for numeric
+        /// Checks given type for numeric
         /// </summary>
         /// <param name="type">Given type.</param>
         /// <returns>True if type is numeric.</returns>
@@ -162,7 +156,7 @@ namespace PS.Extensions
         }
 
         /// <summary>
-        ///     Attempt to get numeric type limits.
+        /// Attempt to get numeric type limits.
         /// </summary>
         /// <param name="type">Given type.</param>
         /// <param name="max">Maximum value.</param>
@@ -232,10 +226,6 @@ namespace PS.Extensions
             return true;
         }
 
-        #endregion
-
-        #region Constructors
-
         static TypeExtensions()
         {
             FloatingTypeCodes = new HashSet<TypeCode>
@@ -260,7 +250,5 @@ namespace PS.Extensions
 
             NumericTypeCodes = new HashSet<TypeCode>(IntegerTypeCodes.Union(FloatingTypeCodes));
         }
-
-        #endregion
     }
 }

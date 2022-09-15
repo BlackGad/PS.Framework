@@ -9,8 +9,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:mvvm="http://schemas.ps.com/2019/xaml/mvvm"
       xmlns:ps="http://schemas.ps.com/2019/xaml"
-      xmlns:viewModels="clr-namespace:PS.Shell.ViewModels"
       xmlns:theme="http://schemas.ps.com/2021/xaml/theme"
+      xmlns:viewModels="clr-namespace:PS.Shell.ViewModels"
       Margin="5"
       d:DataContext="{d:DesignInstance viewModels:ShellViewModel}"
       d:DesignHeight="450"
@@ -97,8 +97,10 @@
                   VerticalAlignment="Stretch"
                   Background="{theme:Brush Main}"
                   BorderThickness="0"
+                  Focusable="False"
                   ShowsPreview="False" />
     <ContentControl Grid.Column="2"
                     ContentTemplateSelector="{mvvm:TemplateResolver}"
-                    Content="{Binding Content}" />
+                    Content="{Binding Content}"
+                    Focusable="False" />
 </Grid>

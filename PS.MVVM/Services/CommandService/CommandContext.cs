@@ -6,8 +6,6 @@ namespace PS.MVVM.Services.CommandService
     {
         private object _tag;
 
-        #region Properties
-
         public object Tag
         {
             get { return _tag; }
@@ -18,7 +16,5 @@ namespace PS.MVVM.Services.CommandService
                 OnPropertyChanged();
             }
         }
-
-        #endregion
     }
 }

@@ -18,7 +18,23 @@ namespace PS.WPF.Controls
                                IValueProvider
 
     {
-        #region Property definitions
+        public static readonly DependencyProperty EditableTextProperty =
+            DependencyProperty.Register("EditableText",
+                                        typeof(string),
+                                        typeof(TimeSpanBox),
+                                        new FrameworkPropertyMetadata(default(string)));
+
+        public static readonly DependencyProperty IsDisplayTextSelectableProperty =
+            DependencyProperty.Register("IsDisplayTextSelectable",
+                                        typeof(bool),
+                                        typeof(TimeSpanBox),
+                                        new FrameworkPropertyMetadata(default(bool)));
+
+        public static readonly DependencyProperty IsSideButtonVisibleProperty =
+            DependencyProperty.Register(nameof(IsSideButtonVisible),
+                                        typeof(bool),
+                                        typeof(TimeSpanBox),
+                                        new FrameworkPropertyMetadata(default(bool)));
 
         public static readonly DependencyProperty SideButtonCommandProperty =
             DependencyProperty.Register(nameof(SideButtonCommand),
@@ -41,28 +57,6 @@ namespace PS.WPF.Controls
                                                                       OnValueChanged,
                                                                       OnValueCoerce));
 
-        public static readonly DependencyProperty EditableTextProperty =
-            DependencyProperty.Register("EditableText",
-                                        typeof(string),
-                                        typeof(TimeSpanBox),
-                                        new FrameworkPropertyMetadata(default(string)));
-
-        public static readonly DependencyProperty IsDisplayTextSelectableProperty =
-            DependencyProperty.Register("IsDisplayTextSelectable",
-                                        typeof(bool),
-                                        typeof(TimeSpanBox),
-                                        new FrameworkPropertyMetadata(default(bool)));
-
-        public static readonly DependencyProperty IsSideButtonVisibleProperty =
-            DependencyProperty.Register(nameof(IsSideButtonVisible),
-                                        typeof(bool),
-                                        typeof(TimeSpanBox),
-                                        new FrameworkPropertyMetadata(default(bool)));
-
-        #endregion
-
-        #region Static members
-
         private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var owner = (TimeSpanBox)d;
@@ -74,11 +68,7 @@ namespace PS.WPF.Controls
             return baseValue;
         }
 
-        #endregion
-
         private System.Windows.Controls.TextBox _textBox;
-
-        #region Constructors
 
         static TimeSpanBox()
         {
@@ -94,10 +84,6 @@ namespace PS.WPF.Controls
                 if (IsEditMode) EditableText = string.Empty;
             });
         }
-
-        #endregion
-
-        #region Properties
 
         public string EditableText
         {
@@ -134,10 +120,6 @@ namespace PS.WPF.Controls
             get { return (TimeSpan?)GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
-
-        #endregion
-
-        #region Override members
 
         protected override void OnBeginEdit()
         {
@@ -182,10 +164,6 @@ namespace PS.WPF.Controls
             return Value != null;
         }
 
-        #endregion
-
-        #region IValueProvider Members
-
         void IValueProvider.SetValue(string value)
         {
             Value = Convert(value);
@@ -195,10 +173,6 @@ namespace PS.WPF.Controls
         {
             get { return Convert(Value); }
         }
-
-        #endregion
-
-        #region Members
 
         protected virtual TimeSpan? Convert(string value)
         {
@@ -239,14 +213,10 @@ namespace PS.WPF.Controls
                                                            CultureInfo.CurrentUICulture);
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/TimeSpanBox.xaml", UriKind.RelativeOrAbsolute);
 
@@ -261,8 +231,6 @@ namespace PS.WPF.Controls
             public static readonly ResourceDescriptor SideButtonStyle =
                 ResourceDescriptor.Create<Style>(description: "Default TimeSpanBox side button style",
                                                  resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

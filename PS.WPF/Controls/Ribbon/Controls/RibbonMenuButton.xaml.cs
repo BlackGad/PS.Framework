@@ -11,17 +11,11 @@ namespace PS.WPF.Controls.Ribbon.Controls
     {
         private object _currentItem;
 
-        #region Constructors
-
         static RibbonMenuButton()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonMenuButton), new FrameworkPropertyMetadata(typeof(RibbonMenuButton)));
             ResourceHelper.SetDefaultStyle(typeof(RibbonMenuButton), Resource.ControlStyle);
         }
-
-        #endregion
-
-        #region Override members
 
         protected override void OnDismissPopup(RibbonDismissPopupEventArgs e)
         {
@@ -88,14 +82,10 @@ namespace PS.WPF.Controls.Ribbon.Controls
             return new RibbonMenuItem();
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/Ribbon/Controls/RibbonMenuButton.xaml", UriKind.RelativeOrAbsolute);
 
@@ -106,8 +96,6 @@ namespace PS.WPF.Controls.Ribbon.Controls
             public static readonly ResourceDescriptor ControlTemplate =
                 ResourceDescriptor.Create<ControlTemplate>(description: "Default RibbonMenuButton control template",
                                                            resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion

@@ -1,0 +1,77 @@
+trigger:
+  branches:
+    include:
+    - master
+    - ci
+
+pr: none
+
+pool:
+  vmImage: windows-2022
+
+stages:
+- stage: Change_Build_Version_Number
+  displayName: Change Build Version Number
+  jobs:
+  - job: Change_Build_Version_Number
+    displayName: Change Build Version Number
+    variables:
+    - name: UpdateUrl
+      value: $(System.CollectionUri)$(System.TeamProject)/_apis/distributedtask/variablegroups/1?api-version=5.1-preview.1
+    steps:
+    - checkout: none
+    - powershell: |
+        $groupVariables = Invoke-RestMethod -Uri $(UpdateUrl) -Method Get -Headers @{Authorization=("Bearer {0}" -f "$(System.AccessToken)")}
+        $oldVersion = $groupVariables.variables.Major.value + '.' + $groupVariables.variables.Minor.value + '.' + $groupVariables.variables.Revision.value;
+        if( '$(Build.SourceBranchName)' -eq 'master') 
+        {
+            $groupVariables.variables.Minor.value = $groupVariables.variables.Minor.value/1 + 1;
+            $groupVariables.variables.Revision.value = 0;
+            Write-Host 'master branch version increment';
+        }
+        if( '$(Build.SourceBranchName)' -eq 'ci') 
+        {
+            $groupVariables.variables.Revision.value = $groupVariables.variables.Revision.value/1 + 1;
+            Write-Host 'CI branch version increment';
+        }
+        $json = ($groupVariables | ConvertTo-Json -Compress).ToString()
+        $response = Invoke-RestMethod -Uri $(UpdateUrl) -Method Put -Body $json -ContentType "application/json" -Headers @{Authorization=("Bearer {0}" -f "$(System.AccessToken)")}
+        $newVersion = $groupVariables.variables.Major.value + '.' + $groupVariables.variables.Minor.value + '.' + $groupVariables.variables.Revision.value;
+        Write-Host 'Version changed:' $oldVersion '->' $newVersion;
+        Write-Host '##vso[build.updatebuildnumber]'$newVersion'.$(Build.BuildNumber)';
+      displayName: Increment version
+
+- stage: Build_And_Pack
+  displayName: Build And Pack
+  jobs:
+  - job: Build_And_Pack
+    displayName: Build And Pack
+    variables:
+    - group: FrameworkVersion
+    - name: SolutionRelativePath
+      value: PS.Framework.sln
+    steps:
+    - checkout: self
+      path: s
+      target: host
+    - task: DotNetCoreCLI@2
+      displayName: Restore solution
+      inputs:
+        command: restore
+        projects: $(SolutionRelativePath)
+    - task: DotNetCoreCLI@2
+      displayName: Build solution
+      inputs:
+        command: build
+        arguments: -c Release --no-restore -p:Version=$(Major).$(Minor).$(Revision)
+        projects: $(SolutionRelativePath)
+    - task: CopyFiles@2
+      inputs:
+        targetFolder: '$(Build.ArtifactStagingDirectory)'    
+        contents: |
+          **/*.nupkg
+          **/*.snupkg
+        cleanTargetFolder: true
+        flattenFolders: true
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifacts'

@@ -10,17 +10,11 @@ namespace PS.WPF.ValueConverters
 {
     public static class BoxConverters
     {
-        #region Constants
-
         public static readonly RelayValueConverter DecimalToString;
+        public static readonly RelayValueConverter DoubleToGridLength;
         public static readonly RelayValueConverter Int32ToString;
         public static readonly RelayValueConverter StringToDecimal;
         public static readonly RelayValueConverter StringToInt32;
-        public static readonly RelayValueConverter DoubleToGridLength;
-
-        #endregion
-
-        #region Static members
 
         private static object Convert<TFrom, TTo>(object value, bool isNullable, CultureInfo culture)
         {
@@ -74,10 +68,6 @@ namespace PS.WPF.ValueConverters
             return !type.IsValueType || type.IsNullable();
         }
 
-        #endregion
-
-        #region Constructors
-
         static BoxConverters()
         {
             StringToInt32 = new RelayValueConverter(
@@ -95,12 +85,10 @@ namespace PS.WPF.ValueConverters
             DecimalToString = new RelayValueConverter(
                 (value, targetType, parameter, culture) => Convert<Decimal, String>(value, IsNullable(targetType), culture),
                 (value, targetType, parameter, culture) => Convert<String, Decimal>(value, IsNullable(targetType), culture));
-            
+
             DoubleToGridLength = new RelayValueConverter(
                 (value, targetType, parameter, culture) => value is double d ? new GridLength(d) : GridLength.Auto,
                 (value, targetType, parameter, culture) => value is GridLength gridLength ? gridLength.Value : 0d);
         }
-
-        #endregion
     }
 }

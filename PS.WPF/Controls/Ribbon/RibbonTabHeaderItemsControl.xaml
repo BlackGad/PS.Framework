@@ -4,20 +4,25 @@
                     xmlns:controls="clr-namespace:PS.WPF.Controls.Ribbon">
 
     <ResourceDictionary.MergedDictionaries>
-        <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Ribbon/RibbonHorizontalScrollViewer.xaml" />
+        <resources:SharedResourceDictionary
+            Source="/PS.WPF;component/Controls/Ribbon/RibbonHorizontalScrollViewer.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <ControlTemplate x:Key="{x:Static controls:RibbonTabHeaderItemsControl+Resource.ControlTemplate}" TargetType="controls:RibbonTabHeaderItemsControl">
+    <ControlTemplate x:Key="{x:Static controls:RibbonTabHeaderItemsControl+Resource.ControlTemplate}"
+                     TargetType="controls:RibbonTabHeaderItemsControl">
         <Border x:Name="MainBorder" Background="{TemplateBinding Background}">
-            <ScrollViewer x:Name="ScrollViewer" Style="{StaticResource {x:Static controls:RibbonHorizontalScrollViewer.ControlStyle}}">
+            <ScrollViewer x:Name="ScrollViewer"
+                          Style="{StaticResource {x:Static controls:RibbonHorizontalScrollViewer.ControlStyle}}">
                 <ItemsPresenter x:Name="ItemsPresenter" />
             </ScrollViewer>
         </Border>
     </ControlTemplate>
 
-    <Style x:Key="{x:Static controls:RibbonTabHeaderItemsControl+Resource.ControlStyle}" TargetType="controls:RibbonTabHeaderItemsControl">
+    <Style x:Key="{x:Static controls:RibbonTabHeaderItemsControl+Resource.ControlStyle}"
+           TargetType="controls:RibbonTabHeaderItemsControl">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Template" Value="{StaticResource {x:Static controls:RibbonTabHeaderItemsControl+Resource.ControlTemplate}}" />
+        <Setter Property="Template"
+                Value="{StaticResource {x:Static controls:RibbonTabHeaderItemsControl+Resource.ControlTemplate}}" />
     </Style>
 
 </ResourceDictionary>

@@ -7,13 +7,7 @@ namespace PS.WPF.Resources
 {
     public static class ResourceHelper
     {
-        #region Constants
-
         private static readonly MethodInfo FrameworkElementFindResourceMethod;
-
-        #endregion
-
-        #region Static members
 
         public static T GetResource<T>(this ResourceDescriptor descriptor)
         {
@@ -61,10 +55,6 @@ namespace PS.WPF.Resources
             if (resource == DependencyProperty.UnsetValue) element.Style = GetResource<Style>(descriptor);
         }
 
-        #endregion
-
-        #region Constructors
-
         static ResourceHelper()
         {
             try
@@ -84,7 +74,5 @@ namespace PS.WPF.Resources
                 if (Debugger.IsAttached) Debug.WriteLine(e);
             }
         }
-
-        #endregion
     }
 }

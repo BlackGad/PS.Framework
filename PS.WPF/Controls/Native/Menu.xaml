@@ -40,11 +40,15 @@
                     </DockPanel>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter TargetName="B1" Property="Fill" Value="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" />
+                            <Setter TargetName="B1" Property="Fill"
+                                    Value="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" />
                             <Setter TargetName="ContentContainer" Property="Margin" Value="3,3,1,1" />
-                            <Setter TargetName="L1" Property="Fill" Value="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" />
-                            <Setter TargetName="R1" Property="Fill" Value="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" />
-                            <Setter TargetName="T1" Property="Fill" Value="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" />
+                            <Setter TargetName="L1" Property="Fill"
+                                    Value="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" />
+                            <Setter TargetName="R1" Property="Fill"
+                                    Value="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" />
+                            <Setter TargetName="T1" Property="Fill"
+                                    Value="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -74,7 +78,8 @@
                     <MultiBinding FallbackValue="Visibility.Collapsed"
                                   Converter="{StaticResource MenuScrollingVisibilityConverter}"
                                   ConverterParameter="0">
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="ComputedVerticalScrollBarVisibility" />
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                 Path="ComputedVerticalScrollBarVisibility" />
                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="VerticalOffset" />
                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="ExtentHeight" />
                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="ViewportHeight" />
@@ -97,7 +102,8 @@
                     <MultiBinding FallbackValue="Visibility.Collapsed"
                                   Converter="{StaticResource MenuScrollingVisibilityConverter}"
                                   ConverterParameter="100">
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="ComputedVerticalScrollBarVisibility" />
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                 Path="ComputedVerticalScrollBarVisibility" />
                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="VerticalOffset" />
                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="ExtentHeight" />
                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="ViewportHeight" />
@@ -198,7 +204,8 @@
                             BorderThickness="1"
                             SnapsToDevicePixels="True">
 
-                        <ScrollViewer CanContentScroll="True" Style="{StaticResource {x:Static styles:Menu.MenuScrollViewerStyle}}">
+                        <ScrollViewer CanContentScroll="True"
+                                      Style="{StaticResource {x:Static styles:Menu.MenuScrollViewerStyle}}">
                             <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
                         </ScrollViewer>
                     </Border>
@@ -211,14 +218,15 @@
                 <Setter TargetName="Popup" Property="PopupAnimation" Value="None" />
             </Trigger>
             <Trigger Property="IsHighlighted" Value="true">
-                <Setter Property="Foreground" Value="{theme:Brush Main}" />
+                <Setter TargetName="Border" Property="TextElement.Foreground" Value="{theme:Brush Main}" />
                 <Setter TargetName="Border" Property="Background" Value="{theme:Brush Accent}" />
             </Trigger>
             <Trigger SourceName="Popup" Property="AllowsTransparency" Value="True">
                 <Setter TargetName="SubmenuBorder" Property="Padding" Value="0,3,0,3" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{theme:Brush MainBorder, Opacity=O50}" />
+                <Setter TargetName="Border" Property="TextElement.Foreground"
+                        Value="{theme:Brush MainBorder, Opacity=O50}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -286,7 +294,8 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="1"
                             SnapsToDevicePixels="True">
-                        <ScrollViewer CanContentScroll="True" Style="{StaticResource {x:Static styles:Menu.MenuScrollViewerStyle}}">
+                        <ScrollViewer CanContentScroll="True"
+                                      Style="{StaticResource {x:Static styles:Menu.MenuScrollViewerStyle}}">
                             <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
                         </ScrollViewer>
                     </Border>
@@ -326,12 +335,13 @@
                 <Setter TargetName="Icon" Property="Visibility" Value="Hidden" />
             </Trigger>
             <Trigger Property="IsHighlighted" Value="true">
-                <Setter Property="Foreground" Value="{theme:Brush Main}" />
+                <Setter TargetName="Border" Property="TextElement.Foreground" Value="{theme:Brush Main}" />
                 <Setter TargetName="Border" Property="Background" Value="{theme:Brush Accent}" />
                 <Setter TargetName="CheckedPath" Property="Fill" Value="{theme:Brush Main}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{theme:Brush MainBorder, Opacity=O50}" />
+                <Setter TargetName="Border" Property="TextElement.Foreground"
+                        Value="{theme:Brush MainBorder, Opacity=O50}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

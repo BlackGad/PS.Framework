@@ -1,0 +1,169 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:PS.WPF.Controls"
+                    xmlns:markup="clr-namespace:PS.WPF.Markup"
+                    xmlns:themeMarkup="clr-namespace:PS.WPF.Theming.Markup">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/PS.WPF;component/Controls/SuggestListView/SuggestListViewItem.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="{x:Static controls:SuggestListView+Resource.SuggestionItemContainerStyle}" TargetType="ListViewItem">
+        <Setter Property="Template" Value="{StaticResource {x:Static controls:SuggestListViewItem+Resource.ControlTemplate}}" />
+    </Style>
+
+    <ControlTemplate x:Key="{x:Static controls:SuggestListView+Resource.ControlTemplate}" TargetType="controls:SuggestListView">
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                SnapsToDevicePixels="True">
+            <Grid Margin="{TemplateBinding Padding}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition x:Name="PART_ItemsRow" Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <ContentControl Name="PART_Header"
+                                Grid.Row="0"
+                                ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}" />
+
+                <ListView Name="PART_Suggestions"
+                          Grid.Row="1"
+                          BorderThickness="0"
+                          ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                          Focusable="False"
+                          ItemContainerStyle="{StaticResource {x:Static controls:SuggestListView+Resource.SuggestionItemContainerStyle}}"
+                          ItemTemplate="{TemplateBinding ItemTemplate}"
+                          ItemsSource="{TemplateBinding SuggestedItems}"
+                          Visibility="Collapsed">
+                    <ListView.Template>
+                        <ControlTemplate TargetType="ListView">
+                            <ScrollViewer Name="PART_Items"
+                                          Background="Transparent"
+                                          Focusable="False">
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </ScrollViewer>
+                        </ControlTemplate>
+                    </ListView.Template>
+                </ListView>
+
+                <Border Name="PART_Separator"
+                        Grid.Row="2"
+                        Height="1"
+                        Margin="4"
+                        BorderBrush="{themeMarkup:Brush Accent}"
+                        BorderThickness="0,1,0,0"
+                        Visibility="Collapsed" />
+
+                <ScrollViewer Name="PART_Items"
+                              Grid.Row="3"
+                              Focusable="False">
+                    <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                </ScrollViewer>
+
+                <TextBlock Name="PART_NoSuggestions"
+                           Grid.Row="4"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Foreground="{TemplateBinding Foreground}"
+                           FontFamily="{TemplateBinding FontFamily}"
+                           FontSize="{TemplateBinding FontSize}"
+                           FontWeight="Bold"
+                           Text="No suggestions"
+                           Visibility="Collapsed" />
+
+                <ContentControl Name="PART_Footer"
+                                Grid.Row="5"
+                                ContentTemplateSelector="{TemplateBinding FooterTemplateSelector}"
+                                Content="{TemplateBinding Footer}"
+                                ContentTemplate="{TemplateBinding FooterTemplate}" />
+
+            </Grid>
+        </Border>
+
+        <ControlTemplate.Triggers>
+
+            <Trigger SourceName="PART_Suggestions" Property="HasItems" Value="True">
+                <Setter TargetName="PART_Separator" Property="Visibility" Value="Visible" />
+                <Setter TargetName="PART_Suggestions" Property="Visibility" Value="Visible" />
+            </Trigger>
+
+            <Trigger Property="Footer" Value="{x:Null}">
+                <Setter TargetName="PART_Footer" Property="Content" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedItem}" />
+            </Trigger>
+
+            <Trigger Property="Header" Value="{x:Null}">
+                <Setter TargetName="PART_Header" Property="Content" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedItem}" />
+            </Trigger>
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="HeaderTemplate" Value="{x:Null}" />
+                    <Condition Property="Header" Value="{x:Null}" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="PART_Header" Property="Visibility" Value="Collapsed" />
+            </MultiTrigger>
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="FooterTemplate" Value="{x:Null}" />
+                    <Condition Property="Footer" Value="{x:Null}" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="PART_Footer" Property="Visibility" Value="Collapsed" />
+            </MultiTrigger>
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition SourceName="PART_Suggestions" Property="HasItems" Value="True" />
+                    <Condition Property="ShowItemsWhenHasSuggestions" Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="PART_Items" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_Separator" Property="Visibility" Value="Collapsed" />
+            </MultiTrigger>
+
+            <Trigger Property="HasItems" Value="False">
+                <Setter TargetName="PART_Items" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_ItemsRow" Property="Height" Value="Auto" />
+                <Setter TargetName="PART_NoSuggestions" Property="Visibility" Value="Visible" />
+                <Setter TargetName="PART_Separator" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_Suggestions" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+
+        </ControlTemplate.Triggers>
+
+    </ControlTemplate>
+
+    <Style x:Key="{x:Static controls:SuggestListView+Resource.ControlStyle}" TargetType="controls:SuggestListView">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="MaximumSuggestionCount" Value="5" />
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="Template" Value="{StaticResource {x:Static controls:SuggestListView+Resource.ControlTemplate}}" />
+        <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True" />
+        <Style.Triggers>
+            <!--  WPF Engine cannot resolve Bindings in straight forward Setters. So Bypass this with triggers  -->
+            <DataTrigger Binding="{Binding Source={markup:Boolean True}}" Value="{markup:Boolean True}">
+                <Setter Property="Background" Value="{themeMarkup:Brush Main}" />
+                <Setter Property="BorderBrush" Value="{themeMarkup:Brush MainBorderHigh}" />
+                <Setter Property="FontFamily" Value="{themeMarkup:Font Normal}" />
+                <Setter Property="FontSize" Value="{themeMarkup:FontSize M}" />
+                <Setter Property="Foreground" Value="{themeMarkup:Brush MainForeground}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

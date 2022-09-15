@@ -18,8 +18,6 @@ namespace PS.Threading
 
         private Task _sendTask;
 
-        #region Constructors
-
         public ThreadSynchronizationContext(ApartmentState apartmentState)
         {
             if (apartmentState == ApartmentState.Unknown)
@@ -38,7 +36,7 @@ namespace PS.Threading
             };
             #if !NETFRAMEWORK
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            #endif
+                #endif
             {
                 Thread.SetApartmentState(apartmentState);
             }
@@ -46,15 +44,7 @@ namespace PS.Threading
             Thread.Start();
         }
 
-        #endregion
-
-        #region Properties
-
         public Thread Thread { get; }
-
-        #endregion
-
-        #region Override members
 
         public override void Post(SendOrPostCallback d, object state)
         {
@@ -97,10 +87,6 @@ namespace PS.Threading
             Dispose();
         }
 
-        #endregion
-
-        #region IDisposable Members
-
         public void Dispose()
         {
             lock (_threadCancellationTokenSource)
@@ -111,10 +97,6 @@ namespace PS.Threading
 
             GC.SuppressFinalize(this);
         }
-
-        #endregion
-
-        #region Members
 
         private void ThreadCallback(object param)
         {
@@ -134,7 +116,5 @@ namespace PS.Threading
                 }
             }
         }
-
-        #endregion
     }
 }

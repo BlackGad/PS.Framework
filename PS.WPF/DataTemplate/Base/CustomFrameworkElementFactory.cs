@@ -10,8 +10,6 @@ namespace PS.WPF.DataTemplate.Base
     {
         private readonly ICustomDataTemplate _customDataTemplate;
 
-        #region Constructors
-
         public CustomFrameworkElementFactory(ICustomDataTemplate customDataTemplate)
             : base(typeof(Control))
         {
@@ -19,10 +17,6 @@ namespace PS.WPF.DataTemplate.Base
 
             OverrideDefaultFactory();
         }
-
-        #endregion
-
-        #region Members
 
         internal void OverrideDefaultFactory()
         {
@@ -60,7 +54,5 @@ namespace PS.WPF.DataTemplate.Base
 
             return container;
         }
-
-        #endregion
     }
 }

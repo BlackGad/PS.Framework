@@ -6,8 +6,6 @@ namespace PS.Shell.Infrastructure
     [Serializable]
     public class NotificationException : Exception
     {
-        #region Constructors
-
         public NotificationException(string message, string title = null)
             : base(message)
         {
@@ -25,12 +23,6 @@ namespace PS.Shell.Infrastructure
         {
         }
 
-        #endregion
-
-        #region Properties
-
         public string Title { get; }
-
-        #endregion
     }
 }

@@ -6,20 +6,25 @@
                     xmlns:controls="clr-namespace:PS.WPF.Controls.Ribbon.Controls"
                     xmlns:components="clr-namespace:PS.WPF.Components">
 
-    <ControlTemplate x:Key="{x:Static controls:RibbonButton+Resource.ControlTemplate}" TargetType="controls:RibbonButton">
+    <ControlTemplate x:Key="{x:Static controls:RibbonButton+Resource.ControlTemplate}"
+                     TargetType="controls:RibbonButton">
         <Grid x:Name="Layout"
               Background="Transparent"
               SnapsToDevicePixels="True">
             <components:StoreBrush.Background>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.Background"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.Background>
             <components:StoreBrush.BorderBrush>
                 <PriorityBinding>
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.BorderBrush"
+                             Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
                 </PriorityBinding>
             </components:StoreBrush.BorderBrush>
             <Border x:Name="Border"
@@ -30,16 +35,24 @@
                     Visibility="Hidden">
                 <Border.Background>
                     <PriorityBinding>
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                        <Binding ElementName="Layout" Path="(components:StoreBrush.Background)" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.1}" />
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBackground"
+                                 Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBackground"
+                                 Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                        <Binding ElementName="Layout" Path="(components:StoreBrush.Background)"
+                                 Converter="{x:Static valueConverters:ColorConverters.Shade}"
+                                 ConverterParameter="{markup:Double 0.1}" />
                     </PriorityBinding>
                 </Border.Background>
                 <Border.BorderBrush>
                     <PriorityBinding>
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                        <Binding ElementName="Layout" Path="(components:StoreBrush.BorderBrush)" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.1}" />
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="MouseOverBorderBrush"
+                                 Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.MouseOverBorderBrush"
+                                 Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                        <Binding ElementName="Layout" Path="(components:StoreBrush.BorderBrush)"
+                                 Converter="{x:Static valueConverters:ColorConverters.Shade}"
+                                 ConverterParameter="{markup:Double 0.1}" />
                     </PriorityBinding>
                 </Border.BorderBrush>
             </Border>
@@ -48,16 +61,24 @@
                     Visibility="Hidden">
                 <Border.Background>
                     <PriorityBinding>
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="PressedBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.PressedBackground" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                        <Binding ElementName="Layout" Path="(components:StoreBrush.Background)" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.3}" />
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="PressedBackground"
+                                 Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.PressedBackground"
+                                 Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                        <Binding ElementName="Layout" Path="(components:StoreBrush.Background)"
+                                 Converter="{x:Static valueConverters:ColorConverters.Shade}"
+                                 ConverterParameter="{markup:Double 0.3}" />
                     </PriorityBinding>
                 </Border.Background>
                 <Border.BorderBrush>
                     <PriorityBinding>
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="PressedBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.PressedBorderBrush" Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
-                        <Binding ElementName="Layout" Path="(components:StoreBrush.BorderBrush)" Converter="{x:Static valueConverters:ColorConverters.Shade}" ConverterParameter="{markup:Double 0.3}" />
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="PressedBorderBrush"
+                                 Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Ribbon.PressedBorderBrush"
+                                 Converter="{x:Static valueConverters:ObjectConverters.UnsetIfNull}" />
+                        <Binding ElementName="Layout" Path="(components:StoreBrush.BorderBrush)"
+                                 Converter="{x:Static valueConverters:ColorConverters.Shade}"
+                                 ConverterParameter="{markup:Double 0.3}" />
                     </PriorityBinding>
                 </Border.BorderBrush>
             </Border>

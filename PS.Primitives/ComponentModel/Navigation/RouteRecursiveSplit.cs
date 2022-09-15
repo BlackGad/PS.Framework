@@ -4,8 +4,6 @@ namespace PS.ComponentModel.Navigation
 {
     public class RouteRecursiveSplit
     {
-        #region Constructors
-
         public RouteRecursiveSplit(Route prefix, Route recursive, Route postfix)
         {
             Recursive = recursive ?? throw new ArgumentNullException(nameof(recursive));
@@ -13,14 +11,10 @@ namespace PS.ComponentModel.Navigation
             Prefix = prefix ?? throw new ArgumentNullException(nameof(prefix));
         }
 
-        #endregion
-
-        #region Properties
-
         public Route Postfix { get; private set; }
-        public Route Prefix { get; private set; }
-        public Route Recursive { get; private set; }
 
-        #endregion
+        public Route Prefix { get; private set; }
+
+        public Route Recursive { get; private set; }
     }
 }

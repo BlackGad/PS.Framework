@@ -36,10 +36,12 @@
     </ControlTemplate>
 
     <Style x:Key="{x:Static controls:GroupExpander+Resource.ToggleButtonStyle}" TargetType="ToggleButton">
-        <Setter Property="Template" Value="{StaticResource {x:Static controls:GroupExpander+Resource.ToggleButtonTemplate}}" />
+        <Setter Property="Template"
+                Value="{StaticResource {x:Static controls:GroupExpander+Resource.ToggleButtonTemplate}}" />
     </Style>
 
-    <ControlTemplate x:Key="{x:Static controls:GroupExpander+Resource.ControlTemplate}" TargetType="controls:GroupExpander">
+    <ControlTemplate x:Key="{x:Static controls:GroupExpander+Resource.ControlTemplate}"
+                     TargetType="controls:GroupExpander">
         <Grid x:Name="Layout">
             <Border Background="{TemplateBinding BorderBrush}" />
             <StackPanel Orientation="Vertical">

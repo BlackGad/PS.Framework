@@ -8,18 +8,12 @@ namespace PS.WPF.Theming.Markup
     {
         private ThemeFontSize _type;
 
-        #region Constructors
-
         public FontSize(ThemeFontSize type)
         {
             Type = type;
             Mode = BindingMode.OneWay;
             Source = Theme.Current;
         }
-
-        #endregion
-
-        #region Properties
 
         [ConstructorArgument("type")]
         public ThemeFontSize Type
@@ -32,16 +26,10 @@ namespace PS.WPF.Theming.Markup
             }
         }
 
-        #endregion
-
-        #region Members
-
         private string GeneratePath(ThemeFontSize fontSize)
         {
             var result = nameof(Theme.FontSizes) + "." + fontSize;
             return result;
         }
-
-        #endregion
     }
 }

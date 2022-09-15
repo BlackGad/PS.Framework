@@ -9,23 +9,15 @@ namespace PS.Shell.Models.PageService
     {
         private readonly IList<string> _collection;
 
-        #region Constructors
-
         public CollectionTarget(IList<string> collection)
         {
             _collection = collection ?? throw new ArgumentNullException(nameof(collection));
         }
-
-        #endregion
-
-        #region Override members
 
         protected override void Write(LogEventInfo logEvent)
         {
             var item = Layout.Render(logEvent);
             _collection.Add(item);
         }
-
-        #endregion
     }
 }

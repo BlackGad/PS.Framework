@@ -7,24 +7,16 @@ namespace PS.WPF.Automation
 {
     public class RelayElementAutomationPeer : FrameworkElementAutomationPeer
     {
-        #region Constructors
-
         public RelayElementAutomationPeer(FrameworkElement owner)
             : base(owner)
         {
         }
 
-        #endregion
-
-        #region Properties
-
         public string ClassName { get; set; }
+
         public AutomationControlType ControlType { get; set; }
+
         public Func<PatternInterface, UIElement, object> GetPatternFunc { get; set; }
-
-        #endregion
-
-        #region Override members
 
         public override object GetPattern(PatternInterface patternInterface)
         {
@@ -45,7 +37,5 @@ namespace PS.WPF.Automation
         {
             return ControlType;
         }
-
-        #endregion
     }
 }

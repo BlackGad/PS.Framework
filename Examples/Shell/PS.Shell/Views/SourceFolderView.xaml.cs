@@ -8,22 +8,14 @@ namespace PS.Shell.Views
     [DependencyRegisterAsInterface(typeof(IView<ISourceFolder>))]
     public partial class SourceFolderView : IView<ISourceFolder>
     {
-        #region Constructors
-
         public SourceFolderView()
         {
             InitializeComponent();
         }
 
-        #endregion
-
-        #region IView<ISourceXaml> Members
-
         public ISourceFolder ViewModel
         {
             get { return DataContext as ISourceFolder; }
         }
-
-        #endregion
     }
 }

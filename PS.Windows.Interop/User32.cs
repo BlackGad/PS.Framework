@@ -6,8 +6,6 @@ namespace PS.Windows.Interop
 {
     public static class User32
     {
-        #region Static members
-
         [SecurityCritical]
         [SuppressUnmanagedCodeSecurity]
         [DllImport("user32", CharSet = CharSet.Auto)]
@@ -150,7 +148,5 @@ namespace PS.Windows.Interop
 
         [DllImport("user32", EntryPoint = "SetWindowLongPtr", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr IntSetWindowLongPtr(HandleRef hWnd, int nIndex, IntPtr dwNewLong);
-
-        #endregion
     }
 }

@@ -6,13 +6,7 @@ namespace PS.ComponentModel.Navigation.Extensions
 {
     public static class RouteExtensions
     {
-        #region Constants
-
         private const string DynamicRoutePrefix = "__dynamic_";
-
-        #endregion
-
-        #region Static members
 
         public static bool Contains(this Route source, Route route, RouteCaseMode caseSensitive = RouteCaseMode.Sensitive)
         {
@@ -133,7 +127,5 @@ namespace PS.ComponentModel.Navigation.Extensions
             take = take ?? source.Count - skip;
             return new Route(source.Skip(skip).Take(take.Value));
         }
-
-        #endregion
     }
 }

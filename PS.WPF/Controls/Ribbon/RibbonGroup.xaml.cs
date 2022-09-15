@@ -9,17 +9,11 @@ namespace PS.WPF.Controls.Ribbon
 {
     public class RibbonGroup : System.Windows.Controls.Ribbon.RibbonGroup
     {
-        #region Constructors
-
         static RibbonGroup()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroup), new FrameworkPropertyMetadata(typeof(RibbonGroup)));
             ResourceHelper.SetDefaultStyle(typeof(RibbonGroup), Resource.ControlStyle);
         }
-
-        #endregion
-
-        #region Override members
 
         protected override DependencyObject GetContainerForItemOverride()
         {
@@ -47,16 +41,16 @@ namespace PS.WPF.Controls.Ribbon
             }
         }
 
-        #endregion
-
         #region Nested type: Resource
 
         public static class Resource
         {
-            #region Constants
-
             private static readonly Uri Default =
                 new Uri("/PS.WPF;component/Controls/Ribbon/RibbonGroup.xaml", UriKind.RelativeOrAbsolute);
+
+            public static readonly ResourceDescriptor CollapsedControlTemplate =
+                ResourceDescriptor.Create<ControlTemplate>(description: "Default RibbonGroup collapsed control template",
+                                                           resourceDictionary: Default);
 
             public static readonly ResourceDescriptor ControlStyle =
                 ResourceDescriptor.Create<Style>(description: "Default RibbonGroup style",
@@ -65,12 +59,6 @@ namespace PS.WPF.Controls.Ribbon
             public static readonly ResourceDescriptor ControlTemplate =
                 ResourceDescriptor.Create<ControlTemplate>(description: "Default RibbonGroup control template",
                                                            resourceDictionary: Default);
-
-            public static readonly ResourceDescriptor CollapsedControlTemplate =
-                ResourceDescriptor.Create<ControlTemplate>(description: "Default RibbonGroup collapsed control template",
-                                                           resourceDictionary: Default);
-
-            #endregion
         }
 
         #endregion
