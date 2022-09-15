@@ -39,6 +39,7 @@ stages:
         $response = Invoke-RestMethod -Uri $(UpdateUrl) -Method Put -Body $json -ContentType "application/json" -Headers @{Authorization=("Bearer {0}" -f "$(System.AccessToken)")}
         $newVersion = $groupVariables.variables.Major.value + '.' + $groupVariables.variables.Minor.value + '.' + $groupVariables.variables.Revision.value;
         Write-Host 'Version changed:' $oldVersion '->' $newVersion;
+        Write-Host '##vso[build.updatebuildnumber]' $newVersion '.' $(ProjectBuildNumber);
       displayName: Increment version
 
 - stage: Build_And_Pack
