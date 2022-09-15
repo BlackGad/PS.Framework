@@ -22,7 +22,9 @@ stages:
   jobs:
   - job: Change_Build_Version_Number
     steps:
-     - checkout: none
+     - checkout: self
+       path: s
+       target: host
      - task: PowerShell@2
        inputs:
          targetType: filePath
