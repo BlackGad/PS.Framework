@@ -29,19 +29,22 @@ stages:
     - checkout: none
     - powershell: |
         $groupVariables = Invoke-RestMethod -Uri $(UpdateUrl) -Method Get -Headers @{Authorization=("Bearer {0}" -f "$(System.AccessToken)")}
+        $oldVersion = $groupVariables.variables.Major.value + '.' + $groupVariables.variables.Minor.value + '.' + $groupVariables.variables.Revision.value;
         if( '$(Build.SourceBranchName)' -eq 'master') 
         {
             $groupVariables.variables.Minor.value = $groupVariables.variables.Minor.value/1 + 1;
             $groupVariables.variables.Revision.value = 0;
-            Write-Host 'Here 1';
+            Write-Host 'master branch version increment';
         }
         if( '$(Build.SourceBranchName)' -eq 'Azure-Test-CI') 
         {
             $groupVariables.variables.Revision.value = $groupVariables.variables.Revision.value/1 + 1;
-            Write-Host 'Here 2';
+            Write-Host 'CI branch version increment';
         }
         $json = ($groupVariables | ConvertTo-Json -Compress).ToString()
-        $pipeline = Invoke-RestMethod -Uri $(UpdateUrl) -Method Put -Body $json -ContentType "application/json" -Headers @{Authorization=("Bearer {0}" -f "$(System.AccessToken)")}
+        Invoke-RestMethod -Uri $(UpdateUrl) -Method Put -Body $json -ContentType "application/json" -Headers @{Authorization=("Bearer {0}" -f "$(System.AccessToken)")}
+        $newVersion = $groupVariables.variables.Major.value + '.' + $groupVariables.variables.Minor.value + '.' + $groupVariables.variables.Revision.value;
+        Write-Host 'Version changed: ' + $oldVersion + "->" + $newVersion;
       displayName: Increment version
          
 #- stage: Build_And_Pack
