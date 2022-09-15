@@ -1,10 +1,3 @@
-variables:
-- group: FrameworkVersion
-- name: SolutionRelativePath
-  value: PS.Framework.sln
-- name: Revision
-  value: $[counter(variables['Minor'], 0)]
-
 trigger:
   branches:
     include:
@@ -19,6 +12,7 @@ pool:
 
 stages:
 - stage: Change_Build_Version_Number
+  displayName: Change Build Version Number
   jobs:
   - job: Change_Build_Version_Number
     displayName: Change Build Version Number
@@ -42,11 +36,26 @@ stages:
             Write-Host 'CI branch version increment';
         }
         $json = ($groupVariables | ConvertTo-Json -Compress).ToString()
-        Invoke-RestMethod -Uri $(UpdateUrl) -Method Put -Body $json -ContentType "application/json" -Headers @{Authorization=("Bearer {0}" -f "$(System.AccessToken)")}
+        $response = Invoke-RestMethod -Uri $(UpdateUrl) -Method Put -Body $json -ContentType "application/json" -Headers @{Authorization=("Bearer {0}" -f "$(System.AccessToken)")}
         $newVersion = $groupVariables.variables.Major.value + '.' + $groupVariables.variables.Minor.value + '.' + $groupVariables.variables.Revision.value;
-        Write-Host 'Version changed: ' + $oldVersion + "->" + $newVersion;
+        Write-Host 'Version changed:' $oldVersion '->' $newVersion;
       displayName: Increment version
-         
+
+- stage: Build_And_Pack
+  displayName: Build And Pack
+  jobs:
+  - job: Build_And_Pack
+    displayName: Build And Pack
+    variables:
+    - group: FrameworkVersion
+    - name: SolutionRelativePath
+      value: PS.Framework.sln
+    steps:
+    - checkout: none
+    - powershell: |
+        Write-Host '$(Major)'.'$(Minor)'.'$(Revision)';
+    
+
 #- stage: Build_And_Pack
 #  jobs:
 #  - job: Build
