@@ -24,19 +24,8 @@ stages:
     steps:
      - checkout: none
      - script: |
-         # echo '##vso[task.setVariable variable=Revision;]$[counter(variables['Minor'], 0)]'
-         # echo 'Version: $(Major).$(Minor).$(Revision)'
-         
-         variablegroupname=FrameworkVersion
-         variablegroupid=1
-         
-         # use the system.accesstoken on the build agent and a pat token when testing locally.
-         bearerToken=$(System.AccessToken)
-         header="Authorization: Bearer $bearerToken"
-         
-         # url="https://dev.azure.com/$adoorg/$adoproj/_apis/distributedtask/variablegroups/$variablegroupid?api-version=5.0-preview.1"
-         url2=$(System.CollectionUri)$(System.TeamProject)/_apis/distributedtask/variablegroups/
-         echo $url2
+         echo '##vso[task.setVariable variable=TestUrl;]$(System.CollectionUri)$(System.TeamProject)/_apis/distributedtask/variablegroups/'
+         echo '$(TestUrl)'
          
 
 #- stage: Build_And_Pack
