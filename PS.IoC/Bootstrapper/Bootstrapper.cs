@@ -71,7 +71,7 @@ namespace PS.IoC
             }
         }
 
-        public void Initialize(TContainer parentContainer = null)
+        public void Initialize()
         {
             if (_disposed) throw new ObjectDisposedException("Bootstrapper is already disposed");
 
@@ -79,7 +79,7 @@ namespace PS.IoC
             {
                 _logger.Trace("Initializing critical components...");
 
-                InitializeCriticalComponents(_logger, parentContainer);
+                InitializeCriticalComponents(_logger);
 
                 _logger.Debug("Critical components initialized successfully");
             }
@@ -93,7 +93,7 @@ namespace PS.IoC
             try
             {
                 _logger.Trace("Creating IOC container...");
-                _container = CreateContainer(_logger, parentContainer);
+                _container = CreateContainer(_logger);
                 if (Container != null)
                 {
                     _logger.Trace("IOC container successfully created");
@@ -151,7 +151,7 @@ namespace PS.IoC
         {
         }
 
-        protected virtual TContainer CreateContainer(IBootstrapperLogger logger, TContainer parentContainer)
+        protected virtual TContainer CreateContainer(IBootstrapperLogger logger)
         {
             return default;
         }
@@ -164,7 +164,7 @@ namespace PS.IoC
         {
         }
 
-        protected virtual void InitializeCriticalComponents(IBootstrapperLogger logger, TContainer container)
+        protected virtual void InitializeCriticalComponents(IBootstrapperLogger logger)
         {
         }
 
