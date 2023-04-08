@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Versioning;
+using System.Text;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -12,6 +14,43 @@ namespace PS.WPF
     public static class Runtime
     {
         private static readonly IReadOnlyList<string> DebugFlagAliases;
+
+        public static string DumpApplicationInformation()
+        {
+            var currentAssembly = Assembly.GetEntryAssembly();
+            if (currentAssembly == null)
+            {
+                return string.Empty;
+            }
+
+            var version = currentAssembly.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version ?? "<not specified>";
+            var informationalVersion = currentAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "<not specified>";
+            var framework = currentAssembly.GetCustomAttribute<TargetFrameworkAttribute>()?.FrameworkName;
+            var buildMode = IsDebugBuild ? "Debug" : "Release";
+            var debuggingPanelState = "Disabled";
+            if (IsDebugMode)
+            {
+                debuggingPanelState = "Active";
+                if (IsDebugBuild)
+                {
+                    debuggingPanelState += " " + "(Debug build)";
+                }
+                else if (IsDebugModeForced)
+                {
+                    debuggingPanelState += " " + "(Forced via command line)";
+                }
+            }
+
+            var sb = new StringBuilder();
+            sb.AppendLine("Application debug information");
+            sb.AppendLine($"* Framework: {framework}");
+            sb.AppendLine($"* File version: {version}");
+            sb.AppendLine($"* Informational version: {informationalVersion}");
+            sb.AppendLine($"* Build: {buildMode}");
+            sb.AppendLine($"* Debug panel: {debuggingPanelState}");
+
+            return sb.ToString();
+        }
 
         public static ImageSource GetApplicationIcon()
         {
