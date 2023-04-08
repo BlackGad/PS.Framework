@@ -17,7 +17,7 @@ namespace PS.IoC.Extensions
             var typedServices = registration.Services.Enumerate<TypedService>();
             if (typedServices.Any(s => s.ServiceType == typeof(TService)) && registration.Ownership == InstanceOwnership.OwnedByLifetimeScope)
             {
-                registration.PipelineBuilding += (sender2, pipeline) =>
+                registration.PipelineBuilding += (sender, pipeline) =>
                 {
                     pipeline.Use(PipelinePhase.Activation,
                                  MiddlewareInsertionMode.EndOfPhase,

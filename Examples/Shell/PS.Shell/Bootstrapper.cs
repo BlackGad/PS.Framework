@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using PS.IoC;
-using PS.IoC.Extensions;
 using PS.MVVM.Services;
 using PS.MVVM.Services.CommandService;
 using PS.Shell.Module.Controls;
@@ -14,14 +13,6 @@ namespace PS.Shell
     {
         public Bootstrapper(IBootstrapperLogger logger)
             : base(logger)
-        {
-        }
-
-        protected override void Dispose(IBootstrapperLogger logger)
-        {
-        }
-
-        protected override void InitializeCriticalComponents(IBootstrapperLogger logger, ILifetimeScope container)
         {
         }
 
@@ -43,39 +34,21 @@ namespace PS.Shell
             logger.Debug("Command service initialized successfully");
         }
 
-        protected override ILifetimeScope CreateContainer(IBootstrapperLogger logger, ILifetimeScope parentContainer)
+        protected override ILifetimeScope CreateContainer(IBootstrapperLogger logger)
         {
             logger.Trace("Configuring IOC builder");
-            if (parentContainer == null)
-            {
-                var builder = new ContainerBuilder();
-                RegisterContainerTypes(logger, builder);
-                logger.Trace("Building IOC container");
-                return builder.Build();
-            }
+            var builder = new ContainerBuilder();
 
-            logger.Trace("Extending parent IOC container with local definitions");
-            return parentContainer.BeginDisposableLifetimeScope(builder => RegisterContainerTypes(logger, builder));
-        }
-
-        protected override void SetupVisualTheme(IBootstrapperLogger logger, ILifetimeScope container)
-        {
-            //To load custom font from application resources use:
-            //var fontsUri = new Uri("pack://application:,,,/PS.Shell;component/resources/");
-            //ThemeFonts.FontFamily = new FontFamily(fontsUri, "./#<Font name>, Courier New");
-        }
-
-        private void RegisterContainerTypes(IBootstrapperLogger logger, ContainerBuilder builder)
-        {
             logger.Trace("Registering modules...");
-
             builder.RegisterModule<MainModule>();
             builder.RegisterModule<DiagramModule>();
             builder.RegisterModule<ControlsModule>();
             builder.RegisterModule<NativeControlsModule>();
             builder.RegisterModule<RibbonModule>();
-
             logger.Debug("Modules registered");
+
+            logger.Trace("Building IOC container");
+            return builder.Build();
         }
     }
 }
