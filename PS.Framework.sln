@@ -47,6 +47,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Shared", ".Shared", "{BE7C
 		.Shared\Sign.snk = .Shared\Sign.snk
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PS.IoC.Microsoft.DependencyInjection", "PS.IoC.Microsoft.DependencyInjection\PS.IoC.Microsoft.DependencyInjection.csproj", "{1C2F2F33-211B-4DDD-8F65-56390287C535}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,6 +161,14 @@ Global
 		{F436C605-BD39-4C67-9494-EC55AB1BE561}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F436C605-BD39-4C67-9494-EC55AB1BE561}.Release|Shell.ActiveCfg = Release|Any CPU
 		{F436C605-BD39-4C67-9494-EC55AB1BE561}.Release|Shell.Build.0 = Release|Any CPU
+		{1C2F2F33-211B-4DDD-8F65-56390287C535}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C2F2F33-211B-4DDD-8F65-56390287C535}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C2F2F33-211B-4DDD-8F65-56390287C535}.Debug|Shell.ActiveCfg = Debug|Any CPU
+		{1C2F2F33-211B-4DDD-8F65-56390287C535}.Debug|Shell.Build.0 = Debug|Any CPU
+		{1C2F2F33-211B-4DDD-8F65-56390287C535}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C2F2F33-211B-4DDD-8F65-56390287C535}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C2F2F33-211B-4DDD-8F65-56390287C535}.Release|Shell.ActiveCfg = Release|Any CPU
+		{1C2F2F33-211B-4DDD-8F65-56390287C535}.Release|Shell.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -180,6 +190,7 @@ Global
 		{6C7C0FDD-223B-422A-A54A-26AE6164415B} = {337E83C8-111F-4FF0-8C9E-0E24FA47D96A}
 		{4396FFD6-B241-4B13-A586-332A93B6EF01} = {337E83C8-111F-4FF0-8C9E-0E24FA47D96A}
 		{F436C605-BD39-4C67-9494-EC55AB1BE561} = {337E83C8-111F-4FF0-8C9E-0E24FA47D96A}
+		{1C2F2F33-211B-4DDD-8F65-56390287C535} = {F3517323-AE58-42C4-B75C-21F2AE4157C9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0E4506B5-3C43-455A-9C66-759DAF47D1C7}
