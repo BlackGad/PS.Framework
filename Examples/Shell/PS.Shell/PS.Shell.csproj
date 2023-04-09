@@ -24,10 +24,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461'">
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="5.0.1" />
-  </ItemGroup>
-
   <ItemGroup>
     <None Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

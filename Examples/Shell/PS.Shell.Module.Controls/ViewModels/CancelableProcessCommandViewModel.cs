@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using PS.IoC.Attributes;
@@ -69,7 +70,7 @@ namespace PS.Shell.Module.Controls.ViewModels
             throw new NotificationException("Process error", e);
         }
 
-        private void ExecuteAction(CancellationToken token)
+        private async Task ExecuteAction(CancellationToken token)
         {
             try
             {
@@ -79,7 +80,7 @@ namespace PS.Shell.Module.Controls.ViewModels
                 {
                     Progress = $"{i + 1}/{max}";
                     token.ThrowIfCancellationRequested();
-                    Thread.Sleep(1000);
+                    await Task.Delay(1000, token);
                 }
             }
             finally
