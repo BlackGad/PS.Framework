@@ -36,7 +36,8 @@
                            Opacity="0.5"
                            Stroke="{Binding ElementName=PART_Border, Path=(TextElement.Foreground)}"
                            StrokeDashArray="4 2"
-                           StrokeThickness="1" />
+                           StrokeThickness="1"
+                           Visibility="Hidden" />
             </Grid>
         </Border>
         <ControlTemplate.Triggers>

@@ -20,7 +20,7 @@ namespace PS.WPF.Controls
         {
             Loaded += (sender, args) => Dispatcher.Postpone(() =>
             {
-                var commands = ItemsSource.Enumerate<IUICommand>();
+                var commands = Items.Enumerate<IUICommand>();
                 commands.ForEach(command => command?.RaiseCanExecuteChanged());
             });
         }
