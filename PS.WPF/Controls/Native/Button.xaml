@@ -44,9 +44,13 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="PART_MouseOverBorder" Property="Visibility" Value="Visible" />
             </Trigger>
-            <Trigger Property="IsKeyboardFocused" Value="True">
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsKeyboardFocused" Value="True" />
+                    <Condition Property="Focusable" Value="True" />
+                </MultiTrigger.Conditions>
                 <Setter TargetName="PART_FocusRectangle" Property="Visibility" Value="Visible" />
-            </Trigger>
+            </MultiTrigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter TargetName="PART_Border" Property="Background"
                         Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.Pressed)}" />

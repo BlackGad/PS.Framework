@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:PS.WPF.Controls"
+                    xmlns:markup="clr-namespace:PS.WPF.Markup"
                     xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
-                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
-                    xmlns:markup="clr-namespace:PS.WPF.Markup">
+                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters">
 
 
     <ControlTemplate x:Key="{x:Static controls:GroupExpander+Resource.ToggleButtonTemplate}" TargetType="ToggleButton">
@@ -36,26 +36,30 @@
     </ControlTemplate>
 
     <Style x:Key="{x:Static controls:GroupExpander+Resource.ToggleButtonStyle}" TargetType="ToggleButton">
-        <Setter Property="Template"
-                Value="{StaticResource {x:Static controls:GroupExpander+Resource.ToggleButtonTemplate}}" />
+        <Setter Property="Template" Value="{StaticResource {x:Static controls:GroupExpander+Resource.ToggleButtonTemplate}}" />
     </Style>
 
-    <ControlTemplate x:Key="{x:Static controls:GroupExpander+Resource.ControlTemplate}"
-                     TargetType="controls:GroupExpander">
+    <ControlTemplate x:Key="{x:Static controls:GroupExpander+Resource.ControlTemplate}" TargetType="controls:GroupExpander">
         <Grid x:Name="Layout">
-            <Border Background="{TemplateBinding BorderBrush}" />
-            <StackPanel Orientation="Vertical">
-                <ToggleButton FontFamily="{theme:Font Strong}"
-                              IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsExpanded, Mode=TwoWay}"
-                              Style="{StaticResource {x:Static controls:GroupExpander+Resource.ToggleButtonStyle}}">
-                    <ContentPresenter Margin="{TemplateBinding HeaderPadding}" ContentSource="Header" />
-                </ToggleButton>
-                <Border Name="PART_IndentBorder"
-                        Background="{TemplateBinding Background}"
-                        Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsExpanded, Converter={x:Static valueConverters:BooleanConverters.ToVisibility}}">
-                    <ContentPresenter Margin="{TemplateBinding Padding}" />
-                </Border>
-            </StackPanel>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Background="{TemplateBinding BorderBrush}" />
+            <ToggleButton Grid.Row="0"
+                          FontFamily="{theme:Font Strong}"
+                          IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsExpanded, Mode=TwoWay}"
+                          Style="{StaticResource {x:Static controls:GroupExpander+Resource.ToggleButtonStyle}}">
+                <ContentPresenter Margin="{TemplateBinding HeaderPadding}" ContentSource="Header" />
+            </ToggleButton>
+            <Border Name="PART_IndentBorder"
+                    Grid.Row="1"
+                    Background="{TemplateBinding Background}"
+                    Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsExpanded, Converter={x:Static valueConverters:BooleanConverters.ToVisibility}}">
+                <ContentPresenter Margin="{TemplateBinding Padding}" />
+            </Border>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="ShowIndent" Value="True">

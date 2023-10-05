@@ -3,9 +3,8 @@
                     xmlns:components="clr-namespace:PS.WPF.Components"
                     xmlns:markup="clr-namespace:PS.WPF.Markup"
                     xmlns:resources="clr-namespace:PS.WPF.Resources"
-                    xmlns:theme="clr-namespace:PS.WPF.Theming.Markup"
-                    xmlns:valueConverters="clr-namespace:PS.WPF.ValueConverters"
-                    xmlns:styles="clr-namespace:PS.WPF.Controls.Native">
+                    xmlns:styles="clr-namespace:PS.WPF.Controls.Native"
+                    xmlns:theme="clr-namespace:PS.WPF.Theming.Markup">
 
     <ResourceDictionary.MergedDictionaries>
         <resources:SharedResourceDictionary Source="/PS.WPF;component/Controls/Native/Common.xaml" />
@@ -38,31 +37,32 @@
                            Stroke="{Binding ElementName=PART_Border, Path=(TextElement.Foreground)}"
                            StrokeDashArray="4 2"
                            StrokeThickness="1"
-                           Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsKeyboardFocused, Converter={x:Static valueConverters:BooleanConverters.ToVisibility}}" />
+                           Visibility="Hidden" />
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="PART_MouseOverBorder" Property="Visibility" Value="Visible" />
             </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsKeyboardFocused" Value="True" />
+                    <Condition Property="Focusable" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="PART_FocusRectangle" Property="Visibility" Value="Visible" />
+            </MultiTrigger>
             <Trigger Property="IsChecked" Value="True">
-                <Setter TargetName="PART_Border" Property="Background"
-                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.Selected)}" />
-                <Setter TargetName="PART_Border" Property="BorderBrush"
-                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.SelectedBorder)}" />
+                <Setter TargetName="PART_Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.Selected)}" />
+                <Setter TargetName="PART_Border" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.SelectedBorder)}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter TargetName="PART_Border" Property="Background"
-                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.Pressed)}" />
-                <Setter TargetName="PART_Border" Property="BorderBrush"
-                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.PressedBorder)}" />
+                <Setter TargetName="PART_Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.Pressed)}" />
+                <Setter TargetName="PART_Border" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(components:StoreBrush.PressedBorder)}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="PART_Border" Property="Background"
-                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground}" />
-                <Setter TargetName="PART_ContentPresenter" Property="TextElement.Foreground"
-                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}" />
+                <Setter TargetName="PART_Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground}" />
                 <Setter TargetName="PART_ContentPresenter" Property="Opacity" Value="0.5" />
+                <Setter TargetName="PART_ContentPresenter" Property="TextElement.Foreground" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

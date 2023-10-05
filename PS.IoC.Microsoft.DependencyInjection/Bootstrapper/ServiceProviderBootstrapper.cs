@@ -1,22 +1,22 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace PS.IoC.Bootstrapper
 {
-    public abstract class ServiceProviderBootstrapper : Bootstrapper<IServiceScope>
+    public abstract class ServiceProviderBootstrapper : Bootstrapper<IServiceProvider>
     {
         protected ServiceProviderBootstrapper(IBootstrapperLogger logger)
             : base(logger)
         {
         }
 
-        protected sealed override IServiceScope CreateContainer(IBootstrapperLogger logger)
+        protected sealed override IServiceProvider CreateContainer(IBootstrapperLogger logger)
         {
             logger.Trace("Configuring IOC builder");
 
             var services = new ServiceCollection();
             RegisterContainerTypes(logger, services);
-            DecorateServices(services);
 
             var containerCreateActions = services
                                          .Where(d => d.ServiceType == typeof(ContainerCreateActions))
@@ -30,29 +30,29 @@ namespace PS.IoC.Bootstrapper
             }
 
             logger.Trace("Building IOC container");
-            var serviceScope = services.BuildServiceProvider().CreateScope();
+            var serviceProvider = services.BuildServiceProvider();
 
             logger.Trace("Post container creation actions execution");
 
             foreach (var action in containerCreateActions)
             {
-                action.PostContainerCreateAction?.Invoke(serviceScope.ServiceProvider);
+                action.PostContainerCreateAction?.Invoke(serviceProvider);
             }
 
-            return serviceScope;
+            return serviceProvider;
         }
 
-        protected override void DisposeContainer(IBootstrapperLogger logger, IServiceScope container)
+        protected override void DisposeContainer(IBootstrapperLogger logger, IServiceProvider container)
         {
             logger.Trace("Disposing IOC container");
-            container.Dispose();
+            if (container is IDisposable disposable)
+            {
+                disposable.Dispose();
+            }
+
             logger.Debug("IOC container disposed");
         }
 
         protected abstract void RegisterContainerTypes(IBootstrapperLogger logger, IServiceCollection services);
-
-        private void DecorateServices(ServiceCollection services)
-        {
-        }
     }
 }
