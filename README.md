@@ -18,7 +18,66 @@
 | PS.Windows.Interop                    | [![NuGet version (PS.Windows.Interop)](https://img.shields.io/nuget/v/PS.MVVM?style=flat-square)](https://www.nuget.org/packages/PS.Windows.Interop/)                                     | [![MyGet version (PS.Windows.Interop)](https://img.shields.io/myget/ps-projects/v/PS.Windows.Interop.svg?style=flat-square&label=MyGet)](https://www.myget.org/feed/ps-projects/package/nuget/PS.Windows.Interop)                                                         |
 
 # Description
-Lightweight and fast MVVM framework.
+
+Lightweight and fast MVVM framework. This framework is designed to be generic, allowing for flexibility and adaptability. However, all future implementations will be specifically tailored for WPF (Windows Presentation Foundation).
+
+
+# How It Works
+
+To ensure the correct resolution of any element, it's essential to register it. There are two primary items to be aware of when working with this system:
+
+## ViewModel Type
+
+The core key for registration is the ViewModel `Type`. This allows you to register payload items for the ViewModel type you're testing, whether it's of the same type or inherited from it.
+
+## Elements for View Rendering
+
+There are three main kinds of elements that play a role in view rendering:
+
+1. **DataTemplate** for **DataTemplateSelector**:
+   
+   - **DataTemplate**: A DataTemplate is used in WPF to define the visual representation of data. It describes how data should be displayed, allowing developers to create a template that defines how data objects are rendered in UI elements like ListBox, ComboBox, and more.
+     
+     **Usage Example**:
+     ```csharp
+     service.AssociateTemplate<ShellViewModel>(dataTemplateInstance);
+     ```
+
+   - **DataTemplateSelector**: This is a class in WPF that lets you choose a DataTemplate based on custom logic. It becomes particularly useful when you have multiple templates and you want to select one based on the properties of the data object.
+
+2. **Style** for **StyleSelector**:
+
+   - **Style**: Styles in WPF empower developers and designers to establish a consistent appearance across their applications. By defining the look and feel of UI elements, styles help in creating visually compelling and uniform effects across the application.
+     
+     **Usage Example**:
+     ```csharp
+     service.AssociateStyle<ShellViewModel>(XamlResources.ShellWindowStyle);
+     ```
+
+   - **StyleSelector**: This class in WPF is used to apply styles based on custom logic. It determines how a style is selected for a row or an item, contingent on specific conditions.
+
+3. **ItemContainerTemplate** for **ItemContainerTemplateSelector**:
+
+   - **ItemContainerTemplate**: This template in WPF provides the blueprint for producing a container for an ItemsControl object. It essentially dictates how each item's container should be structured and styled within controls like ListBox or ComboBox.
+     
+     **Usage Example**:
+     ```csharp
+     service.AssociateContainer<ShellViewModel>(itemContainerTemplateInstance);
+     ```
+
+   - **ItemContainerTemplateSelector**: This selector allows for the application of custom logic to pick an ItemContainerTemplate.
+
+## Generic Association
+
+For a more streamlined approach, you can use a generic method to associate all the elements at once:
+
+**Usage Example**:
+```csharp
+service.Associate<ShellViewModel>(
+    template: dataTemplateInstance,
+    style: XamlResources.ShellWindowStyle,
+    container: itemContainerTemplateInstance);
+```
 
 # Core Features
 - **Built-in Selectors:** The framework provides native selectors for Data, Style, and Container. These selectors facilitate efficient data binding, style management, and container operations in WPF contexts.
