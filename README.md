@@ -25,12 +25,12 @@ Lightweight and fast MVVM framework. This framework is designed to be generic, a
 
 Quick tutorial documentation can be found here:
 
-1. [Registration and Usage]()
-2. [Template, Style, Container]()
-3. [Model resolver]()
-4. [IoC]()
-    - [Autofac modular]()
-    - [Autofac simple]()
+1. [Registration and Usage](Examples/Tutorial/1.%20Registration%20and%20Usage)
+2. [Template, Style, Container](Examples/Tutorial/2.%20Template%2C%20Style%2C%20Container)
+3. [Model resolver](https://github.com/BlackGad/PS.Framework/tree/ci/Examples/Tutorial/3.%20Model%20resolver)
+4. [IoC](https://github.com/BlackGad/PS.Framework/tree/ci/Examples/Tutorial/4.%20IoC)
+    - [Autofac modular](https://github.com/BlackGad/PS.Framework/tree/ci/Examples/Tutorial/4.%20IoC/Autofac.Modular)
+    - [Autofac simple](https://github.com/BlackGad/PS.Framework/tree/ci/Examples/Tutorial/4.%20IoC/Autofac.Simple)
 
 # How It Works
 
