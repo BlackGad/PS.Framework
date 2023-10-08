@@ -1,0 +1,24 @@
+﻿<Application x:Class="Example.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:viewModels="clr-namespace:Example.ViewModels"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+
+        <!--  Instantiate items  -->
+        <x:Array x:Key="Items" Type="{x:Type system:Object}">
+            <viewModels:Item1ViewModel />
+            <viewModels:Item2ViewModel />
+            <viewModels:Item3ViewModel />
+        </x:Array>
+
+        <!--  Data template for item 3  -->
+        <DataTemplate x:Key="Item3ViewDataTemplate" DataType="{x:Type viewModels:Item3ViewModel}">
+            <Grid Background="Green">
+                <TextBox Margin="5" Text="{Binding Title}" />
+            </Grid>
+        </DataTemplate>
+
+    </Application.Resources>
+</Application>

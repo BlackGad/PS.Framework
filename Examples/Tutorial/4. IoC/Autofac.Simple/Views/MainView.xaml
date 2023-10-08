@@ -1,0 +1,28 @@
+﻿<Grid x:Class="Example.Views.MainView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:mvvm="http://schemas.ps.com/2019/xaml/mvvm"
+      xmlns:viewModels="clr-namespace:Example.ViewModels"
+      d:DataContext="{d:DesignInstance viewModels:MainViewModel}"
+      Focusable="False"
+      mc:Ignorable="d">
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+        <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <ListBox x:Name="ListBox"
+             Grid.Column="0"
+             ItemsSource="{Binding ModelsService.Items}">
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <TextBlock HorizontalAlignment="Center" Text="{Binding Title}" />
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
+
+    <ContentControl Grid.Column="1"
+                    ContentTemplateSelector="{mvvm:TemplateResolver}"
+                    Content="{Binding ElementName=ListBox, Path=SelectedItem}" />
+</Grid>
