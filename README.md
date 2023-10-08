@@ -21,6 +21,16 @@
 
 Lightweight and fast MVVM framework. This framework is designed to be generic, allowing for flexibility and adaptability. However, all future implementations will be specifically tailored for WPF (Windows Presentation Foundation).
 
+# Tutorial
+
+Quick tutorial documentation can be found here:
+
+1. [Registration and Usage]()
+2. [Template, Style, Container]()
+3. [Model resolver]()
+4. [IoC]()
+    - [Autofac modular]()
+    - [Autofac simple]()
 
 # How It Works
 
@@ -78,8 +88,6 @@ service.Associate<ShellViewModel>(
     style: XamlResources.ShellWindowStyle,
     container: itemContainerTemplateInstance);
 ```
-
-
 
 # Core Features
 - **Built-in Selectors:** The framework provides native selectors for Data, Style, and Container. These selectors facilitate efficient data binding, style management, and container operations in WPF contexts.
