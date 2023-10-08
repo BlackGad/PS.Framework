@@ -1,0 +1,16 @@
+﻿<ContentControl x:Class="Example.Views.Item1View"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                xmlns:viewModels="clr-namespace:Example.ViewModels"
+                d:DataContext="{d:DesignInstance viewModels:Item1ViewModel}"
+                Focusable="False"
+                mc:Ignorable="d">
+    <Grid Background="Red">
+        <StackPanel Margin="5">
+            <TextBox Margin="0,1" Text="{Binding Title}" />
+            <TextBox Margin="0,1" Text="{Binding Description}" />
+        </StackPanel>
+    </Grid>
+</ContentControl>

@@ -26,11 +26,11 @@ Lightweight and fast MVVM framework. This framework is designed to be generic, a
 
 To ensure the correct resolution of any element, it's essential to register it. There are two primary items to be aware of when working with this system:
 
-## ViewModel Type
+## ViewModel Type Registration
 
 The core key for registration is the ViewModel `Type`. This allows you to register payload items for the ViewModel type you're testing, whether it's of the same type or inherited from it.
 
-## Elements for View Rendering
+### Elements for View Rendering
 
 There are three main kinds of elements that play a role in view rendering:
 
@@ -67,7 +67,7 @@ There are three main kinds of elements that play a role in view rendering:
 
    - **ItemContainerTemplateSelector**: This selector allows for the application of custom logic to pick an ItemContainerTemplate.
 
-## Generic Association
+### Generic Association
 
 For a more streamlined approach, you can use a generic method to associate all the elements at once:
 
@@ -78,6 +78,8 @@ service.Associate<ShellViewModel>(
     style: XamlResources.ShellWindowStyle,
     container: itemContainerTemplateInstance);
 ```
+
+
 
 # Core Features
 - **Built-in Selectors:** The framework provides native selectors for Data, Style, and Container. These selectors facilitate efficient data binding, style management, and container operations in WPF contexts.

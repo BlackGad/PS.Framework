@@ -1,0 +1,32 @@
+﻿<Application x:Class="Example.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:viewModels="clr-namespace:Example.ViewModels"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <!--  Instantiate items  -->
+        <x:Array x:Key="Items" Type="{x:Type system:Object}">
+            <viewModels:Item1ViewModel />
+            <viewModels:Item2ViewModel />
+            <viewModels:Item3ViewModel />
+        </x:Array>
+
+        <!--  Define Item1ViewModel data template  -->
+        <DataTemplate x:Key="Item1DataTemplate" DataType="{x:Type viewModels:Item1ViewModel}">
+            <TextBlock Text="{Binding Path=Title}" />
+        </DataTemplate>
+
+        <!--  Define Item2ViewModel style  -->
+        <Style x:Key="Item2Style" TargetType="MenuItem">
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Header" Value="{Binding Path=Title}" />
+        </Style>
+
+        <!--  Define Item3ViewModel container template  -->
+        <ItemContainerTemplate x:Key="Item3ContainerTemplate">
+            <RibbonMenuItem Header="{Binding Title}" />
+        </ItemContainerTemplate>
+
+    </Application.Resources>
+</Application>

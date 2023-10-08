@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\..\..\PS.MVVM.WPF\PS.MVVM.WPF.csproj" />
+		<ProjectReference Include="..\..\..\..\..\PS.IoC.Autofac\PS.IoC.Autofac.csproj" />
+		<ProjectReference Include="..\App.Infrastructure\App.Infrastructure.csproj" />
+		<ProjectReference Include="..\App.Module.Custom\App.Module.Custom.csproj" />
+		<ProjectReference Include="..\App.Module.Main\App.Module.Main.csproj" />
+	</ItemGroup>
+</Project>

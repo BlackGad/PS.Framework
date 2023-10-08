@@ -64,7 +64,10 @@ namespace PS.MVVM.Components
                     if (targetObject is DependencyObject dependencyObject)
                     {
                         var viewRegistryServiceTraverse = dependencyObject.Traverse(o => o.GetVisualParent(), o => o.GetValue(resolverServiceProperty) == null);
-                        return viewRegistryServiceTraverse.LastOrDefault()?.GetValue(resolverServiceProperty) as TService;
+                        var serviceFromAncestor = viewRegistryServiceTraverse.LastOrDefault()?.GetValue(resolverServiceProperty) as TService ??
+                                                  (TService)Application.Current?.Resources[typeof(TService)];
+
+                        return serviceFromAncestor;
                     }
 
                     throw new InvalidOperationException("Ancestor resolver source available only for DependencyObjects");
