@@ -22,7 +22,7 @@ namespace PS.Tests.ComponentModel.Dynamic
             subscription.Unsubscribe(instance);
             instance.RaiseEvent();
 
-            Assert.AreEqual(1, delegateCallCount);
+            Assert.That(delegateCallCount, Is.EqualTo(1));
         }
     }
 }

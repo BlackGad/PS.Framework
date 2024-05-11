@@ -76,7 +76,7 @@ namespace PS.Extensions
             };
         }
 
-        #if !NET60 && !NET80
+        #if !NET6_0_OR_GREATER
         public static IEnumerable<T> DistinctBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> keySelector)
         {
             var lookup = source.Enumerate().ToLookup(keySelector, arg => arg);
@@ -231,7 +231,7 @@ namespace PS.Extensions
             }
         }
 
-        #if !NET60 && !NET80
+        #if !NET6_0_OR_GREATER
         /// <summary>
         /// Returns the minimal element of the given sequence, based on
         /// the given projection.

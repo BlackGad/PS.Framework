@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using PS.Threading;
 
 namespace PS.Tests.Threading
@@ -124,7 +125,7 @@ namespace PS.Tests.Threading
                 Thread.Sleep(1000);
 
                 var resultException = Assert.Catch(expectedException.GetType(), () => synchronizationContext.Send(state => throw expectedException, null));
-                Assert.AreEqual(expectedException, resultException);
+                Assert.That(resultException, Is.EqualTo(expectedException));
             }
         }
 
@@ -135,7 +136,7 @@ namespace PS.Tests.Threading
             using (var synchronizationContext = new ThreadSynchronizationContext(ApartmentState.MTA))
             {
                 var resultException = Assert.Catch(expectedException.GetType(), () => synchronizationContext.Send(state => throw expectedException, null));
-                Assert.AreEqual(expectedException, resultException);
+                Assert.That(resultException, Is.EqualTo(expectedException));
             }
         }
     }

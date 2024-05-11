@@ -14,13 +14,6 @@
 		<DefineConstants>NETFRAMEWORK</DefineConstants>
 	</PropertyGroup>
 	
-	<PropertyGroup Condition=" '$(TargetFramework)' == 'net6.0'">
-		<DefineConstants>NET60</DefineConstants>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(TargetFramework)' == 'net8.0'">
-		<DefineConstants>NET80</DefineConstants>
-	</PropertyGroup>
-
 	<ItemGroup>
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
 	</ItemGroup>
