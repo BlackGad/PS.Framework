@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFrameworks>net6.0-windows;net461;</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows;net8.0-windows;net472;</TargetFrameworks>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>Volodymyr Shkolka</Authors>
     <Company>Volodymyr Shkolka</Company>
@@ -17,7 +17,7 @@
   </PropertyGroup>
 
   <!-- .NET 4.6.1 references, compilation flags and build options -->
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461'">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net472'">
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Xaml" />

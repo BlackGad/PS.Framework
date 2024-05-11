@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-windows;net461;</TargetFrameworks>
+		<TargetFrameworks>net6.0-windows;net8.0-windows;net472;</TargetFrameworks>
 		<RootNamespace>PS.MVVM</RootNamespace>
 		<PackageTags>Framework MVVM Standard WPF</PackageTags>
 		<Description>Essential MVVM services implementation for WPF applications</Description>
@@ -17,7 +17,7 @@
 		<ProjectReference Include="..\PS.WPF\PS.WPF.csproj" />
 	</ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net461'">
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net472'">
 		<Reference Include="PresentationCore" />
 		<Reference Include="PresentationFramework" />
 		<Reference Include="System.Xaml" />
