@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0-windows;net461;</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows;net8.0-windows;net472;</TargetFrameworks>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>Volodymyr Shkolka</Authors>
     <Company>Volodymyr Shkolka</Company>
@@ -16,7 +16,7 @@
   </PropertyGroup>
 
   <!-- .NET 4.6.1 references, compilation flags and build options -->
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461'">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net472'">
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Xaml" />
@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.4.0" />
+    <PackageReference Include="Autofac" Version="8.0.0" />
   </ItemGroup>
 
 </Project>

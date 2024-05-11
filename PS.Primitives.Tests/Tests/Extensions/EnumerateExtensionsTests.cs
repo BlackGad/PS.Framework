@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using PS.Extensions;
 
 namespace PS.Tests.Extensions
@@ -13,7 +14,6 @@ namespace PS.Tests.Extensions
         {
             IEnumerable source = new[] { 1, 2, 3 };
             var result = source.Enumerate();
-            Assert.IsInstanceOf<IEnumerable<object>>(result);
             CollectionAssert.AreEqual(source, result);
         }
 
@@ -22,7 +22,7 @@ namespace PS.Tests.Extensions
         {
             object source = null;
             var result = source.Enumerate();
-            Assert.IsInstanceOf<IEnumerable<object>>(result);
+            Assert.That(result, Is.InstanceOf<IEnumerable<object>>());
         }
     }
 }

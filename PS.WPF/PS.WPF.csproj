@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-windows;net461;</TargetFrameworks>
+		<TargetFrameworks>net6.0-windows;net8.0-windows;net472;</TargetFrameworks>
 		<PackageTags>Framework Primitives Standard WPF</PackageTags>
 		<Description>Common development primitives foo WPF</Description>
 		<UseWPF>true</UseWPF>
@@ -11,7 +11,7 @@
 	<Import Project="..\.Shared\Build.targets" />
 
 	<!-- .NET 4.6.1 references, compilation flags and build options -->
-	<ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
 		<Reference Include="PresentationCore" />
 		<Reference Include="PresentationFramework" />
 		<Reference Include="System.Xaml" />
@@ -24,7 +24,7 @@
 		<ProjectReference Include="..\PS.Primitives\PS.Primitives.csproj" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows;net8.0-windows'">
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
 	</ItemGroup>
 

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;net461;net6.0</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;net472;net6.0;net8.0</TargetFrameworks>
 		<RootNamespace>PS</RootNamespace>
 		<PackageTags>Framework MVVM IoC Primitives Standard WPF</PackageTags>
 		<Description>Common development primitives and useful tools</Description>
@@ -10,14 +10,10 @@
 
 	<Import Project="..\.Shared\Build.targets" />
 
-	<PropertyGroup Condition=" '$(TargetFramework)' == 'net461'">
+	<PropertyGroup Condition=" '$(TargetFramework)' == 'net472'">
 		<DefineConstants>NETFRAMEWORK</DefineConstants>
 	</PropertyGroup>
 	
-	<PropertyGroup Condition=" '$(TargetFramework)' == 'net6.0'">
-		<DefineConstants>NET60</DefineConstants>
-	</PropertyGroup>
-
 	<ItemGroup>
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
 	</ItemGroup>

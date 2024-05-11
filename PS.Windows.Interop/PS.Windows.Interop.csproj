@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-windows;net461;</TargetFrameworks>
+		<TargetFrameworks>net6.0-windows;net8.0-windows;net472;</TargetFrameworks>
 		<PackageTags>Windows Interop User32 Kernel32</PackageTags>
 		<Description>Windows interop</Description>
 		<UseWPF>true</UseWPF>
@@ -11,12 +11,12 @@
 	<Import Project="..\.Shared\Build.targets" />
 
 	<!-- .NET 4.6.1 references, compilation flags and build options -->
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net461'">
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net472'">
 		<Reference Include="Microsoft.CSharp" />
 		<Reference Include="System.ComponentModel.Annotations" />
 	</ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows'">
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows;net8.0-windows'">
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
 	</ItemGroup>

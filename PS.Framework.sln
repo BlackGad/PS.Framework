@@ -76,11 +76,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Autofac modular", "Autofac 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Shell", "Examples\Tutorial\4. IoC\Autofac.Modular\App.Shell\App.Shell.csproj", "{92AAA68E-8A42-4F39-9C0B-AAA65937F76A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Infrastructure", "Examples\Tutorial\4. IoC\Autofac.Modular\App.Infrastructure\App.Infrastructure.csproj", "{A882C924-94A6-447B-8A2C-6A0F3FDC718A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Infrastructure", "Examples\Tutorial\4. IoC\Autofac.Modular\App.Infrastructure\App.Infrastructure.csproj", "{A882C924-94A6-447B-8A2C-6A0F3FDC718A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module.Custom", "Examples\Tutorial\4. IoC\Autofac.Modular\App.Module.Custom\App.Module.Custom.csproj", "{77DAD148-6F98-4D77-A61F-98652708C034}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Module.Custom", "Examples\Tutorial\4. IoC\Autofac.Modular\App.Module.Custom\App.Module.Custom.csproj", "{77DAD148-6F98-4D77-A61F-98652708C034}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Module.Main", "Examples\Tutorial\4. IoC\Autofac.Modular\App.Module.Main\App.Module.Main.csproj", "{07EE6CAC-FDBF-4A44-B886-92124DFBDE25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Module.Main", "Examples\Tutorial\4. IoC\Autofac.Modular\App.Module.Main\App.Module.Main.csproj", "{07EE6CAC-FDBF-4A44-B886-92124DFBDE25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -119,7 +119,6 @@ Global
 		{4A9F1324-B810-40D7-B989-EB343344728E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4A9F1324-B810-40D7-B989-EB343344728E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A9F1324-B810-40D7-B989-EB343344728E}.Debug|Shell.ActiveCfg = Debug|Any CPU
-		{4A9F1324-B810-40D7-B989-EB343344728E}.Debug|Shell.Build.0 = Debug|Any CPU
 		{4A9F1324-B810-40D7-B989-EB343344728E}.Debug|Tutorial.ActiveCfg = Debug|Any CPU
 		{4A9F1324-B810-40D7-B989-EB343344728E}.Debug|Tutorial.Build.0 = Debug|Any CPU
 		{4A9F1324-B810-40D7-B989-EB343344728E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -256,7 +255,6 @@ Global
 		{1C2F2F33-211B-4DDD-8F65-56390287C535}.Release|Tutorial.Build.0 = Release|Any CPU
 		{802DBBF9-12FD-4BD6-B53A-C362DEDC74A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{802DBBF9-12FD-4BD6-B53A-C362DEDC74A8}.Debug|Shell.ActiveCfg = Debug|Any CPU
-		{802DBBF9-12FD-4BD6-B53A-C362DEDC74A8}.Debug|Shell.Build.0 = Debug|Any CPU
 		{802DBBF9-12FD-4BD6-B53A-C362DEDC74A8}.Debug|Tutorial.ActiveCfg = Debug|Any CPU
 		{802DBBF9-12FD-4BD6-B53A-C362DEDC74A8}.Debug|Tutorial.Build.0 = Debug|Any CPU
 		{802DBBF9-12FD-4BD6-B53A-C362DEDC74A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -266,7 +264,6 @@ Global
 		{802DBBF9-12FD-4BD6-B53A-C362DEDC74A8}.Release|Tutorial.Build.0 = Release|Any CPU
 		{E63C472C-B7FF-41D6-A9B5-1E97E8F8BEEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E63C472C-B7FF-41D6-A9B5-1E97E8F8BEEA}.Debug|Shell.ActiveCfg = Debug|Any CPU
-		{E63C472C-B7FF-41D6-A9B5-1E97E8F8BEEA}.Debug|Shell.Build.0 = Debug|Any CPU
 		{E63C472C-B7FF-41D6-A9B5-1E97E8F8BEEA}.Debug|Tutorial.ActiveCfg = Debug|Any CPU
 		{E63C472C-B7FF-41D6-A9B5-1E97E8F8BEEA}.Debug|Tutorial.Build.0 = Debug|Any CPU
 		{E63C472C-B7FF-41D6-A9B5-1E97E8F8BEEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -276,7 +273,6 @@ Global
 		{E63C472C-B7FF-41D6-A9B5-1E97E8F8BEEA}.Release|Tutorial.Build.0 = Release|Any CPU
 		{E1D81DBE-70D3-4612-A546-BD0BF0F1C0DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E1D81DBE-70D3-4612-A546-BD0BF0F1C0DE}.Debug|Shell.ActiveCfg = Debug|Any CPU
-		{E1D81DBE-70D3-4612-A546-BD0BF0F1C0DE}.Debug|Shell.Build.0 = Debug|Any CPU
 		{E1D81DBE-70D3-4612-A546-BD0BF0F1C0DE}.Debug|Tutorial.ActiveCfg = Debug|Any CPU
 		{E1D81DBE-70D3-4612-A546-BD0BF0F1C0DE}.Debug|Tutorial.Build.0 = Debug|Any CPU
 		{E1D81DBE-70D3-4612-A546-BD0BF0F1C0DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -286,7 +282,6 @@ Global
 		{E1D81DBE-70D3-4612-A546-BD0BF0F1C0DE}.Release|Tutorial.Build.0 = Release|Any CPU
 		{4DFBFC29-E0AE-4C5E-9AB8-FF8111E25751}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4DFBFC29-E0AE-4C5E-9AB8-FF8111E25751}.Debug|Shell.ActiveCfg = Debug|Any CPU
-		{4DFBFC29-E0AE-4C5E-9AB8-FF8111E25751}.Debug|Shell.Build.0 = Debug|Any CPU
 		{4DFBFC29-E0AE-4C5E-9AB8-FF8111E25751}.Debug|Tutorial.ActiveCfg = Debug|Any CPU
 		{4DFBFC29-E0AE-4C5E-9AB8-FF8111E25751}.Debug|Tutorial.Build.0 = Debug|Any CPU
 		{4DFBFC29-E0AE-4C5E-9AB8-FF8111E25751}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -296,7 +291,6 @@ Global
 		{4DFBFC29-E0AE-4C5E-9AB8-FF8111E25751}.Release|Tutorial.Build.0 = Release|Any CPU
 		{92AAA68E-8A42-4F39-9C0B-AAA65937F76A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{92AAA68E-8A42-4F39-9C0B-AAA65937F76A}.Debug|Shell.ActiveCfg = Debug|Any CPU
-		{92AAA68E-8A42-4F39-9C0B-AAA65937F76A}.Debug|Shell.Build.0 = Debug|Any CPU
 		{92AAA68E-8A42-4F39-9C0B-AAA65937F76A}.Debug|Tutorial.ActiveCfg = Debug|Any CPU
 		{92AAA68E-8A42-4F39-9C0B-AAA65937F76A}.Debug|Tutorial.Build.0 = Debug|Any CPU
 		{92AAA68E-8A42-4F39-9C0B-AAA65937F76A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -306,7 +300,6 @@ Global
 		{92AAA68E-8A42-4F39-9C0B-AAA65937F76A}.Release|Tutorial.Build.0 = Release|Any CPU
 		{A882C924-94A6-447B-8A2C-6A0F3FDC718A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A882C924-94A6-447B-8A2C-6A0F3FDC718A}.Debug|Shell.ActiveCfg = Debug|Any CPU
-		{A882C924-94A6-447B-8A2C-6A0F3FDC718A}.Debug|Shell.Build.0 = Debug|Any CPU
 		{A882C924-94A6-447B-8A2C-6A0F3FDC718A}.Debug|Tutorial.ActiveCfg = Debug|Any CPU
 		{A882C924-94A6-447B-8A2C-6A0F3FDC718A}.Debug|Tutorial.Build.0 = Debug|Any CPU
 		{A882C924-94A6-447B-8A2C-6A0F3FDC718A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -316,7 +309,6 @@ Global
 		{A882C924-94A6-447B-8A2C-6A0F3FDC718A}.Release|Tutorial.Build.0 = Release|Any CPU
 		{77DAD148-6F98-4D77-A61F-98652708C034}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{77DAD148-6F98-4D77-A61F-98652708C034}.Debug|Shell.ActiveCfg = Debug|Any CPU
-		{77DAD148-6F98-4D77-A61F-98652708C034}.Debug|Shell.Build.0 = Debug|Any CPU
 		{77DAD148-6F98-4D77-A61F-98652708C034}.Debug|Tutorial.ActiveCfg = Debug|Any CPU
 		{77DAD148-6F98-4D77-A61F-98652708C034}.Debug|Tutorial.Build.0 = Debug|Any CPU
 		{77DAD148-6F98-4D77-A61F-98652708C034}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -326,7 +318,6 @@ Global
 		{77DAD148-6F98-4D77-A61F-98652708C034}.Release|Tutorial.Build.0 = Release|Any CPU
 		{07EE6CAC-FDBF-4A44-B886-92124DFBDE25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{07EE6CAC-FDBF-4A44-B886-92124DFBDE25}.Debug|Shell.ActiveCfg = Debug|Any CPU
-		{07EE6CAC-FDBF-4A44-B886-92124DFBDE25}.Debug|Shell.Build.0 = Debug|Any CPU
 		{07EE6CAC-FDBF-4A44-B886-92124DFBDE25}.Debug|Tutorial.ActiveCfg = Debug|Any CPU
 		{07EE6CAC-FDBF-4A44-B886-92124DFBDE25}.Debug|Tutorial.Build.0 = Debug|Any CPU
 		{07EE6CAC-FDBF-4A44-B886-92124DFBDE25}.Release|Any CPU.ActiveCfg = Release|Any CPU
